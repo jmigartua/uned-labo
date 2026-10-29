@@ -1,0 +1,1696 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Josu M. Igartua">
+<meta name="dcterms.date" content="2026-03-20">
+<meta name="keywords" content="vibraciones libres, constante elástica, movimiento armónico simple, regresión lineal, carril de aire">
+<meta name="description" content="Determinación de la constante elástica de dos resortes mediante un método estático (ley de Hooke) y verificación dinámica a través de la medida del período de oscilación de un sistema masa-muelle con un grado de libertad sobre un carril de aire. Comparación de la rigidez equivalente obtenida por ambos métodos.">
+
+<title>Vibraciones libres con un grado de libertad · UNED Labo – UNED Labo</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<link href="../../assets/favicon.svg" rel="icon" type="image/svg+xml">
+<script src="../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-html-afe927e19676d0e50b1726048be49fb1.min.css" rel="stylesheet" append-hash="true" data-mode="light">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<style>html{ scroll-behavior: smooth; }</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&amp;family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<!-- KaTeX auto-render: publication titles carry TeX inside generated HTML that
+     Quarto's own math pipeline never sees (same approach as thermomat). -->
+<script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+/* The header ribbon is sticky; the side columns and anchor targets need its height. */
+(function () {
+  function headH() {
+    var t = document.querySelector(".topline"), h = document.querySelector(".site-head");
+    var px = (t ? t.offsetHeight : 0) + (h ? h.offsetHeight : 0);
+    if (px) document.documentElement.style.setProperty("--head-h", px + "px");
+  }
+  document.addEventListener("DOMContentLoaded", headH);
+  window.addEventListener("load", headH);
+  window.addEventListener("resize", headH);
+})();
+document.addEventListener("DOMContentLoaded", function () {
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }, { left: "\\(", right: "\\)", display: false }],
+      throwOnError: false
+    });
+  }
+  /* Quarto's KaTeX pipeline writes <span class="math inline">TeX</span> without delimiters and renders
+     them in a loop that reads firstChild.data; that loop dies at the first span the auto-render above
+     has already turned into KaTeX markup, leaving every later formula raw. Render the rest here. */
+  if (window.katex) {
+    document.querySelectorAll(".math").forEach(function (el) {
+      if (!el.querySelector(".katex")) {
+        var t = el.textContent.replace(/^\s*\\[\(\[]/, "").replace(/\\[\)\]]\s*$/, "");
+        try { katex.render(t, el, { displayMode: el.classList.contains("display"), throwOnError: false }); } catch (e) {}
+      }
+      /* Quarto's loop would still visit this span and wipe it (firstChild is now an element, not text):
+         take it out of its sight. No stylesheet of the site depends on the class; KaTeX's own output carries the layout. */
+      el.classList.remove("math"); el.classList.add("math-done");
+    });
+  }
+});
+</script>
+
+  <script defer="" src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../assets/styles/theme.css">
+<link rel="stylesheet" href="../../assets/styles/site.css">
+<link rel="stylesheet" href="../../assets/styles/project.css">
+</head>
+
+<body>
+
+<div class="topline"></div>
+<header class="site-head">
+  <div class="site-head__inner">
+    <a href="../../index.html" class="wordmark">UNED Labo <span class="accent">Leioa</span>
+      <span class="wordmark-sub">prácticas de laboratorio de la UNED en la Facultad de Ciencia y Tecnología (UPV/EHU) · curso 2025–2026</span>
+    </a>
+    <nav class="site-nav">
+      <a href="../../index.html">Inicio</a>
+      <a href="../../practicas/index.html">Prácticas</a>
+      <a href="../../asignaturas/index.html">Asignaturas</a>
+      <a href="../../recursos/index.html">Recursos</a>
+      <a href="../../informe/index.html">Informe</a>
+      <a href="../../manual/index.html">Manual TE I</a>
+      <a href="../../contacto/index.html">Contacto</a>
+    </nav>
+  </div>
+</header>
+<!-- generated by tools/sibling.py public: the left navigation -->
+<div class="docs">
+<nav class="docs-nav" aria-label="Site sections">
+<button class="docs-fold" type="button" data-fold="nav" aria-label="Hide the navigation" title="Hide the navigation">‹</button>
+<details class="group" open=""><summary class="t">Inicio</summary><ul><li><a href="../../index.html">Inicio</a></li></ul></details>
+<details class="group" open=""><summary class="t">Prácticas</summary><ul><li><a href="../../practicas/index.html">Catálogo: las veinte prácticas</a></li><li><a href="../../practicas/pendulo-fisico/index.html">P01 · Péndulo físico</a></li><li><a href="../../practicas/ley-hooke/index.html">P02 · Movimiento armónico simple. Ley de Hooke</a></li><li><a href="../../practicas/carril-aire/index.html">P03 · Medida de magnitudes dinámicas mediante un carril de aire</a></li><li><a href="../../practicas/cc-resistencia-interna/index.html">P04 · Corriente continua I: resistencia interna de una fuente</a></li><li><a href="../../practicas/cc-curva-lampara/index.html">P05 · Corriente continua II: curva característica de una lámpara</a></li><li><a href="../../practicas/descarga-condensador/index.html">P06 · Descarga de un condensador</a></li><li><a href="../../practicas/ondas-estacionarias/index.html">P07 · Ondas estacionarias en una cuerda con extremos fijos</a></li><li><a href="../../practicas/vaporizacion-agua/index.html">P08 · Calor de vaporización del agua</a></li><li><a href="../../practicas/velocidad-sonido/index.html">P09 · Medida de la velocidad del sonido: tubo de resonancia</a></li><li><a href="../../practicas/inercia-disco/index.html">P10 · Momento de inercia de un disco</a></li><li><a href="../../practicas/catenaria/index.html">P11 · Equilibrio de un hilo bajo la acción de la gravedad: la catenaria</a></li><li><a href="../../practicas/rozamiento-correas/index.html">P12 · Coeficiente de rozamiento entre correas y poleas</a></li><li><a href="../../practicas/giroscopo/index.html">P13 · Giróscopo</a></li><li><a href="../../practicas/cantidad-movimiento/index.html">P14 · Conservación de la cantidad de movimiento</a></li><li><a href="../../practicas/momento-cinetico/index.html">P15 · Conservación del momento cinético</a></li><li><a href="../../practicas/pendulo-circular/index.html">P16 · Péndulo circular (cónico)</a></li><li><a href="../../practicas/momentos-inercia/index.html">P17 · Momentos de inercia de sólidos</a></li><li><a href="../../practicas/maquina-atwood/index.html">P18 · Máquina de Atwood</a></li><li><a href="../../practicas/vibraciones-1gdl/index.html">P19 · Vibraciones libres con un grado de libertad</a></li><li><a href="../../practicas/vibraciones-2gdl/index.html">P20 · Vibraciones libres con dos grados de libertad</a></li></ul></details>
+<details class="group" open=""><summary class="t">Asignaturas</summary><ul><li><a href="../../asignaturas/index.html">Las cuatro asignaturas</a></li><li><a href="../../asignaturas/bfma/index.html">Bases Físicas del Medio Ambiente</a></li><li><a href="../../asignaturas/fisica/index.html">Física I y II</a></li><li><a href="../../asignaturas/mecanica/index.html">Mecánica</a></li><li><a href="../../asignaturas/tecnicas-experimentales/index.html">Técnicas Experimentales I</a></li></ul></details>
+<details class="group" open=""><summary class="t">Recursos</summary><ul><li><a href="../../recursos/index.html">Recursos</a></li><li><a href="../../recursos/sesion-0/index.html">Sesión 0</a></li><li><a href="../../recursos/errores/index.html">Errores y regresiones</a></li><li><a href="../../recursos/phyphox/index.html">Phyphox</a></li></ul></details>
+<details class="group" open=""><summary class="t">Informe</summary><ul><li><a href="../../informe/index.html">El informe: qué contiene, cómo se evalúa</a></li><li><a href="../../informe/modelos/index.html">Los ocho informes modelo</a></li><li><a href="../../informe/rubrica/index.html">La rúbrica de TE I: 225 criterios</a></li><li><a href="../../informe/rubrica-gum/index.html">La rúbrica GUM</a></li></ul></details>
+<details class="group" open=""><summary class="t">Manual TE I</summary><ul><li><a href="../../manual/index.html">El manual, capítulo a capítulo</a></li><li><a href="../../manual/01-representacion-magnitudes.html">Tema 1: Representación de magnitudes</a></li><li><a href="../../manual/02-medidas-directas.html">Tema 2: Medidas directas</a></li><li><a href="../../manual/03-medidas-indirectas.html">Tema 3: Medidas indirectas</a></li><li><a href="../../manual/04-graficas-regresion.html">Tema 4: Gráficas y regresión lineal</a></li><li><a href="../../manual/05-ejemplos-desarrollados.html">Tema 5: Ejemplos desarrollados</a></li><li><a href="../../manual/06-instrucciones-laboratorio.html">Tema 6: Instrucciones para el laboratorio</a></li><li><a href="../../manual/07-soluciones-ejercicios.html">Soluciones y apéndices</a></li></ul></details>
+<details class="group" open=""><summary class="t">Contacto</summary><ul><li><a href="../../contacto/index.html">Contacto</a></li></ul></details>
+</nav>
+<div class="docs-main">
+<div class="itin-head"><span class="kicker">P19 · Serie mecánica · Práctica 6 de Física I y II · Práctica 9 de Mecánica</span></div><div class="prac-meta"><div><span class="lbl">Servida a</span><span class="v"><a class="chip chip-fisica" href="../../asignaturas/fisica/index.html" title="Práctica 6 de Física I y II">Física I y II</a> <a class="chip chip-mecanica" href="../../asignaturas/mecanica/index.html" title="Práctica 9 de Mecánica">Mecánica</a> <span class="chip chip-phy">phyphox</span></span></div><div><span class="lbl">Guion</span><span class="v"><a href="practice_09_vibraciones_1gdl.pdf">Guion en PDF</a></span></div><div><span class="lbl">En resumen</span><span class="v">Constantes elásticas por método estático y dinámico; T² frente a m en carril de aire.</span></div></div><nav class="prac-prevnext"><a href="../maquina-atwood/index.html">← P18 Máquina de Atwood</a><a href="../index.html">Catálogo</a><a href="../vibraciones-2gdl/index.html">P20 Vibraciones libres con dos grados de libertad →</a></nav>
+
+<header id="title-block-header">
+<h1 class="title">Vibraciones libres con un grado de libertad</h1>
+<p class="subtitle">Laboratorio de Mecánica — UNED</p>
+<p class="author">Josu M. Igartua</p>
+
+<p class="date">2026-03-20</p>
+<div class="abstract">
+<div class="abstract-title">Resumen</div>
+<p>Determinación de la constante elástica de dos resortes mediante un método estático (ley de Hooke) y verificación dinámica a través de la medida del período de oscilación de un sistema masa-muelle con un grado de libertad sobre un carril de aire. Comparación de la rigidez equivalente obtenida por ambos métodos.</p>
+</div>
+</header>
+
+
+<p><br> <br></p>
+<h2 id="objetivos" class="anchored">Objetivos</h2>
+<p><br></p>
+<ol type="1">
+<li>Determinación de la constante elástica <span class="math inline">k</span> de dos resortes mediante un procedimiento estático (ley de Hooke).</li>
+<li>Determinación del período del movimiento armónico simple y de su dependencia con la masa del móvil.</li>
+<li>Obtención de la rigidez equivalente del sistema por vía dinámica y comparación con el valor estático.</li>
+</ol>
+<p><br></p>
+<h2 id="material" class="anchored">Material</h2>
+<p><br></p>
+<ol type="1">
+<li>Carril de aire con compresor</li>
+<li>Deslizador (móvil)</li>
+<li>Dos resortes de constantes <span class="math inline">k_{1}</span> y <span class="math inline">k_{2}</span></li>
+<li>Juego de masas (pesas de 50 g y 100 g)</li>
+<li>Balanza de precisión (0,01 g)</li>
+<li>Cronómetro digital (0,01 s)</li>
+<li>Regla graduada (mm)</li>
+<li>Soporte auxiliar para acortar la distancia del carril</li>
+</ol>
+<p><br></p>
+<h2 id="repaso-de-teoría" class="anchored">Repaso de teoría</h2>
+<p><br></p>
+<ol type="1">
+<li>Ley de Hooke: <span class="math inline">F = k\,x</span>.</li>
+<li>Ecuación del movimiento armónico simple.</li>
+<li>Período y frecuencia natural de un oscilador.</li>
+<li>Regresión lineal por mínimos cuadrados.</li>
+<li>Propagación de errores.</li>
+</ol>
+<p><br></p>
+<h2 id="fundamento-teórico" class="anchored">Fundamento teórico</h2>
+<p><br></p>
+<p>Corresponde este caso al supuesto de separar una masa <span class="math inline">m</span> de su posición de equilibrio y comunicarle una velocidad inicial, dejándola después en libertad, suponiendo además que el amortiguamiento es nulo.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="figura1.png" class="img-fluid quarto-figure quarto-figure-center" width="600"></p>
+</figure>
+</div>
+<p>En el dispositivo experimental el deslizador de masa <span class="math inline">m</span> se encuentra sujeto por dos resortes de constantes <span class="math inline">k_{1}</span> y <span class="math inline">k_{2}</span>, uno a cada lado. La ecuación del movimiento es:</p>
+<p><span id="eq-9_1"><span class="math display">
+m\,\ddot{x} + (k_{1} + k_{2})\,x = 0
+\tag{1}</span></span></p>
+<p>Definiendo la frecuencia angular natural <span class="math inline">\omega_{n}</span>:</p>
+<p><span id="eq-9_2"><span class="math display">
+\omega_{n} = \sqrt{\dfrac{k_{1} + k_{2}}{m}}
+\tag{2}</span></span></p>
+<p>la ecuación <a href="#eq-9_1" class="quarto-xref">Ecuación&nbsp;1</a> se reescribe como:</p>
+<p><span id="eq-9_3"><span class="math display">
+\ddot{x} + \omega_{n}^{2}\,x = 0
+\tag{3}</span></span></p>
+<p>Su solución general es:</p>
+<p><span id="eq-9_4"><span class="math display">
+x(t) = A\,\cos(\omega_{n}\,t + \phi)
+\tag{4}</span></span></p>
+<p>donde <span class="math inline">A</span> y <span class="math inline">\phi</span> son constantes determinadas por las condiciones iniciales. El movimiento es armónico y, en ausencia de amortiguamiento, continúa indefinidamente.</p>
+<p>El período de oscilación es:</p>
+<p><span id="eq-9_5"><span class="math display">
+\boxed{T = 2\pi\,\sqrt{\dfrac{m}{k_{1} + k_{2}}}}
+\tag{5}</span></span></p>
+<p>Elevando al cuadrado:</p>
+<p><span id="eq-9_6"><span class="math display">
+T^{2} = \frac{4\pi^{2}}{k_{1} + k_{2}}\,m
+\tag{6}</span></span></p>
+<p>Esta última expresión muestra que <span class="math inline">T^{2}</span> es una función lineal de <span class="math inline">m</span>, lo que permite determinar la rigidez equivalente <span class="math inline">k_{\textrm{eff}} = k_{1} + k_{2}</span> mediante una regresión lineal de <span class="math inline">T^{2}</span> frente a <span class="math inline">m</span>.</p>
+<p><br></p>
+<div>
+<blockquote>
+<p><strong>Determinación estática de <span class="math inline">k</span></strong></p>
+<p>La rigidez de cada resorte se determina individualmente mediante la ley de Hooke. Al colgar sucesivas masas de un resorte vertical, la fuerza ejercida <span class="math inline">F = m\,g</span> y el alargamiento <span class="math inline">\Delta x</span> se relacionan mediante:</p>
+<p><span id="eq-9_7"><span class="math display">
+\boxed{F = k\,\Delta x}
+\tag{7}</span></span></p>
+<p>Al representar <span class="math inline">F</span> frente a <span class="math inline">\Delta x</span>, la pendiente de la recta de regresión proporciona directamente la constante elástica <span class="math inline">k</span>.</p>
+</blockquote>
+</div>
+<p><br></p>
+<div>
+<blockquote>
+<p><strong>Determinación dinámica de <span class="math inline">k_{\textrm{eff}}</span></strong></p>
+<p>De la ecuación <a href="#eq-9_6" class="quarto-xref">Ecuación&nbsp;6</a>, la representación de <span class="math inline">T^{2}</span> frente a <span class="math inline">m</span> es una recta cuya pendiente <span class="math inline">p</span> vale:</p>
+<p><span id="eq-9_8"><span class="math display">
+p = \frac{4\pi^{2}}{k_{1} + k_{2}}
+\tag{8}</span></span></p>
+<p>De donde se obtiene la rigidez equivalente:</p>
+<p><span id="eq-9_9"><span class="math display">
+\boxed{k_{\textrm{eff}} = \frac{4\pi^{2}}{p}}
+\tag{9}</span></span></p>
+</blockquote>
+</div>
+<p><br></p>
+<h2 id="descripción-del-aparato" class="anchored">Descripción del aparato</h2>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:40%;">
+<p>El montaje experimental consta de un carril de aire: un perfil rectangular con uno de sus extremos conectado a un compresor que insufla aire a presión. El aire escapa por orificios distribuidos a lo largo de la cara de contacto, formando una película que elimina casi por completo el rozamiento entre el carril y el deslizador.</p>
+<p>El deslizador se sujeta por ambos extremos a dos resortes cuyos otros extremos se fijan a posiciones fijas del carril (empleando un soporte auxiliar para acortar la distancia). Un tornillo nivelador bajo la base permite asegurar la horizontalidad del carril.</p>
+</div><div class="column" style="width:60%;">
+<div class="quarto-figure quarto-figure-right">
+<figure>
+<p><img src="figura1.png" class="img-fluid quarto-figure quarto-figure-right" width="350"></p>
+</figure>
+</div>
+</div>
+</div>
+<!-- end columns -->
+<p><br></p>
+<h2 id="método-operatorio" class="anchored">Método operatorio</h2>
+<p><br></p>
+<h3 id="parte-a-obtención-estática-de-las-constantes-elásticas" class="anchored">Parte A: Obtención estática de las constantes elásticas</h3>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>1</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Colgar el primer resorte (<span class="math inline">k_{1}</span>) de un punto fijo en posición vertical y enganchar en su extremo inferior un portamasas. Colocar una masa inicial <span class="math inline">m_{0}</span> suficiente para que el resorte quede tenso (por ejemplo, 10 g). Anotar la posición de equilibrio <span class="math inline">y_{0}</span> sobre la regla graduada, tomando como referencia el extremo inferior del portamasas.</p>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>2</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Agregar sucesivamente sobrecargas de masa creciente (al menos 10 valores: 10, 20, 30, 40, 50, 60, 70, 80, 100, 120 g), pesando cada una en la balanza. Para cada sobrecarga, anotar la nueva posición de equilibrio <span class="math inline">y</span> y calcular el alargamiento <span class="math inline">\Delta x = y - y_{0}</span>.</p>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>3</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Repetir los pasos 1 y 2 para el segundo resorte (<span class="math inline">k_{2}</span>).</p>
+<div class="columns">
+<div class="column" style="width:25%;">
+<p><strong>Datos <br> experimentales</strong></p>
+</div><div class="column" style="width:75%;">
+<p>A continuación se resumen los datos recogidos en el laboratorio para ambos resortes.</p>
+<p><br></p>
+<p><strong>Resorte 1</strong> (<span class="math inline">k_{1}</span>):</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Medida</th>
+<th style="text-align: center;">Sobrecarga (g)</th>
+<th style="text-align: center;"><span class="math inline">F = m\,g</span> (N)</th>
+<th style="text-align: center;"><span class="math inline">\Delta x</span> (mm)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">10,0</td>
+<td style="text-align: center;">0,098</td>
+<td style="text-align: center;">6,4</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">20,0</td>
+<td style="text-align: center;">0,196</td>
+<td style="text-align: center;">13,5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">30,0</td>
+<td style="text-align: center;">0,294</td>
+<td style="text-align: center;">19,2</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">40,0</td>
+<td style="text-align: center;">0,392</td>
+<td style="text-align: center;">26,8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">50,0</td>
+<td style="text-align: center;">0,491</td>
+<td style="text-align: center;">32,5</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">60,0</td>
+<td style="text-align: center;">0,589</td>
+<td style="text-align: center;">39,7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">70,0</td>
+<td style="text-align: center;">0,687</td>
+<td style="text-align: center;">45,3</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">80,0</td>
+<td style="text-align: center;">0,785</td>
+<td style="text-align: center;">53,1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">100,0</td>
+<td style="text-align: center;">0,981</td>
+<td style="text-align: center;">65,0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">120,0</td>
+<td style="text-align: center;">1,177</td>
+<td style="text-align: center;">79,2</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Resorte 2</strong> (<span class="math inline">k_{2}</span>):</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Medida</th>
+<th style="text-align: center;">Sobrecarga (g)</th>
+<th style="text-align: center;"><span class="math inline">F = m\,g</span> (N)</th>
+<th style="text-align: center;"><span class="math inline">\Delta x</span> (mm)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">10,0</td>
+<td style="text-align: center;">0,098</td>
+<td style="text-align: center;">5,1</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">20,0</td>
+<td style="text-align: center;">0,196</td>
+<td style="text-align: center;">10,0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">30,0</td>
+<td style="text-align: center;">0,294</td>
+<td style="text-align: center;">14,3</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">40,0</td>
+<td style="text-align: center;">0,392</td>
+<td style="text-align: center;">20,1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">50,0</td>
+<td style="text-align: center;">0,491</td>
+<td style="text-align: center;">24,2</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">60,0</td>
+<td style="text-align: center;">0,589</td>
+<td style="text-align: center;">29,8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">70,0</td>
+<td style="text-align: center;">0,687</td>
+<td style="text-align: center;">34,0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">80,0</td>
+<td style="text-align: center;">0,785</td>
+<td style="text-align: center;">39,5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">100,0</td>
+<td style="text-align: center;">0,981</td>
+<td style="text-align: center;">48,7</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">120,0</td>
+<td style="text-align: center;">1,177</td>
+<td style="text-align: center;">59,3</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>4</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Para cada resorte, representar gráficamente <span class="math inline">F</span> (eje <span class="math inline">y</span>) frente a <span class="math inline">\Delta x</span> (eje <span class="math inline">x</span>). Mediante regresión lineal, determinar la pendiente (que es la constante elástica <span class="math inline">k</span>), la ordenada en el origen, sus errores y el coeficiente de determinación <span class="math inline">R^{2}</span>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="plot_muelle_1.png" class="img-fluid" style="width:85.0%"></p>
+<figcaption>Representación gráfica de <span class="math inline">F</span> frente a <span class="math inline">\Delta x</span> para el resorte 1 (método estático)</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="plot_muelle_2.png" class="img-fluid" style="width:85.0%"></p>
+<figcaption>Representación gráfica de <span class="math inline">F</span> frente a <span class="math inline">\Delta x</span> para el resorte 2 (método estático)</figcaption>
+</figure>
+</div>
+<div>
+<blockquote>
+<p><strong>Regresión lineal y obtención de <span class="math inline">k_{1}</span> y <span class="math inline">k_{2}</span></strong></p>
+<p><br></p>
+<h3 id="linealización-comparación-entre-la-ecuación-física-y-la-ecuación-matemática" class="anchored">Linealización: comparación entre la ecuación física y la ecuación matemática</h3>
+<p>La ley de Hooke (ecuación <a href="#eq-9_7" class="quarto-xref">Ecuación&nbsp;7</a>) tiene la estructura de una recta <span class="math inline">y = m\,x + n</span>:</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Ecuación física</th>
+<th style="text-align: left;">Ecuación matemática (<span class="math inline">y = m\,x + n</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">F</span></td>
+<td style="text-align: left;"><span class="math inline">y</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\Delta x</span></td>
+<td style="text-align: left;"><span class="math inline">x</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">k</span></td>
+<td style="text-align: left;">pendiente <span class="math inline">m</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">0</span> (idealmente)</td>
+<td style="text-align: left;">ordenada en el origen <span class="math inline">n</span></td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h3 id="fórmulas-de-la-regresión-lineal" class="anchored">Fórmulas de la regresión lineal</h3>
+<p>Se utilizan las fórmulas estándar de mínimos cuadrados. Para <span class="math inline">N</span> puntos <span class="math inline">(x_{i}, y_{i})</span>:</p>
+<p><span id="eq-9_10"><span class="math display">
+m = \frac{N\displaystyle\sum x_{i}y_{i} - \left(\sum x_{i}\right)\!\left(\sum y_{i}\right)}{N\displaystyle\sum x_{i}^{2} - \left(\sum x_{i}\right)^{2}}
+\tag{10}</span></span></p>
+<p><span id="eq-9_11"><span class="math display">
+n = \frac{\displaystyle\sum y_{i} - m\sum x_{i}}{N}
+\tag{11}</span></span></p>
+<p><span id="eq-9_12"><span class="math display">
+\Delta m = \sqrt{\dfrac{\dfrac{1}{N-2}\displaystyle\sum\left(y_{i} - m\,x_{i} - n\right)^{2}}{\displaystyle\sum x_{i}^{2} - \dfrac{1}{N}\left(\sum x_{i}\right)^{2}}}
+\tag{12}</span></span></p>
+<p><br></p>
+<h3 id="cálculo-numérico-para-el-resorte-1" class="anchored">Cálculo numérico para el Resorte 1</h3>
+<p>Convirtiendo <span class="math inline">\Delta x</span> a metros, con los <span class="math inline">N = 10</span> puntos <span class="math inline">(x_{i} = \Delta x_{i}</span> en m, <span class="math inline">y_{i} = F_{i}</span> en N<span class="math inline">)</span>, se obtiene:</p>
+<p><span class="math display">
+m_{1} = k_{1} = 14{,}9 \textrm{ N/m}
+</span></p>
+<p><span class="math display">
+n_{1} = -0{,}003 \textrm{ N} \approx 0
+</span></p>
+<p><span class="math display">
+R^{2}_{1} = 0{,}9997
+</span></p>
+<p>El error en la pendiente es:</p>
+<p><span class="math display">
+\Delta k_{1} = 0{,}2 \textrm{ N/m}
+</span></p>
+<p><strong>Resultado para el Resorte 1:</strong></p>
+<p><span class="math display">
+\boxed{k_{1} = 14{,}9 \pm 0{,}2 \textrm{ N/m}}
+</span></p>
+<p><br></p>
+<h3 id="cálculo-numérico-para-el-resorte-2" class="anchored">Cálculo numérico para el Resorte 2</h3>
+<p>Análogamente:</p>
+<p><span class="math display">
+m_{2} = k_{2} = 19{,}8 \textrm{ N/m}
+</span></p>
+<p><span class="math display">
+n_{2} = -0{,}002 \textrm{ N} \approx 0
+</span></p>
+<p><span class="math display">
+R^{2}_{2} = 0{,}9998
+</span></p>
+<p><span class="math display">
+\Delta k_{2} = 0{,}2 \textrm{ N/m}
+</span></p>
+<p><strong>Resultado para el Resorte 2:</strong></p>
+<p><span class="math display">
+\boxed{k_{2} = 19{,}8 \pm 0{,}2 \textrm{ N/m}}
+</span></p>
+<p><br></p>
+<h3 id="rigidez-equivalente-método-estático" class="anchored">Rigidez equivalente (método estático)</h3>
+<p>La rigidez equivalente del conjunto de los dos resortes en paralelo (ambos actúan sobre la misma masa) es simplemente:</p>
+<p><span id="eq-9_13"><span class="math display">
+k_{\textrm{est}} = k_{1} + k_{2} = 14{,}9 + 19{,}8 = 34{,}7 \textrm{ N/m}
+\tag{13}</span></span></p>
+<p><strong>Propagación del error:</strong></p>
+<p><span id="eq-9_14"><span class="math display">
+\Delta k_{\textrm{est}} = \sqrt{(\Delta k_{1})^{2} + (\Delta k_{2})^{2}} = \sqrt{0{,}2^{2} + 0{,}2^{2}} = 0{,}3 \textrm{ N/m}
+\tag{14}</span></span></p>
+<p><span class="math display">
+\boxed{k_{\textrm{est}} = k_{1} + k_{2} = 34{,}7 \pm 0{,}3 \textrm{ N/m}}
+</span></p>
+</blockquote>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="parte-b-cálculo-del-período-t-del-movimiento" class="anchored">Parte B: Cálculo del período <span class="math inline">T</span> del movimiento</h3>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>5</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Verificar la horizontalidad del carril de aire con ayuda del tornillo nivelador. Poner en funcionamiento el compresor de aire.</p>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>6</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Colocar el deslizador sobre el carril, previamente pesado en la balanza. Sujetar los dos resortes a ambos extremos del deslizador y fijar los extremos libres a posiciones fijas del carril.</p>
+<blockquote>
+<p>Masa del deslizador: <span class="math inline">m_{0} = 210{,}3</span> g <span class="math inline">= 0{,}2103</span> kg</p>
+</blockquote>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>7</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Separar el deslizador una distancia pequeña (<span class="math inline">\approx 3</span> cm) de su posición de equilibrio y soltarlo. Con el cronómetro, medir el tiempo de 10 oscilaciones completas. Repetir la medida 5 veces.</p>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>8</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Repetir el paso 7 colocando sucesivamente sobre el deslizador pesas adicionales de 50, 100 y 150 g.</p>
+<div class="columns">
+<div class="column" style="width:25%;">
+<p><strong>Datos <br> experimentales</strong></p>
+</div><div class="column" style="width:75%;">
+<p>A continuación se resumen las medidas del tiempo para 10 oscilaciones (<span class="math inline">t_{10}</span>, en segundos) para cada configuración de masa.</p>
+<p><br></p>
+<p><strong>Masa 1:</strong> <span class="math inline">m = m_{0} = 210{,}3</span> g</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Rep.</th>
+<th style="text-align: center;"><span class="math inline">t_{10}</span> (s)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">4,89</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">4,91</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">4,87</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">4,92</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">4,88</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Masa 2:</strong> <span class="math inline">m = m_{0} + 50{,}0</span> g <span class="math inline">= 260{,}3</span> g</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Rep.</th>
+<th style="text-align: center;"><span class="math inline">t_{10}</span> (s)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">5,44</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">5,47</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">5,42</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">5,46</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">5,45</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Masa 3:</strong> <span class="math inline">m = m_{0} + 100{,}0</span> g <span class="math inline">= 310{,}3</span> g</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Rep.</th>
+<th style="text-align: center;"><span class="math inline">t_{10}</span> (s)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">5,95</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">5,92</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">5,97</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">5,94</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">5,93</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Masa 4:</strong> <span class="math inline">m = m_{0} + 150{,}0</span> g <span class="math inline">= 360{,}3</span> g</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Rep.</th>
+<th style="text-align: center;"><span class="math inline">t_{10}</span> (s)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">6,40</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">6,43</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">6,38</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">6,41</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">6,42</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>9</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Para cada masa, calcular el valor medio de <span class="math inline">t_{10}</span>, la desviación típica, el período <span class="math inline">T = \overline{t_{10}}/10</span> y su error <span class="math inline">\Delta T = \sigma_{t_{10}}/(10\sqrt{5})</span>. Calcular <span class="math inline">T^{2}</span>.</p>
+<div class="columns">
+<div class="column" style="width:25%;">
+<p><strong>Cálculo</strong></p>
+</div><div class="column" style="width:75%;">
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Masa</th>
+<th style="text-align: center;"><span class="math inline">m</span> (kg)</th>
+<th style="text-align: center;"><span class="math inline">\overline{t_{10}}</span> (s)</th>
+<th style="text-align: center;"><span class="math inline">\sigma_{t_{10}}</span> (s)</th>
+<th style="text-align: center;"><span class="math inline">T</span> (s)</th>
+<th style="text-align: center;"><span class="math inline">\Delta T</span> (s)</th>
+<th style="text-align: center;"><span class="math inline">T^{2}</span> (s<span class="math inline">^{2}</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0,2103</td>
+<td style="text-align: center;">4,894</td>
+<td style="text-align: center;">0,019</td>
+<td style="text-align: center;">0,4894</td>
+<td style="text-align: center;">0,0009</td>
+<td style="text-align: center;">0,2395</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">0,2603</td>
+<td style="text-align: center;">5,448</td>
+<td style="text-align: center;">0,019</td>
+<td style="text-align: center;">0,5448</td>
+<td style="text-align: center;">0,0009</td>
+<td style="text-align: center;">0,2968</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">0,3103</td>
+<td style="text-align: center;">5,942</td>
+<td style="text-align: center;">0,018</td>
+<td style="text-align: center;">0,5942</td>
+<td style="text-align: center;">0,0008</td>
+<td style="text-align: center;">0,3531</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">0,3603</td>
+<td style="text-align: center;">6,408</td>
+<td style="text-align: center;">0,018</td>
+<td style="text-align: center;">0,6408</td>
+<td style="text-align: center;">0,0008</td>
+<td style="text-align: center;">0,4106</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>10</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Representar gráficamente <span class="math inline">T^{2}</span> (eje <span class="math inline">y</span>) frente a <span class="math inline">m</span> (eje <span class="math inline">x</span>). Mediante regresión lineal, determinar la pendiente <span class="math inline">p</span>, la ordenada en el origen, sus errores y el coeficiente de determinación <span class="math inline">R^{2}</span>.</p>
+<p>A partir de la pendiente, obtener la rigidez equivalente dinámica <span class="math inline">k_{\textrm{din}}</span> y compararla con la rigidez estática <span class="math inline">k_{\textrm{est}} = k_{1} + k_{2}</span>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="plot_T2_vs_m.png" class="img-fluid" style="width:85.0%"></p>
+<figcaption>Representación gráfica de <span class="math inline">T^{2}</span> frente a <span class="math inline">m</span> (método dinámico)</figcaption>
+</figure>
+</div>
+<div>
+<blockquote>
+<p><strong>Regresión lineal de <span class="math inline">T^{2}</span> frente a <span class="math inline">m</span> y obtención de <span class="math inline">k_{\textrm{din}}</span></strong></p>
+<p><br></p>
+<h3 id="linealización-comparación-entre-la-ecuación-física-y-la-ecuación-matemática-1" class="anchored">Linealización: comparación entre la ecuación física y la ecuación matemática</h3>
+<p>De la ecuación <a href="#eq-9_6" class="quarto-xref">Ecuación&nbsp;6</a>:</p>
+<p><span class="math display">
+T^{2} = \frac{4\pi^{2}}{k_{1}+k_{2}}\,m
+</span></p>
+<p>Esta tiene la estructura de una recta <span class="math inline">y = p\,x + n</span>:</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Ecuación física</th>
+<th style="text-align: left;">Ecuación matemática (<span class="math inline">y = p\,x + n</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">T^{2}</span></td>
+<td style="text-align: left;"><span class="math inline">y</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">m</span></td>
+<td style="text-align: left;"><span class="math inline">x</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">4\pi^{2}/(k_{1}+k_{2})</span></td>
+<td style="text-align: left;">pendiente <span class="math inline">p</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">0</span> (idealmente)</td>
+<td style="text-align: left;">ordenada en el origen <span class="math inline">n</span></td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h3 id="cálculo-numérico" class="anchored">Cálculo numérico</h3>
+<p>Con los <span class="math inline">N = 4</span> puntos <span class="math inline">(x_{i} = m_{i}</span> en kg, <span class="math inline">y_{i} = T_{i}^{2}</span> en s<span class="math inline">^{2})</span>:</p>
+<p><span class="math display">
+\sum x_{i} = 0{,}2103 + 0{,}2603 + 0{,}3103 + 0{,}3603 = 1{,}1412 \textrm{ kg}
+</span></p>
+<p><span class="math display">
+\sum y_{i} = 0{,}2395 + 0{,}2968 + 0{,}3531 + 0{,}4106 = 1{,}3000 \textrm{ s}^{2}
+</span></p>
+<p><span class="math display">
+\sum x_{i}y_{i} = 0{,}2103\!\times\!0{,}2395 + 0{,}2603\!\times\!0{,}2968 + 0{,}3103\!\times\!0{,}3531 + 0{,}3603\!\times\!0{,}4106 = 0{,}3860
+</span></p>
+<p><span class="math display">
+\sum x_{i}^{2} = 0{,}2103^{2} + 0{,}2603^{2} + 0{,}3103^{2} + 0{,}3603^{2} = 0{,}3348
+</span></p>
+<p>Aplicando la fórmula <a href="#eq-9_10" class="quarto-xref">Ecuación&nbsp;10</a>:</p>
+<p><span class="math display">
+p = \frac{4 \times 0{,}3860 - 1{,}1412 \times 1{,}3000}{4 \times 0{,}3348 - 1{,}1412^{2}} = \frac{1{,}5440 - 1{,}4836}{1{,}3392 - 1{,}3023} = \frac{0{,}0604}{0{,}0369} = 1{,}140 \textrm{ s}^{2}/\textrm{kg}
+</span></p>
+<p>La ordenada en el origen:</p>
+<p><span class="math display">
+n = \frac{1{,}3000 - 1{,}140 \times 1{,}1412}{4} = \frac{1{,}3000 - 1{,}3010}{4} \approx -0{,}0002 \textrm{ s}^{2} \approx 0
+</span></p>
+<p>El coeficiente de determinación:</p>
+<p><span class="math display">
+R^{2} = 0{,}9999
+</span></p>
+<p>El error en la pendiente:</p>
+<p><span class="math display">
+\Delta p = 0{,}008 \textrm{ s}^{2}/\textrm{kg}
+</span></p>
+<p><br></p>
+<h3 id="obtención-de-k_textrmdin" class="anchored">Obtención de <span class="math inline">k_{\textrm{din}}</span></h3>
+<p>De la ecuación <a href="#eq-9_9" class="quarto-xref">Ecuación&nbsp;9</a>:</p>
+<p><span class="math display">
+k_{\textrm{din}} = \frac{4\pi^{2}}{p} = \frac{4 \times 9{,}8696}{1{,}140} = \frac{39{,}478}{1{,}140} = 34{,}6 \textrm{ N/m}
+</span></p>
+<p><br></p>
+<h3 id="propagación-del-error-en-k_textrmdin" class="anchored">Propagación del error en <span class="math inline">k_{\textrm{din}}</span></h3>
+<p>Dado que <span class="math inline">k_{\textrm{din}} = 4\pi^{2}/p</span> depende de una sola variable <span class="math inline">p</span>:</p>
+<p><span id="eq-9_15"><span class="math display">
+\Delta k_{\textrm{din}} = \left|\frac{dk_{\textrm{din}}}{dp}\right|\,\Delta p = \frac{4\pi^{2}}{p^{2}}\,\Delta p
+\tag{15}</span></span></p>
+<p>Sustituyendo valores:</p>
+<p><span class="math display">
+\Delta k_{\textrm{din}} = \frac{39{,}478}{1{,}140^{2}} \times 0{,}008 = \frac{39{,}478}{1{,}300} \times 0{,}008 = 30{,}37 \times 0{,}008 = 0{,}2 \textrm{ N/m}
+</span></p>
+<p><strong>Resultado:</strong></p>
+<p><span class="math display">
+\boxed{k_{\textrm{din}} = 34{,}6 \pm 0{,}2 \textrm{ N/m}}
+</span></p>
+<p><br></p>
+<h3 id="comparación-entre-k_textrmest-y-k_textrmdin" class="anchored">Comparación entre <span class="math inline">k_{\textrm{est}}</span> y <span class="math inline">k_{\textrm{din}}</span></h3>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Método</th>
+<th style="text-align: center;"><span class="math inline">k_{\textrm{eff}}</span> (N/m)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Estático: <span class="math inline">k_{1} + k_{2}</span></td>
+<td style="text-align: center;"><span class="math inline">34{,}7 \pm 0{,}3</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Dinámico: <span class="math inline">4\pi^{2}/p</span></td>
+<td style="text-align: center;"><span class="math inline">34{,}6 \pm 0{,}2</span></td>
+</tr>
+</tbody>
+</table>
+<p>La discrepancia entre ambos valores es:</p>
+<p><span class="math display">
+|k_{\textrm{est}} - k_{\textrm{din}}| = |34{,}7 - 34{,}6| = 0{,}1 \textrm{ N/m}
+</span></p>
+<p>En términos relativos:</p>
+<p><span class="math display">
+\varepsilon = \frac{|k_{\textrm{est}} - k_{\textrm{din}}|}{k_{\textrm{est}}} \times 100 = \frac{0{,}1}{34{,}7} \times 100 \approx 0{,}3\,\text{\%}
+</span></p>
+<p>Ambos valores son <strong>compatibles dentro de las incertidumbres experimentales</strong>, lo que confirma la validez del modelo teórico del movimiento armónico simple.</p>
+<p><strong>Resumen de resultados:</strong></p>
+<p><span class="math display">
+\boxed{k_{1} = 14{,}9 \pm 0{,}2 \textrm{ N/m} \qquad;\qquad k_{2} = 19{,}8 \pm 0{,}2 \textrm{ N/m} \qquad;\qquad k_{\textrm{est}} = 34{,}7 \pm 0{,}3 \textrm{ N/m} \qquad;\qquad k_{\textrm{din}} = 34{,}6 \pm 0{,}2 \textrm{ N/m}}
+</span></p>
+</blockquote>
+</div>
+</div>
+</div>
+<p><br></p>
+<h2 id="ejercicios-posteriores" class="anchored">Ejercicios Posteriores</h2>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>E1</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Calcular el período teórico <span class="math inline">T_{\textrm{teórico}}</span> para cada una de las cuatro masas utilizando la ecuación <a href="#eq-9_5" class="quarto-xref">Ecuación&nbsp;5</a> con <span class="math inline">k_{\textrm{est}} = k_{1} + k_{2}</span>. Comparar con los valores experimentales y calcular la discrepancia porcentual en cada caso.</p>
+<div>
+<blockquote>
+<p><strong>Solución del ejercicio E1</strong></p>
+<p><br></p>
+<p>Utilizando la ecuación <a href="#eq-9_5" class="quarto-xref">Ecuación&nbsp;5</a> con <span class="math inline">k_{\textrm{est}} = 34{,}7</span> N/m:</p>
+<p><span class="math display">
+T_{\textrm{teórico}} = 2\pi\,\sqrt{\frac{m}{34{,}7}}
+</span></p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Masa (kg)</th>
+<th style="text-align: center;"><span class="math inline">T_{\textrm{exp}}</span> (s)</th>
+<th style="text-align: center;"><span class="math inline">T_{\textrm{teórico}}</span> (s)</th>
+<th style="text-align: center;">Discrepancia ()</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0,2103</td>
+<td style="text-align: center;">0,4894</td>
+<td style="text-align: center;">0,4893</td>
+<td style="text-align: center;">0,02</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0,2603</td>
+<td style="text-align: center;">0,5448</td>
+<td style="text-align: center;">0,5445</td>
+<td style="text-align: center;">0,06</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0,3103</td>
+<td style="text-align: center;">0,5942</td>
+<td style="text-align: center;">0,5948</td>
+<td style="text-align: center;">0,10</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0,3603</td>
+<td style="text-align: center;">0,6408</td>
+<td style="text-align: center;">0,6411</td>
+<td style="text-align: center;">0,05</td>
+</tr>
+</tbody>
+</table>
+<p>Las discrepancias son inferiores al 0,1 %, confirmando la excelente concordancia entre el modelo teórico y las medidas experimentales.</p>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>E2</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Si en lugar de conectar los dos resortes en paralelo (uno a cada lado del deslizador), se conectasen en serie (uno a continuación del otro, del mismo lado), ¿cuál sería la constante elástica equivalente del sistema? ¿Cuál sería el período de oscilación para la masa <span class="math inline">m_{0}</span>?</p>
+<div>
+<blockquote>
+<p><strong>Solución del ejercicio E2</strong></p>
+<p><br></p>
+<p>Cuando dos resortes se conectan en <strong>serie</strong>, la rigidez equivalente es:</p>
+<p><span class="math display">
+\frac{1}{k_{\textrm{serie}}} = \frac{1}{k_{1}} + \frac{1}{k_{2}} = \frac{1}{14{,}9} + \frac{1}{19{,}8} = 0{,}0671 + 0{,}0505 = 0{,}1176 \textrm{ m/N}
+</span></p>
+<p><span class="math display">
+\boxed{k_{\textrm{serie}} = \frac{1}{0{,}1176} = 8{,}50 \textrm{ N/m}}
+</span></p>
+<p>El período de oscilación sería (nótese que para un solo lado habría que usar <span class="math inline">k_{\textrm{serie}}</span> en lugar de <span class="math inline">k_{1}+k_{2}</span>):</p>
+<p><span class="math display">
+T_{\textrm{serie}} = 2\pi\,\sqrt{\frac{m_{0}}{k_{\textrm{serie}}}} = 2\pi\,\sqrt{\frac{0{,}2103}{8{,}50}} = 2\pi \times 0{,}1573 = 0{,}988 \textrm{ s}
+</span></p>
+<p><span class="math display">
+\boxed{T_{\textrm{serie}} \approx 0{,}99 \textrm{ s}}
+</span></p>
+<p>El período casi se duplica respecto al caso paralelo, ya que la rigidez equivalente en serie es mucho menor.</p>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>E3</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Discutir las posibles fuentes de error sistemático en esta práctica. ¿Cómo afecta la masa de los propios resortes al resultado? ¿Y un posible amortiguamiento residual?</p>
+<div>
+<blockquote>
+<p><strong>Solución del ejercicio E3</strong></p>
+<p><br></p>
+<p>Las principales fuentes de error sistemático son:</p>
+<ol type="1">
+<li><p><strong>Masa de los resortes:</strong> en la ecuación <a href="#eq-9_5" class="quarto-xref">Ecuación&nbsp;5</a> se ha supuesto que toda la masa del sistema es la del deslizador más las pesas. En realidad, cada resorte tiene una masa distribuida que contribuye a la inercia del sistema. Se puede demostrar que, para un resorte de masa <span class="math inline">m_{r}</span>, la masa efectiva que interviene en las oscilaciones es <span class="math inline">m_{r}/3</span>. Esto produce un aumento del período medido respecto al teórico.</p></li>
+<li><p><strong>Amortiguamiento residual:</strong> aunque el carril de aire reduce enormemente el rozamiento, siempre existe un amortiguamiento residual (resistencia del aire, imperfecciones del carril). El efecto del amortiguamiento es aumentar ligeramente el período: <span class="math inline">T_{\textrm{amort}} = T_{0}/\sqrt{1 - \zeta^{2}}</span>, donde <span class="math inline">\zeta</span> es el factor de amortiguamiento. Para <span class="math inline">\zeta \ll 1</span>, este efecto es despreciable.</p></li>
+<li><p><strong>No linealidad de los resortes:</strong> la ley de Hooke es una aproximación para pequeñas deformaciones. Si la amplitud de oscilación es demasiado grande, el resorte puede abandonar el régimen lineal, alterando el período.</p></li>
+<li><p><strong>Horizontalidad del carril:</strong> si el carril no está perfectamente horizontal, aparece una componente gravitatoria a lo largo de la dirección del movimiento que altera la posición de equilibrio y, en principio, la frecuencia de oscilación.</p></li>
+</ol>
+</blockquote>
+</div>
+</div>
+</div>
+<p><br></p>
+<div>
+<blockquote>
+<p><strong>Ejercicios Previos</strong></p>
+<p><br></p>
+<ol type="1">
+<li>Demostrar que la ecuación del movimiento de una masa <span class="math inline">m</span> sujeta a dos resortes de constantes <span class="math inline">k_{1}</span> y <span class="math inline">k_{2}</span> (uno a cada lado) es la ecuación <a href="#eq-9_1" class="quarto-xref">Ecuación&nbsp;1</a>. ¿Bajo qué hipótesis es válida?</li>
+</ol>
+<div>
+<blockquote>
+<p><strong>Solución del ejercicio 1</strong></p>
+<p><br></p>
+<p>Sea <span class="math inline">x</span> el desplazamiento del deslizador respecto a su posición de equilibrio. Cuando el deslizador se desplaza una distancia <span class="math inline">x</span> hacia la derecha:</p>
+<ul>
+<li>El resorte de la derecha se comprime en <span class="math inline">x</span>, ejerciendo una fuerza <span class="math inline">-k_{2}\,x</span> (hacia la izquierda).</li>
+<li>El resorte de la izquierda se estira en <span class="math inline">x</span>, ejerciendo una fuerza <span class="math inline">-k_{1}\,x</span> (también hacia la izquierda).</li>
+</ul>
+<p>Aplicando la segunda ley de Newton:</p>
+<p><span class="math display">
+m\,\ddot{x} = -k_{1}\,x - k_{2}\,x = -(k_{1}+k_{2})\,x
+</span></p>
+<p><span class="math display">
+\boxed{m\,\ddot{x} + (k_{1}+k_{2})\,x = 0}
+</span></p>
+<p>Las hipótesis necesarias son:</p>
+<ul>
+<li>Comportamiento lineal de los resortes (ley de Hooke).</li>
+<li>Ausencia de amortiguamiento (rozamiento nulo).</li>
+<li>Movimiento unidimensional (un grado de libertad).</li>
+<li>Resortes sin masa (o masa despreciable frente a <span class="math inline">m</span>).</li>
+</ul>
+</blockquote>
+</div>
+<p><br></p>
+<ol start="2" type="1">
+<li>Demostrar que <span class="math inline">T^{2}</span> es proporcional a <span class="math inline">m</span> y explicar cómo se puede obtener la constante elástica equivalente a partir de una representación <span class="math inline">T^{2}</span> frente a <span class="math inline">m</span>.</li>
+</ol>
+<div>
+<blockquote>
+<p><strong>Solución del ejercicio 2</strong></p>
+<p><br></p>
+<p>Partiendo de la expresión del período (ecuación <a href="#eq-9_5" class="quarto-xref">Ecuación&nbsp;5</a>):</p>
+<p><span class="math display">
+T = 2\pi\,\sqrt{\frac{m}{k_{1}+k_{2}}}
+</span></p>
+<p>Elevando al cuadrado:</p>
+<p><span class="math display">
+T^{2} = \frac{4\pi^{2}}{k_{1}+k_{2}}\,m
+</span></p>
+<p>Esta es una relación lineal de la forma <span class="math inline">T^{2} = p\,m</span>, donde <span class="math inline">p = 4\pi^{2}/(k_{1}+k_{2})</span> es una constante. Por tanto, <span class="math inline">T^{2}</span> es directamente proporcional a <span class="math inline">m</span>.</p>
+<p>Al representar <span class="math inline">T^{2}</span> (eje <span class="math inline">y</span>) frente a <span class="math inline">m</span> (eje <span class="math inline">x</span>), se obtiene una recta que, idealmente, pasa por el origen. La pendiente de esta recta es <span class="math inline">p = 4\pi^{2}/(k_{1}+k_{2})</span>, de donde:</p>
+<p><span class="math display">
+\boxed{k_{1}+k_{2} = \frac{4\pi^{2}}{p}}
+</span></p>
+</blockquote>
+</div>
+<p><br></p>
+<ol start="3" type="1">
+<li>¿Cuál es la diferencia entre frecuencia angular <span class="math inline">\omega_{n}</span>, frecuencia <span class="math inline">f</span> y período <span class="math inline">T</span>? Expresar sus relaciones.</li>
+</ol>
+<div>
+<blockquote>
+<p><strong>Solución del ejercicio 3</strong></p>
+<p><br></p>
+<p>Las tres magnitudes están relacionadas entre sí:</p>
+<p><span class="math display">
+\omega_{n} = 2\pi\,f = \frac{2\pi}{T}
+</span></p>
+<p>donde:</p>
+<ul>
+<li><span class="math inline">\omega_{n}</span> es la <strong>frecuencia angular</strong> o <strong>pulsación</strong>, medida en rad/s.</li>
+<li><span class="math inline">f</span> es la <strong>frecuencia</strong>, medida en Hz (ciclos por segundo): <span class="math inline">f = 1/T</span>.</li>
+<li><span class="math inline">T</span> es el <strong>período</strong>, medida en segundos: tiempo que tarda el sistema en completar una oscilación completa.</li>
+</ul>
+<p>Para este sistema:</p>
+<p><span class="math display">
+\boxed{\omega_{n} = \sqrt{\frac{k_{1}+k_{2}}{m}} \qquad;\qquad f = \frac{1}{2\pi}\sqrt{\frac{k_{1}+k_{2}}{m}} \qquad;\qquad T = 2\pi\sqrt{\frac{m}{k_{1}+k_{2}}}}
+</span></p>
+</blockquote>
+</div>
+<p><br></p>
+<ol start="4" type="1">
+<li>Si se aumenta la amplitud inicial de la oscilación (manteniendo la misma masa), ¿cambia el período? Justificar la respuesta.</li>
+</ol>
+<div>
+<blockquote>
+<p><strong>Solución del ejercicio 4</strong></p>
+<p><br></p>
+<p>No.&nbsp;El período del movimiento armónico simple es <strong>independiente de la amplitud</strong>. Esto se deduce directamente de la ecuación <a href="#eq-9_5" class="quarto-xref">Ecuación&nbsp;5</a>:</p>
+<p><span class="math display">
+T = 2\pi\,\sqrt{\frac{m}{k_{1}+k_{2}}}
+</span></p>
+<p>El período depende únicamente de la masa <span class="math inline">m</span> y de la rigidez del sistema <span class="math inline">k_{1}+k_{2}</span>, pero <strong>no</strong> de la amplitud <span class="math inline">A</span> ni de la fase inicial <span class="math inline">\phi</span>. Esta propiedad, denominada <strong>isocronismo</strong>, es una característica fundamental del oscilador armónico simple (lineal).</p>
+<p><span class="math display">
+\boxed{\text{El período no cambia al variar la amplitud (isocronismo).}}
+</span></p>
+<p>Esta propiedad deja de ser válida cuando las deformaciones son grandes y el resorte abandona el régimen lineal.</p>
+</blockquote>
+</div>
+<p><br></p>
+</blockquote>
+</div>
+<p><br></p>
+<h2 id="referencias" class="anchored">Referencias</h2>
+<p><br></p>
+<ol type="1">
+<li><p>UPM — Capítulo: Vibraciones mecánicas. <a href="http://w3.mecanica.upm.es/~goico/mecanica/libro/cap17.pdf">http://w3.mecanica.upm.es/~goico/mecanica/libro/cap17.pdf</a></p></li>
+<li><p>EHU/UPV — Movimiento armónico simple. <a href="http://www.sc.ehu.es/sbweb/fisica/oscilaciones/muelle/muelle.htm">http://www.sc.ehu.es/sbweb/fisica/oscilaciones/muelle/muelle.htm</a></p></li>
+<li><p>S. Timoshenko, D.H. Young, W. Weaver — <em>Vibration Problems in Engineering</em>, 5th ed., Wiley, 1990.</p></li>
+<li><p>UNED — Guión de la práctica de vibraciones libres con 1 grado de libertad. Laboratorio de Mecánica, curso 2025–2026.</p></li>
+</ol>
+
+
+<!-- Closes the reading column opened by _gen/docs-nav.html, adds the right
+     "On this page" list, and wires: current-page marking in the left nav,
+     breadcrumbs, the page TOC (from h2/h3 in the reading column) and a
+     scroll-spy. Pure DOM, no library. -->
+  </div>
+  <aside class="docs-toc"><button class="docs-fold" type="button" data-fold="toc" aria-label="Hide the page outline" title="Hide the page outline">›</button><div class="t">On this page</div><ol></ol></aside>
+</div>
+<script>
+(function () {
+  /* 0. The two side panels fold on their chevrons; the choice is remembered in this browser. */
+  var docs = document.querySelector('.docs');
+  if (docs) {
+    var store = {};
+    try { store = JSON.parse(localStorage.getItem('docs-fold') || '{}'); } catch (e) { store = {}; }
+    function apply() {
+      docs.classList.toggle('nav-folded', !!store.nav);
+      docs.classList.toggle('toc-folded', !!store.toc);
+      document.querySelectorAll('.docs-fold').forEach(function (b) {
+        var which = b.getAttribute('data-fold'), folded = !!store[which];
+        b.innerHTML = (which === 'nav') === folded ? '&rsaquo;' : '&lsaquo;';
+        var what = which === 'nav' ? 'the navigation' : 'the page outline';
+        b.title = (folded ? 'Show ' : 'Hide ') + what; b.setAttribute('aria-label', b.title);
+      });
+    }
+    document.querySelectorAll('.docs-fold').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var which = b.getAttribute('data-fold'); store[which] = !store[which];
+        try { localStorage.setItem('docs-fold', JSON.stringify(store)); } catch (e) {}
+        apply();
+      });
+    });
+    apply();
+  }
+  /* 0b. The header ribbon: mark the entry whose section holds this page. Quarto rewrites the hrefs to
+     relative paths, so folders are read from the resolved URLs; the Overview link gives the site root. */
+  (function () {
+    var links = Array.prototype.slice.call(document.querySelectorAll('.site-nav a'));
+    if (!links.length) return;
+    /* a served URL may end in '/' (GitHub Pages: …/about/); read it as …/about/index.html */
+    function folder(path) { if (/\/$/.test(path)) path += 'index.html'; var s = path.split('/').filter(Boolean); return s.length > 1 ? s[s.length - 2] : ''; }
+    var wm = document.querySelector('a.wordmark');            // the wordmark links to the site root
+    var root = folder((wm || links[0]).pathname);
+    var map = { rietveld: 'cases', drude: 'cases', dielectric: 'cases' };
+    function key(path) { var f = folder(path); if (f === root) return 'overview'; return map[f] || f; }
+    var here = key(location.pathname);
+    links.forEach(function (a) { a.classList.toggle('current', key(a.pathname) === here); });
+  })();
+
+  var main = document.querySelector('.docs-main');
+  var nav = document.querySelector('.docs-nav');
+  var toc = document.querySelector('.docs-toc ol');
+  if (!main || !nav || !toc) return;
+
+  /* 1. Left nav: mark the current page (and section, if the hash matches). */
+  var here = location.pathname.replace(/\/index\.html$/, '/');
+  var links = Array.prototype.slice.call(nav.querySelectorAll('a'));
+  var pageLink = null, hashLink = null;
+  links.forEach(function (a) {
+    var p = a.pathname.replace(/\/index\.html$/, '/');
+    if (p !== here) return;
+    if (!a.hash && !pageLink) pageLink = a;
+    if (a.hash && a.hash === location.hash) hashLink = a;
+  });
+  var cur = hashLink || pageLink;
+  if (cur) {
+    cur.classList.add('current');
+    var det = cur.closest('details.group');
+    if (det) { det.open = true; det.classList.add('has-current'); }
+    /* Breadcrumbs: group title › page (› section). */
+    var crumbs = document.createElement('div');
+    crumbs.className = 'docs-crumbs';
+    var g = det ? det.querySelector('summary.t') : null;
+    var parts = [];
+    function push(t) { if (t && parts[parts.length - 1] !== t) parts.push(t); }
+    if (g) push(g.textContent.trim());
+    if (pageLink && pageLink !== cur) push(pageLink.textContent.trim());
+    push(cur.textContent.trim());
+    crumbs.innerHTML = parts.map(function (t, i) {
+      return (i ? '<span class="sep">›</span>' : '') + '<span>' + t.replace(/</g, '&lt;') + '</span>';
+    }).join('');
+    main.insertBefore(crumbs, main.firstChild);
+  }
+
+  /* 2. Right "On this page": h2 and h3 of the reading column. */
+  var used = {};
+  var heads = Array.prototype.slice.call(main.querySelectorAll('h2, h3')).filter(function (h) {
+    if (h.closest('.site-foot, .featured-band, .msg-grid, [data-toc="no"]')) return false;
+    if (h.classList.contains('unnumbered') || h.id === 'contenido') return false;
+    return h.textContent.trim().length > 0;
+  });
+  heads.forEach(function (h) {
+    if (!h.id) {
+      var s = h.textContent.trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+        .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60) || 'sec';
+      while (used[s] || document.getElementById(s)) s += '-';
+      h.id = s;
+    }
+    used[h.id] = true;
+    var li = document.createElement('li');
+    if (h.tagName === 'H3') li.className = 'l3';
+    var a = document.createElement('a');
+    a.href = '#' + h.id;
+    /* This runs before KaTeX has rendered the headings, so a heading with mathematics still holds TeX
+       source: copy its markup, including the math spans, and let the page's KaTeX pass render the copy. */
+    var copy = h.cloneNode(true);
+    copy.querySelectorAll('.katex-mathml, annotation, .anchorjs-link').forEach(function (n) { n.remove(); });
+    var label = copy.textContent.trim().replace(/\s+/g, ' ');
+    if (copy.querySelector('.math, .math-done, .katex')) a.innerHTML = copy.innerHTML.trim();
+    else a.textContent = label.length > 72 ? label.slice(0, 70).replace(/[\s,;:]+\S*$/, '') + '…' : label;
+    a.title = label;
+    li.appendChild(a);
+    toc.appendChild(li);
+  });
+  if (!heads.length) { document.querySelector('.docs-toc').hidden = true; return; }
+
+  /* 3. Scroll-spy. */
+  var items = Array.prototype.slice.call(toc.querySelectorAll('a'));
+  function spy() {
+    var y = window.scrollY + 120, best = null;
+    heads.forEach(function (h) { if (h.getBoundingClientRect().top + window.scrollY <= y) best = h; });
+    items.forEach(function (a) { a.classList.toggle('current', best && a.getAttribute('href') === '#' + best.id); });
+  }
+  window.addEventListener('scroll', spy, { passive: true });
+  window.addEventListener('hashchange', spy);
+  spy();
+})();
+</script>
+<footer class="site-foot">
+  <div class="site-foot__inner">
+    <div class="foot-grid">
+      <div class="foot-about">
+        <h4 class="anchored">Qué es esto</h4>
+        <p>Los guiones de las prácticas de laboratorio que la UNED realiza en la Facultad de Ciencia y Tecnología de la UPV/EHU (Leioa), para Bases Físicas del Medio Ambiente, Física I y II, Mecánica y Técnicas Experimentales I.</p>
+        <div class="cite-block">Josu M. Igartua · Departamento de Física, Facultad de Ciencia y Tecnología, UPV/EHU<br>josu.igartua@ehu.eus · +34 94 601 5335</div>
+      </div>
+      <div><h4 class="anchored">Este sitio</h4><ul>
+        <li><a href="../../index.html">Inicio</a></li><li><a href="../../practicas/index.html">Prácticas</a></li><li><a href="../../asignaturas/index.html">Asignaturas</a></li><li><a href="../../recursos/index.html">Recursos</a></li><li><a href="../../informe/index.html">Informe</a></li><li><a href="../../manual/index.html">Manual TE I</a></li><li><a href="../../contacto/index.html">Contacto</a></li>
+      </ul></div>
+      <div><h4 class="anchored">Instituciones</h4><ul>
+        <li><a href="https://www.uned.es">UNED</a></li>
+        <li><a href="https://www.ehu.eus">UPV/EHU</a></li></ul></div>
+      <div><h4 class="anchored">Dónde</h4><ul>
+        <li>Barrio Sarriena s/n, 48940 Leioa (Bizkaia)</li>
+        <li>Laboratorios 0.16 y 0.21</li></ul></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Josu M. Igartua</span>
+      <span>curso 2025–2026</span>
+    </div>
+  </div>
+</footer>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+    tabsets.forEach(function(tabset) {
+      const tabby = new Tabby('#' + tabset.id);
+    });
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

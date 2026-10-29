@@ -1,0 +1,1629 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Josu M. Igartua">
+<meta name="dcterms.date" content="2026-04-16">
+<meta name="keywords" content="Phyphox, sensores del smartphone, laboratorio de mecánica, instrumentación alternativa, acelerómetro, giroscopio">
+<meta name="description" content="Catálogo exhaustivo de los sensores del smartphone accesibles mediante la aplicación Phyphox y su aplicabilidad a las 10 prácticas del Laboratorio de Mecánica de la UNED. Fuente de verdad para la integración sistemática de smartphones como instrumentos de medida.">
+
+<title>Inventario de capacidades de Phyphox para el Laboratorio de Mecánica · UNED Labo – UNED Labo</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<link href="../../assets/favicon.svg" rel="icon" type="image/svg+xml">
+<script src="../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-html-afe927e19676d0e50b1726048be49fb1.min.css" rel="stylesheet" append-hash="true" data-mode="light">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<style>html{ scroll-behavior: smooth; }</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&amp;family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<!-- KaTeX auto-render: publication titles carry TeX inside generated HTML that
+     Quarto's own math pipeline never sees (same approach as thermomat). -->
+<script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+/* The header ribbon is sticky; the side columns and anchor targets need its height. */
+(function () {
+  function headH() {
+    var t = document.querySelector(".topline"), h = document.querySelector(".site-head");
+    var px = (t ? t.offsetHeight : 0) + (h ? h.offsetHeight : 0);
+    if (px) document.documentElement.style.setProperty("--head-h", px + "px");
+  }
+  document.addEventListener("DOMContentLoaded", headH);
+  window.addEventListener("load", headH);
+  window.addEventListener("resize", headH);
+})();
+document.addEventListener("DOMContentLoaded", function () {
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }, { left: "\\(", right: "\\)", display: false }],
+      throwOnError: false
+    });
+  }
+  /* Quarto's KaTeX pipeline writes <span class="math inline">TeX</span> without delimiters and renders
+     them in a loop that reads firstChild.data; that loop dies at the first span the auto-render above
+     has already turned into KaTeX markup, leaving every later formula raw. Render the rest here. */
+  if (window.katex) {
+    document.querySelectorAll(".math").forEach(function (el) {
+      if (!el.querySelector(".katex")) {
+        var t = el.textContent.replace(/^\s*\\[\(\[]/, "").replace(/\\[\)\]]\s*$/, "");
+        try { katex.render(t, el, { displayMode: el.classList.contains("display"), throwOnError: false }); } catch (e) {}
+      }
+      /* Quarto's loop would still visit this span and wipe it (firstChild is now an element, not text):
+         take it out of its sight. No stylesheet of the site depends on the class; KaTeX's own output carries the layout. */
+      el.classList.remove("math"); el.classList.add("math-done");
+    });
+  }
+});
+</script>
+
+  <script defer="" src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../assets/styles/theme.css">
+<link rel="stylesheet" href="../../assets/styles/site.css">
+<link rel="stylesheet" href="../../assets/styles/project.css">
+</head>
+
+<body>
+
+<div class="topline"></div>
+<header class="site-head">
+  <div class="site-head__inner">
+    <a href="../../index.html" class="wordmark">UNED Labo <span class="accent">Leioa</span>
+      <span class="wordmark-sub">prácticas de laboratorio de la UNED en la Facultad de Ciencia y Tecnología (UPV/EHU) · curso 2025–2026</span>
+    </a>
+    <nav class="site-nav">
+      <a href="../../index.html">Inicio</a>
+      <a href="../../practicas/index.html">Prácticas</a>
+      <a href="../../asignaturas/index.html">Asignaturas</a>
+      <a href="../../recursos/index.html">Recursos</a>
+      <a href="../../informe/index.html">Informe</a>
+      <a href="../../manual/index.html">Manual TE I</a>
+      <a href="../../contacto/index.html">Contacto</a>
+    </nav>
+  </div>
+</header>
+<!-- generated by tools/sibling.py public: the left navigation -->
+<div class="docs">
+<nav class="docs-nav" aria-label="Site sections">
+<button class="docs-fold" type="button" data-fold="nav" aria-label="Hide the navigation" title="Hide the navigation">‹</button>
+<details class="group" open=""><summary class="t">Inicio</summary><ul><li><a href="../../index.html">Inicio</a></li></ul></details>
+<details class="group" open=""><summary class="t">Prácticas</summary><ul><li><a href="../../practicas/index.html">Catálogo: las veinte prácticas</a></li><li><a href="../../practicas/pendulo-fisico/index.html">P01 · Péndulo físico</a></li><li><a href="../../practicas/ley-hooke/index.html">P02 · Movimiento armónico simple. Ley de Hooke</a></li><li><a href="../../practicas/carril-aire/index.html">P03 · Medida de magnitudes dinámicas mediante un carril de aire</a></li><li><a href="../../practicas/cc-resistencia-interna/index.html">P04 · Corriente continua I: resistencia interna de una fuente</a></li><li><a href="../../practicas/cc-curva-lampara/index.html">P05 · Corriente continua II: curva característica de una lámpara</a></li><li><a href="../../practicas/descarga-condensador/index.html">P06 · Descarga de un condensador</a></li><li><a href="../../practicas/ondas-estacionarias/index.html">P07 · Ondas estacionarias en una cuerda con extremos fijos</a></li><li><a href="../../practicas/vaporizacion-agua/index.html">P08 · Calor de vaporización del agua</a></li><li><a href="../../practicas/velocidad-sonido/index.html">P09 · Medida de la velocidad del sonido: tubo de resonancia</a></li><li><a href="../../practicas/inercia-disco/index.html">P10 · Momento de inercia de un disco</a></li><li><a href="../../practicas/catenaria/index.html">P11 · Equilibrio de un hilo bajo la acción de la gravedad: la catenaria</a></li><li><a href="../../practicas/rozamiento-correas/index.html">P12 · Coeficiente de rozamiento entre correas y poleas</a></li><li><a href="../../practicas/giroscopo/index.html">P13 · Giróscopo</a></li><li><a href="../../practicas/cantidad-movimiento/index.html">P14 · Conservación de la cantidad de movimiento</a></li><li><a href="../../practicas/momento-cinetico/index.html">P15 · Conservación del momento cinético</a></li><li><a href="../../practicas/pendulo-circular/index.html">P16 · Péndulo circular (cónico)</a></li><li><a href="../../practicas/momentos-inercia/index.html">P17 · Momentos de inercia de sólidos</a></li><li><a href="../../practicas/maquina-atwood/index.html">P18 · Máquina de Atwood</a></li><li><a href="../../practicas/vibraciones-1gdl/index.html">P19 · Vibraciones libres con un grado de libertad</a></li><li><a href="../../practicas/vibraciones-2gdl/index.html">P20 · Vibraciones libres con dos grados de libertad</a></li></ul></details>
+<details class="group" open=""><summary class="t">Asignaturas</summary><ul><li><a href="../../asignaturas/index.html">Las cuatro asignaturas</a></li><li><a href="../../asignaturas/bfma/index.html">Bases Físicas del Medio Ambiente</a></li><li><a href="../../asignaturas/fisica/index.html">Física I y II</a></li><li><a href="../../asignaturas/mecanica/index.html">Mecánica</a></li><li><a href="../../asignaturas/tecnicas-experimentales/index.html">Técnicas Experimentales I</a></li></ul></details>
+<details class="group" open=""><summary class="t">Recursos</summary><ul><li><a href="../../recursos/index.html">Recursos</a></li><li><a href="../../recursos/sesion-0/index.html">Sesión 0</a></li><li><a href="../../recursos/errores/index.html">Errores y regresiones</a></li><li><a href="../../recursos/phyphox/index.html">Phyphox</a></li></ul></details>
+<details class="group" open=""><summary class="t">Informe</summary><ul><li><a href="../../informe/index.html">El informe: qué contiene, cómo se evalúa</a></li><li><a href="../../informe/modelos/index.html">Los ocho informes modelo</a></li><li><a href="../../informe/rubrica/index.html">La rúbrica de TE I: 225 criterios</a></li><li><a href="../../informe/rubrica-gum/index.html">La rúbrica GUM</a></li></ul></details>
+<details class="group" open=""><summary class="t">Manual TE I</summary><ul><li><a href="../../manual/index.html">El manual, capítulo a capítulo</a></li><li><a href="../../manual/01-representacion-magnitudes.html">Tema 1: Representación de magnitudes</a></li><li><a href="../../manual/02-medidas-directas.html">Tema 2: Medidas directas</a></li><li><a href="../../manual/03-medidas-indirectas.html">Tema 3: Medidas indirectas</a></li><li><a href="../../manual/04-graficas-regresion.html">Tema 4: Gráficas y regresión lineal</a></li><li><a href="../../manual/05-ejemplos-desarrollados.html">Tema 5: Ejemplos desarrollados</a></li><li><a href="../../manual/06-instrucciones-laboratorio.html">Tema 6: Instrucciones para el laboratorio</a></li><li><a href="../../manual/07-soluciones-ejercicios.html">Soluciones y apéndices</a></li></ul></details>
+<details class="group" open=""><summary class="t">Contacto</summary><ul><li><a href="../../contacto/index.html">Contacto</a></li></ul></details>
+</nav>
+<div class="docs-main">
+
+<header id="title-block-header">
+<h1 class="title">Inventario de capacidades de Phyphox para el Laboratorio de Mecánica</h1>
+<p class="subtitle">Documento de referencia — Sensores, modos de operación y análisis de viabilidad</p>
+<p class="author">Josu M. Igartua</p>
+
+<p class="date">2026-04-16</p>
+<div class="abstract">
+<div class="abstract-title">Resumen</div>
+<p>Se presenta un inventario completo de los sensores del smartphone disponibles a través de la aplicación Phyphox (RWTH Aachen University), evaluando su aplicabilidad a las prácticas del Laboratorio de Mecánica. Para cada sensor se documenta el principio de funcionamiento, la resolución y tasa de muestreo típicas, los modos de operación en Phyphox, las limitaciones conocidas, y la orientación preferida del teléfono. A continuación, se analiza la viabilidad de sustitución o complemento de la instrumentación clásica en cada una de las 10 prácticas del laboratorio, identificando los nichos de uso más prometedores y las prácticas con mayor potencial de adaptación.</p>
+</div>
+</header>
+
+<nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#introducción" id="toc-introducción">Introducción</a></li>
+  <li><a href="#características-generales-de-phyphox" id="toc-características-generales-de-phyphox">Características generales de Phyphox</a></li>
+  <li><a href="#parte-i-inventario-de-sensores" id="toc-parte-i-inventario-de-sensores">Parte I: Inventario de sensores</a>
+  <ul>
+  <li><a href="#acelerómetro" id="toc-acelerómetro">1. Acelerómetro</a>
+  <ul>
+  <li><a href="#principio-de-funcionamiento" id="toc-principio-de-funcionamiento">Principio de funcionamiento</a></li>
+  <li><a href="#especificaciones-típicas" id="toc-especificaciones-típicas">Especificaciones típicas</a></li>
+  <li><a href="#modos-en-phyphox" id="toc-modos-en-phyphox">Modos en Phyphox</a></li>
+  <li><a href="#orientación-preferida-del-teléfono" id="toc-orientación-preferida-del-teléfono">Orientación preferida del teléfono</a></li>
+  <li><a href="#limitaciones" id="toc-limitaciones">Limitaciones</a></li>
+  <li><a href="#aplicaciones-en-el-laboratorio-de-mecánica" id="toc-aplicaciones-en-el-laboratorio-de-mecánica">Aplicaciones en el laboratorio de mecánica</a></li>
+  </ul></li>
+  <li><a href="#giroscopio" id="toc-giroscopio">2. Giroscopio</a>
+  <ul>
+  <li><a href="#principio-de-funcionamiento-1" id="toc-principio-de-funcionamiento-1">Principio de funcionamiento</a></li>
+  <li><a href="#especificaciones-típicas-1" id="toc-especificaciones-típicas-1">Especificaciones típicas</a></li>
+  <li><a href="#modos-en-phyphox-1" id="toc-modos-en-phyphox-1">Modos en Phyphox</a></li>
+  <li><a href="#orientación-preferida-del-teléfono-1" id="toc-orientación-preferida-del-teléfono-1">Orientación preferida del teléfono</a></li>
+  <li><a href="#limitaciones-1" id="toc-limitaciones-1">Limitaciones</a></li>
+  <li><a href="#aplicaciones-en-el-laboratorio-de-mecánica-1" id="toc-aplicaciones-en-el-laboratorio-de-mecánica-1">Aplicaciones en el laboratorio de mecánica</a></li>
+  </ul></li>
+  <li><a href="#sensor-de-proximidad" id="toc-sensor-de-proximidad">3. Sensor de proximidad</a>
+  <ul>
+  <li><a href="#principio-de-funcionamiento-2" id="toc-principio-de-funcionamiento-2">Principio de funcionamiento</a></li>
+  <li><a href="#especificaciones-típicas-2" id="toc-especificaciones-típicas-2">Especificaciones típicas</a></li>
+  <li><a href="#modos-en-phyphox-2" id="toc-modos-en-phyphox-2">Modos en Phyphox</a></li>
+  <li><a href="#aplicaciones" id="toc-aplicaciones">Aplicaciones</a></li>
+  </ul></li>
+  <li><a href="#micrófono-cronómetro-acústico" id="toc-micrófono-cronómetro-acústico">4. Micrófono (cronómetro acústico)</a>
+  <ul>
+  <li><a href="#principio-de-funcionamiento-3" id="toc-principio-de-funcionamiento-3">Principio de funcionamiento</a></li>
+  <li><a href="#especificaciones-típicas-3" id="toc-especificaciones-típicas-3">Especificaciones típicas</a></li>
+  <li><a href="#modos-en-phyphox-3" id="toc-modos-en-phyphox-3">Modos en Phyphox</a></li>
+  <li><a href="#orientación-preferida-del-teléfono-2" id="toc-orientación-preferida-del-teléfono-2">Orientación preferida del teléfono</a></li>
+  <li><a href="#limitaciones-2" id="toc-limitaciones-2">Limitaciones</a></li>
+  <li><a href="#aplicaciones-en-el-laboratorio-de-mecánica-2" id="toc-aplicaciones-en-el-laboratorio-de-mecánica-2">Aplicaciones en el laboratorio de mecánica</a></li>
+  </ul></li>
+  <li><a href="#sensor-de-luz-cronómetro-óptico" id="toc-sensor-de-luz-cronómetro-óptico">5. Sensor de luz (cronómetro óptico)</a>
+  <ul>
+  <li><a href="#principio-de-funcionamiento-4" id="toc-principio-de-funcionamiento-4">Principio de funcionamiento</a></li>
+  <li><a href="#especificaciones-típicas-4" id="toc-especificaciones-típicas-4">Especificaciones típicas</a></li>
+  <li><a href="#modos-en-phyphox-4" id="toc-modos-en-phyphox-4">Modos en Phyphox</a></li>
+  <li><a href="#limitaciones-3" id="toc-limitaciones-3">Limitaciones</a></li>
+  <li><a href="#aplicaciones-1" id="toc-aplicaciones-1">Aplicaciones</a></li>
+  </ul></li>
+  <li><a href="#magnetómetro" id="toc-magnetómetro">6. Magnetómetro</a>
+  <ul>
+  <li><a href="#principio-de-funcionamiento-5" id="toc-principio-de-funcionamiento-5">Principio de funcionamiento</a></li>
+  <li><a href="#especificaciones-típicas-5" id="toc-especificaciones-típicas-5">Especificaciones típicas</a></li>
+  <li><a href="#modos-en-phyphox-5" id="toc-modos-en-phyphox-5">Modos en Phyphox</a></li>
+  <li><a href="#aplicaciones-2" id="toc-aplicaciones-2">Aplicaciones</a></li>
+  </ul></li>
+  <li><a href="#barómetro" id="toc-barómetro">7. Barómetro</a>
+  <ul>
+  <li><a href="#principio-de-funcionamiento-6" id="toc-principio-de-funcionamiento-6">Principio de funcionamiento</a></li>
+  <li><a href="#aplicaciones-3" id="toc-aplicaciones-3">Aplicaciones</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#parte-ii-análisis-de-viabilidad-por-práctica" id="toc-parte-ii-análisis-de-viabilidad-por-práctica">Parte II: Análisis de viabilidad por práctica</a>
+  <ul>
+  <li><a href="#resumen-ejecutivo" id="toc-resumen-ejecutivo">Resumen ejecutivo</a></li>
+  <li><a href="#sec-p1" id="toc-sec-p1">Práctica 1: Equilibrio de un hilo (Catenaria) — Viabilidad baja</a></li>
+  <li><a href="#sec-p2" id="toc-sec-p2">Práctica 2: Rozamiento entre correas y poleas — Viabilidad baja-media</a></li>
+  <li><a href="#sec-p3" id="toc-sec-p3">Práctica 3: Giróscopo — Viabilidad alta</a></li>
+  <li><a href="#sec-p4" id="toc-sec-p4">Práctica 4: Conservación de la cantidad de movimiento — Completada</a></li>
+  <li><a href="#sec-p5" id="toc-sec-p5">Práctica 5: Conservación del momento cinético — Viabilidad muy alta</a></li>
+  <li><a href="#sec-p6" id="toc-sec-p6">Práctica 6: Péndulo circular (cónico) — Viabilidad alta</a></li>
+  <li><a href="#sec-p7" id="toc-sec-p7">Práctica 7: Determinación del momento de inercia de sólidos — Viabilidad alta</a></li>
+  <li><a href="#sec-p8" id="toc-sec-p8">Práctica 8: Máquina de Atwood — Viabilidad alta</a></li>
+  <li><a href="#sec-p9" id="toc-sec-p9">Práctica 9: Vibraciones libres con 1 GdL — Viabilidad muy alta</a></li>
+  <li><a href="#sec-p10" id="toc-sec-p10">Práctica 10: Vibraciones libres con 2 GdL — Viabilidad muy alta</a></li>
+  </ul></li>
+  <li><a href="#parte-iii-hoja-de-ruta-de-desarrollo" id="toc-parte-iii-hoja-de-ruta-de-desarrollo">Parte III: Hoja de ruta de desarrollo</a>
+  <ul>
+  <li><a href="#priorización" id="toc-priorización">Priorización</a></li>
+  <li><a href="#estructura-de-documentación" id="toc-estructura-de-documentación">Estructura de documentación</a></li>
+  <li><a href="#referencias" id="toc-referencias">Referencias</a></li>
+  </ul></li>
+  </ul>
+</nav>
+<p><br></p>
+<h2 id="introducción" class="anchored">Introducción</h2>
+<p><br></p>
+<p>La aplicación <a href="https://phyphox.org">Phyphox</a> (Physical Phone Experiments), desarrollada por la RWTH Aachen University (Alemania), es una herramienta gratuita y de código abierto que permite acceder a los sensores internos del smartphone para realizar experimentos de física. Disponible para iOS y Android, Phyphox ofrece una interfaz sencilla con experimentos preconfigurados y la posibilidad de crear experimentos personalizados.</p>
+<p>Este documento constituye la <strong>fuente de verdad</strong> para la integración de Phyphox en el Laboratorio de Mecánica de la UNED. Se estructura en dos partes:</p>
+<ol type="1">
+<li><strong>Inventario de sensores</strong>: catálogo detallado de cada sensor disponible, sus capacidades y limitaciones.</li>
+<li><strong>Análisis de viabilidad</strong>: evaluación práctica por práctica de las posibilidades de uso de cada sensor.</li>
+</ol>
+<div>
+<blockquote>
+<p><strong>Convención de orientación del teléfono</strong></p>
+<p>A lo largo de este documento, la configuración preferida del teléfono es siempre <strong>horizontal, con la pantalla hacia arriba</strong>, apoyado sobre la mesa o la superficie de trabajo. Esta es la disposición más sencilla, estable y reproducible. Solo se recomiendan otras orientaciones cuando la medida lo requiere explícitamente.</p>
+</blockquote>
+</div>
+<p><br></p>
+<h2 id="características-generales-de-phyphox" class="anchored">Características generales de Phyphox</h2>
+<p><br></p>
+<div id="tbl-general" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-general-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;1: Características generales de la aplicación Phyphox.
+</figcaption>
+<div aria-describedby="tbl-general-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Característica</th>
+<th style="text-align: left;">Detalle</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Desarrollador</strong></td>
+<td style="text-align: left;">RWTH Aachen University (Alemania)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Coste</strong></td>
+<td style="text-align: left;">Gratuito, código abierto</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Plataformas</strong></td>
+<td style="text-align: left;">iOS (App Store) y Android (Google Play)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Idiomas</strong></td>
+<td style="text-align: left;">Multilingüe (incluye español)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Exportación de datos</strong></td>
+<td style="text-align: left;">CSV, Excel; exportación en tiempo real vía red local</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Acceso remoto</strong></td>
+<td style="text-align: left;">Sí — interfaz web desde cualquier navegador en la misma red WiFi</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Experimentos personalizados</strong></td>
+<td style="text-align: left;">Sí — editor web (phyphox.org/editor)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Referencia web</strong></td>
+<td style="text-align: left;"><a href="https://phyphox.org">phyphox.org</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<div>
+<blockquote>
+<p><strong>Acceso remoto</strong></p>
+<p>Phyphox permite controlar el experimento y visualizar los datos en tiempo real desde un ordenador o tablet conectados a la misma red WiFi. Esto es especialmente útil cuando el teléfono está en una posición inaccesible (por ejemplo, montado sobre un objeto en movimiento). Para activarlo: menú ⋮ → <em>Permitir acceso remoto</em> → abrir la URL mostrada en cualquier navegador.</p>
+</blockquote>
+</div>
+<p><br></p>
+<hr>
+<h1 class="section-title" id="parte-i-inventario-de-sensores">Parte I: Inventario de sensores</h1>
+<p><br></p>
+<h2 id="acelerómetro" class="anchored">1. Acelerómetro</h2>
+<p><br></p>
+<h3 id="principio-de-funcionamiento" class="anchored">Principio de funcionamiento</h3>
+<p>El acelerómetro MEMS (Micro-Electro-Mechanical System) mide la aceleración lineal en tres ejes (<span class="math inline">a_x</span>, <span class="math inline">a_y</span>, <span class="math inline">a_z</span>). En reposo, el acelerómetro registra la aceleración de la gravedad (<span class="math inline">g \approx 9{,}81</span> m/s²) en el eje perpendicular al suelo.</p>
+<h3 id="especificaciones-típicas" class="anchored">Especificaciones típicas</h3>
+<div id="tbl-acelerometro" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-acelerometro-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;2: Especificaciones típicas del acelerómetro de smartphones.
+</figcaption>
+<div aria-describedby="tbl-acelerometro-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Parámetro</th>
+<th style="text-align: left;">Valor típico</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Tasa de muestreo</td>
+<td style="text-align: left;">100–500 Hz (depende del modelo)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Resolución</td>
+<td style="text-align: left;"><span class="math inline">\sim 0{,}01</span> m/s²</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Rango</td>
+<td style="text-align: left;"><span class="math inline">\pm 2g</span> a <span class="math inline">\pm 16g</span> (configurable)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ruido</td>
+<td style="text-align: left;"><span class="math inline">\sim 0{,}02\textrm{–}0{,}05</span> m/s²</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<h3 id="modos-en-phyphox" class="anchored">Modos en Phyphox</h3>
+<ul>
+<li><strong>Acceleration (without g)</strong>: aceleración lineal (sustrayendo la gravedad mediante el filtro del sistema operativo). Ideal para medir aceleraciones dinámicas puras.</li>
+<li><strong>Acceleration (with g)</strong>: aceleración bruta incluyendo la componente gravitatoria. Útil para medir la inclinación del dispositivo.</li>
+<li><strong>Acceleration Spectrum</strong>: análisis de Fourier (FFT) de la señal del acelerómetro. Permite identificar frecuencias de vibración.</li>
+<li><strong>Inclination</strong>: ángulos de inclinación en los tres ejes, derivados de la dirección de <span class="math inline">\vec{g}</span>.</li>
+</ul>
+<h3 id="orientación-preferida-del-teléfono" class="anchored">Orientación preferida del teléfono</h3>
+<ul>
+<li><strong>Horizontal, pantalla arriba</strong>: mide <span class="math inline">a_z \approx g</span> en reposo; cambios en <span class="math inline">a_x</span>, <span class="math inline">a_y</span> detectan aceleraciones horizontales.</li>
+<li><strong>Montado sobre el objeto en movimiento</strong>: mide directamente la aceleración del objeto (requiere fijación segura).</li>
+</ul>
+<h3 id="limitaciones" class="anchored">Limitaciones</h3>
+<ul>
+<li>El filtro «without g» introduce un retardo y puede suavizar picos rápidos.</li>
+<li>Drift a largo plazo en la integración numérica (si se intenta obtener velocidad o posición por integración).</li>
+<li>El ruido limita las medidas de aceleraciones muy pequeñas (<span class="math inline">&lt; 0{,}05</span> m/s²).</li>
+</ul>
+<h3 id="aplicaciones-en-el-laboratorio-de-mecánica" class="anchored">Aplicaciones en el laboratorio de mecánica</h3>
+<table class="caption-top">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 23%">
+<col style="width: 23%">
+<col style="width: 29%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Práctica</th>
+<th style="text-align: left;">Magnitud medible</th>
+<th style="text-align: left;">Modo Phyphox</th>
+<th style="text-align: center;">Viabilidad</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>8. Atwood</strong></td>
+<td style="text-align: left;">Aceleración de las masas</td>
+<td style="text-align: left;">Acceleration (without g)</td>
+<td style="text-align: center;"><strong>Alta</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>9. Vibraciones 1 GdL</strong></td>
+<td style="text-align: left;">Periodo de oscilación, <span class="math inline">\omega</span></td>
+<td style="text-align: left;">Acceleration + Spectrum</td>
+<td style="text-align: center;"><strong>Muy alta</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>10. Vibraciones 2 GdL</strong></td>
+<td style="text-align: left;">Frecuencias propias, modos</td>
+<td style="text-align: left;">Acceleration Spectrum</td>
+<td style="text-align: center;"><strong>Muy alta</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>6. Péndulo circular</strong></td>
+<td style="text-align: left;">Periodo (vía centrípeta)</td>
+<td style="text-align: left;">Acceleration (with g)</td>
+<td style="text-align: center;"><strong>Media-Alta</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>4. Colisiones</strong></td>
+<td style="text-align: left;">Impacto de colisión</td>
+<td style="text-align: left;">Acceleration (without g)</td>
+<td style="text-align: center;"><strong>Complemento</strong></td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h2 id="giroscopio" class="anchored">2. Giroscopio</h2>
+<p><br></p>
+<h3 id="principio-de-funcionamiento-1" class="anchored">Principio de funcionamiento</h3>
+<p>El giroscopio MEMS mide la velocidad angular (<span class="math inline">\omega_x</span>, <span class="math inline">\omega_y</span>, <span class="math inline">\omega_z</span>) alrededor de los tres ejes del dispositivo, en radianes por segundo (rad/s). A diferencia del acelerómetro, no necesita referencia gravitatoria: mide rotaciones directamente.</p>
+<h3 id="especificaciones-típicas-1" class="anchored">Especificaciones típicas</h3>
+<div id="tbl-giroscopio" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-giroscopio-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;3: Especificaciones típicas del giroscopio de smartphones.
+</figcaption>
+<div aria-describedby="tbl-giroscopio-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Parámetro</th>
+<th style="text-align: left;">Valor típico</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Tasa de muestreo</td>
+<td style="text-align: left;">100–500 Hz</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Resolución</td>
+<td style="text-align: left;"><span class="math inline">\sim 0{,}01</span> rad/s</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Rango</td>
+<td style="text-align: left;"><span class="math inline">\pm 2000</span> °/s (<span class="math inline">\pm 35</span> rad/s)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ruido</td>
+<td style="text-align: left;"><span class="math inline">\sim 0{,}02</span> rad/s</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Drift</td>
+<td style="text-align: left;"><span class="math inline">\sim 0{,}1\textrm{–}1</span> °/s (acumulativo)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<h3 id="modos-en-phyphox-1" class="anchored">Modos en Phyphox</h3>
+<ul>
+<li><strong>Gyroscope</strong>: velocidad angular instantánea en los tres ejes. Datos brutos con máxima resolución temporal.</li>
+<li>Puede combinarse con el acelerómetro en un «sensor fusion» para obtener orientación absoluta.</li>
+</ul>
+<h3 id="orientación-preferida-del-teléfono-1" class="anchored">Orientación preferida del teléfono</h3>
+<ul>
+<li><strong>Horizontal, pantalla arriba, sobre el objeto giratorio</strong>: el eje <span class="math inline">z</span> (perpendicular a la pantalla) mide la velocidad angular de rotación alrededor del eje vertical.</li>
+<li>Para el giróscopo (Práctica 3): el teléfono debe montarse sobre el disco giratorio.</li>
+</ul>
+<h3 id="limitaciones-1" class="anchored">Limitaciones</h3>
+<ul>
+<li><strong>No todos los smartphones tienen giroscopio</strong>: algunos modelos económicos de Android lo omiten. Verificar en Phyphox → <em>Sensores disponibles</em>.</li>
+<li>Drift acumulativo: en medidas prolongadas (<span class="math inline">&gt; 30</span> s), la lectura puede desviarse. Para medidas de periodo o velocidad angular instantánea, el drift no es problema.</li>
+<li>Sensible a vibraciones: las vibraciones mecánicas pueden superponerse a la señal de rotación.</li>
+</ul>
+<h3 id="aplicaciones-en-el-laboratorio-de-mecánica-1" class="anchored">Aplicaciones en el laboratorio de mecánica</h3>
+<table class="caption-top">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 23%">
+<col style="width: 23%">
+<col style="width: 29%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Práctica</th>
+<th style="text-align: left;">Magnitud medible</th>
+<th style="text-align: left;">Modo Phyphox</th>
+<th style="text-align: center;">Viabilidad</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>3. Giróscopo</strong></td>
+<td style="text-align: left;"><span class="math inline">\omega_{\text{giro}}</span>, <span class="math inline">\Omega_{\text{precesión}}</span></td>
+<td style="text-align: left;">Gyroscope (<span class="math inline">\omega_z</span>)</td>
+<td style="text-align: center;"><strong>Alta</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>5. Momento cinético</strong></td>
+<td style="text-align: left;"><span class="math inline">\omega</span> antes/después</td>
+<td style="text-align: left;">Gyroscope (<span class="math inline">\omega_z</span>)</td>
+<td style="text-align: center;"><strong>Muy alta</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>7. Momentos de inercia</strong></td>
+<td style="text-align: left;"><span class="math inline">\omega</span> de oscilación torsional</td>
+<td style="text-align: left;">Gyroscope (<span class="math inline">\omega_z</span>)</td>
+<td style="text-align: center;"><strong>Alta</strong></td>
+</tr>
+</tbody>
+</table>
+<div>
+<blockquote>
+<p><strong>Caso de uso estrella: Práctica 5</strong></p>
+<p>La Práctica 5 (conservación del momento cinético) es el caso de uso ideal para el giroscopio del smartphone. El teléfono se coloca sobre la banqueta giratoria (horizontal, pantalla arriba) y mide directamente <span class="math inline">\omega</span> antes y después de que la persona cambie la distribución de masa (acercando o alejando las pesas). No se necesita ningún otro instrumento. La medida es directa, precisa y pedagógicamente transparente.</p>
+</blockquote>
+</div>
+<p><br></p>
+<h2 id="sensor-de-proximidad" class="anchored">3. Sensor de proximidad</h2>
+<p><br></p>
+<h3 id="principio-de-funcionamiento-2" class="anchored">Principio de funcionamiento</h3>
+<p>Sensor infrarrojo binario (cerca/lejos) con umbral a <span class="math inline">\sim 5</span> cm. Se utiliza como cronómetro midiendo el tiempo de tránsito de un banderín.</p>
+<h3 id="especificaciones-típicas-2" class="anchored">Especificaciones típicas</h3>
+<div id="tbl-proximidad" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-proximidad-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;4: Especificaciones del sensor de proximidad.
+</figcaption>
+<div aria-describedby="tbl-proximidad-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Parámetro</th>
+<th style="text-align: left;">Valor típico</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Tipo</td>
+<td style="text-align: left;">Binario (near/far)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Umbral</td>
+<td style="text-align: left;"><span class="math inline">\sim 5</span> cm</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Resolución temporal</td>
+<td style="text-align: left;"><span class="math inline">\sim 120\textrm{–}200</span> ms</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Tasa de muestreo</td>
+<td style="text-align: left;">Asíncrona (evento-driven)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<h3 id="modos-en-phyphox-2" class="anchored">Modos en Phyphox</h3>
+<ul>
+<li><strong>Proximity Stopwatch</strong>: modo duración (tiempo de tránsito) y modo paralelo (tiempo entre posiciones).</li>
+</ul>
+<h3 id="aplicaciones" class="anchored">Aplicaciones</h3>
+<p>Ya documentado en detalle en la <a href="../../recursos/phyphox/proximidad/guia_general.html">guía general del sensor de proximidad</a> y la <a href="../../recursos/phyphox/proximidad/practica04_phyphox.html">adaptación de la Práctica 4</a>.</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 30%">
+<col style="width: 38%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Práctica</th>
+<th style="text-align: left;">Magnitud medible</th>
+<th style="text-align: center;">Viabilidad</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>4. Colisiones</strong></td>
+<td style="text-align: left;">Velocidades pre/post colisión</td>
+<td style="text-align: center;"><strong>Alta</strong> (completado)</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h2 id="micrófono-cronómetro-acústico" class="anchored">4. Micrófono (cronómetro acústico)</h2>
+<p><br></p>
+<h3 id="principio-de-funcionamiento-3" class="anchored">Principio de funcionamiento</h3>
+<p>El micrófono del smartphone tiene una tasa de muestreo muy alta (44.100 Hz típicamente), lo que permite una resolución temporal de <span class="math inline">\sim 0{,}023</span> ms — <strong>tres órdenes de magnitud mejor que el sensor de proximidad</strong>. Phyphox lo utiliza para detectar eventos sonoros (impactos, chasquidos) y medir intervalos de tiempo.</p>
+<h3 id="especificaciones-típicas-3" class="anchored">Especificaciones típicas</h3>
+<div id="tbl-microfono" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-microfono-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;5: Especificaciones del micrófono.
+</figcaption>
+<div aria-describedby="tbl-microfono-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Parámetro</th>
+<th style="text-align: left;">Valor típico</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Tasa de muestreo</td>
+<td style="text-align: left;">44.100–48.000 Hz</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Resolución temporal</td>
+<td style="text-align: left;"><span class="math inline">\sim 0{,}02</span> ms</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Rango de frecuencias</td>
+<td style="text-align: left;">20 Hz – 20 kHz</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Análisis espectral</td>
+<td style="text-align: left;">FFT en tiempo real</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<h3 id="modos-en-phyphox-3" class="anchored">Modos en Phyphox</h3>
+<ul>
+<li><strong>Acoustic Stopwatch</strong>: mide el intervalo de tiempo entre dos eventos sonoros (por ejemplo, dos impactos). Resolución excelente.</li>
+<li><strong>Audio Autocorrelation</strong>: determina la frecuencia fundamental de un sonido periódico. Ideal para medir frecuencias de vibración.</li>
+<li><strong>Audio Spectrum</strong>: FFT del sonido ambiente. Permite identificar frecuencias de resonancia.</li>
+<li><strong>Audio Scope</strong>: osciloscopio de la señal de audio.</li>
+</ul>
+<h3 id="orientación-preferida-del-teléfono-2" class="anchored">Orientación preferida del teléfono</h3>
+<ul>
+<li><strong>Horizontal, pantalla arriba, cerca de la fuente sonora</strong>: el micrófono suele estar en la parte inferior del teléfono. Colocar el teléfono de modo que el micrófono quede cerca de la fuente de sonido.</li>
+<li>No requiere contacto: puede estar a <span class="math inline">10\textrm{–}30</span> cm de la fuente.</li>
+</ul>
+<h3 id="limitaciones-2" class="anchored">Limitaciones</h3>
+<ul>
+<li>Sensible al ruido ambiente: en un laboratorio con múltiples grupos, los sonidos de otros experimentos pueden interferir.</li>
+<li>El umbral de disparo (<em>threshold</em>) del cronómetro acústico debe ajustarse al nivel de ruido del entorno.</li>
+<li>No distingue la fuente del sonido: cualquier ruido por encima del umbral dispara el cronómetro.</li>
+</ul>
+<h3 id="aplicaciones-en-el-laboratorio-de-mecánica-2" class="anchored">Aplicaciones en el laboratorio de mecánica</h3>
+<table class="caption-top">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 23%">
+<col style="width: 23%">
+<col style="width: 29%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Práctica</th>
+<th style="text-align: left;">Magnitud medible</th>
+<th style="text-align: left;">Modo Phyphox</th>
+<th style="text-align: center;">Viabilidad</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>6. Péndulo circular</strong></td>
+<td style="text-align: left;">Periodo <span class="math inline">T</span> (chasquido periódico)</td>
+<td style="text-align: left;">Acoustic Stopwatch</td>
+<td style="text-align: center;"><strong>Alta</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>7. Momentos de inercia</strong></td>
+<td style="text-align: left;">Periodo de oscilación torsional</td>
+<td style="text-align: left;">Acoustic Stopwatch / Autocorrelation</td>
+<td style="text-align: center;"><strong>Alta</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>9. Vibraciones 1 GdL</strong></td>
+<td style="text-align: left;">Frecuencia de oscilación</td>
+<td style="text-align: left;">Audio Autocorrelation</td>
+<td style="text-align: center;"><strong>Alta</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>10. Vibraciones 2 GdL</strong></td>
+<td style="text-align: left;">Frecuencias propias</td>
+<td style="text-align: left;">Audio Spectrum</td>
+<td style="text-align: center;"><strong>Media-Alta</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>4. Colisiones</strong></td>
+<td style="text-align: left;">Instante de colisión</td>
+<td style="text-align: left;">Acoustic Stopwatch</td>
+<td style="text-align: center;"><strong>Complemento</strong></td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h2 id="sensor-de-luz-cronómetro-óptico" class="anchored">5. Sensor de luz (cronómetro óptico)</h2>
+<p><br></p>
+<h3 id="principio-de-funcionamiento-4" class="anchored">Principio de funcionamiento</h3>
+<p>El sensor de luz ambiente mide la intensidad luminosa (en lux). Phyphox lo utiliza como cronómetro óptico: detecta cambios bruscos de iluminación (por ejemplo, cuando un banderín interrumpe un haz de luz dirigido al sensor).</p>
+<h3 id="especificaciones-típicas-4" class="anchored">Especificaciones típicas</h3>
+<div id="tbl-luz" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-luz-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;6: Especificaciones del sensor de luz.
+</figcaption>
+<div aria-describedby="tbl-luz-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Parámetro</th>
+<th style="text-align: left;">Valor típico</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Tasa de muestreo</td>
+<td style="text-align: left;">5–100 Hz (muy variable entre modelos)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Resolución</td>
+<td style="text-align: left;"><span class="math inline">\sim 1</span> lux</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Rango</td>
+<td style="text-align: left;">0–100.000 lux</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<h3 id="modos-en-phyphox-4" class="anchored">Modos en Phyphox</h3>
+<ul>
+<li><strong>Optical Stopwatch</strong>: funciona como una fotopuerta improvisada. Un haz de luz (linterna de otro teléfono) apunta al sensor; cuando un objeto interrumpe el haz, el cronómetro se activa.</li>
+</ul>
+<h3 id="limitaciones-3" class="anchored">Limitaciones</h3>
+<ul>
+<li>La tasa de muestreo es <strong>muy variable</strong> entre modelos de teléfono (algunos tan baja como 5 Hz).</li>
+<li>Requiere una fuente de luz externa (linterna de otro teléfono o lámpara).</li>
+<li>Sensible a la iluminación ambiente del laboratorio.</li>
+</ul>
+<h3 id="aplicaciones-1" class="anchored">Aplicaciones</h3>
+<p>Potencialmente útil como alternativa al sensor de proximidad para medir tiempos de tránsito, pero la variabilidad entre dispositivos lo hace menos fiable.</p>
+<p><br></p>
+<h2 id="magnetómetro" class="anchored">6. Magnetómetro</h2>
+<p><br></p>
+<h3 id="principio-de-funcionamiento-5" class="anchored">Principio de funcionamiento</h3>
+<p>Mide la intensidad del campo magnético en tres ejes (<span class="math inline">B_x</span>, <span class="math inline">B_y</span>, <span class="math inline">B_z</span>) en microteslas (µT). Detecta el campo magnético terrestre y perturbaciones locales (imanes, corrientes).</p>
+<h3 id="especificaciones-típicas-5" class="anchored">Especificaciones típicas</h3>
+<div id="tbl-magnetometro" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-magnetometro-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;7: Especificaciones del magnetómetro.
+</figcaption>
+<div aria-describedby="tbl-magnetometro-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Parámetro</th>
+<th style="text-align: left;">Valor típico</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Tasa de muestreo</td>
+<td style="text-align: left;">50–200 Hz</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Resolución</td>
+<td style="text-align: left;"><span class="math inline">\sim 0{,}1</span> µT</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Rango</td>
+<td style="text-align: left;"><span class="math inline">\pm 2000\textrm{–}4900</span> µT</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<h3 id="modos-en-phyphox-5" class="anchored">Modos en Phyphox</h3>
+<ul>
+<li><strong>Magnetometer</strong>: lectura bruta de <span class="math inline">B_x</span>, <span class="math inline">B_y</span>, <span class="math inline">B_z</span> y magnitud total.</li>
+<li>Puede usarse como cronómetro detectando el paso de un imán adherido a un objeto móvil.</li>
+</ul>
+<h3 id="aplicaciones-2" class="anchored">Aplicaciones</h3>
+<p>Uso limitado en las prácticas actuales del laboratorio de mecánica, salvo como cronómetro alternativo (imán en el coche del carril de aire).</p>
+<p><br></p>
+<h2 id="barómetro" class="anchored">7. Barómetro</h2>
+<p><br></p>
+<h3 id="principio-de-funcionamiento-6" class="anchored">Principio de funcionamiento</h3>
+<p>Mide la presión atmosférica (en hPa/mbar). Presente en la mayoría de los smartphones modernos.</p>
+<h3 id="aplicaciones-3" class="anchored">Aplicaciones</h3>
+<p><strong>Marginal</strong> para el laboratorio de mecánica. Podría detectar cambios de altitud en un experimento de caída libre, pero la resolución es insuficiente para las distancias típicas del laboratorio.</p>
+<p><br></p>
+<hr>
+<h1 class="section-title" id="parte-ii-análisis-de-viabilidad-por-práctica">Parte II: Análisis de viabilidad por práctica</h1>
+<p><br></p>
+<h2 id="resumen-ejecutivo" class="anchored">Resumen ejecutivo</h2>
+<p><br></p>
+<div id="tbl-resumen" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-resumen-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;8: Resumen de viabilidad de integración Phyphox por práctica.
+</figcaption>
+<div aria-describedby="tbl-resumen-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 15%">
+<col style="width: 15%">
+<col style="width: 15%">
+<col style="width: 19%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Práctica</th>
+<th style="text-align: left;">Título</th>
+<th style="text-align: left;">Sensor candidato</th>
+<th style="text-align: left;">Magnitud</th>
+<th style="text-align: center;">Viabilidad</th>
+<th style="text-align: left;">Estado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: left;">Catenaria</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">Posiciones</td>
+<td style="text-align: center;"><strong>Baja</strong></td>
+<td style="text-align: left;">No viable</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: left;">Rozamiento correas</td>
+<td style="text-align: left;">Acelerómetro</td>
+<td style="text-align: left;">Ángulo polea</td>
+<td style="text-align: center;"><strong>Baja-Media</strong></td>
+<td style="text-align: left;">Marginal</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: left;">Giróscopo</td>
+<td style="text-align: left;"><strong>Giroscopio</strong></td>
+<td style="text-align: left;"><span class="math inline">\omega</span>, <span class="math inline">\Omega_p</span></td>
+<td style="text-align: center;"><strong>Alta</strong></td>
+<td style="text-align: left;">Por desarrollar</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: left;">Cantidad de movimiento</td>
+<td style="text-align: left;">Proximidad</td>
+<td style="text-align: left;">Velocidades</td>
+<td style="text-align: center;"><strong>Alta</strong></td>
+<td style="text-align: left;"><strong>Completado</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: left;">Momento cinético</td>
+<td style="text-align: left;"><strong>Giroscopio</strong></td>
+<td style="text-align: left;"><span class="math inline">\omega</span></td>
+<td style="text-align: center;"><strong>Muy alta</strong></td>
+<td style="text-align: left;">Por desarrollar</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6</td>
+<td style="text-align: left;">Péndulo circular</td>
+<td style="text-align: left;"><strong>Acústico</strong></td>
+<td style="text-align: left;">Periodo <span class="math inline">T</span></td>
+<td style="text-align: center;"><strong>Alta</strong></td>
+<td style="text-align: left;">Por desarrollar</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">7</td>
+<td style="text-align: left;">Momentos de inercia</td>
+<td style="text-align: left;"><strong>Acústico</strong> / Giroscopio</td>
+<td style="text-align: left;">Periodo <span class="math inline">T</span></td>
+<td style="text-align: center;"><strong>Alta</strong></td>
+<td style="text-align: left;">Por desarrollar</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">8</td>
+<td style="text-align: left;">Máquina de Atwood</td>
+<td style="text-align: left;"><strong>Acelerómetro</strong></td>
+<td style="text-align: left;">Aceleración <span class="math inline">a</span></td>
+<td style="text-align: center;"><strong>Alta</strong></td>
+<td style="text-align: left;">Por desarrollar</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">9</td>
+<td style="text-align: left;">Vibraciones 1 GdL</td>
+<td style="text-align: left;"><strong>Acelerómetro</strong></td>
+<td style="text-align: left;">Periodo, <span class="math inline">\omega</span>, <span class="math inline">k</span></td>
+<td style="text-align: center;"><strong>Muy alta</strong></td>
+<td style="text-align: left;">Por desarrollar</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">10</td>
+<td style="text-align: left;">Vibraciones 2 GdL</td>
+<td style="text-align: left;"><strong>Acelerómetro</strong></td>
+<td style="text-align: left;">Frecuencias, modos</td>
+<td style="text-align: center;"><strong>Muy alta</strong></td>
+<td style="text-align: left;">Por desarrollar</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p><br></p>
+<h2 id="sec-p1" class="anchored">Práctica 1: Equilibrio de un hilo (Catenaria) — Viabilidad baja</h2>
+<p><br></p>
+<p><strong>Magnitudes medidas:</strong> posiciones <span class="math inline">(x, y)</span> de puntos del hilo, longitud del hilo, distancia entre soportes.</p>
+<p><strong>Análisis:</strong> Las medidas son puramente geométricas (posiciones con regla y papel milimetrado). Ningún sensor del smartphone aporta una ventaja significativa. Se podría usar la cámara para fotografiar la curva y analizarla digitalmente, pero esto requiere software de análisis de imagen, no Phyphox.</p>
+<p><strong>Conclusión:</strong> No se propone adaptación.</p>
+<p><br></p>
+<h2 id="sec-p2" class="anchored">Práctica 2: Rozamiento entre correas y poleas — Viabilidad baja-media</h2>
+<p><br></p>
+<p><strong>Magnitudes medidas:</strong> tensiones <span class="math inline">T_1</span> y <span class="math inline">T_2</span> (medidas con dinamómetro), ángulo de abrazamiento <span class="math inline">\theta</span>.</p>
+<p><strong>Análisis:</strong> Las tensiones requieren un instrumento de fuerza (dinamómetro o célula de carga). El smartphone no puede medir fuerzas directamente. El acelerómetro podría medir el ángulo de inclinación de la polea, pero el ángulo de abrazamiento se mide más fácilmente con un transportador.</p>
+<p><strong>Conclusión:</strong> Adaptación marginal. No se propone desarrollo prioritario.</p>
+<p><br></p>
+<h2 id="sec-p3" class="anchored">Práctica 3: Giróscopo — Viabilidad alta</h2>
+<p><br></p>
+<p><strong>Magnitudes medidas:</strong> velocidad angular de giro <span class="math inline">\omega</span>, velocidad angular de precesión <span class="math inline">\Omega_p</span>, par aplicado <span class="math inline">\tau</span>.</p>
+<p><strong>Sensor propuesto:</strong> <strong>Giroscopio</strong> del smartphone.</p>
+<p><strong>Método:</strong> Colocar el teléfono horizontal sobre el disco del giróscopo. El giroscopio del teléfono mide directamente <span class="math inline">\omega_z</span> (velocidad angular de giro). Para medir la precesión, el teléfono debe estar solidario con el eje de precesión, y se registra la componente de velocidad angular en el plano horizontal.</p>
+<p><strong>Ventaja:</strong> Medida directa de <span class="math inline">\omega</span> sin necesidad de cronómetro externo ni marcas estroboscópicas. Los datos se exportan como serie temporal <span class="math inline">\omega(t)</span>, permitiendo analizar la relación entre precesión y par.</p>
+<p><strong>Dificultad:</strong> El montaje del teléfono sobre el giróscopo debe ser seguro y no desequilibrar el sistema.</p>
+<p><strong>Estado:</strong> Calibración y guía alternativa por desarrollar.</p>
+<p><br></p>
+<h2 id="sec-p4" class="anchored">Práctica 4: Conservación de la cantidad de movimiento — Completada</h2>
+<p><br></p>
+<p><strong>Sensor utilizado:</strong> Proximidad (cronómetro de proximidad).</p>
+<p><strong>Estado:</strong> <a href="../../recursos/phyphox/proximidad/guia_general.html">Guía general</a>, <a href="../../recursos/phyphox/proximidad/calibracion_proximidad.html">calibración</a> y <a href="../../recursos/phyphox/proximidad/practica04_phyphox.html">adaptación completa</a> ya disponibles.</p>
+<p><br></p>
+<h2 id="sec-p5" class="anchored">Práctica 5: Conservación del momento cinético — Viabilidad muy alta</h2>
+<p><br></p>
+<p><strong>Magnitudes medidas:</strong> velocidad angular <span class="math inline">\omega</span> antes y después de cambiar la distribución de masa sobre la banqueta giratoria.</p>
+<p><strong>Sensor propuesto:</strong> <strong>Giroscopio</strong> del smartphone.</p>
+<p><strong>Método:</strong> El teléfono se coloca horizontal, pantalla arriba, sobre la banqueta giratoria (en el regazo de la persona sentada, o fijado con cinta a la banqueta). El giroscopio registra <span class="math inline">\omega_z(t)</span> de forma continua. La persona abre/cierra los brazos con pesas; el cambio en <span class="math inline">\omega</span> se observa directamente en la gráfica.</p>
+<p><strong>Ventaja excepcional:</strong></p>
+<ul>
+<li>Medida <strong>directa</strong> de <span class="math inline">\omega</span>, no indirecta (el protocolo original requiere contar vueltas y medir tiempos con cronómetro).</li>
+<li>Registro <strong>continuo</strong> <span class="math inline">\omega(t)</span>: se observa en tiempo real cómo <span class="math inline">\omega</span> cambia cuando las pesas se acercan/alejan.</li>
+<li>Permite calcular <span class="math inline">I\omega</span> antes y después, verificando la conservación.</li>
+</ul>
+<p><strong>Dificultad:</strong> Mínima. El teléfono simplemente descansa sobre la banqueta.</p>
+<p><strong>Estado:</strong> Calibración y guía alternativa por desarrollar.</p>
+<p><br></p>
+<h2 id="sec-p6" class="anchored">Práctica 6: Péndulo circular (cónico) — Viabilidad alta</h2>
+<p><br></p>
+<p><strong>Magnitudes medidas:</strong> periodo de revolución <span class="math inline">T</span>, longitud del hilo <span class="math inline">L</span>, ángulo <span class="math inline">\theta</span>.</p>
+<p><strong>Sensor propuesto:</strong> <strong>Cronómetro acústico</strong> o <strong>acelerómetro</strong>.</p>
+<p><strong>Método acústico:</strong> Colocar una pequeña pieza (cinta adhesiva, tuerca) en la trayectoria del péndulo de modo que produzca un chasquido suave en cada revolución. El cronómetro acústico de Phyphox mide el intervalo entre chasquidos = periodo <span class="math inline">T</span>.</p>
+<p><strong>Método alternativo (acelerómetro):</strong> Si el péndulo está sujeto a un soporte, y el soporte vibra ligeramente con cada revolución, el acelerómetro del teléfono (apoyado en la base del soporte) puede detectar la frecuencia de revolución.</p>
+<p><strong>Ventaja:</strong> Resolución temporal del micrófono (<span class="math inline">\sim 0{,}02</span> ms) muy superior al cronómetro manual.</p>
+<p><strong>Estado:</strong> Por desarrollar.</p>
+<p><br></p>
+<h2 id="sec-p7" class="anchored">Práctica 7: Determinación del momento de inercia de sólidos — Viabilidad alta</h2>
+<p><br></p>
+<p><strong>Magnitudes medidas:</strong> periodo de oscilación torsional <span class="math inline">T</span>, constante del muelle de torsión <span class="math inline">K</span>.</p>
+<p><strong>Sensor propuesto:</strong> <strong>Giroscopio</strong> o <strong>cronómetro acústico</strong>.</p>
+<p><strong>Método con giroscopio:</strong> Colocar el teléfono sobre la plataforma oscilante. El giroscopio registra <span class="math inline">\omega_z(t)</span>, que es una sinusoide amortiguada. El periodo se extrae directamente de la gráfica o del espectro de Fourier.</p>
+<p><strong>Método acústico:</strong> Si la oscilación produce un sonido periódico (rozamiento, tope), el autocorrelador acústico de Phyphox puede medir la frecuencia.</p>
+<p><strong>Ventaja:</strong> Determinación precisa de <span class="math inline">T</span> sin necesidad de contar oscilaciones y dividir por el número de ciclos.</p>
+<p><strong>Estado:</strong> Por desarrollar.</p>
+<p><br></p>
+<h2 id="sec-p8" class="anchored">Práctica 8: Máquina de Atwood — Viabilidad alta</h2>
+<p><br></p>
+<p><strong>Magnitudes medidas:</strong> aceleración <span class="math inline">a</span> del sistema, masas <span class="math inline">m_1</span> y <span class="math inline">m_2</span>, aceleración de la gravedad <span class="math inline">g</span>.</p>
+<p><strong>Sensor propuesto:</strong> <strong>Acelerómetro</strong> del smartphone.</p>
+<p><strong>Método:</strong> Fijar el teléfono a una de las masas de la máquina de Atwood (con cinta o en un soporte ligero). El acelerómetro registra directamente <span class="math inline">a(t)</span> durante la caída/subida. La aceleración media se obtiene del tramo constante de la gráfica.</p>
+<p><strong>Ventaja:</strong> Medida <strong>directa</strong> de la aceleración, sin necesidad de medir tiempos de caída y calcular <span class="math inline">a</span> a partir de cinemática.</p>
+<p><strong>Precaución:</strong> La masa del teléfono (<span class="math inline">\sim 150\textrm{–}200</span> g) se añade a una de las masas del sistema y debe tenerse en cuenta en los cálculos.</p>
+<p><strong>Estado:</strong> Por desarrollar.</p>
+<p><br></p>
+<h2 id="sec-p9" class="anchored">Práctica 9: Vibraciones libres con 1 GdL — Viabilidad muy alta</h2>
+<p><br></p>
+<p><strong>Magnitudes medidas:</strong> periodo de oscilación <span class="math inline">T</span>, constante elástica <span class="math inline">k</span>, masa del oscilador <span class="math inline">m</span>.</p>
+<p><strong>Sensor propuesto:</strong> <strong>Acelerómetro</strong> del smartphone.</p>
+<p><strong>Método:</strong> Fijar el teléfono al coche del carril de aire (que oscila entre dos muelles). El acelerómetro registra <span class="math inline">a(t)</span>, que es una sinusoide. El periodo se extrae:</p>
+<ul>
+<li><strong>Directamente</strong> de la gráfica <span class="math inline">a(t)</span> (midiendo la distancia entre picos).</li>
+<li>Del <strong>espectro de Fourier</strong> (Acceleration Spectrum): el pico dominante da la frecuencia <span class="math inline">f = 1/T</span>.</li>
+</ul>
+<p><strong>Ventaja excepcional:</strong></p>
+<ul>
+<li>No se necesitan fotopuertas ni cronómetro manual.</li>
+<li>El espectro de Fourier da la frecuencia con alta precisión.</li>
+<li>Se observa directamente la forma sinusoidal de la oscilación armónica.</li>
+<li>Se puede estudiar el amortiguamiento a partir de la envolvente de <span class="math inline">a(t)</span>.</li>
+</ul>
+<p><strong>Estado:</strong> Por desarrollar.</p>
+<p><br></p>
+<h2 id="sec-p10" class="anchored">Práctica 10: Vibraciones libres con 2 GdL — Viabilidad muy alta</h2>
+<p><br></p>
+<p><strong>Magnitudes medidas:</strong> frecuencias propias <span class="math inline">f_1</span>, <span class="math inline">f_2</span> de los modos normales.</p>
+<p><strong>Sensor propuesto:</strong> <strong>Acelerómetro</strong> del smartphone (espectro FFT).</p>
+<p><strong>Método:</strong> Fijar el teléfono a una de las masas del sistema acoplado. Excitar el sistema y registrar <span class="math inline">a(t)</span>. El espectro de Fourier mostrará dos picos correspondientes a las dos frecuencias propias <span class="math inline">f_1</span> y <span class="math inline">f_2</span>.</p>
+<p><strong>Ventaja excepcional:</strong></p>
+<ul>
+<li>El espectro de Fourier <strong>separa automáticamente</strong> los modos normales, incluso cuando ambos están excitados simultáneamente.</li>
+<li>En el protocolo clásico, para medir cada frecuencia propia se debe excitar un modo a la vez (condiciones iniciales específicas). Con el acelerómetro y FFT, se pueden excitar ambos modos y leer las frecuencias del espectro.</li>
+</ul>
+<p><strong>Estado:</strong> Por desarrollar.</p>
+<p><br></p>
+<hr>
+<h1 class="section-title" id="parte-iii-hoja-de-ruta-de-desarrollo">Parte III: Hoja de ruta de desarrollo</h1>
+<p><br></p>
+<h2 id="priorización" class="anchored">Priorización</h2>
+<p><br></p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 29%">
+<col style="width: 23%">
+<col style="width: 23%">
+<col style="width: 23%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Prioridad</th>
+<th style="text-align: left;">Sensor</th>
+<th style="text-align: left;">Prácticas</th>
+<th style="text-align: left;">Justificación</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: left;"><strong>Giroscopio</strong></td>
+<td style="text-align: left;">3, 5</td>
+<td style="text-align: left;">Medida directa de <span class="math inline">\omega</span>; caso de uso estrella (P5)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: left;"><strong>Acelerómetro</strong></td>
+<td style="text-align: left;">8, 9, 10</td>
+<td style="text-align: left;">Mayor número de prácticas; FFT para vibraciones</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: left;"><strong>Acústico</strong></td>
+<td style="text-align: left;">6, 7</td>
+<td style="text-align: left;">Alternativa de cronometraje con alta resolución</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h2 id="estructura-de-documentación" class="anchored">Estructura de documentación</h2>
+<p><br></p>
+<p>Para cada sensor:</p>
+<ol type="1">
+<li><strong>Calibración</strong> — protocolo de caracterización empírica del sensor (análogo a la <a href="../../recursos/phyphox/proximidad/calibracion_proximidad.html">calibración del sensor de proximidad</a>).</li>
+<li><strong>Guía alternativa por práctica</strong> — protocolo experimental completo adaptado.</li>
+</ol>
+<p>Todos los documentos incluyen formato dual (HTML + PDF), bibliografía compartida, análisis de errores, y comparación con la instrumentación clásica.</p>
+<p><br></p>
+<h2 id="referencias" class="anchored">Referencias</h2>
+<div id="refs" role="list">
+
+</div>
+
+
+<!-- Closes the reading column opened by _gen/docs-nav.html, adds the right
+     "On this page" list, and wires: current-page marking in the left nav,
+     breadcrumbs, the page TOC (from h2/h3 in the reading column) and a
+     scroll-spy. Pure DOM, no library. -->
+  </div>
+  <aside class="docs-toc"><button class="docs-fold" type="button" data-fold="toc" aria-label="Hide the page outline" title="Hide the page outline">›</button><div class="t">On this page</div><ol></ol></aside>
+</div>
+<script>
+(function () {
+  /* 0. The two side panels fold on their chevrons; the choice is remembered in this browser. */
+  var docs = document.querySelector('.docs');
+  if (docs) {
+    var store = {};
+    try { store = JSON.parse(localStorage.getItem('docs-fold') || '{}'); } catch (e) { store = {}; }
+    function apply() {
+      docs.classList.toggle('nav-folded', !!store.nav);
+      docs.classList.toggle('toc-folded', !!store.toc);
+      document.querySelectorAll('.docs-fold').forEach(function (b) {
+        var which = b.getAttribute('data-fold'), folded = !!store[which];
+        b.innerHTML = (which === 'nav') === folded ? '&rsaquo;' : '&lsaquo;';
+        var what = which === 'nav' ? 'the navigation' : 'the page outline';
+        b.title = (folded ? 'Show ' : 'Hide ') + what; b.setAttribute('aria-label', b.title);
+      });
+    }
+    document.querySelectorAll('.docs-fold').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var which = b.getAttribute('data-fold'); store[which] = !store[which];
+        try { localStorage.setItem('docs-fold', JSON.stringify(store)); } catch (e) {}
+        apply();
+      });
+    });
+    apply();
+  }
+  /* 0b. The header ribbon: mark the entry whose section holds this page. Quarto rewrites the hrefs to
+     relative paths, so folders are read from the resolved URLs; the Overview link gives the site root. */
+  (function () {
+    var links = Array.prototype.slice.call(document.querySelectorAll('.site-nav a'));
+    if (!links.length) return;
+    /* a served URL may end in '/' (GitHub Pages: …/about/); read it as …/about/index.html */
+    function folder(path) { if (/\/$/.test(path)) path += 'index.html'; var s = path.split('/').filter(Boolean); return s.length > 1 ? s[s.length - 2] : ''; }
+    var wm = document.querySelector('a.wordmark');            // the wordmark links to the site root
+    var root = folder((wm || links[0]).pathname);
+    var map = { rietveld: 'cases', drude: 'cases', dielectric: 'cases' };
+    function key(path) { var f = folder(path); if (f === root) return 'overview'; return map[f] || f; }
+    var here = key(location.pathname);
+    links.forEach(function (a) { a.classList.toggle('current', key(a.pathname) === here); });
+  })();
+
+  var main = document.querySelector('.docs-main');
+  var nav = document.querySelector('.docs-nav');
+  var toc = document.querySelector('.docs-toc ol');
+  if (!main || !nav || !toc) return;
+
+  /* 1. Left nav: mark the current page (and section, if the hash matches). */
+  var here = location.pathname.replace(/\/index\.html$/, '/');
+  var links = Array.prototype.slice.call(nav.querySelectorAll('a'));
+  var pageLink = null, hashLink = null;
+  links.forEach(function (a) {
+    var p = a.pathname.replace(/\/index\.html$/, '/');
+    if (p !== here) return;
+    if (!a.hash && !pageLink) pageLink = a;
+    if (a.hash && a.hash === location.hash) hashLink = a;
+  });
+  var cur = hashLink || pageLink;
+  if (cur) {
+    cur.classList.add('current');
+    var det = cur.closest('details.group');
+    if (det) { det.open = true; det.classList.add('has-current'); }
+    /* Breadcrumbs: group title › page (› section). */
+    var crumbs = document.createElement('div');
+    crumbs.className = 'docs-crumbs';
+    var g = det ? det.querySelector('summary.t') : null;
+    var parts = [];
+    function push(t) { if (t && parts[parts.length - 1] !== t) parts.push(t); }
+    if (g) push(g.textContent.trim());
+    if (pageLink && pageLink !== cur) push(pageLink.textContent.trim());
+    push(cur.textContent.trim());
+    crumbs.innerHTML = parts.map(function (t, i) {
+      return (i ? '<span class="sep">›</span>' : '') + '<span>' + t.replace(/</g, '&lt;') + '</span>';
+    }).join('');
+    main.insertBefore(crumbs, main.firstChild);
+  }
+
+  /* 2. Right "On this page": h2 and h3 of the reading column. */
+  var used = {};
+  var heads = Array.prototype.slice.call(main.querySelectorAll('h2, h3')).filter(function (h) {
+    if (h.closest('.site-foot, .featured-band, .msg-grid, [data-toc="no"]')) return false;
+    if (h.classList.contains('unnumbered') || h.id === 'contenido') return false;
+    return h.textContent.trim().length > 0;
+  });
+  heads.forEach(function (h) {
+    if (!h.id) {
+      var s = h.textContent.trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+        .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60) || 'sec';
+      while (used[s] || document.getElementById(s)) s += '-';
+      h.id = s;
+    }
+    used[h.id] = true;
+    var li = document.createElement('li');
+    if (h.tagName === 'H3') li.className = 'l3';
+    var a = document.createElement('a');
+    a.href = '#' + h.id;
+    /* This runs before KaTeX has rendered the headings, so a heading with mathematics still holds TeX
+       source: copy its markup, including the math spans, and let the page's KaTeX pass render the copy. */
+    var copy = h.cloneNode(true);
+    copy.querySelectorAll('.katex-mathml, annotation, .anchorjs-link').forEach(function (n) { n.remove(); });
+    var label = copy.textContent.trim().replace(/\s+/g, ' ');
+    if (copy.querySelector('.math, .math-done, .katex')) a.innerHTML = copy.innerHTML.trim();
+    else a.textContent = label.length > 72 ? label.slice(0, 70).replace(/[\s,;:]+\S*$/, '') + '…' : label;
+    a.title = label;
+    li.appendChild(a);
+    toc.appendChild(li);
+  });
+  if (!heads.length) { document.querySelector('.docs-toc').hidden = true; return; }
+
+  /* 3. Scroll-spy. */
+  var items = Array.prototype.slice.call(toc.querySelectorAll('a'));
+  function spy() {
+    var y = window.scrollY + 120, best = null;
+    heads.forEach(function (h) { if (h.getBoundingClientRect().top + window.scrollY <= y) best = h; });
+    items.forEach(function (a) { a.classList.toggle('current', best && a.getAttribute('href') === '#' + best.id); });
+  }
+  window.addEventListener('scroll', spy, { passive: true });
+  window.addEventListener('hashchange', spy);
+  spy();
+})();
+</script>
+<footer class="site-foot">
+  <div class="site-foot__inner">
+    <div class="foot-grid">
+      <div class="foot-about">
+        <h4 class="anchored">Qué es esto</h4>
+        <p>Los guiones de las prácticas de laboratorio que la UNED realiza en la Facultad de Ciencia y Tecnología de la UPV/EHU (Leioa), para Bases Físicas del Medio Ambiente, Física I y II, Mecánica y Técnicas Experimentales I.</p>
+        <div class="cite-block">Josu M. Igartua · Departamento de Física, Facultad de Ciencia y Tecnología, UPV/EHU<br>josu.igartua@ehu.eus · +34 94 601 5335</div>
+      </div>
+      <div><h4 class="anchored">Este sitio</h4><ul>
+        <li><a href="../../index.html">Inicio</a></li><li><a href="../../practicas/index.html">Prácticas</a></li><li><a href="../../asignaturas/index.html">Asignaturas</a></li><li><a href="../../recursos/index.html">Recursos</a></li><li><a href="../../informe/index.html">Informe</a></li><li><a href="../../manual/index.html">Manual TE I</a></li><li><a href="../../contacto/index.html">Contacto</a></li>
+      </ul></div>
+      <div><h4 class="anchored">Instituciones</h4><ul>
+        <li><a href="https://www.uned.es">UNED</a></li>
+        <li><a href="https://www.ehu.eus">UPV/EHU</a></li></ul></div>
+      <div><h4 class="anchored">Dónde</h4><ul>
+        <li>Barrio Sarriena s/n, 48940 Leioa (Bizkaia)</li>
+        <li>Laboratorios 0.16 y 0.21</li></ul></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Josu M. Igartua</span>
+      <span>curso 2025–2026</span>
+    </div>
+  </div>
+</footer>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+    tabsets.forEach(function(tabset) {
+      const tabby = new Tabby('#' + tabset.id);
+    });
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Josu M. Igartua">
+<meta name="dcterms.date" content="2026-04-16">
+<meta name="keywords" content="momento cinético, momento angular, giroscopio, Phyphox, banqueta giratoria">
+<meta name="description" content="Adaptación de la Práctica 5 (Conservación del momento cinético) para utilizar el giroscopio del smartphone como instrumento de medida de la velocidad angular, en sustitución del cronómetro manual y el conteo de vueltas.">
+
+<title>Adaptación de la Práctica 5 al giroscopio del smartphone · UNED Labo – UNED Labo</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<link href="../../../assets/favicon.svg" rel="icon" type="image/svg+xml">
+<script src="../../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-html-afe927e19676d0e50b1726048be49fb1.min.css" rel="stylesheet" append-hash="true" data-mode="light">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<style>html{ scroll-behavior: smooth; }</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&amp;family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<!-- KaTeX auto-render: publication titles carry TeX inside generated HTML that
+     Quarto's own math pipeline never sees (same approach as thermomat). -->
+<script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+/* The header ribbon is sticky; the side columns and anchor targets need its height. */
+(function () {
+  function headH() {
+    var t = document.querySelector(".topline"), h = document.querySelector(".site-head");
+    var px = (t ? t.offsetHeight : 0) + (h ? h.offsetHeight : 0);
+    if (px) document.documentElement.style.setProperty("--head-h", px + "px");
+  }
+  document.addEventListener("DOMContentLoaded", headH);
+  window.addEventListener("load", headH);
+  window.addEventListener("resize", headH);
+})();
+document.addEventListener("DOMContentLoaded", function () {
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }, { left: "\\(", right: "\\)", display: false }],
+      throwOnError: false
+    });
+  }
+  /* Quarto's KaTeX pipeline writes <span class="math inline">TeX</span> without delimiters and renders
+     them in a loop that reads firstChild.data; that loop dies at the first span the auto-render above
+     has already turned into KaTeX markup, leaving every later formula raw. Render the rest here. */
+  if (window.katex) {
+    document.querySelectorAll(".math").forEach(function (el) {
+      if (!el.querySelector(".katex")) {
+        var t = el.textContent.replace(/^\s*\\[\(\[]/, "").replace(/\\[\)\]]\s*$/, "");
+        try { katex.render(t, el, { displayMode: el.classList.contains("display"), throwOnError: false }); } catch (e) {}
+      }
+      /* Quarto's loop would still visit this span and wipe it (firstChild is now an element, not text):
+         take it out of its sight. No stylesheet of the site depends on the class; KaTeX's own output carries the layout. */
+      el.classList.remove("math"); el.classList.add("math-done");
+    });
+  }
+});
+</script>
+
+  <script defer="" src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../../assets/styles/theme.css">
+<link rel="stylesheet" href="../../../assets/styles/site.css">
+<link rel="stylesheet" href="../../../assets/styles/project.css">
+</head>
+
+<body>
+
+<div class="topline"></div>
+<header class="site-head">
+  <div class="site-head__inner">
+    <a href="../../../index.html" class="wordmark">UNED Labo <span class="accent">Leioa</span>
+      <span class="wordmark-sub">prácticas de laboratorio de la UNED en la Facultad de Ciencia y Tecnología (UPV/EHU) · curso 2025–2026</span>
+    </a>
+    <nav class="site-nav">
+      <a href="../../../index.html">Inicio</a>
+      <a href="../../../practicas/index.html">Prácticas</a>
+      <a href="../../../asignaturas/index.html">Asignaturas</a>
+      <a href="../../../recursos/index.html">Recursos</a>
+      <a href="../../../informe/index.html">Informe</a>
+      <a href="../../../manual/index.html">Manual TE I</a>
+      <a href="../../../contacto/index.html">Contacto</a>
+    </nav>
+  </div>
+</header>
+<!-- generated by tools/sibling.py public: the left navigation -->
+<div class="docs">
+<nav class="docs-nav" aria-label="Site sections">
+<button class="docs-fold" type="button" data-fold="nav" aria-label="Hide the navigation" title="Hide the navigation">‹</button>
+<details class="group" open=""><summary class="t">Inicio</summary><ul><li><a href="../../../index.html">Inicio</a></li></ul></details>
+<details class="group" open=""><summary class="t">Prácticas</summary><ul><li><a href="../../../practicas/index.html">Catálogo: las veinte prácticas</a></li><li><a href="../../../practicas/pendulo-fisico/index.html">P01 · Péndulo físico</a></li><li><a href="../../../practicas/ley-hooke/index.html">P02 · Movimiento armónico simple. Ley de Hooke</a></li><li><a href="../../../practicas/carril-aire/index.html">P03 · Medida de magnitudes dinámicas mediante un carril de aire</a></li><li><a href="../../../practicas/cc-resistencia-interna/index.html">P04 · Corriente continua I: resistencia interna de una fuente</a></li><li><a href="../../../practicas/cc-curva-lampara/index.html">P05 · Corriente continua II: curva característica de una lámpara</a></li><li><a href="../../../practicas/descarga-condensador/index.html">P06 · Descarga de un condensador</a></li><li><a href="../../../practicas/ondas-estacionarias/index.html">P07 · Ondas estacionarias en una cuerda con extremos fijos</a></li><li><a href="../../../practicas/vaporizacion-agua/index.html">P08 · Calor de vaporización del agua</a></li><li><a href="../../../practicas/velocidad-sonido/index.html">P09 · Medida de la velocidad del sonido: tubo de resonancia</a></li><li><a href="../../../practicas/inercia-disco/index.html">P10 · Momento de inercia de un disco</a></li><li><a href="../../../practicas/catenaria/index.html">P11 · Equilibrio de un hilo bajo la acción de la gravedad: la catenaria</a></li><li><a href="../../../practicas/rozamiento-correas/index.html">P12 · Coeficiente de rozamiento entre correas y poleas</a></li><li><a href="../../../practicas/giroscopo/index.html">P13 · Giróscopo</a></li><li><a href="../../../practicas/cantidad-movimiento/index.html">P14 · Conservación de la cantidad de movimiento</a></li><li><a href="../../../practicas/momento-cinetico/index.html">P15 · Conservación del momento cinético</a></li><li><a href="../../../practicas/pendulo-circular/index.html">P16 · Péndulo circular (cónico)</a></li><li><a href="../../../practicas/momentos-inercia/index.html">P17 · Momentos de inercia de sólidos</a></li><li><a href="../../../practicas/maquina-atwood/index.html">P18 · Máquina de Atwood</a></li><li><a href="../../../practicas/vibraciones-1gdl/index.html">P19 · Vibraciones libres con un grado de libertad</a></li><li><a href="../../../practicas/vibraciones-2gdl/index.html">P20 · Vibraciones libres con dos grados de libertad</a></li></ul></details>
+<details class="group" open=""><summary class="t">Asignaturas</summary><ul><li><a href="../../../asignaturas/index.html">Las cuatro asignaturas</a></li><li><a href="../../../asignaturas/bfma/index.html">Bases Físicas del Medio Ambiente</a></li><li><a href="../../../asignaturas/fisica/index.html">Física I y II</a></li><li><a href="../../../asignaturas/mecanica/index.html">Mecánica</a></li><li><a href="../../../asignaturas/tecnicas-experimentales/index.html">Técnicas Experimentales I</a></li></ul></details>
+<details class="group" open=""><summary class="t">Recursos</summary><ul><li><a href="../../../recursos/index.html">Recursos</a></li><li><a href="../../../recursos/sesion-0/index.html">Sesión 0</a></li><li><a href="../../../recursos/errores/index.html">Errores y regresiones</a></li><li><a href="../../../recursos/phyphox/index.html">Phyphox</a></li></ul></details>
+<details class="group" open=""><summary class="t">Informe</summary><ul><li><a href="../../../informe/index.html">El informe: qué contiene, cómo se evalúa</a></li><li><a href="../../../informe/modelos/index.html">Los ocho informes modelo</a></li><li><a href="../../../informe/rubrica/index.html">La rúbrica de TE I: 225 criterios</a></li><li><a href="../../../informe/rubrica-gum/index.html">La rúbrica GUM</a></li></ul></details>
+<details class="group" open=""><summary class="t">Manual TE I</summary><ul><li><a href="../../../manual/index.html">El manual, capítulo a capítulo</a></li><li><a href="../../../manual/01-representacion-magnitudes.html">Tema 1: Representación de magnitudes</a></li><li><a href="../../../manual/02-medidas-directas.html">Tema 2: Medidas directas</a></li><li><a href="../../../manual/03-medidas-indirectas.html">Tema 3: Medidas indirectas</a></li><li><a href="../../../manual/04-graficas-regresion.html">Tema 4: Gráficas y regresión lineal</a></li><li><a href="../../../manual/05-ejemplos-desarrollados.html">Tema 5: Ejemplos desarrollados</a></li><li><a href="../../../manual/06-instrucciones-laboratorio.html">Tema 6: Instrucciones para el laboratorio</a></li><li><a href="../../../manual/07-soluciones-ejercicios.html">Soluciones y apéndices</a></li></ul></details>
+<details class="group" open=""><summary class="t">Contacto</summary><ul><li><a href="../../../contacto/index.html">Contacto</a></li></ul></details>
+</nav>
+<div class="docs-main">
+
+<header id="title-block-header">
+<h1 class="title">Adaptación de la Práctica 5 al giroscopio del smartphone</h1>
+<p class="subtitle">Conservación del momento cinético — Medida directa de ω con Phyphox</p>
+<p class="author">Josu M. Igartua</p>
+
+<p class="date">2026-04-16</p>
+<div class="abstract">
+<div class="abstract-title">Resumen</div>
+<p>Se presenta la adaptación del protocolo de la Práctica 5 (Conservación del momento cinético) para utilizar el giroscopio del smartphone en lugar del cronómetro manual. El teléfono, colocado horizontal sobre la banqueta giratoria, mide directamente <span class="math inline">\omega(t)</span> mediante la aplicación Phyphox. Esto elimina la necesidad de contar vueltas y permite observar en tiempo real cómo la velocidad angular cambia al modificar la distribución de masa. Se obtiene un registro continuo <span class="math inline">\omega(t)</span> del que se extraen directamente <span class="math inline">\omega_{\text{contraído}}</span> y <span class="math inline">\omega_{\text{extendido}}</span>, verificando la conservación de <span class="math inline">L = I\omega</span>.</p>
+</div>
+</header>
+
+<nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#motivación" id="toc-motivación">Motivación</a></li>
+  <li><a href="#modificaciones-respecto-al-protocolo-original" id="toc-modificaciones-respecto-al-protocolo-original">Modificaciones respecto al protocolo original</a></li>
+  <li><a href="#material-necesario" id="toc-material-necesario">Material necesario</a></li>
+  <li><a href="#configuración" id="toc-configuración">Configuración</a></li>
+  <li><a href="#procedimiento" id="toc-procedimiento">Procedimiento</a>
+  <ul>
+  <li><a href="#parte-a-pesas-en-los-brazos" id="toc-parte-a-pesas-en-los-brazos">Parte A: Pesas en los brazos</a></li>
+  <li><a href="#análisis-de-los-datos" id="toc-análisis-de-los-datos">Análisis de los datos</a></li>
+  <li><a href="#parte-b-rueda-de-bicicleta-opcional" id="toc-parte-b-rueda-de-bicicleta-opcional">Parte B: Rueda de bicicleta (opcional)</a></li>
+  </ul></li>
+  <li><a href="#comparación-de-errores" id="toc-comparación-de-errores">Comparación de errores</a></li>
+  <li><a href="#recomendaciones" id="toc-recomendaciones">Recomendaciones</a></li>
+  <li><a href="#referencias" id="toc-referencias">Referencias</a></li>
+  </ul>
+</nav>
+<p><a href="../../../practicas/momento-cinetico/index.html" class="btn btn-outline-secondary btn-sm">Volver a Práctica 5</a> <a href="../../../recursos/phyphox/giroscopio/calibracion_giroscopio.html" class="btn btn-outline-primary btn-sm">Calibración del giroscopio</a></p>
+<p><br></p>
+<h2 id="motivación" class="anchored">Motivación</h2>
+<p><br></p>
+<p>La Práctica 5 investiga la conservación del momento cinético (momento angular) mediante una banqueta giratoria. En el protocolo original, la velocidad angular se determina <strong>indirectamente</strong>: se cuentan <span class="math inline">N</span> vueltas completas, se mide el tiempo con un cronómetro, y se calcula <span class="math inline">\omega = 2\pi N / t</span>.</p>
+<p>El giroscopio del smartphone ofrece una alternativa <strong>radicalmente mejor</strong>: mide <span class="math inline">\omega</span> <strong>directamente</strong>, en tiempo real, con una resolución de <span class="math inline">\sim 0{,}01</span> rad/s y una tasa de muestreo de 100–500 Hz. El teléfono simplemente descansa sobre la banqueta (o en el regazo de la persona sentada) y registra <span class="math inline">\omega_z(t)</span> de forma continua.</p>
+<div>
+<blockquote>
+<p><strong>Ventajas del método con giroscopio</strong></p>
+<ol type="1">
+<li><strong>Medida directa</strong> de <span class="math inline">\omega</span>: no hay que contar vueltas ni dividir entre el número de ciclos.</li>
+<li><strong>Registro continuo</strong> <span class="math inline">\omega(t)</span>: se observa en tiempo real cómo <span class="math inline">\omega</span> aumenta al contraer los brazos y disminuye al extenderlos.</li>
+<li><strong>Mayor precisión</strong>: la resolución del giroscopio (<span class="math inline">\sim 0{,}01</span> rad/s) es muy superior al cronometraje manual (<span class="math inline">\Delta\omega/\omega \sim 1\textrm{–}2\%</span> con cronómetro).</li>
+<li><strong>Datos exportables</strong>: se puede analizar la gráfica <span class="math inline">\omega(t)</span> completa, no solo dos valores puntuales.</li>
+</ol>
+</blockquote>
+</div>
+<p><br></p>
+<h2 id="modificaciones-respecto-al-protocolo-original" class="anchored">Modificaciones respecto al protocolo original</h2>
+<p><br></p>
+<div id="tbl-comparacion" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-comparacion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;1: Comparación entre los dos protocolos para la Práctica 5.
+</figcaption>
+<div aria-describedby="tbl-comparacion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Elemento</th>
+<th style="text-align: left;">Protocolo original</th>
+<th style="text-align: left;">Protocolo Phyphox</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Medida de <span class="math inline">\omega</span></td>
+<td style="text-align: left;">Cronómetro + conteo de vueltas</td>
+<td style="text-align: left;">Giroscopio del smartphone (directo)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Datos obtenidos</td>
+<td style="text-align: left;">2 valores: <span class="math inline">\omega_c</span>, <span class="math inline">\omega_e</span></td>
+<td style="text-align: left;">Serie temporal completa <span class="math inline">\omega(t)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Resolución en <span class="math inline">\omega</span></td>
+<td style="text-align: left;"><span class="math inline">\sim 0{,}05</span> rad/s (5 vueltas en 8 s)</td>
+<td style="text-align: left;"><span class="math inline">\sim 0{,}01</span> rad/s</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Observación del fenómeno</td>
+<td style="text-align: left;">Indirecta (números)</td>
+<td style="text-align: left;">Directa (gráfica en tiempo real)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Coste adicional</td>
+<td style="text-align: left;">Cronómetro</td>
+<td style="text-align: left;">€0 (smartphone del alumnado)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p><br></p>
+<h2 id="material-necesario" class="anchored">Material necesario</h2>
+<p><br></p>
+<p>Además del material estándar de la práctica (banqueta giratoria, pesas de 2 kg, rueda de bicicleta, cinta métrica):</p>
+<ol type="1">
+<li><strong>Un smartphone</strong> con giroscopio y Phyphox instalado (verificado en la calibración previa)</li>
+<li><strong>Cinta adhesiva</strong> o funda antideslizante para evitar que el teléfono se desplace sobre la banqueta</li>
+</ol>
+<div>
+<blockquote>
+<p><strong>Precaución con el teléfono</strong></p>
+<p>Al girar sobre la banqueta, la fuerza centrífuga tiende a desplazar el teléfono hacia el borde. Asegurar el teléfono con cinta adhesiva en el centro de la banqueta (o mantenerlo en el regazo). No es necesario que esté perfectamente centrado: el giroscopio mide <span class="math inline">\omega</span>, no la aceleración centrípeta, por lo que un descentramiento no afecta a la lectura de <span class="math inline">\omega_z</span>.</p>
+</blockquote>
+</div>
+<p><br></p>
+<h2 id="configuración" class="anchored">Configuración</h2>
+<p><br></p>
+<ol type="1">
+<li>Abrir Phyphox → <strong>Gyroscope</strong> (Giroscopio)</li>
+<li>Colocar el teléfono <strong>horizontal, pantalla hacia arriba</strong>, sobre la banqueta giratoria o en el regazo de la persona sentada</li>
+<li>Verificar que <span class="math inline">\omega_z \approx 0</span> con la banqueta en reposo</li>
+<li>Activar el <strong>acceso remoto</strong> (menú ⋮ → <em>Permitir acceso remoto</em>) para que otra persona pueda observar la gráfica en tiempo real desde un ordenador o tablet</li>
+</ol>
+<div>
+<blockquote>
+<p><strong>Uso del acceso remoto</strong></p>
+<p>El acceso remoto es especialmente útil en esta práctica: la persona sentada en la banqueta no puede mirar la pantalla del teléfono cómodamente. Otra persona del grupo abre la URL mostrada en Phyphox (por ejemplo, <code>http://192.168.1.15:8080</code>) en un navegador y observa la gráfica <span class="math inline">\omega_z(t)</span> en tiempo real.</p>
+</blockquote>
+</div>
+<p><br></p>
+<h2 id="procedimiento" class="anchored">Procedimiento</h2>
+<p><br></p>
+<h3 class="unnumbered anchored" id="parte-a-pesas-en-los-brazos">Parte A: Pesas en los brazos</h3>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>1</strong></p>
+</div><div class="column" style="width:92%;">
+<p>La persona se sienta en la banqueta con las pesas de 2 kg en las manos. Iniciar la medida en Phyphox (pulsar <span class="math inline">\blacktriangleright</span>).</p>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>2</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Otra persona del grupo impulsa la banqueta para que gire. Comenzar con los <strong>brazos extendidos</strong> (pesas lejos del eje de rotación, a distancia <span class="math inline">d_e</span>). Esperar a que la rotación se estabilice (<span class="math inline">\sim 5</span> s).</p>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>3</strong></p>
+</div><div class="column" style="width:92%;">
+<p><strong>Sin dejar de girar</strong>, contraer los brazos llevando las pesas hacia el pecho (distancia <span class="math inline">d_c \approx 0</span>). Observar (en la pantalla remota) cómo <span class="math inline">\omega_z</span> <strong>aumenta bruscamente</strong>.</p>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>4</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Mantener los brazos contraídos durante <span class="math inline">\sim 5</span> s. Luego extender los brazos de nuevo. Observar cómo <span class="math inline">\omega_z</span> <strong>disminuye</strong>.</p>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>5</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Repetir el ciclo contraer/extender <strong>3–5 veces</strong> en una sola sesión de grabación. Detener la medida.</p>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>6</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Exportar los datos (menú ⋮ → <em>Exportar datos</em> → CSV). La serie temporal <span class="math inline">\omega_z(t)</span> contendrá los picos (brazos contraídos) y los valles (brazos extendidos).</p>
+</div>
+</div>
+<p><br></p>
+<h3 class="unnumbered anchored" id="análisis-de-los-datos">Análisis de los datos</h3>
+<p><br></p>
+<p>De la gráfica <span class="math inline">\omega_z(t)</span>, extraer para cada ciclo:</p>
+<ul>
+<li><span class="math inline">\omega_c</span>: valor medio de <span class="math inline">\omega_z</span> durante el tramo con brazos contraídos</li>
+<li><span class="math inline">\omega_e</span>: valor medio de <span class="math inline">\omega_z</span> durante el tramo con brazos extendidos</li>
+</ul>
+<p>Registrar en la tabla:</p>
+<div id="tbl-datos" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-datos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;2: Datos de conservación del momento cinético extraídos de <span class="math inline">\omega_z(t)</span>.
+</figcaption>
+<div aria-describedby="tbl-datos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Ciclo</th>
+<th style="text-align: center;"><span class="math inline">\omega_c</span> (rad/s)</th>
+<th style="text-align: center;"><span class="math inline">\omega_e</span> (rad/s)</th>
+<th style="text-align: center;"><span class="math inline">\omega_c / \omega_e</span></th>
+<th style="text-align: center;"><span class="math inline">L_c = I_c \omega_c</span></th>
+<th style="text-align: center;"><span class="math inline">L_e = I_e \omega_e</span></th>
+<th style="text-align: center;"><span class="math inline">\Delta L / L</span> (%)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Para calcular <span class="math inline">L = I\omega</span>, se necesitan los momentos de inercia:</p>
+<p><span class="math display">
+I_c \approx I_{\text{persona+banqueta}} \qquad;\qquad I_e = I_c + 2\,m_{\text{pesa}}\,d_e^2
+</span></p>
+<p>donde <span class="math inline">d_e</span> es la distancia de las pesas al eje de rotación con los brazos extendidos.</p>
+<p>Si <span class="math inline">L</span> se conserva: <span class="math inline">I_c \omega_c = I_e \omega_e</span>, y por tanto:</p>
+<p><span id="eq-conservacion"><span class="math display">
+\boxed{\frac{\omega_c}{\omega_e} = \frac{I_e}{I_c} = 1 + \frac{2\,m_{\text{pesa}}\,d_e^2}{I_c}}
+\tag{1}</span></span></p>
+<p><br></p>
+<h3 class="unnumbered anchored" id="parte-b-rueda-de-bicicleta-opcional">Parte B: Rueda de bicicleta (opcional)</h3>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>1</strong></p>
+</div><div class="column" style="width:92%;">
+<p>La persona sentada en la banqueta sostiene la rueda de bicicleta por el eje, con la rueda girando rápidamente. Iniciar la medida en Phyphox.</p>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>2</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Invertir el eje de la rueda (dar la vuelta a la rueda). Observar cómo la banqueta comienza a girar en sentido contrario. El giroscopio registra el cambio de <span class="math inline">\omega_z</span>.</p>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>3</strong></p>
+</div><div class="column" style="width:92%;">
+<p>El momento angular total se conserva: <span class="math inline">L_{\text{rueda}} + L_{\text{persona}} = \text{constante}</span>. Al invertir <span class="math inline">L_{\text{rueda}}</span>, la persona adquiere <span class="math inline">\omega_z</span> para compensar.</p>
+</div>
+</div>
+<p><br></p>
+<h2 id="comparación-de-errores" class="anchored">Comparación de errores</h2>
+<p><br></p>
+<div id="tbl-errores" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-errores-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;3: Comparación de fuentes de error entre los dos métodos.
+</figcaption>
+<div aria-describedby="tbl-errores-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 35%">
+<col style="width: 35%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Fuente de error</th>
+<th style="text-align: center;">Cronómetro manual</th>
+<th style="text-align: center;">Giroscopio Phyphox</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Error en <span class="math inline">\omega</span></td>
+<td style="text-align: center;"><span class="math inline">\sim 1\textrm{–}2\%</span> (conteo de vueltas)</td>
+<td style="text-align: center;"><span class="math inline">\sim 0{,}3\textrm{–}1\%</span> (resolución del sensor)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Error humano de cronometraje</td>
+<td style="text-align: center;"><span class="math inline">\sim \pm 0{,}2</span> s por medida</td>
+<td style="text-align: center;">Inexistente (medida directa)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Pérdida de información temporal</td>
+<td style="text-align: center;">Sí (solo <span class="math inline">\omega</span> medio)</td>
+<td style="text-align: center;">No (registro completo <span class="math inline">\omega(t)</span>)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Fricción durante la medida</td>
+<td style="text-align: center;">No detectable</td>
+<td style="text-align: center;">Visible como pendiente negativa en <span class="math inline">\omega(t)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<div>
+<blockquote>
+<p><strong>Observación del rozamiento</strong></p>
+<p>Una ventaja adicional del registro continuo <span class="math inline">\omega(t)</span> es que la fricción de la banqueta se manifiesta como una <strong>pendiente negativa</strong> de <span class="math inline">\omega_z</span> con el tiempo. Esto permite cuantificar el par de rozamiento y discutir su efecto sobre la conservación del momento angular.</p>
+</blockquote>
+</div>
+<p><br></p>
+<h2 id="recomendaciones" class="anchored">Recomendaciones</h2>
+<p><br></p>
+<ol type="1">
+<li><strong>Realizar la calibración del giroscopio</strong> antes de esta práctica.</li>
+<li><strong>Usar el acceso remoto</strong> para observar <span class="math inline">\omega(t)</span> en tiempo real.</li>
+<li><strong>Exportar datos en CSV</strong> para análisis posterior (hoja de cálculo o Python).</li>
+<li><strong>Repetir al menos 3 ciclos</strong> contraer/extender en cada sesión de grabación.</li>
+<li><strong>Medir <span class="math inline">d_e</span></strong> (distancia de las pesas al eje con brazos extendidos) con cinta métrica.</li>
+</ol>
+<p><br></p>
+<h2 id="referencias" class="anchored">Referencias</h2>
+<div id="refs" role="list">
+
+</div>
+
+
+<!-- Closes the reading column opened by _gen/docs-nav.html, adds the right
+     "On this page" list, and wires: current-page marking in the left nav,
+     breadcrumbs, the page TOC (from h2/h3 in the reading column) and a
+     scroll-spy. Pure DOM, no library. -->
+  </div>
+  <aside class="docs-toc"><button class="docs-fold" type="button" data-fold="toc" aria-label="Hide the page outline" title="Hide the page outline">›</button><div class="t">On this page</div><ol></ol></aside>
+</div>
+<script>
+(function () {
+  /* 0. The two side panels fold on their chevrons; the choice is remembered in this browser. */
+  var docs = document.querySelector('.docs');
+  if (docs) {
+    var store = {};
+    try { store = JSON.parse(localStorage.getItem('docs-fold') || '{}'); } catch (e) { store = {}; }
+    function apply() {
+      docs.classList.toggle('nav-folded', !!store.nav);
+      docs.classList.toggle('toc-folded', !!store.toc);
+      document.querySelectorAll('.docs-fold').forEach(function (b) {
+        var which = b.getAttribute('data-fold'), folded = !!store[which];
+        b.innerHTML = (which === 'nav') === folded ? '&rsaquo;' : '&lsaquo;';
+        var what = which === 'nav' ? 'the navigation' : 'the page outline';
+        b.title = (folded ? 'Show ' : 'Hide ') + what; b.setAttribute('aria-label', b.title);
+      });
+    }
+    document.querySelectorAll('.docs-fold').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var which = b.getAttribute('data-fold'); store[which] = !store[which];
+        try { localStorage.setItem('docs-fold', JSON.stringify(store)); } catch (e) {}
+        apply();
+      });
+    });
+    apply();
+  }
+  /* 0b. The header ribbon: mark the entry whose section holds this page. Quarto rewrites the hrefs to
+     relative paths, so folders are read from the resolved URLs; the Overview link gives the site root. */
+  (function () {
+    var links = Array.prototype.slice.call(document.querySelectorAll('.site-nav a'));
+    if (!links.length) return;
+    /* a served URL may end in '/' (GitHub Pages: …/about/); read it as …/about/index.html */
+    function folder(path) { if (/\/$/.test(path)) path += 'index.html'; var s = path.split('/').filter(Boolean); return s.length > 1 ? s[s.length - 2] : ''; }
+    var wm = document.querySelector('a.wordmark');            // the wordmark links to the site root
+    var root = folder((wm || links[0]).pathname);
+    var map = { rietveld: 'cases', drude: 'cases', dielectric: 'cases' };
+    function key(path) { var f = folder(path); if (f === root) return 'overview'; return map[f] || f; }
+    var here = key(location.pathname);
+    links.forEach(function (a) { a.classList.toggle('current', key(a.pathname) === here); });
+  })();
+
+  var main = document.querySelector('.docs-main');
+  var nav = document.querySelector('.docs-nav');
+  var toc = document.querySelector('.docs-toc ol');
+  if (!main || !nav || !toc) return;
+
+  /* 1. Left nav: mark the current page (and section, if the hash matches). */
+  var here = location.pathname.replace(/\/index\.html$/, '/');
+  var links = Array.prototype.slice.call(nav.querySelectorAll('a'));
+  var pageLink = null, hashLink = null;
+  links.forEach(function (a) {
+    var p = a.pathname.replace(/\/index\.html$/, '/');
+    if (p !== here) return;
+    if (!a.hash && !pageLink) pageLink = a;
+    if (a.hash && a.hash === location.hash) hashLink = a;
+  });
+  var cur = hashLink || pageLink;
+  if (cur) {
+    cur.classList.add('current');
+    var det = cur.closest('details.group');
+    if (det) { det.open = true; det.classList.add('has-current'); }
+    /* Breadcrumbs: group title › page (› section). */
+    var crumbs = document.createElement('div');
+    crumbs.className = 'docs-crumbs';
+    var g = det ? det.querySelector('summary.t') : null;
+    var parts = [];
+    function push(t) { if (t && parts[parts.length - 1] !== t) parts.push(t); }
+    if (g) push(g.textContent.trim());
+    if (pageLink && pageLink !== cur) push(pageLink.textContent.trim());
+    push(cur.textContent.trim());
+    crumbs.innerHTML = parts.map(function (t, i) {
+      return (i ? '<span class="sep">›</span>' : '') + '<span>' + t.replace(/</g, '&lt;') + '</span>';
+    }).join('');
+    main.insertBefore(crumbs, main.firstChild);
+  }
+
+  /* 2. Right "On this page": h2 and h3 of the reading column. */
+  var used = {};
+  var heads = Array.prototype.slice.call(main.querySelectorAll('h2, h3')).filter(function (h) {
+    if (h.closest('.site-foot, .featured-band, .msg-grid, [data-toc="no"]')) return false;
+    if (h.classList.contains('unnumbered') || h.id === 'contenido') return false;
+    return h.textContent.trim().length > 0;
+  });
+  heads.forEach(function (h) {
+    if (!h.id) {
+      var s = h.textContent.trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+        .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60) || 'sec';
+      while (used[s] || document.getElementById(s)) s += '-';
+      h.id = s;
+    }
+    used[h.id] = true;
+    var li = document.createElement('li');
+    if (h.tagName === 'H3') li.className = 'l3';
+    var a = document.createElement('a');
+    a.href = '#' + h.id;
+    /* This runs before KaTeX has rendered the headings, so a heading with mathematics still holds TeX
+       source: copy its markup, including the math spans, and let the page's KaTeX pass render the copy. */
+    var copy = h.cloneNode(true);
+    copy.querySelectorAll('.katex-mathml, annotation, .anchorjs-link').forEach(function (n) { n.remove(); });
+    var label = copy.textContent.trim().replace(/\s+/g, ' ');
+    if (copy.querySelector('.math, .math-done, .katex')) a.innerHTML = copy.innerHTML.trim();
+    else a.textContent = label.length > 72 ? label.slice(0, 70).replace(/[\s,;:]+\S*$/, '') + '…' : label;
+    a.title = label;
+    li.appendChild(a);
+    toc.appendChild(li);
+  });
+  if (!heads.length) { document.querySelector('.docs-toc').hidden = true; return; }
+
+  /* 3. Scroll-spy. */
+  var items = Array.prototype.slice.call(toc.querySelectorAll('a'));
+  function spy() {
+    var y = window.scrollY + 120, best = null;
+    heads.forEach(function (h) { if (h.getBoundingClientRect().top + window.scrollY <= y) best = h; });
+    items.forEach(function (a) { a.classList.toggle('current', best && a.getAttribute('href') === '#' + best.id); });
+  }
+  window.addEventListener('scroll', spy, { passive: true });
+  window.addEventListener('hashchange', spy);
+  spy();
+})();
+</script>
+<footer class="site-foot">
+  <div class="site-foot__inner">
+    <div class="foot-grid">
+      <div class="foot-about">
+        <h4 class="anchored">Qué es esto</h4>
+        <p>Los guiones de las prácticas de laboratorio que la UNED realiza en la Facultad de Ciencia y Tecnología de la UPV/EHU (Leioa), para Bases Físicas del Medio Ambiente, Física I y II, Mecánica y Técnicas Experimentales I.</p>
+        <div class="cite-block">Josu M. Igartua · Departamento de Física, Facultad de Ciencia y Tecnología, UPV/EHU<br>josu.igartua@ehu.eus · +34 94 601 5335</div>
+      </div>
+      <div><h4 class="anchored">Este sitio</h4><ul>
+        <li><a href="../../../index.html">Inicio</a></li><li><a href="../../../practicas/index.html">Prácticas</a></li><li><a href="../../../asignaturas/index.html">Asignaturas</a></li><li><a href="../../../recursos/index.html">Recursos</a></li><li><a href="../../../informe/index.html">Informe</a></li><li><a href="../../../manual/index.html">Manual TE I</a></li><li><a href="../../../contacto/index.html">Contacto</a></li>
+      </ul></div>
+      <div><h4 class="anchored">Instituciones</h4><ul>
+        <li><a href="https://www.uned.es">UNED</a></li>
+        <li><a href="https://www.ehu.eus">UPV/EHU</a></li></ul></div>
+      <div><h4 class="anchored">Dónde</h4><ul>
+        <li>Barrio Sarriena s/n, 48940 Leioa (Bizkaia)</li>
+        <li>Laboratorios 0.16 y 0.21</li></ul></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Josu M. Igartua</span>
+      <span>curso 2025–2026</span>
+    </div>
+  </div>
+</footer>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+    tabsets.forEach(function(tabset) {
+      const tabby = new Tabby('#' + tabset.id);
+    });
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+
+
+
+
+<script src="../../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

@@ -1,0 +1,2239 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="María López Fernández">
+<meta name="dcterms.date" content="2026-03-07">
+<meta name="description" content="Estudio experimental de las ondas estacionarias en una cuerda tensa con extremos fijos: verificación de la relación frecuencia-modo y determinación de la velocidad de propagación">
+
+<title>Informe Modelo: Ondas Estacionarias en una Cuerda con Extremos Fijos · UNED Labo – UNED Labo</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<link href="../../../assets/favicon.svg" rel="icon" type="image/svg+xml">
+<script src="../../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-html-afe927e19676d0e50b1726048be49fb1.min.css" rel="stylesheet" append-hash="true" data-mode="light">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<style>html{ scroll-behavior: smooth; }</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&amp;family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<!-- KaTeX auto-render: publication titles carry TeX inside generated HTML that
+     Quarto's own math pipeline never sees (same approach as thermomat). -->
+<script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+/* The header ribbon is sticky; the side columns and anchor targets need its height. */
+(function () {
+  function headH() {
+    var t = document.querySelector(".topline"), h = document.querySelector(".site-head");
+    var px = (t ? t.offsetHeight : 0) + (h ? h.offsetHeight : 0);
+    if (px) document.documentElement.style.setProperty("--head-h", px + "px");
+  }
+  document.addEventListener("DOMContentLoaded", headH);
+  window.addEventListener("load", headH);
+  window.addEventListener("resize", headH);
+})();
+document.addEventListener("DOMContentLoaded", function () {
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }, { left: "\\(", right: "\\)", display: false }],
+      throwOnError: false
+    });
+  }
+  /* Quarto's KaTeX pipeline writes <span class="math inline">TeX</span> without delimiters and renders
+     them in a loop that reads firstChild.data; that loop dies at the first span the auto-render above
+     has already turned into KaTeX markup, leaving every later formula raw. Render the rest here. */
+  if (window.katex) {
+    document.querySelectorAll(".math").forEach(function (el) {
+      if (!el.querySelector(".katex")) {
+        var t = el.textContent.replace(/^\s*\\[\(\[]/, "").replace(/\\[\)\]]\s*$/, "");
+        try { katex.render(t, el, { displayMode: el.classList.contains("display"), throwOnError: false }); } catch (e) {}
+      }
+      /* Quarto's loop would still visit this span and wipe it (firstChild is now an element, not text):
+         take it out of its sight. No stylesheet of the site depends on the class; KaTeX's own output carries the layout. */
+      el.classList.remove("math"); el.classList.add("math-done");
+    });
+  }
+});
+</script>
+
+  <script defer="" src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../../assets/styles/theme.css">
+<link rel="stylesheet" href="../../../assets/styles/site.css">
+<link rel="stylesheet" href="../../../assets/styles/project.css">
+</head>
+
+<body>
+
+<div class="topline"></div>
+<header class="site-head">
+  <div class="site-head__inner">
+    <a href="../../../index.html" class="wordmark">UNED Labo <span class="accent">Leioa</span>
+      <span class="wordmark-sub">prácticas de laboratorio de la UNED en la Facultad de Ciencia y Tecnología (UPV/EHU) · curso 2025–2026</span>
+    </a>
+    <nav class="site-nav">
+      <a href="../../../index.html">Inicio</a>
+      <a href="../../../practicas/index.html">Prácticas</a>
+      <a href="../../../asignaturas/index.html">Asignaturas</a>
+      <a href="../../../recursos/index.html">Recursos</a>
+      <a href="../../../informe/index.html">Informe</a>
+      <a href="../../../manual/index.html">Manual TE I</a>
+      <a href="../../../contacto/index.html">Contacto</a>
+    </nav>
+  </div>
+</header>
+<!-- generated by tools/sibling.py public: the left navigation -->
+<div class="docs">
+<nav class="docs-nav" aria-label="Site sections">
+<button class="docs-fold" type="button" data-fold="nav" aria-label="Hide the navigation" title="Hide the navigation">‹</button>
+<details class="group" open=""><summary class="t">Inicio</summary><ul><li><a href="../../../index.html">Inicio</a></li></ul></details>
+<details class="group" open=""><summary class="t">Prácticas</summary><ul><li><a href="../../../practicas/index.html">Catálogo: las veinte prácticas</a></li><li><a href="../../../practicas/pendulo-fisico/index.html">P01 · Péndulo físico</a></li><li><a href="../../../practicas/ley-hooke/index.html">P02 · Movimiento armónico simple. Ley de Hooke</a></li><li><a href="../../../practicas/carril-aire/index.html">P03 · Medida de magnitudes dinámicas mediante un carril de aire</a></li><li><a href="../../../practicas/cc-resistencia-interna/index.html">P04 · Corriente continua I: resistencia interna de una fuente</a></li><li><a href="../../../practicas/cc-curva-lampara/index.html">P05 · Corriente continua II: curva característica de una lámpara</a></li><li><a href="../../../practicas/descarga-condensador/index.html">P06 · Descarga de un condensador</a></li><li><a href="../../../practicas/ondas-estacionarias/index.html">P07 · Ondas estacionarias en una cuerda con extremos fijos</a></li><li><a href="../../../practicas/vaporizacion-agua/index.html">P08 · Calor de vaporización del agua</a></li><li><a href="../../../practicas/velocidad-sonido/index.html">P09 · Medida de la velocidad del sonido: tubo de resonancia</a></li><li><a href="../../../practicas/inercia-disco/index.html">P10 · Momento de inercia de un disco</a></li><li><a href="../../../practicas/catenaria/index.html">P11 · Equilibrio de un hilo bajo la acción de la gravedad: la catenaria</a></li><li><a href="../../../practicas/rozamiento-correas/index.html">P12 · Coeficiente de rozamiento entre correas y poleas</a></li><li><a href="../../../practicas/giroscopo/index.html">P13 · Giróscopo</a></li><li><a href="../../../practicas/cantidad-movimiento/index.html">P14 · Conservación de la cantidad de movimiento</a></li><li><a href="../../../practicas/momento-cinetico/index.html">P15 · Conservación del momento cinético</a></li><li><a href="../../../practicas/pendulo-circular/index.html">P16 · Péndulo circular (cónico)</a></li><li><a href="../../../practicas/momentos-inercia/index.html">P17 · Momentos de inercia de sólidos</a></li><li><a href="../../../practicas/maquina-atwood/index.html">P18 · Máquina de Atwood</a></li><li><a href="../../../practicas/vibraciones-1gdl/index.html">P19 · Vibraciones libres con un grado de libertad</a></li><li><a href="../../../practicas/vibraciones-2gdl/index.html">P20 · Vibraciones libres con dos grados de libertad</a></li></ul></details>
+<details class="group" open=""><summary class="t">Asignaturas</summary><ul><li><a href="../../../asignaturas/index.html">Las cuatro asignaturas</a></li><li><a href="../../../asignaturas/bfma/index.html">Bases Físicas del Medio Ambiente</a></li><li><a href="../../../asignaturas/fisica/index.html">Física I y II</a></li><li><a href="../../../asignaturas/mecanica/index.html">Mecánica</a></li><li><a href="../../../asignaturas/tecnicas-experimentales/index.html">Técnicas Experimentales I</a></li></ul></details>
+<details class="group" open=""><summary class="t">Recursos</summary><ul><li><a href="../../../recursos/index.html">Recursos</a></li><li><a href="../../../recursos/sesion-0/index.html">Sesión 0</a></li><li><a href="../../../recursos/errores/index.html">Errores y regresiones</a></li><li><a href="../../../recursos/phyphox/index.html">Phyphox</a></li></ul></details>
+<details class="group" open=""><summary class="t">Informe</summary><ul><li><a href="../../../informe/index.html">El informe: qué contiene, cómo se evalúa</a></li><li><a href="../../../informe/modelos/index.html">Los ocho informes modelo</a></li><li><a href="../../../informe/rubrica/index.html">La rúbrica de TE I: 225 criterios</a></li><li><a href="../../../informe/rubrica-gum/index.html">La rúbrica GUM</a></li></ul></details>
+<details class="group" open=""><summary class="t">Manual TE I</summary><ul><li><a href="../../../manual/index.html">El manual, capítulo a capítulo</a></li><li><a href="../../../manual/01-representacion-magnitudes.html">Tema 1: Representación de magnitudes</a></li><li><a href="../../../manual/02-medidas-directas.html">Tema 2: Medidas directas</a></li><li><a href="../../../manual/03-medidas-indirectas.html">Tema 3: Medidas indirectas</a></li><li><a href="../../../manual/04-graficas-regresion.html">Tema 4: Gráficas y regresión lineal</a></li><li><a href="../../../manual/05-ejemplos-desarrollados.html">Tema 5: Ejemplos desarrollados</a></li><li><a href="../../../manual/06-instrucciones-laboratorio.html">Tema 6: Instrucciones para el laboratorio</a></li><li><a href="../../../manual/07-soluciones-ejercicios.html">Soluciones y apéndices</a></li></ul></details>
+<details class="group" open=""><summary class="t">Contacto</summary><ul><li><a href="../../../contacto/index.html">Contacto</a></li></ul></details>
+</nav>
+<div class="docs-main">
+
+<header id="title-block-header">
+<h1 class="title">Informe Modelo: Ondas Estacionarias en una Cuerda con Extremos Fijos</h1>
+<p class="subtitle">Práctica 7 — Técnicas Experimentales I</p>
+<p class="author">María López Fernández</p>
+
+<p class="date">2026-03-07</p>
+<div class="abstract">
+<div class="abstract-title">Resumen</div>
+<p>Se estudian experimentalmente las ondas estacionarias que se forman en una cuerda tensa con ambos extremos fijos. Se realizan tres montajes: dos con cuerda elástica bajo diferentes tensiones (1.962 N y 0.981 N) y uno con cuerda inelástica (1.962 N). Mediante regresión lineal de la frecuencia de resonancia frente al número de antinodos, se determinan las velocidades de propagación: v = (27.54 ± 0.06) m/s, v = (18.02 ± 0.06) m/s y v = (38.92 ± 0.15) m/s, respectivamente, todas compatibles con los valores teóricos obtenidos por fórmula directa.</p>
+</div>
+</header>
+
+<nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#informe-de-la-práctica-7-ondas-estacionarias-en-una-cuerda-con-extremos-fijos" id="toc-informe-de-la-práctica-7-ondas-estacionarias-en-una-cuerda-con-extremos-fijos">Informe de la Práctica 7: Ondas Estacionarias en una Cuerda con Extremos Fijos</a>
+  <ul>
+  <li><a href="#portada" id="toc-portada">1. Portada</a></li>
+  <li><a href="#introducción" id="toc-introducción">2. Introducción</a></li>
+  <li><a href="#fundamento-teórico" id="toc-fundamento-teórico">3. Fundamento Teórico</a>
+  <ul>
+  <li><a href="#ondas-estacionarias-en-una-cuerda-con-extremos-fijos" id="toc-ondas-estacionarias-en-una-cuerda-con-extremos-fijos">3.1. Ondas estacionarias en una cuerda con extremos fijos</a></li>
+  <li><a href="#linealización" id="toc-linealización">3.2. Linealización</a></li>
+  <li><a href="#efecto-de-la-elasticidad-de-la-cuerda" id="toc-efecto-de-la-elasticidad-de-la-cuerda">3.3. Efecto de la elasticidad de la cuerda</a></li>
+  <li><a href="#regresión-lineal-por-mínimos-cuadrados" id="toc-regresión-lineal-por-mínimos-cuadrados">3.4. Regresión lineal por mínimos cuadrados</a></li>
+  </ul></li>
+  <li><a href="#dispositivo-experimental" id="toc-dispositivo-experimental">4. Dispositivo Experimental</a>
+  <ul>
+  <li><a href="#descripción-del-montaje" id="toc-descripción-del-montaje">4.1. Descripción del montaje</a></li>
+  <li><a href="#instrumentos-de-medida" id="toc-instrumentos-de-medida">4.2. Instrumentos de medida</a></li>
+  <li><a href="#esquema-del-montaje" id="toc-esquema-del-montaje">4.3. Esquema del montaje</a></li>
+  </ul></li>
+  <li><a href="#procedimiento-y-resultados" id="toc-procedimiento-y-resultados">5. Procedimiento y Resultados</a>
+  <ul>
+  <li><a href="#montaje-1-cuerda-elástica-t_1-1.962-n" id="toc-montaje-1-cuerda-elástica-t_1-1.962-n">5.1. Montaje 1: Cuerda elástica, <span class="math inline">T_1 = 1.962</span> N</a></li>
+  <li><a href="#montaje-2-cuerda-elástica-t_2-0.981-n" id="toc-montaje-2-cuerda-elástica-t_2-0.981-n">5.2. Montaje 2: Cuerda elástica, <span class="math inline">T_2 = 0.981</span> N</a></li>
+  <li><a href="#montaje-3-cuerda-inelástica-t_3-1.962-n" id="toc-montaje-3-cuerda-inelástica-t_3-1.962-n">5.3. Montaje 3: Cuerda inelástica, <span class="math inline">T_3 = 1.962</span> N</a></li>
+  <li><a href="#tabla-resumen-comparativa-de-los-tres-montajes" id="toc-tabla-resumen-comparativa-de-los-tres-montajes">5.4. Tabla resumen comparativa de los tres montajes</a></li>
+  <li><a href="#discusión-comparativa" id="toc-discusión-comparativa">5.5. Discusión comparativa</a></li>
+  <li><a href="#análisis-detallado-de-incertidumbres-montaje-1" id="toc-análisis-detallado-de-incertidumbres-montaje-1">5.6. Análisis detallado de incertidumbres (Montaje 1)</a></li>
+  <li><a href="#análisis-detallado-de-incertidumbres-montaje-2" id="toc-análisis-detallado-de-incertidumbres-montaje-2">5.7. Análisis detallado de incertidumbres (Montaje 2)</a></li>
+  <li><a href="#análisis-detallado-de-incertidumbres-montaje-3" id="toc-análisis-detallado-de-incertidumbres-montaje-3">5.8. Análisis detallado de incertidumbres (Montaje 3)</a></li>
+  <li><a href="#evaluación-de-la-adecuación-de-las-incertidumbres" id="toc-evaluación-de-la-adecuación-de-las-incertidumbres">5.9. Evaluación de la adecuación de las incertidumbres</a></li>
+  </ul></li>
+  <li><a href="#cuestiones" id="toc-cuestiones">6. Cuestiones</a>
+  <ul>
+  <li><a href="#cuestión-1-deducir-la-expresión-de-las-frecuencias-de-resonancia" id="toc-cuestión-1-deducir-la-expresión-de-las-frecuencias-de-resonancia">Cuestión 1: Deducir la expresión de las frecuencias de resonancia</a></li>
+  <li><a href="#cuestión-2-efecto-de-la-elasticidad-sobre-la-relación-v-vs-t" id="toc-cuestión-2-efecto-de-la-elasticidad-sobre-la-relación-v-vs-t">Cuestión 2: Efecto de la elasticidad sobre la relación <span class="math inline">v</span> vs <span class="math inline">T</span></a></li>
+  <li><a href="#cuestión-3-fuentes-de-error-y-posibles-mejoras" id="toc-cuestión-3-fuentes-de-error-y-posibles-mejoras">Cuestión 3: Fuentes de error y posibles mejoras</a></li>
+  </ul></li>
+  <li><a href="#bibliografía" id="toc-bibliografía">7. Bibliografía</a></li>
+  <li><a href="#apéndice-a.-comparación-de-métodos-de-regresión" id="toc-apéndice-a.-comparación-de-métodos-de-regresión">Apéndice A. Comparación de métodos de regresión</a>
+  <ul>
+  <li><a href="#a.1.-mínimos-cuadrados-ordinarios-ols" id="toc-a.1.-mínimos-cuadrados-ordinarios-ols">A.1. Mínimos cuadrados ordinarios (OLS)</a></li>
+  <li><a href="#a.2.-mínimos-cuadrados-ponderados-por-delta-y-wls-y" id="toc-a.2.-mínimos-cuadrados-ponderados-por-delta-y-wls-y">A.2. Mínimos cuadrados ponderados por <span class="math inline">\Delta y</span> (WLS-y)</a></li>
+  <li><a href="#a.3.-mínimos-cuadrados-con-varianza-efectiva-wls-xy" id="toc-a.3.-mínimos-cuadrados-con-varianza-efectiva-wls-xy">A.3. Mínimos cuadrados con varianza efectiva (WLS-xy)</a></li>
+  <li><a href="#a.4.-cálculo-y-comparación" id="toc-a.4.-cálculo-y-comparación">A.4. Cálculo y comparación</a></li>
+  <li><a href="#a.5.-discusión" id="toc-a.5.-discusión">A.5. Discusión</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+<h1 id="informe-de-la-práctica-7-ondas-estacionarias-en-una-cuerda-con-extremos-fijos">Informe de la Práctica 7: Ondas Estacionarias en una Cuerda con Extremos Fijos</h1>
+<h2 id="portada" class="anchored">1. Portada</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Asignatura</strong></td>
+<td>Técnicas Experimentales I (Cod. 61041080)</td>
+</tr>
+<tr class="even">
+<td><strong>Práctica</strong></td>
+<td>Práctica 7: Ondas Estacionarias en una Cuerda con Extremos Fijos</td>
+</tr>
+<tr class="odd">
+<td><strong>Alumna</strong></td>
+<td>María López Fernández</td>
+</tr>
+<tr class="even">
+<td><strong>DNI</strong></td>
+<td>12345678A</td>
+</tr>
+<tr class="odd">
+<td><strong>Correo electrónico</strong></td>
+<td>mlopezfernandez42@ejemplo.uned.es</td>
+</tr>
+<tr class="even">
+<td><strong>Teléfono</strong></td>
+<td>612 345 678</td>
+</tr>
+<tr class="odd">
+<td><strong>Centro Asociado</strong></td>
+<td>Madrid - Gregorio Marañón</td>
+</tr>
+<tr class="even">
+<td><strong>Tutor</strong></td>
+<td>Dr.&nbsp;Fernando García Martínez</td>
+</tr>
+<tr class="odd">
+<td><strong>Fecha de realización</strong></td>
+<td>27 de febrero de 2026</td>
+</tr>
+<tr class="even">
+<td><strong>Fecha de entrega</strong></td>
+<td>7 de marzo de 2026</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="introducción" class="anchored">2. Introducción</h2>
+<p>El objetivo de esta práctica es el estudio experimental de las ondas estacionarias que se forman en una cuerda tensa con ambos extremos fijos. Se pretende verificar la relación teórica entre la frecuencia de resonancia, el número de modos normales de vibración y la velocidad de propagación de las ondas transversales en la cuerda. A partir de las medidas, se determina experimentalmente la velocidad de propagación y se compara con el valor teórico derivado de la tensión y la densidad lineal del medio.</p>
+<p>Las medidas se realizaron a temperatura ambiente de aproximadamente <span class="math inline">(20 \pm 2)</span> °C y humedad relativa del <span class="math inline">(50 \pm 10)\%</span>. No se observaron corrientes de aire significativas ni vibraciones externas apreciables durante la realización de la práctica. <!-- Valor estimado de las condiciones ambientales del laboratorio --></p>
+<p>Cuando una onda transversal se propaga por una cuerda con ambos extremos fijos y se refleja en ellos, la superposición de la onda incidente y la reflejada produce una onda estacionaria. Solo son posibles aquellas frecuencias para las cuales se forma un número entero de semiondas entre los extremos fijos. Estas frecuencias discretas se denominan frecuencias de resonancia o armónicos del sistema.</p>
+<p>La práctica se realiza con tres montajes distintos: dos empleando una cuerda elástica (goma) bajo diferentes tensiones, y uno con una cuerda inelástica (algodón/nylon). La comparación entre ambos tipos de cuerda permite discutir el efecto de la elasticidad del material sobre la densidad lineal y, por tanto, sobre la velocidad de propagación. En la cuerda elástica, al aumentar la tensión la cuerda se estira y su densidad lineal disminuye, lo que introduce una complicación adicional respecto al caso ideal.</p>
+<hr>
+<h2 id="fundamento-teórico" class="anchored">3. Fundamento Teórico</h2>
+<h3 id="ondas-estacionarias-en-una-cuerda-con-extremos-fijos" class="anchored">3.1. Ondas estacionarias en una cuerda con extremos fijos</h3>
+<p>Consideremos una cuerda de longitud <span class="math inline">l</span> fija en ambos extremos. La velocidad de propagación de ondas transversales en la cuerda viene dada por:</p>
+<p><span class="math display">v = \sqrt{\frac{T}{\mu}}</span></p>
+<p>donde <span class="math inline">T</span> es la tensión aplicada a la cuerda (en N) y <span class="math inline">\mu</span> es su densidad lineal de masa (en kg/m), definida como <span class="math inline">\mu = m_{\text{cuerda}}/l</span>, siendo <span class="math inline">m_{\text{cuerda}}</span> la masa del segmento de cuerda entre los soportes.</p>
+<p>La condición de contorno (ambos extremos fijos, es decir, nodos de desplazamiento) exige que la longitud de la cuerda sea un número entero de semilongitudes de onda:</p>
+<p><span class="math display">l = n \cdot \frac{\lambda_n}{2}, \qquad n = 1, 2, 3, \ldots</span></p>
+<p>de donde se obtiene la longitud de onda del <span class="math inline">n</span>-ésimo modo normal:</p>
+<p><span class="math display">\lambda_n = \frac{2l}{n}</span></p>
+<p>La frecuencia de resonancia correspondiente es:</p>
+<p><span class="math display">f_n = \frac{v}{\lambda_n} = \frac{nv}{2l} = \frac{n}{2l}\sqrt{\frac{T}{\mu}}</span></p>
+<p>El entero <span class="math inline">n</span> indica el número de antinodos (vientres) de la onda estacionaria. Para <span class="math inline">n = 1</span> se tiene el modo fundamental (primer armónico), con un único antinodo en el centro de la cuerda. Para <span class="math inline">n = 2</span> se tienen dos antinodos separados por un nodo central, y así sucesivamente.</p>
+<h3 id="linealización" class="anchored">3.2. Linealización</h3>
+<p>La relación <span class="math inline">f_n = \frac{v}{2l} \cdot n</span> es lineal en <span class="math inline">n</span>. Si se representa <span class="math inline">f_n</span> frente a <span class="math inline">n</span>, los datos deben ajustarse a una recta que pasa por el origen:</p>
+<p><span class="math display">f_n = m \cdot n + c</span></p>
+<p>donde la pendiente es:</p>
+<p><span class="math display">m = \frac{v}{2l} \quad \Longrightarrow \quad v = 2l \cdot m</span></p>
+<p>y la ordenada en el origen <span class="math inline">c</span> debería ser compatible con cero.</p>
+<h3 id="efecto-de-la-elasticidad-de-la-cuerda" class="anchored">3.3. Efecto de la elasticidad de la cuerda</h3>
+<p>Para una cuerda elástica (como una goma), la longitud <span class="math inline">l</span> depende de la tensión aplicada: al aumentar <span class="math inline">T</span>, la cuerda se estira y su longitud aumenta. Dado que la masa de la cuerda no cambia, la densidad lineal <span class="math inline">\mu = m_{\text{cuerda}}/l</span> disminuye al aumentar la tensión. Por tanto, la velocidad de propagación <span class="math inline">v = \sqrt{T/\mu}</span> depende de la tensión de forma más compleja que para una cuerda inelástica, donde <span class="math inline">\mu</span> es esencialmente constante e independiente de <span class="math inline">T</span>.</p>
+<p>Esta diferencia se manifiesta experimentalmente: para una misma masa colgada, la cuerda elástica se estira más que la inelástica, y su densidad lineal efectiva es menor. Al cambiar la masa colgada, no sólo cambia <span class="math inline">T</span> sino también <span class="math inline">\mu</span>, lo que complica la interpretación.</p>
+<h3 id="regresión-lineal-por-mínimos-cuadrados" class="anchored">3.4. Regresión lineal por mínimos cuadrados</h3>
+<p>Para <span class="math inline">N_p</span> puntos <span class="math inline">(x_i, y_i)</span>, el ajuste <span class="math inline">y = mx + c</span> proporciona:</p>
+<p><span class="math display">m = \frac{N_p\sum x_i y_i - \sum x_i \sum y_i}{N_p\sum x_i^2 - (\sum x_i)^2}</span></p>
+<p><span class="math display">c = \frac{\sum x_i^2 \sum y_i - \sum x_i \sum x_i y_i}{N_p\sum x_i^2 - (\sum x_i)^2}</span></p>
+<p>La varianza residual, las incertidumbres de los parámetros y el coeficiente de correlación:</p>
+<p><span class="math display">S^2 = \frac{\sum(y_i - mx_i - c)^2}{N_p - 2}</span></p>
+<p><span class="math display">\sigma_m = \sqrt{\frac{N_p \cdot S^2}{\Delta}}, \qquad \sigma_c = \sqrt{\frac{\sum x_i^2 \cdot S^2}{\Delta}}</span></p>
+<p><span class="math display">r = \frac{N_p\sum x_i y_i - \sum x_i \sum y_i}{\sqrt{(N_p\sum x_i^2 - (\sum x_i)^2)(N_p\sum y_i^2 - (\sum y_i)^2)}}</span></p>
+<p>donde <span class="math inline">\Delta = N_p\sum x_i^2 - (\sum x_i)^2</span>.</p>
+<hr>
+<h2 id="dispositivo-experimental" class="anchored">4. Dispositivo Experimental</h2>
+<h3 id="descripción-del-montaje" class="anchored">4.1. Descripción del montaje</h3>
+<p>El dispositivo experimental consta de un generador de funciones conectado a un oscilador mecánico (altavoz o vibrador electromagnético) que excita transversalmente uno de los extremos de una cuerda. La cuerda pasa sobre una polea fija en el otro extremo del banco y soporta una masa colgante que proporciona la tensión. El extremo del oscilador mecánico y el punto de contacto con la polea actúan como nodos fijos.</p>
+<p>Se dispone de dos tipos de cuerda: - <strong>Cuerda elástica (goma):</strong> masa <span class="math inline">m_{\text{cuerda}} = (3.2 \pm 0.1)</span> g. Su longitud varía significativamente con la tensión aplicada. - <strong>Cuerda inelástica (algodón/nylon):</strong> masa <span class="math inline">m_{\text{cuerda}} = (1.5 \pm 0.1)</span> g. Apenas se deforma bajo tensión.</p>
+<p>Al variar la frecuencia del generador de funciones, se observan patrones de ondas estacionarias para frecuencias discretas (resonancias). La frecuencia de resonancia se lee directamente en el generador. El número de antinodos <span class="math inline">n</span> se cuenta visualmente.</p>
+<h3 id="instrumentos-de-medida" class="anchored">4.2. Instrumentos de medida</h3>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Instrumento</th>
+<th>Magnitud medida</th>
+<th>Precisión</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Generador de funciones</td>
+<td>Frecuencia <span class="math inline">f</span> de excitación</td>
+<td><span class="math inline">\varepsilon_f = \pm 0.1</span> Hz</td>
+</tr>
+<tr class="even">
+<td>Cinta métrica</td>
+<td>Longitud <span class="math inline">l</span> de la cuerda entre soportes</td>
+<td><span class="math inline">\varepsilon_l = \pm 0.001</span> m (1 mm)</td>
+</tr>
+<tr class="odd">
+<td>Balanza digital</td>
+<td>Masa de la cuerda y de las pesas</td>
+<td><span class="math inline">\varepsilon_m = \pm 0.0001</span> kg (0.1 g)</td>
+</tr>
+<tr class="even">
+<td>Masas calibradas</td>
+<td>Tensión <span class="math inline">T = Mg</span></td>
+<td><span class="math inline">\varepsilon_M = \pm 0.0001</span> kg (0.1 g)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Calibración y trazabilidad.</strong> El generador de funciones fue verificado al inicio de la sesión comparando su lectura con un frecuencímetro patrón del laboratorio, sin detectarse desviaciones apreciables dentro de la resolución del instrumento. La balanza digital dispone de certificado de calibración vigente, trazable a patrones nacionales de masa. La cinta métrica es un instrumento de clase II y se considera trazable a través de su fabricación conforme a normas metrológicas. Las masas calibradas están certificadas con incertidumbre despreciable frente a la resolución de la balanza. No se detectaron errores sistemáticos significativos asociados a la calibración de los instrumentos. <!-- Información de calibración típica del laboratorio --></p>
+<p><strong>Incertidumbres de tipo B y distribuciones asumidas.</strong> Dado que se realizó una única medida (<span class="math inline">N = 1</span>) de cada frecuencia de resonancia, todas las incertidumbres de las magnitudes de entrada son de tipo B, evaluadas a partir de la resolución de los instrumentos:</p>
+<ul>
+<li><strong>Generador de funciones (digital):</strong> La resolución es <span class="math inline">\delta_f = 0.1</span> Hz. Se asume una distribución rectangular (uniforme) de semiancho <span class="math inline">a = \delta_f / 2 = 0.05</span> Hz, por lo que la incertidumbre típica es:</li>
+</ul>
+<p><span class="math display">u(f) = \frac{a}{\sqrt{3}} = \frac{0.05}{\sqrt{3}} = 0.029 \text{ Hz}</span></p>
+<ul>
+<li><strong>Cinta métrica (analógica):</strong> La división mínima es <span class="math inline">w = 1</span> mm <span class="math inline">= 0.001</span> m. Se asume una distribución rectangular, por lo que:</li>
+</ul>
+<p><span class="math display">u(l) = \frac{w}{\sqrt{12}} = \frac{0.001}{\sqrt{12}} = 0.000289 \text{ m}</span></p>
+<ul>
+<li><strong>Balanza digital:</strong> La resolución es <span class="math inline">\delta_m = 0.1</span> g <span class="math inline">= 0.0001</span> kg. Se asume una distribución rectangular de semiancho <span class="math inline">a = 0.05</span> g <span class="math inline">= 0.00005</span> kg:</li>
+</ul>
+<p><span class="math display">u(m_{\text{cuerda}}) = \frac{a}{\sqrt{3}} = \frac{0.00005}{\sqrt{3}} = 0.0000289 \text{ kg}</span></p>
+<ul>
+<li><strong>Masas calibradas (balanza digital):</strong> Análogamente, <span class="math inline">u(M) = 0.0000289</span> kg.</li>
+</ul>
+<p>En todos los casos la distribución asumida es rectangular (uniforme), apropiada cuando sólo se conoce el intervalo de posibles valores dado por la resolución del instrumento y no se dispone de información adicional sobre la distribución de probabilidad.</p>
+<h3 id="esquema-del-montaje" class="anchored">4.3. Esquema del montaje</h3>
+<pre><code>    Generador                                               Polea
+   de funciones                                              /|
+        |                                                   / |
+        v                                                  /  |
+   +---------+                                            O   |
+   | Oscilad.|===*====================================*===/   |
+   | mecanico|   |&lt;---------- l (longitud) ----------&gt;|       |
+   +---------+  nodo                                  nodo    |
+                fijo                                  fijo   [M]
+                                                              |
+              Cuerda tensa                                    v
+              (elástica o inelástica)                     Masa colgante
+                                                          (tension T=Mg)
+
+    Figura 1. Esquema del montaje experimental para ondas estacionarias.</code></pre>
+<hr>
+<h2 id="procedimiento-y-resultados" class="anchored">5. Procedimiento y Resultados</h2>
+<p>Se realizan tres montajes experimentales: - <strong>Montaje 1:</strong> Cuerda elástica con masa colgante <span class="math inline">M = 200.0</span> g (tensión alta). - <strong>Montaje 2:</strong> Cuerda elástica con masa colgante <span class="math inline">M = 100.0</span> g (tensión baja). - <strong>Montaje 3:</strong> Cuerda inelástica con masa colgante <span class="math inline">M = 200.0</span> g.</p>
+<p>Para cada montaje, se mide la longitud de la cuerda entre soportes (que depende de la tensión para la cuerda elástica), se ajusta la frecuencia del generador hasta observar patrones estacionarios nítidos con <span class="math inline">n = 1, 2, 3, \ldots</span> antinodos, y se anota la frecuencia de resonancia correspondiente.</p>
+<p><strong>Regla de error aplicada:</strong> Se ha realizado una única medida (<span class="math inline">N = 1</span>) de la frecuencia de resonancia para cada modo. Dado que <span class="math inline">N = 1</span>, la incertidumbre de la medida individual coincide con la precisión del instrumento: <span class="math inline">\varepsilon_f = 0.1</span> Hz.</p>
+<p><strong>Identificación de fuentes de error aleatorio y sistemático.</strong></p>
+<p><em>Errores aleatorios:</em></p>
+<ul>
+<li>Fluctuaciones en la identificación visual del máximo de amplitud de la onda estacionaria al variar la frecuencia, que afectan a la determinación de <span class="math inline">f_n</span>.</li>
+<li>Variabilidad en la lectura de la longitud de la cuerda debida al posicionamiento del operador respecto a la cinta métrica.</li>
+<li>Vibraciones ambientales que pueden perturbar ligeramente el patrón de la onda estacionaria.</li>
+</ul>
+<p><em>Errores sistemáticos:</em></p>
+<ul>
+<li>Posible offset del generador de funciones respecto a la frecuencia real emitida (minimizado mediante la verificación inicial con un frecuencímetro patrón).</li>
+<li>El ancho finito de la resonancia: la frecuencia central del máximo puede no coincidir exactamente con la frecuencia leída si el amortiguamiento es significativo.</li>
+<li>La cuerda elástica puede no tener densidad lineal uniforme, especialmente bajo tensión, lo que introduce un sesgo en el cálculo de <span class="math inline">\mu</span>.</li>
+<li>Los puntos de sujeción de la cuerda no son nodos perfectamente rígidos: la cuerda tiene cierta flexibilidad en los extremos, lo que puede desplazar ligeramente las frecuencias de resonancia respecto al modelo ideal.</li>
+<li>La aceleración de la gravedad se toma como <span class="math inline">g = 9.81</span> m/s<span class="math inline">^2</span>, sin corrección local. <!-- Valor estándar utilizado --></li>
+</ul>
+<hr>
+<h3 id="montaje-1-cuerda-elástica-t_1-1.962-n" class="anchored">5.1. Montaje 1: Cuerda elástica, <span class="math inline">T_1 = 1.962</span> N</h3>
+<p><strong>Parámetros del montaje:</strong></p>
+<ul>
+<li>Masa colgante: <span class="math inline">M = (200.0 \pm 0.1)</span> g <span class="math inline">= (0.2000 \pm 0.0001)</span> kg</li>
+<li>Tensión: <span class="math inline">T = Mg = 0.2000 \times 9.81 = 1.962</span> N</li>
+<li>Longitud de la cuerda entre soportes (bajo tensión): <span class="math inline">l = (1.200 \pm 0.001)</span> m</li>
+<li>Masa de la cuerda: <span class="math inline">m_{\text{cuerda}} = (3.2 \pm 0.1)</span> g <span class="math inline">= (0.0032 \pm 0.0001)</span> kg</li>
+<li>Densidad lineal: <span class="math inline">\mu = m_{\text{cuerda}}/l = 0.0032/1.200 = 0.00267</span> kg/m</li>
+</ul>
+<p><strong>Velocidad teórica:</strong></p>
+<p><span class="math display">v_{\text{teo}} = \sqrt{\frac{T}{\mu}} = \sqrt{\frac{1.962}{0.00267}} = \sqrt{735.0} = 27.11 \text{ m/s}</span></p>
+<p><strong>Frecuencia fundamental teórica:</strong></p>
+<p><span class="math display">f_1 = \frac{v}{2l} = \frac{27.11}{2 \times 1.200} = 11.30 \text{ Hz}</span></p>
+<h4 id="datos-experimentales" class="anchored">5.1.1. Datos experimentales</h4>
+<p><strong>Tabla 1.</strong> Frecuencias de resonancia medidas para el Montaje 1 (cuerda elástica, <span class="math inline">T = 1.962</span> N, <span class="math inline">l = 1.200</span> m).</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">n</span> (antinodos)</th>
+<th style="text-align: center;"><span class="math inline">f_n</span> (Hz)</th>
+<th style="text-align: center;"><span class="math inline">\lambda_n = 2l/n</span> (m)</th>
+<th style="text-align: center;"><span class="math inline">v_n = f_n \cdot \lambda_n</span> (m/s)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">11.2</td>
+<td style="text-align: center;">2.400</td>
+<td style="text-align: center;">26.88</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">22.8</td>
+<td style="text-align: center;">1.200</td>
+<td style="text-align: center;">27.36</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">34.1</td>
+<td style="text-align: center;">0.800</td>
+<td style="text-align: center;">27.28</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">45.6</td>
+<td style="text-align: center;">0.600</td>
+<td style="text-align: center;">27.36</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">57.3</td>
+<td style="text-align: center;">0.480</td>
+<td style="text-align: center;">27.50</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">68.5</td>
+<td style="text-align: center;">0.400</td>
+<td style="text-align: center;">27.40</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">80.1</td>
+<td style="text-align: center;">0.343</td>
+<td style="text-align: center;">27.46</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Ejemplo detallado (<span class="math inline">n = 3</span>):</strong></p>
+<p><span class="math display">\lambda_3 = \frac{2 \times 1.200}{3} = 0.800 \text{ m}</span></p>
+<p><span class="math display">v_3 = f_3 \cdot \lambda_3 = 34.1 \times 0.800 = 27.28 \text{ m/s}</span></p>
+<p>La velocidad calculada modo a modo oscila entre 26.88 m/s y 27.50 m/s, con un valor medio de <span class="math inline">\bar{v} = 27.32</span> m/s. Las variaciones son pequeñas (del orden del 1%), lo que confirma la consistencia de los datos.</p>
+<h4 id="regresión-lineal-f_n-frente-a-n-montaje-1" class="anchored">5.1.2. Regresión lineal: <span class="math inline">f_n</span> frente a <span class="math inline">n</span> (Montaje 1)</h4>
+<p>Se ajusta el modelo <span class="math inline">f = m \cdot n + c</span> a los <span class="math inline">N_p = 7</span> puntos experimentales.</p>
+<p><strong>Sumas necesarias:</strong></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Suma</th>
+<th style="text-align: center;">Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\sum n_i</span></td>
+<td style="text-align: center;">28</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\sum f_i</span></td>
+<td style="text-align: center;">319.6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\sum n_i^2</span></td>
+<td style="text-align: center;">140</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\sum n_i f_i</span></td>
+<td style="text-align: center;">1599.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\sum f_i^2</span></td>
+<td style="text-align: center;">18279.00</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Cálculo detallado de las sumas:</strong></p>
+<p><span class="math display">\sum n_i = 1 + 2 + 3 + 4 + 5 + 6 + 7 = 28</span></p>
+<p><span class="math display">\sum f_i = 11.2 + 22.8 + 34.1 + 45.6 + 57.3 + 68.5 + 80.1 = 319.6</span></p>
+<p><span class="math display">\sum n_i^2 = 1 + 4 + 9 + 16 + 25 + 36 + 49 = 140</span></p>
+<p><span class="math display">\sum n_i f_i = 1 \times 11.2 + 2 \times 22.8 + 3 \times 34.1 + 4 \times 45.6 + 5 \times 57.3 + 6 \times 68.5 + 7 \times 80.1</span></p>
+<p><span class="math display">= 11.2 + 45.6 + 102.3 + 182.4 + 286.5 + 411.0 + 560.7 = 1599.7</span></p>
+<p><span class="math display">\sum f_i^2 = 125.44 + 519.84 + 1162.81 + 2079.36 + 3283.29 + 4692.25 + 6416.01 = 18279.00</span></p>
+<p><strong>Denominador común:</strong></p>
+<p><span class="math display">\Delta = N_p \sum n_i^2 - \left(\sum n_i\right)^2 = 7 \times 140 - 28^2 = 980 - 784 = 196</span></p>
+<p><strong>Pendiente:</strong></p>
+<p><span class="math display">m = \frac{N_p \sum n_i f_i - \sum n_i \sum f_i}{\Delta} = \frac{7 \times 1599.7 - 28 \times 319.6}{196} = \frac{11197.9 - 8948.8}{196} = \frac{2249.1}{196}</span></p>
+<p><span class="math display">\boxed{m = 11.475 \text{ Hz}}</span></p>
+<p><strong>Ordenada en el origen:</strong></p>
+<p><span class="math display">c = \frac{\sum n_i^2 \sum f_i - \sum n_i \sum n_i f_i}{\Delta} = \frac{140 \times 319.6 - 28 \times 1599.7}{196} = \frac{44744.0 - 44791.6}{196} = \frac{-47.6}{196}</span></p>
+<p><span class="math display">\boxed{c = -0.243 \text{ Hz}}</span></p>
+<p><strong>Varianza residual:</strong></p>
+<p>Calculando los residuos <span class="math inline">e_i = f_i - m \cdot n_i - c</span>:</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">n_i</span></th>
+<th style="text-align: center;"><span class="math inline">f_i</span></th>
+<th style="text-align: center;"><span class="math inline">m \cdot n_i + c</span></th>
+<th style="text-align: center;"><span class="math inline">e_i</span></th>
+<th style="text-align: center;"><span class="math inline">e_i^2</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">11.2</td>
+<td style="text-align: center;">11.232</td>
+<td style="text-align: center;"><span class="math inline">-0.032</span></td>
+<td style="text-align: center;">0.001024</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">22.8</td>
+<td style="text-align: center;">22.707</td>
+<td style="text-align: center;">0.093</td>
+<td style="text-align: center;">0.008649</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">34.1</td>
+<td style="text-align: center;">34.182</td>
+<td style="text-align: center;"><span class="math inline">-0.082</span></td>
+<td style="text-align: center;">0.006724</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">45.6</td>
+<td style="text-align: center;">45.657</td>
+<td style="text-align: center;"><span class="math inline">-0.057</span></td>
+<td style="text-align: center;">0.003249</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">57.3</td>
+<td style="text-align: center;">57.132</td>
+<td style="text-align: center;">0.168</td>
+<td style="text-align: center;">0.028224</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">68.5</td>
+<td style="text-align: center;">68.607</td>
+<td style="text-align: center;"><span class="math inline">-0.107</span></td>
+<td style="text-align: center;">0.011449</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">80.1</td>
+<td style="text-align: center;">80.082</td>
+<td style="text-align: center;">0.018</td>
+<td style="text-align: center;">0.000324</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math display">\sum e_i^2 = 0.05964</span></p>
+<p><strong>Análisis de residuos (Montaje 1).</strong> Los grados de libertad de la varianza residual son <span class="math inline">\nu_{\text{fit}} = N_p - 2 = 7 - 2 = 5</span>. Los residuos no muestran una tendencia sistemática clara (deriva, oscilación periódica o patrón monótono): alternan de signo de forma irregular (<span class="math inline">-, +, -, -, +, -, +</span>), lo que es consistente con fluctuaciones aleatorias. El residuo de mayor magnitud corresponde a <span class="math inline">n = 5</span> (<span class="math inline">e_5 = 0.168</span> Hz), que no supera <span class="math inline">2S \approx 0.22</span> Hz (véase más abajo), por lo que no se identifica ningún punto atípico. Esto respalda la validez del modelo lineal <span class="math inline">f_n = m \cdot n + c</span>.</p>
+<p><span class="math display">S^2 = \frac{\sum e_i^2}{N_p - 2} = \frac{0.05964}{5} = 0.01193</span></p>
+<p><strong>Desviaciones típicas de los parámetros:</strong></p>
+<p><span class="math display">\sigma_m = \sqrt{\frac{N_p \cdot S^2}{\Delta}} = \sqrt{\frac{7 \times 0.01193}{196}} = \sqrt{4.261 \times 10^{-4}} = 0.0206 \text{ Hz}</span></p>
+<p><span class="math display">\sigma_c = \sqrt{\frac{\sum n_i^2 \cdot S^2}{\Delta}} = \sqrt{\frac{140 \times 0.01193}{196}} = \sqrt{8.521 \times 10^{-3}} = 0.0923 \text{ Hz}</span></p>
+<p><strong>Coeficiente de correlación:</strong></p>
+<p><span class="math display">r = \frac{N_p \sum n_i f_i - \sum n_i \sum f_i}{\sqrt{\left(N_p \sum n_i^2 - (\sum n_i)^2\right)\left(N_p \sum f_i^2 - (\sum f_i)^2\right)}}</span></p>
+<p><span class="math display">N_p \sum f_i^2 - (\sum f_i)^2 = 7 \times 18279.00 - (319.6)^2 = 127953.0 - 102144.2 = 25808.8</span></p>
+<p><span class="math display">r = \frac{2249.1}{\sqrt{196 \times 25808.8}} = \frac{2249.1}{\sqrt{5058525}} = \frac{2249.1}{2249.1} = 0.99999</span></p>
+<p>Más precisamente, <span class="math inline">r = 0.999992</span>.</p>
+<p><strong>Resumen del ajuste lineal (Montaje 1):</strong></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Parámetro</th>
+<th style="text-align: center;">Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">m</span> (pendiente)</td>
+<td style="text-align: center;"><span class="math inline">(11.475 \pm 0.021)</span> Hz</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">c</span> (ordenada)</td>
+<td style="text-align: center;"><span class="math inline">(-0.24 \pm 0.09)</span> Hz</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">r</span> (correlación)</td>
+<td style="text-align: center;">0.99999</td>
+</tr>
+</tbody>
+</table>
+<p>La ordenada en el origen <span class="math inline">c = (-0.24 \pm 0.09)</span> Hz no es estrictamente compatible con cero (<span class="math inline">|c| = 0.24 &gt; 0.09</span>). Esta pequeña desviación puede atribuirse a que el modo fundamental (<span class="math inline">n = 1</span>) presenta una frecuencia ligeramente inferior a la esperada, posiblemente debido a efectos de borde (la cuerda no es perfectamente rígida en los puntos de sujeción).</p>
+<h4 id="gráfica-1-f_n-frente-a-n-montaje-1" class="anchored">5.1.3. Gráfica 1: <span class="math inline">f_n</span> frente a <span class="math inline">n</span> (Montaje 1)</h4>
+<div id="cell-fig-fn-vs-n-montaje1" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-display">
+<div id="fig-fn-vs-n-montaje1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-fn-vs-n-montaje1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-fn-vs-n-montaje1-output-1.png" width="880" height="580">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fn-vs-n-montaje1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1: Frecuencia de resonancia frente a número de antinodos para el Montaje 1 (cuerda elástica, T = 1.962 N). Las barras de error verticales (±0.1 Hz) son menores que el tamaño de los símbolos a esta escala.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<h4 id="velocidad-de-propagación-por-regresión-montaje-1" class="anchored">5.1.4. Velocidad de propagación por regresión (Montaje 1)</h4>
+<p>De la pendiente del ajuste:</p>
+<p><span class="math display">v_{\text{reg}} = 2l \cdot m = 2 \times 1.200 \times 11.475 = 27.54 \text{ m/s}</span></p>
+<p>Propagación de la incertidumbre. La velocidad depende de <span class="math inline">l</span> y <span class="math inline">m</span>:</p>
+<p><span class="math display">v = 2lm \quad \Longrightarrow \quad \Delta v = \sqrt{(2m \cdot \Delta l)^2 + (2l \cdot \sigma_m)^2}</span></p>
+<p><span class="math display">\Delta v = \sqrt{(2 \times 11.475 \times 0.001)^2 + (2 \times 1.200 \times 0.0206)^2}</span></p>
+<p><span class="math display">\Delta v = \sqrt{(0.0230)^2 + (0.0494)^2} = \sqrt{0.000529 + 0.002440} = \sqrt{0.002970} = 0.055 \text{ m/s}</span></p>
+<p>Redondeando el error a 1 cifra significativa (<span class="math inline">0.055 \to 0.06</span>):</p>
+<p><span class="math display">\boxed{v_{\text{reg}} = (27.54 \pm 0.06) \text{ m/s}}</span></p>
+<h4 id="velocidad-de-propagación-por-fórmula-directa-montaje-1" class="anchored">5.1.5. Velocidad de propagación por fórmula directa (Montaje 1)</h4>
+<p><span class="math display">v_{\text{formula}} = \sqrt{\frac{T}{\mu}} = \sqrt{\frac{1.962}{0.00267}} = \sqrt{735.0} = 27.11 \text{ m/s}</span></p>
+<p><strong>Propagación de errores.</strong> Dado que <span class="math inline">v = \sqrt{T/\mu}</span>, con <span class="math inline">T = Mg</span> y <span class="math inline">\mu = m_{\text{cuerda}}/l</span>:</p>
+<p><span class="math display">\frac{\Delta v}{v} = \frac{1}{2}\sqrt{\left(\frac{\Delta T}{T}\right)^2 + \left(\frac{\Delta\mu}{\mu}\right)^2}</span></p>
+<p>Cálculo de <span class="math inline">\Delta T</span>:</p>
+<p><span class="math display">\Delta T = g \cdot \Delta M = 9.81 \times 0.0001 = 0.000981 \text{ N}</span></p>
+<p><span class="math display">\frac{\Delta T}{T} = \frac{0.000981}{1.962} = 0.0005</span></p>
+<p>Cálculo de <span class="math inline">\Delta\mu</span>. Dado que <span class="math inline">\mu = m_{\text{cuerda}}/l</span>:</p>
+<p><span class="math display">\Delta\mu = \sqrt{\left(\frac{1}{l} \cdot \Delta m_{\text{cuerda}}\right)^2 + \left(\frac{m_{\text{cuerda}}}{l^2} \cdot \Delta l\right)^2}</span></p>
+<p><span class="math display">\Delta\mu = \sqrt{\left(\frac{0.0001}{1.200}\right)^2 + \left(\frac{0.0032}{1.200^2} \times 0.001\right)^2} = \sqrt{(8.33 \times 10^{-5})^2 + (2.22 \times 10^{-6})^2}</span></p>
+<p><span class="math display">\Delta\mu = \sqrt{6.94 \times 10^{-9} + 4.94 \times 10^{-12}} \approx 8.33 \times 10^{-5} \text{ kg/m}</span></p>
+<p><span class="math display">\frac{\Delta\mu}{\mu} = \frac{8.33 \times 10^{-5}}{0.00267} = 0.0312</span></p>
+<p>Entonces:</p>
+<p><span class="math display">\frac{\Delta v}{v} = \frac{1}{2}\sqrt{(0.0005)^2 + (0.0312)^2} = \frac{1}{2} \times 0.0312 = 0.0156</span></p>
+<p><span class="math display">\Delta v = 0.0156 \times 27.11 = 0.42 \text{ m/s}</span></p>
+<p>Redondeando:</p>
+<p><span class="math display">\boxed{v_{\text{formula}} = (27.1 \pm 0.4) \text{ m/s}}</span></p>
+<p><strong>Nota:</strong> La incertidumbre está dominada por el error en la masa de la cuerda (<span class="math inline">\Delta m_{\text{cuerda}} = 0.1</span> g), que produce un error relativo del 3.1% en <span class="math inline">\mu</span>, mucho mayor que el error del 0.05% en la tensión. Esto muestra que la precisión del resultado depende críticamente de la medida de la masa de la cuerda.</p>
+<h4 id="comparación-de-velocidades-montaje-1" class="anchored">5.1.6. Comparación de velocidades (Montaje 1)</h4>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Método</th>
+<th style="text-align: center;"><span class="math inline">v</span> (m/s)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Regresión (<span class="math inline">v = 2lm</span>)</td>
+<td style="text-align: center;"><span class="math inline">(27.54 \pm 0.06)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Fórmula (<span class="math inline">v = \sqrt{T/\mu}</span>)</td>
+<td style="text-align: center;"><span class="math inline">(27.1 \pm 0.4)</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Criterio de compatibilidad:</strong></p>
+<p><span class="math display">|v_{\text{reg}} - v_{\text{formula}}| = |27.54 - 27.11| = 0.43 \text{ m/s}</span></p>
+<p><span class="math display">\Delta v_{\text{reg}} + \Delta v_{\text{formula}} = 0.06 + 0.4 = 0.5 \text{ m/s}</span></p>
+<p>Dado que <span class="math inline">0.43 \leq 0.5</span>:</p>
+<p><span class="math display">\boxed{|v_{\text{reg}} - v_{\text{formula}}| \leq \Delta v_{\text{reg}} + \Delta v_{\text{formula}} \quad \Longrightarrow \quad \text{Los valores son compatibles.}}</span></p>
+<p>Los dos métodos proporcionan velocidades compatibles dentro de los márgenes de incertidumbre. La mayor precisión del método de regresión (error relativo 0.2%) frente al método de fórmula directa (error relativo 1.6%) se debe a que la regresión utiliza 7 puntos y promedia las fluctuaciones, mientras que la fórmula directa depende fuertemente de la precisión en la medida de <span class="math inline">m_{\text{cuerda}}</span>.</p>
+<hr>
+<h3 id="montaje-2-cuerda-elástica-t_2-0.981-n" class="anchored">5.2. Montaje 2: Cuerda elástica, <span class="math inline">T_2 = 0.981</span> N</h3>
+<p><strong>Parámetros del montaje:</strong></p>
+<ul>
+<li>Masa colgante: <span class="math inline">M = (100.0 \pm 0.1)</span> g <span class="math inline">= (0.1000 \pm 0.0001)</span> kg</li>
+<li>Tensión: <span class="math inline">T = Mg = 0.1000 \times 9.81 = 0.981</span> N</li>
+<li>Longitud de la cuerda entre soportes (bajo tensión): <span class="math inline">l = (1.050 \pm 0.001)</span> m</li>
+<li>Masa de la cuerda: <span class="math inline">m_{\text{cuerda}} = (3.2 \pm 0.1)</span> g <span class="math inline">= (0.0032 \pm 0.0001)</span> kg</li>
+<li>Densidad lineal: <span class="math inline">\mu = m_{\text{cuerda}}/l = 0.0032/1.050 = 0.003048</span> kg/m</li>
+</ul>
+<p><strong>Observación importante:</strong> Con la mitad de tensión respecto al Montaje 1, la cuerda elástica se estira menos: <span class="math inline">l = 1.050</span> m frente a <span class="math inline">l = 1.200</span> m. Esto confirma el comportamiento elástico de la goma. La densidad lineal ha aumentado (<span class="math inline">0.003048</span> frente a <span class="math inline">0.00267</span> kg/m), lo cual reducirá la velocidad de propagación.</p>
+<p><strong>Velocidad teórica:</strong></p>
+<p><span class="math display">v_{\text{teo}} = \sqrt{\frac{T}{\mu}} = \sqrt{\frac{0.981}{0.003048}} = \sqrt{321.8} = 17.94 \text{ m/s}</span></p>
+<h4 id="datos-experimentales-1" class="anchored">5.2.1. Datos experimentales</h4>
+<p><strong>Tabla 2.</strong> Frecuencias de resonancia medidas para el Montaje 2 (cuerda elástica, <span class="math inline">T = 0.981</span> N, <span class="math inline">l = 1.050</span> m).</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">n</span> (antinodos)</th>
+<th style="text-align: center;"><span class="math inline">f_n</span> (Hz)</th>
+<th style="text-align: center;"><span class="math inline">\lambda_n = 2l/n</span> (m)</th>
+<th style="text-align: center;"><span class="math inline">v_n = f_n \cdot \lambda_n</span> (m/s)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">8.6</td>
+<td style="text-align: center;">2.100</td>
+<td style="text-align: center;">18.06</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">17.0</td>
+<td style="text-align: center;">1.050</td>
+<td style="text-align: center;">17.85</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">25.7</td>
+<td style="text-align: center;">0.700</td>
+<td style="text-align: center;">17.99</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">34.2</td>
+<td style="text-align: center;">0.525</td>
+<td style="text-align: center;">17.96</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">42.9</td>
+<td style="text-align: center;">0.420</td>
+<td style="text-align: center;">18.02</td>
+</tr>
+</tbody>
+</table>
+<p>La velocidad modo a modo varía entre 17.85 m/s y 18.06 m/s, con un valor medio de <span class="math inline">\bar{v} = 17.98</span> m/s.</p>
+<h4 id="regresión-lineal-f_n-frente-a-n-montaje-2" class="anchored">5.2.2. Regresión lineal: <span class="math inline">f_n</span> frente a <span class="math inline">n</span> (Montaje 2)</h4>
+<p>Se ajusta el modelo <span class="math inline">f = m \cdot n + c</span> a los <span class="math inline">N_p = 5</span> puntos experimentales.</p>
+<p><strong>Sumas necesarias:</strong></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Suma</th>
+<th style="text-align: center;">Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\sum n_i</span></td>
+<td style="text-align: center;">15</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\sum f_i</span></td>
+<td style="text-align: center;">128.4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\sum n_i^2</span></td>
+<td style="text-align: center;">55</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\sum n_i f_i</span></td>
+<td style="text-align: center;">471.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\sum f_i^2</span></td>
+<td style="text-align: center;">4033.50</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Cálculo detallado de las sumas:</strong></p>
+<p><span class="math display">\sum n_i = 1 + 2 + 3 + 4 + 5 = 15</span></p>
+<p><span class="math display">\sum f_i = 8.6 + 17.0 + 25.7 + 34.2 + 42.9 = 128.4</span></p>
+<p><span class="math display">\sum n_i^2 = 1 + 4 + 9 + 16 + 25 = 55</span></p>
+<p><span class="math display">\sum n_i f_i = 1 \times 8.6 + 2 \times 17.0 + 3 \times 25.7 + 4 \times 34.2 + 5 \times 42.9 = 8.6 + 34.0 + 77.1 + 136.8 + 214.5 = 471.0</span></p>
+<p><span class="math display">\sum f_i^2 = 73.96 + 289.00 + 660.49 + 1169.64 + 1840.41 = 4033.50</span></p>
+<p><strong>Denominador común:</strong></p>
+<p><span class="math display">\Delta = N_p \sum n_i^2 - (\sum n_i)^2 = 5 \times 55 - 15^2 = 275 - 225 = 50</span></p>
+<p><strong>Pendiente:</strong></p>
+<p><span class="math display">m = \frac{5 \times 471.0 - 15 \times 128.4}{50} = \frac{2355.0 - 1926.0}{50} = \frac{429.0}{50}</span></p>
+<p><span class="math display">\boxed{m = 8.580 \text{ Hz}}</span></p>
+<p><strong>Ordenada en el origen:</strong></p>
+<p><span class="math display">c = \frac{55 \times 128.4 - 15 \times 471.0}{50} = \frac{7062.0 - 7065.0}{50} = \frac{-3.0}{50}</span></p>
+<p><span class="math display">\boxed{c = -0.060 \text{ Hz}}</span></p>
+<p><strong>Varianza residual:</strong></p>
+<p>Residuos <span class="math inline">e_i = f_i - m \cdot n_i - c</span>:</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">n_i</span></th>
+<th style="text-align: center;"><span class="math inline">f_i</span></th>
+<th style="text-align: center;"><span class="math inline">m \cdot n_i + c</span></th>
+<th style="text-align: center;"><span class="math inline">e_i</span></th>
+<th style="text-align: center;"><span class="math inline">e_i^2</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">8.6</td>
+<td style="text-align: center;">8.520</td>
+<td style="text-align: center;">0.080</td>
+<td style="text-align: center;">0.006400</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">17.0</td>
+<td style="text-align: center;">17.100</td>
+<td style="text-align: center;"><span class="math inline">-0.100</span></td>
+<td style="text-align: center;">0.010000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">25.7</td>
+<td style="text-align: center;">25.680</td>
+<td style="text-align: center;">0.020</td>
+<td style="text-align: center;">0.000400</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">34.2</td>
+<td style="text-align: center;">34.260</td>
+<td style="text-align: center;"><span class="math inline">-0.060</span></td>
+<td style="text-align: center;">0.003600</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">42.9</td>
+<td style="text-align: center;">42.840</td>
+<td style="text-align: center;">0.060</td>
+<td style="text-align: center;">0.003600</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math display">\sum e_i^2 = 0.024000</span></p>
+<p><strong>Análisis de residuos (Montaje 2).</strong> Los grados de libertad de la varianza residual son <span class="math inline">\nu_{\text{fit}} = N_p - 2 = 5 - 2 = 3</span>. Los residuos alternan de signo (<span class="math inline">+, -, +, -, +</span>), sin evidencia de tendencia sistemática (deriva o curvatura). El residuo de mayor magnitud corresponde a <span class="math inline">n = 2</span> (<span class="math inline">|e_2| = 0.100</span> Hz), que es compatible con las fluctuaciones esperadas. No se detectan datos atípicos.</p>
+<p><span class="math display">S^2 = \frac{0.024000}{3} = 0.008000</span></p>
+<p><strong>Desviaciones típicas:</strong></p>
+<p><span class="math display">\sigma_m = \sqrt{\frac{5 \times 0.008000}{50}} = \sqrt{8.000 \times 10^{-4}} = 0.0283 \text{ Hz}</span></p>
+<p><span class="math display">\sigma_c = \sqrt{\frac{55 \times 0.008000}{50}} = \sqrt{8.800 \times 10^{-3}} = 0.0938 \text{ Hz}</span></p>
+<p><strong>Coeficiente de correlación:</strong></p>
+<p><span class="math display">N_p \sum f_i^2 - (\sum f_i)^2 = 5 \times 4033.50 - (128.4)^2 = 20167.5 - 16486.6 = 3680.9</span></p>
+<p><span class="math display">r = \frac{429.0}{\sqrt{50 \times 3680.9}} = \frac{429.0}{\sqrt{184045}} = \frac{429.0}{429.0} = 0.99998</span></p>
+<p>Más precisamente, <span class="math inline">r = 0.999984</span>.</p>
+<p><strong>Resumen del ajuste lineal (Montaje 2):</strong></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Parámetro</th>
+<th style="text-align: center;">Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">m</span> (pendiente)</td>
+<td style="text-align: center;"><span class="math inline">(8.580 \pm 0.028)</span> Hz</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">c</span> (ordenada)</td>
+<td style="text-align: center;"><span class="math inline">(-0.06 \pm 0.09)</span> Hz</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">r</span> (correlación)</td>
+<td style="text-align: center;">0.99998</td>
+</tr>
+</tbody>
+</table>
+<p>La ordenada en el origen <span class="math inline">c = (-0.06 \pm 0.09)</span> Hz es compatible con cero (<span class="math inline">|c| = 0.06 \leq 0.09</span>), como predice la teoría.</p>
+<h4 id="gráfica-2-f_n-frente-a-n-montaje-2" class="anchored">5.2.3. Gráfica 2: <span class="math inline">f_n</span> frente a <span class="math inline">n</span> (Montaje 2)</h4>
+<div id="cell-fig-fn-vs-n-montaje2" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display">
+<div id="fig-fn-vs-n-montaje2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-fn-vs-n-montaje2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-fn-vs-n-montaje2-output-1.png" width="880" height="580">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fn-vs-n-montaje2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;2: Frecuencia de resonancia frente a número de antinodos para el Montaje 2 (cuerda elástica, T = 0.981 N). Las barras de error verticales (±0.1 Hz) son menores que el tamaño de los símbolos a esta escala.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<h4 id="velocidad-de-propagación-por-regresión-montaje-2" class="anchored">5.2.4. Velocidad de propagación por regresión (Montaje 2)</h4>
+<p><span class="math display">v_{\text{reg}} = 2l \cdot m = 2 \times 1.050 \times 8.580 = 18.018 \text{ m/s}</span></p>
+<p><span class="math display">\Delta v = \sqrt{(2m \cdot \Delta l)^2 + (2l \cdot \sigma_m)^2} = \sqrt{(2 \times 8.580 \times 0.001)^2 + (2 \times 1.050 \times 0.0283)^2}</span></p>
+<p><span class="math display">\Delta v = \sqrt{(0.0172)^2 + (0.0594)^2} = \sqrt{2.96 \times 10^{-4} + 3.53 \times 10^{-3}} = 0.062 \text{ m/s}</span></p>
+<p>Redondeando:</p>
+<p><span class="math display">\boxed{v_{\text{reg}} = (18.02 \pm 0.06) \text{ m/s}}</span></p>
+<h4 id="velocidad-de-propagación-por-fórmula-directa-montaje-2" class="anchored">5.2.5. Velocidad de propagación por fórmula directa (Montaje 2)</h4>
+<p><span class="math display">v_{\text{formula}} = \sqrt{\frac{0.981}{0.003048}} = \sqrt{321.8} = 17.94 \text{ m/s}</span></p>
+<p>Propagación de errores:</p>
+<p><span class="math display">\frac{\Delta T}{T} = \frac{g \cdot \Delta M}{T} = \frac{9.81 \times 0.0001}{0.981} = 0.0010</span></p>
+<p><span class="math display">\Delta\mu = \sqrt{\left(\frac{0.0001}{1.050}\right)^2 + \left(\frac{0.0032}{1.050^2} \times 0.001\right)^2} = \sqrt{(9.52 \times 10^{-5})^2 + (2.90 \times 10^{-6})^2} = 9.53 \times 10^{-5} \text{ kg/m}</span></p>
+<p><span class="math display">\frac{\Delta\mu}{\mu} = \frac{9.53 \times 10^{-5}}{0.003048} = 0.0313</span></p>
+<p><span class="math display">\frac{\Delta v}{v} = \frac{1}{2}\sqrt{(0.0010)^2 + (0.0313)^2} = \frac{1}{2} \times 0.0313 = 0.0157</span></p>
+<p><span class="math display">\Delta v = 0.0157 \times 17.94 = 0.28 \text{ m/s}</span></p>
+<p>Redondeando:</p>
+<p><span class="math display">\boxed{v_{\text{formula}} = (17.9 \pm 0.3) \text{ m/s}}</span></p>
+<h4 id="comparación-de-velocidades-montaje-2" class="anchored">5.2.6. Comparación de velocidades (Montaje 2)</h4>
+<p><span class="math display">|v_{\text{reg}} - v_{\text{formula}}| = |18.02 - 17.94| = 0.08 \text{ m/s}</span></p>
+<p><span class="math display">\Delta v_{\text{reg}} + \Delta v_{\text{formula}} = 0.06 + 0.3 = 0.4 \text{ m/s}</span></p>
+<p>Dado que <span class="math inline">0.08 \leq 0.4</span>:</p>
+<p><span class="math display">\boxed{|v_{\text{reg}} - v_{\text{formula}}| \leq \Delta v_{\text{reg}} + \Delta v_{\text{formula}} \quad \Longrightarrow \quad \text{Los valores son compatibles.}}</span></p>
+<hr>
+<h3 id="montaje-3-cuerda-inelástica-t_3-1.962-n" class="anchored">5.3. Montaje 3: Cuerda inelástica, <span class="math inline">T_3 = 1.962</span> N</h3>
+<p><strong>Parámetros del montaje:</strong></p>
+<ul>
+<li>Masa colgante: <span class="math inline">M = (200.0 \pm 0.1)</span> g <span class="math inline">= (0.2000 \pm 0.0001)</span> kg</li>
+<li>Tensión: <span class="math inline">T = Mg = 0.2000 \times 9.81 = 1.962</span> N</li>
+<li>Longitud de la cuerda entre soportes: <span class="math inline">l = (1.150 \pm 0.001)</span> m</li>
+<li>Masa de la cuerda: <span class="math inline">m_{\text{cuerda}} = (1.5 \pm 0.1)</span> g <span class="math inline">= (0.0015 \pm 0.0001)</span> kg</li>
+<li>Densidad lineal: <span class="math inline">\mu = m_{\text{cuerda}}/l = 0.0015/1.150 = 0.001304</span> kg/m</li>
+</ul>
+<p><strong>Observación:</strong> A diferencia de la cuerda elástica, la cuerda inelástica apenas se deforma bajo tensión. Con la misma masa colgante de 200 g, la longitud es <span class="math inline">l = 1.150</span> m, muy próxima a la longitud en reposo (la cuerda inelástica no se estira apreciablemente). La densidad lineal es significativamente menor que la de la cuerda elástica (<span class="math inline">0.001304</span> frente a <span class="math inline">0.00267</span> kg/m) debido tanto a su menor masa como a su menor longitud.</p>
+<p><strong>Velocidad teórica:</strong></p>
+<p><span class="math display">v_{\text{teo}} = \sqrt{\frac{T}{\mu}} = \sqrt{\frac{1.962}{0.001304}} = \sqrt{1504.6} = 38.79 \text{ m/s}</span></p>
+<h4 id="datos-experimentales-2" class="anchored">5.3.1. Datos experimentales</h4>
+<p><strong>Tabla 3.</strong> Frecuencias de resonancia medidas para el Montaje 3 (cuerda inelástica, <span class="math inline">T = 1.962</span> N, <span class="math inline">l = 1.150</span> m).</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">n</span> (antinodos)</th>
+<th style="text-align: center;"><span class="math inline">f_n</span> (Hz)</th>
+<th style="text-align: center;"><span class="math inline">\lambda_n = 2l/n</span> (m)</th>
+<th style="text-align: center;"><span class="math inline">v_n = f_n \cdot \lambda_n</span> (m/s)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">16.8</td>
+<td style="text-align: center;">2.300</td>
+<td style="text-align: center;">38.64</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">34.0</td>
+<td style="text-align: center;">1.150</td>
+<td style="text-align: center;">39.10</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">50.5</td>
+<td style="text-align: center;">0.767</td>
+<td style="text-align: center;">38.72</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">67.8</td>
+<td style="text-align: center;">0.575</td>
+<td style="text-align: center;">38.99</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">84.5</td>
+<td style="text-align: center;">0.460</td>
+<td style="text-align: center;">38.87</td>
+</tr>
+</tbody>
+</table>
+<p>La velocidad modo a modo varía entre 38.64 m/s y 39.10 m/s, con un valor medio de <span class="math inline">\bar{v} = 38.86</span> m/s. Se observa que la velocidad es notablemente mayor que en los montajes con cuerda elástica, como cabe esperar dado que la densidad lineal es menor.</p>
+<h4 id="regresión-lineal-f_n-frente-a-n-montaje-3" class="anchored">5.3.2. Regresión lineal: <span class="math inline">f_n</span> frente a <span class="math inline">n</span> (Montaje 3)</h4>
+<p>Se ajusta el modelo <span class="math inline">f = m \cdot n + c</span> a los <span class="math inline">N_p = 5</span> puntos experimentales.</p>
+<p><strong>Sumas necesarias:</strong></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Suma</th>
+<th style="text-align: center;">Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\sum n_i</span></td>
+<td style="text-align: center;">15</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\sum f_i</span></td>
+<td style="text-align: center;">253.6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\sum n_i^2</span></td>
+<td style="text-align: center;">55</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\sum n_i f_i</span></td>
+<td style="text-align: center;">930.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\sum f_i^2</span></td>
+<td style="text-align: center;">15725.58</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Cálculo detallado de las sumas:</strong></p>
+<p><span class="math display">\sum f_i = 16.8 + 34.0 + 50.5 + 67.8 + 84.5 = 253.6</span></p>
+<p><span class="math display">\sum n_i f_i = 1 \times 16.8 + 2 \times 34.0 + 3 \times 50.5 + 4 \times 67.8 + 5 \times 84.5 = 16.8 + 68.0 + 151.5 + 271.2 + 422.5 = 930.0</span></p>
+<p><span class="math display">\sum f_i^2 = 282.24 + 1156.00 + 2550.25 + 4596.84 + 7140.25 = 15725.58</span></p>
+<p><strong>Denominador común:</strong></p>
+<p><span class="math display">\Delta = 5 \times 55 - 15^2 = 275 - 225 = 50</span></p>
+<p><strong>Pendiente:</strong></p>
+<p><span class="math display">m = \frac{5 \times 930.0 - 15 \times 253.6}{50} = \frac{4650.0 - 3804.0}{50} = \frac{846.0}{50}</span></p>
+<p><span class="math display">\boxed{m = 16.920 \text{ Hz}}</span></p>
+<p><strong>Ordenada en el origen:</strong></p>
+<p><span class="math display">c = \frac{55 \times 253.6 - 15 \times 930.0}{50} = \frac{13948.0 - 13950.0}{50} = \frac{-2.0}{50}</span></p>
+<p><span class="math display">\boxed{c = -0.040 \text{ Hz}}</span></p>
+<p><strong>Varianza residual:</strong></p>
+<p>Residuos <span class="math inline">e_i = f_i - m \cdot n_i - c</span>:</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">n_i</span></th>
+<th style="text-align: center;"><span class="math inline">f_i</span></th>
+<th style="text-align: center;"><span class="math inline">m \cdot n_i + c</span></th>
+<th style="text-align: center;"><span class="math inline">e_i</span></th>
+<th style="text-align: center;"><span class="math inline">e_i^2</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">16.8</td>
+<td style="text-align: center;">16.880</td>
+<td style="text-align: center;"><span class="math inline">-0.080</span></td>
+<td style="text-align: center;">0.006400</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">34.0</td>
+<td style="text-align: center;">33.800</td>
+<td style="text-align: center;">0.200</td>
+<td style="text-align: center;">0.040000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">50.5</td>
+<td style="text-align: center;">50.720</td>
+<td style="text-align: center;"><span class="math inline">-0.220</span></td>
+<td style="text-align: center;">0.048400</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">67.8</td>
+<td style="text-align: center;">67.640</td>
+<td style="text-align: center;">0.160</td>
+<td style="text-align: center;">0.025600</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">84.5</td>
+<td style="text-align: center;">84.560</td>
+<td style="text-align: center;"><span class="math inline">-0.060</span></td>
+<td style="text-align: center;">0.003600</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math display">\sum e_i^2 = 0.124000</span></p>
+<p><strong>Análisis de residuos (Montaje 3).</strong> Los grados de libertad de la varianza residual son <span class="math inline">\nu_{\text{fit}} = N_p - 2 = 5 - 2 = 3</span>. Los residuos presentan el patrón de signos (<span class="math inline">-, +, -, +, -</span>), alternante, sin evidencia de tendencia sistemática. El residuo de mayor magnitud es <span class="math inline">|e_3| = 0.220</span> Hz, que no alcanza <span class="math inline">2S \approx 0.41</span> Hz, por lo que no se identifica ningún punto atípico. El modelo lineal es adecuado.</p>
+<p><span class="math display">S^2 = \frac{0.124000}{3} = 0.04133</span></p>
+<p><strong>Desviaciones típicas:</strong></p>
+<p><span class="math display">\sigma_m = \sqrt{\frac{5 \times 0.04133}{50}} = \sqrt{4.133 \times 10^{-3}} = 0.0643 \text{ Hz}</span></p>
+<p><span class="math display">\sigma_c = \sqrt{\frac{55 \times 0.04133}{50}} = \sqrt{4.547 \times 10^{-2}} = 0.2132 \text{ Hz}</span></p>
+<p><strong>Coeficiente de correlación:</strong></p>
+<p><span class="math display">N_p \sum f_i^2 - (\sum f_i)^2 = 5 \times 15725.58 - (253.6)^2 = 78627.9 - 64312.96 = 14314.94</span></p>
+<p><span class="math display">r = \frac{846.0}{\sqrt{50 \times 14314.94}} = \frac{846.0}{\sqrt{715747}} = \frac{846.0}{846.02} = 0.99998</span></p>
+<p>Más precisamente, <span class="math inline">r = 0.999978</span>.</p>
+<p><strong>Resumen del ajuste lineal (Montaje 3):</strong></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Parámetro</th>
+<th style="text-align: center;">Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">m</span> (pendiente)</td>
+<td style="text-align: center;"><span class="math inline">(16.92 \pm 0.06)</span> Hz</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">c</span> (ordenada)</td>
+<td style="text-align: center;"><span class="math inline">(-0.04 \pm 0.21)</span> Hz</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">r</span> (correlación)</td>
+<td style="text-align: center;">0.99998</td>
+</tr>
+</tbody>
+</table>
+<p>La ordenada en el origen <span class="math inline">c = (-0.04 \pm 0.21)</span> Hz es perfectamente compatible con cero (<span class="math inline">|c| = 0.04 \leq 0.21</span>), como predice la teoría.</p>
+<h4 id="gráfica-3-f_n-frente-a-n-montaje-3" class="anchored">5.3.3. Gráfica 3: <span class="math inline">f_n</span> frente a <span class="math inline">n</span> (Montaje 3)</h4>
+<div id="cell-fig-fn-vs-n-montaje3" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display">
+<div id="fig-fn-vs-n-montaje3" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-fn-vs-n-montaje3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-fn-vs-n-montaje3-output-1.png" width="880" height="580">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fn-vs-n-montaje3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;3: Frecuencia de resonancia frente a número de antinodos para el Montaje 3 (cuerda inelástica, T = 1.962 N). Las barras de error verticales (±0.1 Hz) son menores que el tamaño de los símbolos a esta escala.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<h4 id="velocidad-de-propagación-por-regresión-montaje-3" class="anchored">5.3.4. Velocidad de propagación por regresión (Montaje 3)</h4>
+<p><span class="math display">v_{\text{reg}} = 2l \cdot m = 2 \times 1.150 \times 16.920 = 38.916 \text{ m/s}</span></p>
+<p><span class="math display">\Delta v = \sqrt{(2m \cdot \Delta l)^2 + (2l \cdot \sigma_m)^2} = \sqrt{(2 \times 16.920 \times 0.001)^2 + (2 \times 1.150 \times 0.0643)^2}</span></p>
+<p><span class="math display">\Delta v = \sqrt{(0.0338)^2 + (0.1479)^2} = \sqrt{1.14 \times 10^{-3} + 2.19 \times 10^{-2}} = 0.152 \text{ m/s}</span></p>
+<p>Redondeando (<span class="math inline">0.152 \to 0.15</span>):</p>
+<p><span class="math display">\boxed{v_{\text{reg}} = (38.92 \pm 0.15) \text{ m/s}}</span></p>
+<h4 id="velocidad-de-propagación-por-fórmula-directa-montaje-3" class="anchored">5.3.5. Velocidad de propagación por fórmula directa (Montaje 3)</h4>
+<p><span class="math display">v_{\text{formula}} = \sqrt{\frac{1.962}{0.001304}} = \sqrt{1504.6} = 38.79 \text{ m/s}</span></p>
+<p>Propagación de errores:</p>
+<p><span class="math display">\frac{\Delta T}{T} = \frac{0.000981}{1.962} = 0.0005</span></p>
+<p><span class="math display">\Delta\mu = \sqrt{\left(\frac{0.0001}{1.150}\right)^2 + \left(\frac{0.0015}{1.150^2} \times 0.001\right)^2} = \sqrt{(8.70 \times 10^{-5})^2 + (1.13 \times 10^{-6})^2} = 8.70 \times 10^{-5} \text{ kg/m}</span></p>
+<p><span class="math display">\frac{\Delta\mu}{\mu} = \frac{8.70 \times 10^{-5}}{0.001304} = 0.0667</span></p>
+<p><span class="math display">\frac{\Delta v}{v} = \frac{1}{2}\sqrt{(0.0005)^2 + (0.0667)^2} = \frac{1}{2} \times 0.0667 = 0.0334</span></p>
+<p><span class="math display">\Delta v = 0.0334 \times 38.79 = 1.3 \text{ m/s}</span></p>
+<p>Redondeando (<span class="math inline">1.3 \to 1.3</span>):</p>
+<p><span class="math display">\boxed{v_{\text{formula}} = (39 \pm 1.3) \text{ m/s}}</span></p>
+<p><strong>Nota:</strong> La incertidumbre relativa de <span class="math inline">v_{\text{formula}}</span> para la cuerda inelástica (3.3%) es mayor que para la cuerda elástica (1.6%) porque la masa de la cuerda inelástica es menor (<span class="math inline">1.5</span> g frente a <span class="math inline">3.2</span> g) y el error absoluto de la balanza es el mismo (<span class="math inline">0.1</span> g), lo que resulta en un error relativo de la masa mayor (<span class="math inline">6.7\%</span> frente a <span class="math inline">3.1\%</span>).</p>
+<h4 id="comparación-de-velocidades-montaje-3" class="anchored">5.3.6. Comparación de velocidades (Montaje 3)</h4>
+<p><span class="math display">|v_{\text{reg}} - v_{\text{formula}}| = |38.92 - 38.79| = 0.13 \text{ m/s}</span></p>
+<p><span class="math display">\Delta v_{\text{reg}} + \Delta v_{\text{formula}} = 0.15 + 1.3 = 1.5 \text{ m/s}</span></p>
+<p>Dado que <span class="math inline">0.13 \leq 1.5</span>:</p>
+<p><span class="math display">\boxed{|v_{\text{reg}} - v_{\text{formula}}| \leq \Delta v_{\text{reg}} + \Delta v_{\text{formula}} \quad \Longrightarrow \quad \text{Los valores son compatibles.}}</span></p>
+<hr>
+<h3 id="tabla-resumen-comparativa-de-los-tres-montajes" class="anchored">5.4. Tabla resumen comparativa de los tres montajes</h3>
+<p><strong>Tabla 4.</strong> Resumen de resultados para los tres montajes experimentales.</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Magnitud</th>
+<th style="text-align: center;">Montaje 1 (elástica, 200 g)</th>
+<th style="text-align: center;">Montaje 2 (elástica, 100 g)</th>
+<th style="text-align: center;">Montaje 3 (inelástica, 200 g)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">T</span> (N)</td>
+<td style="text-align: center;">1.962</td>
+<td style="text-align: center;">0.981</td>
+<td style="text-align: center;">1.962</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">l</span> (m)</td>
+<td style="text-align: center;">1.200</td>
+<td style="text-align: center;">1.050</td>
+<td style="text-align: center;">1.150</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\mu</span> (kg/m)</td>
+<td style="text-align: center;">0.00267</td>
+<td style="text-align: center;">0.00305</td>
+<td style="text-align: center;">0.001304</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">m</span> (pendiente, Hz)</td>
+<td style="text-align: center;"><span class="math inline">11.475 \pm 0.021</span></td>
+<td style="text-align: center;"><span class="math inline">8.580 \pm 0.028</span></td>
+<td style="text-align: center;"><span class="math inline">16.92 \pm 0.06</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">c</span> (ordenada, Hz)</td>
+<td style="text-align: center;"><span class="math inline">-0.24 \pm 0.09</span></td>
+<td style="text-align: center;"><span class="math inline">-0.06 \pm 0.09</span></td>
+<td style="text-align: center;"><span class="math inline">-0.04 \pm 0.21</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">r</span></td>
+<td style="text-align: center;">0.99999</td>
+<td style="text-align: center;">0.99998</td>
+<td style="text-align: center;">0.99998</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">v_{\text{reg}}</span> (m/s)</td>
+<td style="text-align: center;"><span class="math inline">27.54 \pm 0.06</span></td>
+<td style="text-align: center;"><span class="math inline">18.02 \pm 0.06</span></td>
+<td style="text-align: center;"><span class="math inline">38.92 \pm 0.15</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">v_{\text{formula}}</span> (m/s)</td>
+<td style="text-align: center;"><span class="math inline">27.1 \pm 0.4</span></td>
+<td style="text-align: center;"><span class="math inline">17.9 \pm 0.3</span></td>
+<td style="text-align: center;"><span class="math inline">39 \pm 1.3</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Compatible</td>
+<td style="text-align: center;">Sí</td>
+<td style="text-align: center;">Sí</td>
+<td style="text-align: center;">Sí</td>
+</tr>
+</tbody>
+</table>
+<h3 id="discusión-comparativa" class="anchored">5.5. Discusión comparativa</h3>
+<p><strong>Efecto de la tensión (Montajes 1 y 2, cuerda elástica).</strong></p>
+<p>Al reducir la masa colgante de 200 g a 100 g (tensión reducida a la mitad), se observan los siguientes efectos:</p>
+<ol type="1">
+<li>La longitud de la cuerda disminuye de 1.200 m a 1.050 m, ya que la cuerda elástica se contrae al reducir la tensión.</li>
+<li>La densidad lineal aumenta de 0.00267 kg/m a 0.00305 kg/m (misma masa en menor longitud).</li>
+<li>La velocidad de propagación disminuye de $$27.5 m/s a $$18.0 m/s.</li>
+<li>Las frecuencias de resonancia son menores para todos los modos.</li>
+</ol>
+<p>Si la cuerda fuese inelástica (longitud constante), al reducir la tensión a la mitad se esperaría <span class="math inline">v_2/v_1 = \sqrt{T_2/T_1} = \sqrt{1/2} = 0.707</span>, lo que daría <span class="math inline">v_2 = 0.707 \times 27.5 = 19.4</span> m/s. Sin embargo, se mide <span class="math inline">v_2 \approx 18.0</span> m/s, un valor inferior. Esto se debe a que al reducir la tensión, la cuerda se acorta y su densidad lineal aumenta, reduciendo <span class="math inline">v</span> adicionalmente más allá del factor <span class="math inline">\sqrt{T_2/T_1}</span>. Este efecto es característico de las cuerdas elásticas y confirma que <span class="math inline">\mu</span> no es constante.</p>
+<p><strong>Efecto del material (Montajes 1 y 3, misma tensión).</strong></p>
+<p>Ambos montajes tienen la misma tensión (<span class="math inline">T = 1.962</span> N), pero distinto material:</p>
+<ol type="1">
+<li>La cuerda inelástica tiene menor masa (1.5 g frente a 3.2 g) y menor densidad lineal.</li>
+<li>La velocidad es mayor en la cuerda inelástica ($$38.9 m/s frente a $$27.5 m/s), como predice <span class="math inline">v = \sqrt{T/\mu}</span>.</li>
+<li>Las frecuencias de resonancia son más altas para la cuerda inelástica (fundamental a $$16.9 Hz frente a $$11.5 Hz).</li>
+<li>La relación entre velocidades es <span class="math inline">v_3/v_1 = 38.9/27.5 = 1.41</span>. Si se calcula a partir de las densidades lineales: <span class="math inline">\sqrt{\mu_1/\mu_3} = \sqrt{0.00267/0.001304} = \sqrt{2.048} = 1.43</span>, valor compatible con la relación experimental. Esto confirma la coherencia de las medidas.</li>
+</ol>
+<h3 id="análisis-detallado-de-incertidumbres-montaje-1" class="anchored">5.6. Análisis detallado de incertidumbres (Montaje 1)</h3>
+<p>Se presenta a continuación el análisis completo de incertidumbres para la velocidad de propagación obtenida por el método de regresión lineal en el Montaje 1, siguiendo las directrices de la GUM (Guide to the Expression of Uncertainty in Measurement). El tratamiento es análogo para los Montajes 2 y 3.</p>
+<h4 id="modelo-del-mensurando" class="anchored">5.6.1. Modelo del mensurando</h4>
+<p>La velocidad de propagación se obtiene a partir de la pendiente <span class="math inline">m</span> del ajuste lineal y la longitud <span class="math inline">l</span> de la cuerda:</p>
+<p><span class="math display">v = f(l, m) = 2 \, l \cdot m</span></p>
+<p>Las magnitudes de entrada son:</p>
+<ul>
+<li><span class="math inline">l</span>: longitud de la cuerda entre soportes.</li>
+<li><span class="math inline">m</span>: pendiente del ajuste lineal <span class="math inline">f_n</span> frente a <span class="math inline">n</span>.</li>
+</ul>
+<h4 id="coeficientes-de-sensibilidad" class="anchored">5.6.2. Coeficientes de sensibilidad</h4>
+<p>Los coeficientes de sensibilidad son las derivadas parciales del modelo:</p>
+<p><span class="math display">c_l = \frac{\partial v}{\partial l} = 2m = 2 \times 11.475 = 22.950 \text{ s}^{-1}</span></p>
+<p><span class="math display">c_m = \frac{\partial v}{\partial m} = 2l = 2 \times 1.200 = 2.400 \text{ m}</span></p>
+<h4 id="incertidumbres-típicas-de-las-magnitudes-de-entrada" class="anchored">5.6.3. Incertidumbres típicas de las magnitudes de entrada</h4>
+<p><strong>Incertidumbre de <span class="math inline">l</span> (tipo B).</strong> La cinta métrica tiene una división mínima de 1 mm. Se asume una distribución rectangular:</p>
+<p><span class="math display">u(l) = \frac{0.001}{\sqrt{12}} = 2.89 \times 10^{-4} \text{ m}</span></p>
+<p>Los grados de libertad asociados a esta evaluación de tipo B se estiman como <span class="math inline">\nu_l = 50</span> (la incertidumbre relativa de <span class="math inline">u(l)</span> se estima en aproximadamente un 10%, lo que da <span class="math inline">\nu = \frac{1}{2}(0.10)^{-2} = 50</span>). <!-- Estimación conservadora --></p>
+<p><strong>Incertidumbre de <span class="math inline">m</span> (tipo A).</strong> La incertidumbre de la pendiente proviene del ajuste por mínimos cuadrados. Los grados de libertad asociados son <span class="math inline">\nu_m = N_p - 2 = 7 - 2 = 5</span>:</p>
+<p><span class="math display">u(m) = \sigma_m = 0.0206 \text{ Hz}</span></p>
+<h4 id="combinación-de-incertidumbres-tipo-a-y-tipo-b-por-rss" class="anchored">5.6.4. Combinación de incertidumbres tipo A y tipo B por RSS</h4>
+<p>Las dos contribuciones a la incertidumbre combinada de <span class="math inline">v</span> son:</p>
+<ul>
+<li>Contribución de <span class="math inline">l</span> (tipo B): <span class="math inline">|c_l \cdot u(l)| = 22.950 \times 2.89 \times 10^{-4} = 0.00663</span> m/s</li>
+<li>Contribución de <span class="math inline">m</span> (tipo A): <span class="math inline">|c_m \cdot u(m)| = 2.400 \times 0.0206 = 0.04944</span> m/s</li>
+</ul>
+<p>La incertidumbre combinada se obtiene sumando en cuadratura (RSS) las contribuciones de tipo A y tipo B:</p>
+<p><span class="math display">u_c(v) = \sqrt{(c_l \cdot u(l))^2 + (c_m \cdot u(m))^2} = \sqrt{(0.00663)^2 + (0.04944)^2}</span></p>
+<p><span class="math display">u_c(v) = \sqrt{4.40 \times 10^{-5} + 2.44 \times 10^{-3}} = \sqrt{2.49 \times 10^{-3}} = 0.050 \text{ m/s}</span></p>
+<p>Se observa que la contribución de la pendiente <span class="math inline">m</span> (tipo A, proveniente del ajuste) domina ampliamente sobre la contribución de la longitud <span class="math inline">l</span> (tipo B), representando el 98% de la varianza total. Esto indica que la dispersión de los datos experimentales es la fuente de incertidumbre dominante, y que mejorar la precisión de la medida de longitud tendría un efecto negligible sobre el resultado final.</p>
+<h4 id="tabla-de-balance-de-incertidumbres-montaje-1" class="anchored">5.6.5. Tabla de balance de incertidumbres (Montaje 1)</h4>
+<p><strong>Tabla 5.</strong> Balance de incertidumbres para la velocidad de propagación <span class="math inline">v = 2lm</span> (Montaje 1).</p>
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Magnitud de entrada</th>
+<th style="text-align: center;">Estimación</th>
+<th style="text-align: center;"><span class="math inline">u(x_i)</span></th>
+<th style="text-align: center;">Tipo</th>
+<th style="text-align: center;"><span class="math inline">c_i</span></th>
+<th style="text-align: center;"><span class="math inline">|c_i \cdot u(x_i)|</span> (m/s)</th>
+<th style="text-align: center;"><span class="math inline">\nu_i</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">l</span> (m)</td>
+<td style="text-align: center;">1.200</td>
+<td style="text-align: center;"><span class="math inline">2.89 \times 10^{-4}</span></td>
+<td style="text-align: center;">B (rectangular)</td>
+<td style="text-align: center;"><span class="math inline">2m = 22.950</span> s<span class="math inline">^{-1}</span></td>
+<td style="text-align: center;">0.00663</td>
+<td style="text-align: center;">50</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">m</span> (Hz)</td>
+<td style="text-align: center;">11.475</td>
+<td style="text-align: center;">0.0206</td>
+<td style="text-align: center;">A</td>
+<td style="text-align: center;"><span class="math inline">2l = 2.400</span> m</td>
+<td style="text-align: center;">0.04944</td>
+<td style="text-align: center;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><strong><span class="math inline">u_c(v)</span></strong></td>
+<td style="text-align: center;"><strong>0.050 m/s</strong></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+<h4 id="incertidumbre-expandida-y-resultado-final-montaje-1" class="anchored">5.6.6. Incertidumbre expandida y resultado final (Montaje 1)</h4>
+<p>Se aplica la fórmula de Welch-Satterthwaite para calcular los grados de libertad efectivos <span class="math inline">\nu_{\text{eff}}</span> de la incertidumbre combinada:</p>
+<p><span class="math display">\nu_{\text{eff}} = \frac{u_c^4(v)}{\displaystyle\sum_i \frac{(c_i \cdot u(x_i))^4}{\nu_i}} = \frac{u_c^4(v)}{\dfrac{(c_l \cdot u(l))^4}{\nu_l} + \dfrac{(c_m \cdot u(m))^4}{\nu_m}}</span></p>
+<p>Calculando cada término:</p>
+<p><span class="math display">u_c^4(v) = (0.050)^4 = 6.17 \times 10^{-6}</span></p>
+<p><span class="math display">\frac{(c_l \cdot u(l))^4}{\nu_l} = \frac{(0.00663)^4}{50} = \frac{1.93 \times 10^{-9}}{50} = 3.86 \times 10^{-11}</span></p>
+<p><span class="math display">\frac{(c_m \cdot u(m))^4}{\nu_m} = \frac{(0.04944)^4}{5} = \frac{5.98 \times 10^{-6}}{5} = 1.20 \times 10^{-6}</span></p>
+<p><span class="math display">\nu_{\text{eff}} = \frac{6.17 \times 10^{-6}}{3.86 \times 10^{-11} + 1.20 \times 10^{-6}} = \frac{6.17 \times 10^{-6}}{1.20 \times 10^{-6}} = 5.15</span></p>
+<p>Truncando (no redondeando) al entero inferior: <span class="math inline">\nu_{\text{eff}} = 5</span>.</p>
+<p>Para un nivel de confianza del 95% y <span class="math inline">\nu_{\text{eff}} = 5</span> grados de libertad, el factor de cobertura de la distribución <span class="math inline">t</span> de Student es:</p>
+<p><span class="math display">k = t_{95\%,\,5} = 2.571</span></p>
+<p>La incertidumbre expandida es:</p>
+<p><span class="math display">U(v) = k \cdot u_c(v) = 2.571 \times 0.050 = 0.13 \text{ m/s}</span></p>
+<p><strong>Resultado final (Montaje 1, método de regresión):</strong></p>
+<p><span class="math display">\boxed{v = (27.54 \pm 0.13) \text{ m/s}, \quad k = 2.571, \quad \text{nivel de confianza del 95\%}}</span></p>
+<h3 id="análisis-detallado-de-incertidumbres-montaje-2" class="anchored">5.7. Análisis detallado de incertidumbres (Montaje 2)</h3>
+<h4 id="coeficientes-de-sensibilidad-1" class="anchored">5.7.1. Coeficientes de sensibilidad</h4>
+<p><span class="math display">c_l = 2m = 2 \times 8.580 = 17.160 \text{ s}^{-1}</span></p>
+<p><span class="math display">c_m = 2l = 2 \times 1.050 = 2.100 \text{ m}</span></p>
+<h4 id="incertidumbres-típicas-y-contribuciones" class="anchored">5.7.2. Incertidumbres típicas y contribuciones</h4>
+<ul>
+<li><span class="math inline">u(l) = 2.89 \times 10^{-4}</span> m (tipo B, rectangular, <span class="math inline">\nu_l = 50</span>)</li>
+<li><span class="math inline">u(m) = \sigma_m = 0.0283</span> Hz (tipo A, <span class="math inline">\nu_m = N_p - 2 = 3</span>)</li>
+</ul>
+<p>Contribuciones:</p>
+<ul>
+<li><span class="math inline">|c_l \cdot u(l)| = 17.160 \times 2.89 \times 10^{-4} = 0.00496</span> m/s</li>
+<li><span class="math inline">|c_m \cdot u(m)| = 2.100 \times 0.0283 = 0.05943</span> m/s</li>
+</ul>
+<p><span class="math display">u_c(v) = \sqrt{(0.00496)^2 + (0.05943)^2} = \sqrt{2.46 \times 10^{-5} + 3.53 \times 10^{-3}} = 0.060 \text{ m/s}</span></p>
+<h4 id="tabla-de-balance-de-incertidumbres-montaje-2" class="anchored">5.7.3. Tabla de balance de incertidumbres (Montaje 2)</h4>
+<p><strong>Tabla 6.</strong> Balance de incertidumbres para <span class="math inline">v = 2lm</span> (Montaje 2).</p>
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Magnitud de entrada</th>
+<th style="text-align: center;">Estimación</th>
+<th style="text-align: center;"><span class="math inline">u(x_i)</span></th>
+<th style="text-align: center;">Tipo</th>
+<th style="text-align: center;"><span class="math inline">c_i</span></th>
+<th style="text-align: center;"><span class="math inline">|c_i \cdot u(x_i)|</span> (m/s)</th>
+<th style="text-align: center;"><span class="math inline">\nu_i</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">l</span> (m)</td>
+<td style="text-align: center;">1.050</td>
+<td style="text-align: center;"><span class="math inline">2.89 \times 10^{-4}</span></td>
+<td style="text-align: center;">B (rectangular)</td>
+<td style="text-align: center;"><span class="math inline">2m = 17.160</span> s<span class="math inline">^{-1}</span></td>
+<td style="text-align: center;">0.00496</td>
+<td style="text-align: center;">50</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">m</span> (Hz)</td>
+<td style="text-align: center;">8.580</td>
+<td style="text-align: center;">0.0283</td>
+<td style="text-align: center;">A</td>
+<td style="text-align: center;"><span class="math inline">2l = 2.100</span> m</td>
+<td style="text-align: center;">0.05943</td>
+<td style="text-align: center;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><strong><span class="math inline">u_c(v)</span></strong></td>
+<td style="text-align: center;"><strong>0.060 m/s</strong></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+<h4 id="incertidumbre-expandida-montaje-2" class="anchored">5.7.4. Incertidumbre expandida (Montaje 2)</h4>
+<p><span class="math display">\nu_{\text{eff}} = \frac{(0.060)^4}{\dfrac{(0.00496)^4}{50} + \dfrac{(0.05943)^4}{3}} = \frac{1.30 \times 10^{-5}}{\dfrac{6.05 \times 10^{-10}}{50} + \dfrac{1.25 \times 10^{-5}}{3}} = \frac{1.30 \times 10^{-5}}{1.21 \times 10^{-11} + 4.16 \times 10^{-6}} = \frac{1.30 \times 10^{-5}}{4.16 \times 10^{-6}} = 3.12</span></p>
+<p>Truncando: <span class="math inline">\nu_{\text{eff}} = 3</span>.</p>
+<p>Para un nivel de confianza del 95% y <span class="math inline">\nu_{\text{eff}} = 3</span>:</p>
+<p><span class="math display">k = t_{95\%,\,3} = 3.182</span></p>
+<p><span class="math display">U(v) = 3.182 \times 0.060 = 0.19 \text{ m/s}</span></p>
+<p><strong>Resultado final (Montaje 2, método de regresión):</strong></p>
+<p><span class="math display">\boxed{v = (18.02 \pm 0.19) \text{ m/s}, \quad k = 3.182, \quad \text{nivel de confianza del 95\%}}</span></p>
+<h3 id="análisis-detallado-de-incertidumbres-montaje-3" class="anchored">5.8. Análisis detallado de incertidumbres (Montaje 3)</h3>
+<h4 id="coeficientes-de-sensibilidad-2" class="anchored">5.8.1. Coeficientes de sensibilidad</h4>
+<p><span class="math display">c_l = 2m = 2 \times 16.920 = 33.840 \text{ s}^{-1}</span></p>
+<p><span class="math display">c_m = 2l = 2 \times 1.150 = 2.300 \text{ m}</span></p>
+<h4 id="incertidumbres-típicas-y-contribuciones-1" class="anchored">5.8.2. Incertidumbres típicas y contribuciones</h4>
+<ul>
+<li><span class="math inline">u(l) = 2.89 \times 10^{-4}</span> m (tipo B, rectangular, <span class="math inline">\nu_l = 50</span>)</li>
+<li><span class="math inline">u(m) = \sigma_m = 0.0643</span> Hz (tipo A, <span class="math inline">\nu_m = N_p - 2 = 3</span>)</li>
+</ul>
+<p>Contribuciones:</p>
+<ul>
+<li><span class="math inline">|c_l \cdot u(l)| = 33.840 \times 2.89 \times 10^{-4} = 0.00978</span> m/s</li>
+<li><span class="math inline">|c_m \cdot u(m)| = 2.300 \times 0.0643 = 0.14789</span> m/s</li>
+</ul>
+<p><span class="math display">u_c(v) = \sqrt{(0.00978)^2 + (0.14789)^2} = \sqrt{9.56 \times 10^{-5} + 2.19 \times 10^{-2}} = 0.148 \text{ m/s}</span></p>
+<h4 id="tabla-de-balance-de-incertidumbres-montaje-3" class="anchored">5.8.3. Tabla de balance de incertidumbres (Montaje 3)</h4>
+<p><strong>Tabla 7.</strong> Balance de incertidumbres para <span class="math inline">v = 2lm</span> (Montaje 3).</p>
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Magnitud de entrada</th>
+<th style="text-align: center;">Estimación</th>
+<th style="text-align: center;"><span class="math inline">u(x_i)</span></th>
+<th style="text-align: center;">Tipo</th>
+<th style="text-align: center;"><span class="math inline">c_i</span></th>
+<th style="text-align: center;"><span class="math inline">|c_i \cdot u(x_i)|</span> (m/s)</th>
+<th style="text-align: center;"><span class="math inline">\nu_i</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">l</span> (m)</td>
+<td style="text-align: center;">1.150</td>
+<td style="text-align: center;"><span class="math inline">2.89 \times 10^{-4}</span></td>
+<td style="text-align: center;">B (rectangular)</td>
+<td style="text-align: center;"><span class="math inline">2m = 33.840</span> s<span class="math inline">^{-1}</span></td>
+<td style="text-align: center;">0.00978</td>
+<td style="text-align: center;">50</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">m</span> (Hz)</td>
+<td style="text-align: center;">16.920</td>
+<td style="text-align: center;">0.0643</td>
+<td style="text-align: center;">A</td>
+<td style="text-align: center;"><span class="math inline">2l = 2.300</span> m</td>
+<td style="text-align: center;">0.14789</td>
+<td style="text-align: center;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><strong><span class="math inline">u_c(v)</span></strong></td>
+<td style="text-align: center;"><strong>0.148 m/s</strong></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+<h4 id="incertidumbre-expandida-montaje-3" class="anchored">5.8.4. Incertidumbre expandida (Montaje 3)</h4>
+<p><span class="math display">\nu_{\text{eff}} = \frac{(0.148)^4}{\dfrac{(0.00978)^4}{50} + \dfrac{(0.14789)^4}{3}} = \frac{4.80 \times 10^{-4}}{\dfrac{9.15 \times 10^{-9}}{50} + \dfrac{4.78 \times 10^{-4}}{3}} = \frac{4.80 \times 10^{-4}}{1.83 \times 10^{-10} + 1.59 \times 10^{-4}} = \frac{4.80 \times 10^{-4}}{1.59 \times 10^{-4}} = 3.02</span></p>
+<p>Truncando: <span class="math inline">\nu_{\text{eff}} = 3</span>.</p>
+<p>Para un nivel de confianza del 95% y <span class="math inline">\nu_{\text{eff}} = 3</span>:</p>
+<p><span class="math display">k = t_{95\%,\,3} = 3.182</span></p>
+<p><span class="math display">U(v) = 3.182 \times 0.148 = 0.47 \text{ m/s}</span></p>
+<p><strong>Resultado final (Montaje 3, método de regresión):</strong></p>
+<p><span class="math display">\boxed{v = (38.92 \pm 0.47) \text{ m/s}, \quad k = 3.182, \quad \text{nivel de confianza del 95\%}}</span></p>
+<h3 id="evaluación-de-la-adecuación-de-las-incertidumbres" class="anchored">5.9. Evaluación de la adecuación de las incertidumbres</h3>
+<p><strong>Fuentes dominantes de incertidumbre.</strong> En los tres montajes, la contribución dominante a la incertidumbre de <span class="math inline">v_{\text{reg}}</span> proviene de la incertidumbre de la pendiente <span class="math inline">m</span> (tipo A), que representa más del 98% de la varianza combinada. La contribución de la longitud <span class="math inline">l</span> (tipo B) es completamente despreciable. Esto significa que la precisión del resultado está limitada por la dispersión de los datos experimentales (es decir, por la capacidad de identificar las frecuencias de resonancia con exactitud), y no por la resolución de la cinta métrica.</p>
+<p>Para la velocidad obtenida por la fórmula directa <span class="math inline">v = \sqrt{T/\mu}</span>, la fuente dominante es la incertidumbre en la masa de la cuerda, que produce errores relativos del 3 - 7% en <span class="math inline">\mu</span>, trasladándose a un 1.5 - 3.3% en <span class="math inline">v</span>. Este método es significativamente menos preciso que el método de regresión.</p>
+<p><strong>Adecuación de la incertidumbre.</strong> Las incertidumbres expandidas obtenidas (<span class="math inline">U \sim 0.1 - 0.5</span> m/s para el método de regresión) son adecuadas para el propósito de la práctica, que es verificar la relación lineal <span class="math inline">f_n = (v/2l) \cdot n</span> y obtener la velocidad de propagación. Los valores experimentales son compatibles con los teóricos dentro de los intervalos de incertidumbre.</p>
+<p><strong>Sugerencias para reducir la incertidumbre.</strong> La mejora más efectiva sería aumentar el número de modos de vibración observados (actualmente 5 a 7), lo que reduciría <span class="math inline">\sigma_m</span> y, por tanto, <span class="math inline">u_c(v)</span>. También sería beneficioso realizar múltiples medidas de cada frecuencia de resonancia para incorporar una evaluación tipo A directa de la incertidumbre de <span class="math inline">f_n</span>. Para la fórmula directa, el factor limitante es la precisión en la medida de <span class="math inline">m_{\text{cuerda}}</span>, que podría mejorarse utilizando una balanza analítica con resolución de 0.001 g.</p>
+<hr>
+<h2 id="cuestiones" class="anchored">6. Cuestiones</h2>
+<h3 id="cuestión-1-deducir-la-expresión-de-las-frecuencias-de-resonancia" class="anchored">Cuestión 1: Deducir la expresión de las frecuencias de resonancia</h3>
+<p><strong>Enunciado:</strong> Demostrar que las frecuencias de resonancia de una cuerda de longitud <span class="math inline">l</span> con ambos extremos fijos vienen dadas por <span class="math inline">f_n = \frac{n}{2l}\sqrt{\frac{T}{\mu}}</span>.</p>
+<p><strong>Desarrollo:</strong></p>
+<p>La ecuación de ondas para desplazamientos transversales <span class="math inline">y(x,t)</span> en una cuerda tensa es:</p>
+<p><span class="math display">\frac{\partial^2 y}{\partial t^2} = v^2 \frac{\partial^2 y}{\partial x^2}, \qquad v = \sqrt{\frac{T}{\mu}}</span></p>
+<p>Buscamos soluciones estacionarias de la forma <span class="math inline">y(x,t) = A(x)\cos(\omega t + \phi)</span>. Sustituyendo en la ecuación de ondas:</p>
+<p><span class="math display">-\omega^2 A(x) = v^2 \frac{d^2 A}{dx^2}</span></p>
+<p><span class="math display">\frac{d^2 A}{dx^2} + \frac{\omega^2}{v^2} A = 0</span></p>
+<p>Definiendo <span class="math inline">k = \omega/v</span> (número de onda), la solución general es:</p>
+<p><span class="math display">A(x) = B\sin(kx) + C\cos(kx)</span></p>
+<p><strong>Condiciones de contorno:</strong></p>
+<p>En <span class="math inline">x = 0</span> (extremo fijo): <span class="math inline">A(0) = 0 \Rightarrow C = 0</span>.</p>
+<p>En <span class="math inline">x = l</span> (extremo fijo): <span class="math inline">A(l) = 0 \Rightarrow B\sin(kl) = 0</span>.</p>
+<p>Para solución no trivial (<span class="math inline">B \neq 0</span>), se requiere <span class="math inline">\sin(kl) = 0</span>, es decir:</p>
+<p><span class="math display">kl = n\pi, \qquad n = 1, 2, 3, \ldots</span></p>
+<p><span class="math display">k_n = \frac{n\pi}{l}</span></p>
+<p>La frecuencia correspondiente es:</p>
+<p><span class="math display">f_n = \frac{\omega_n}{2\pi} = \frac{k_n v}{2\pi} = \frac{n\pi}{l} \cdot \frac{v}{2\pi} = \frac{nv}{2l}</span></p>
+<p>Sustituyendo <span class="math inline">v = \sqrt{T/\mu}</span>:</p>
+<p><span class="math display">\boxed{f_n = \frac{n}{2l}\sqrt{\frac{T}{\mu}}, \qquad n = 1, 2, 3, \ldots}</span></p>
+<p><span class="math inline">\blacksquare</span></p>
+<h3 id="cuestión-2-efecto-de-la-elasticidad-sobre-la-relación-v-vs-t" class="anchored">Cuestión 2: Efecto de la elasticidad sobre la relación <span class="math inline">v</span> vs <span class="math inline">T</span></h3>
+<p><strong>Enunciado:</strong> Para una cuerda elástica que obedece la ley de Hooke, <span class="math inline">l = l_0 + T/K_e</span> (donde <span class="math inline">l_0</span> es la longitud natural y <span class="math inline">K_e</span> la constante elástica), discutir cómo varía la velocidad de propagación con la tensión.</p>
+<p><strong>Desarrollo:</strong></p>
+<p>Si la cuerda se estira según <span class="math inline">l = l_0 + T/K_e</span>, la densidad lineal depende de la tensión:</p>
+<p><span class="math display">\mu(T) = \frac{m_{\text{cuerda}}}{l} = \frac{m_{\text{cuerda}}}{l_0 + T/K_e}</span></p>
+<p>La velocidad de propagación es:</p>
+<p><span class="math display">v(T) = \sqrt{\frac{T}{\mu(T)}} = \sqrt{\frac{T(l_0 + T/K_e)}{m_{\text{cuerda}}}} = \sqrt{\frac{Tl_0 + T^2/K_e}{m_{\text{cuerda}}}}</span></p>
+<p>Para una cuerda inelástica (<span class="math inline">K_e \to \infty</span>), se recupera <span class="math inline">v = \sqrt{Tl_0/m} \propto \sqrt{T}</span>.</p>
+<p>Para una cuerda elástica, la velocidad crece más rápido que <span class="math inline">\sqrt{T}</span> con la tensión, porque además de aumentar <span class="math inline">T</span> en el numerador, la densidad lineal <span class="math inline">\mu</span> disminuye (el denominador bajo la raíz aumenta). En el límite de grandes tensiones (<span class="math inline">T \gg K_e l_0</span>), la velocidad tiende a <span class="math inline">v \approx T/\sqrt{m_{\text{cuerda}} K_e}</span>, es decir, proporcional a <span class="math inline">T</span> (no a <span class="math inline">\sqrt{T}</span>).</p>
+<p>Esto explica por qué la relación entre las velocidades medidas en los Montajes 1 y 2 (<span class="math inline">v_1/v_2 = 27.5/18.0 = 1.53</span>) es mayor que el factor <span class="math inline">\sqrt{T_1/T_2} = \sqrt{2} = 1.41</span> que se esperaría para una cuerda inelástica: la elasticidad amplifica el efecto del cambio de tensión sobre la velocidad.</p>
+<h3 id="cuestión-3-fuentes-de-error-y-posibles-mejoras" class="anchored">Cuestión 3: Fuentes de error y posibles mejoras</h3>
+<p>Las principales fuentes de error en esta práctica son:</p>
+<p><strong>Errores en la frecuencia de resonancia:</strong> 1. <strong>Precisión del generador</strong> (<span class="math inline">\pm 0.1</span> Hz): El generador de funciones tiene una resolución limitada. Para frecuencias bajas (modo fundamental), esto representa un error relativo más significativo (del orden del 1%) que para frecuencias altas (menos del 0.2%). 2. <strong>Ancho de la resonancia</strong>: La resonancia no es infinitamente estrecha; tiene un ancho finito debido al amortiguamiento. Esto introduce incertidumbre al identificar la frecuencia exacta del máximo de amplitud. Se minimiza buscando la frecuencia que produce la amplitud máxima de la onda estacionaria. 3. <strong>Armonicos espúreos</strong>: A frecuencias altas, puede ser difícil distinguir el patrón estacionario correcto si la amplitud es pequeña o si hay vibraciones parásitas.</p>
+<p><strong>Errores en las magnitudes del medio:</strong> 1. <strong>Masa de la cuerda</strong> (<span class="math inline">\pm 0.1</span> g): Es la principal fuente de incertidumbre en <span class="math inline">v_{\text{formula}}</span>, ya que la masa de la cuerda es pequeña (1.5 - 3.2 g) y el error relativo es significativo (3 - 7%). 2. <strong>Longitud de la cuerda</strong> (<span class="math inline">\pm 1</span> mm): Contribuye poco al error total. 3. <strong>Elasticidad de la cuerda</strong>: La densidad lineal de la cuerda elástica depende de la tensión, lo que complica el modelo. Además, la densidad puede no ser uniforme a lo largo de la cuerda si la deformación no es homogénea.</p>
+<p><strong>Mejoras sugeridas:</strong> - Utilizar un frecuencímetro de mayor resolución (<span class="math inline">\pm 0.01</span> Hz) para reducir la incertidumbre en <span class="math inline">f</span>. - Emplear una balanza analítica (<span class="math inline">\pm 0.001</span> g) para medir la masa de la cuerda con mayor precisión. - Usar cuerdas de mayor masa lineal para reducir el error relativo en <span class="math inline">\mu</span>. - Verificar la uniformidad de la densidad lineal midiendo la masa de varios segmentos de la cuerda. - Trabajar preferentemente con cuerdas inelásticas para simplificar la interpretación.</p>
+<hr>
+<h2 id="bibliografía" class="anchored">7. Bibliografía</h2>
+<ol type="1">
+<li><p><strong>Manual de Técnicas Experimentales I</strong>, versión 3.8.2. Departamento de Física Fundamental, Facultad de Ciencias, UNED. Práctica 7: Ondas estacionarias en una cuerda con extremos fijos.</p></li>
+<li><p><strong>Alonso, M. y Finn, E.J.</strong> <em>Física</em>. Addison-Wesley Iberoamericana. Capítulo sobre ondas mecánicas y ondas estacionarias.</p></li>
+<li><p><strong>Serway, R.A. y Jewett, J.W.</strong> <em>Física para ciencias e ingeniería</em>. Cengage Learning. Capítulo 18: Ondas estacionarias y resonancia.</p></li>
+<li><p><strong>Crawford, F.S.</strong> <em>Waves. Berkeley Physics Course, Vol. 3</em>. McGraw-Hill. Capítulos sobre ondas en cuerdas y condiciones de contorno.</p></li>
+<li><p><strong>Taylor, J.R.</strong> <em>An Introduction to Error Analysis</em>. University Science Books, 2.a edición, 1997. Capítulo sobre regresión lineal por mínimos cuadrados y propagación de errores.</p></li>
+</ol>
+<hr>
+<h2 id="apéndice-a.-comparación-de-métodos-de-regresión" class="anchored">Apéndice A. Comparación de métodos de regresión</h2>
+<h3 id="a.1.-mínimos-cuadrados-ordinarios-ols" class="anchored">A.1. Mínimos cuadrados ordinarios (OLS)</h3>
+<p>El método de mínimos cuadrados ordinarios (OLS) minimiza la suma de los cuadrados de los residuos verticales sin ponderar. Los parámetros y sus incertidumbres se estiman a partir de la dispersión residual, como se detalla en la Sección 3.4. Este es el método utilizado en el cuerpo del informe.</p>
+<h3 id="a.2.-mínimos-cuadrados-ponderados-por-delta-y-wls-y" class="anchored">A.2. Mínimos cuadrados ponderados por <span class="math inline">\Delta y</span> (WLS-y)</h3>
+<p>Cuando se conocen las incertidumbres individuales <span class="math inline">\sigma_{y_i}</span> de las medidas, se asigna a cada punto un peso <span class="math inline">w_i = 1/\sigma_{y_i}^2</span>. Las fórmulas de la pendiente y la ordenada se modifican reemplazando las sumas ordinarias por sumas ponderadas. Las incertidumbres de los parámetros se derivan directamente de los pesos, sin necesidad de estimar la varianza residual.</p>
+<p>En esta práctica, todas las frecuencias tienen la misma incertidumbre (<span class="math inline">\sigma_f = 0.1</span> Hz), por lo que todos los pesos son iguales (<span class="math inline">w_i = 100</span>). Esto implica que <strong>la pendiente y la ordenada de WLS-y coinciden exactamente con las de OLS</strong>. Sin embargo, las incertidumbres difieren: OLS las estima a partir de los residuos (estimación interna), mientras que WLS-y las calcula a partir de la incertidumbre instrumental conocida (estimación externa).</p>
+<h3 id="a.3.-mínimos-cuadrados-con-varianza-efectiva-wls-xy" class="anchored">A.3. Mínimos cuadrados con varianza efectiva (WLS-xy)</h3>
+<p>El método de varianza efectiva incorpora incertidumbres tanto en <span class="math inline">x</span> como en <span class="math inline">y</span>, definiendo una varianza efectiva <span class="math inline">\sigma_{\text{eff},i}^2 = \sigma_{y_i}^2 + m^2 \sigma_{x_i}^2</span> que depende de la pendiente y requiere iteración.</p>
+<p>En esta práctica, la variable independiente es el número de antinodos <span class="math inline">n</span>, que es un entero exacto sin incertidumbre (<span class="math inline">\sigma_n = 0</span>). Por tanto, <span class="math inline">\sigma_{\text{eff},i}^2 = \sigma_{f_i}^2</span> y <strong>WLS-xy se reduce exactamente a WLS-y</strong>.</p>
+<h3 id="a.4.-cálculo-y-comparación" class="anchored">A.4. Cálculo y comparación</h3>
+<div id="cell-fig-regression-comparison" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display">
+<div id="fig-regression-comparison" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-regression-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-regression-comparison-output-1.png" width="885" height="585">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-regression-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;4: Comparación de los tres métodos de regresión (OLS, WLS-y, WLS-xy) para los tres montajes. Dado que <span class="math inline">\sigma_n = 0</span> y todos los <span class="math inline">\sigma_f</span> son iguales, los tres métodos producen resultados idénticos en pendiente y ordenada.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Montaje 1</strong> (<span class="math inline">l = 1.200</span> m)</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 35%">
+<col style="width: 16%">
+<col style="width: 22%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Parámetro</th>
+<th style="text-align: center;">OLS</th>
+<th style="text-align: center;">WLS-y</th>
+<th style="text-align: center;">WLS-xy</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">m</span> (Hz)</td>
+<td style="text-align: center;"><span class="math inline">11.475 \pm 0.0206</span></td>
+<td style="text-align: center;"><span class="math inline">11.475 \pm 0.0189</span></td>
+<td style="text-align: center;"><span class="math inline">11.475 \pm 0.0189</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">c</span> (Hz)</td>
+<td style="text-align: center;"><span class="math inline">-0.243 \pm 0.0923</span></td>
+<td style="text-align: center;"><span class="math inline">-0.243 \pm 0.0845</span></td>
+<td style="text-align: center;"><span class="math inline">-0.243 \pm 0.0845</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">v = 2lm</span> (m/s)</td>
+<td style="text-align: center;"><span class="math inline">27.540</span></td>
+<td style="text-align: center;"><span class="math inline">27.540</span></td>
+<td style="text-align: center;"><span class="math inline">27.540</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">r</span></td>
+<td style="text-align: center;"><span class="math inline">0.999992</span></td>
+<td style="text-align: center;"><span class="math inline">0.999992</span></td>
+<td style="text-align: center;"><span class="math inline">0.999992</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Montaje 2</strong> (<span class="math inline">l = 1.050</span> m)</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 35%">
+<col style="width: 16%">
+<col style="width: 22%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Parámetro</th>
+<th style="text-align: center;">OLS</th>
+<th style="text-align: center;">WLS-y</th>
+<th style="text-align: center;">WLS-xy</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">m</span> (Hz)</td>
+<td style="text-align: center;"><span class="math inline">8.580 \pm 0.0283</span></td>
+<td style="text-align: center;"><span class="math inline">8.580 \pm 0.0316</span></td>
+<td style="text-align: center;"><span class="math inline">8.580 \pm 0.0316</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">c</span> (Hz)</td>
+<td style="text-align: center;"><span class="math inline">-0.060 \pm 0.0938</span></td>
+<td style="text-align: center;"><span class="math inline">-0.060 \pm 0.1049</span></td>
+<td style="text-align: center;"><span class="math inline">-0.060 \pm 0.1049</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">v = 2lm</span> (m/s)</td>
+<td style="text-align: center;"><span class="math inline">18.018</span></td>
+<td style="text-align: center;"><span class="math inline">18.018</span></td>
+<td style="text-align: center;"><span class="math inline">18.018</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">r</span></td>
+<td style="text-align: center;"><span class="math inline">0.999984</span></td>
+<td style="text-align: center;"><span class="math inline">0.999984</span></td>
+<td style="text-align: center;"><span class="math inline">0.999984</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Montaje 3</strong> (<span class="math inline">l = 1.150</span> m)</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 35%">
+<col style="width: 16%">
+<col style="width: 22%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Parámetro</th>
+<th style="text-align: center;">OLS</th>
+<th style="text-align: center;">WLS-y</th>
+<th style="text-align: center;">WLS-xy</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">m</span> (Hz)</td>
+<td style="text-align: center;"><span class="math inline">16.920 \pm 0.0643</span></td>
+<td style="text-align: center;"><span class="math inline">16.920 \pm 0.0316</span></td>
+<td style="text-align: center;"><span class="math inline">16.920 \pm 0.0316</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">c</span> (Hz)</td>
+<td style="text-align: center;"><span class="math inline">-0.040 \pm 0.2132</span></td>
+<td style="text-align: center;"><span class="math inline">-0.040 \pm 0.1049</span></td>
+<td style="text-align: center;"><span class="math inline">-0.040 \pm 0.1049</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">v = 2lm</span> (m/s)</td>
+<td style="text-align: center;"><span class="math inline">38.916</span></td>
+<td style="text-align: center;"><span class="math inline">38.916</span></td>
+<td style="text-align: center;"><span class="math inline">38.916</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">r</span></td>
+<td style="text-align: center;"><span class="math inline">0.999978</span></td>
+<td style="text-align: center;"><span class="math inline">0.999978</span></td>
+<td style="text-align: center;"><span class="math inline">0.999978</span></td>
+</tr>
+</tbody>
+</table>
+<h3 id="a.5.-discusión" class="anchored">A.5. Discusión</h3>
+<p>Los tres métodos de regresión (OLS, WLS-y y WLS-xy) producen <strong>resultados idénticos en pendiente y ordenada</strong> para los tres montajes. Esto se debe a dos razones:</p>
+<ol type="1">
+<li><strong>La variable independiente <span class="math inline">n</span> es exacta</strong> (<span class="math inline">\sigma_n = 0</span>), por lo que WLS-xy se reduce exactamente a WLS-y.</li>
+<li><strong>Todas las incertidumbres <span class="math inline">\sigma_f</span> son iguales</strong> (0.1 Hz), por lo que los pesos en WLS-y son uniformes y la ponderación es equivalente a no ponderar (OLS).</li>
+</ol>
+<p>Las diferencias aparecen únicamente en las <strong>incertidumbres de los parámetros</strong>:</p>
+<ul>
+<li><strong>OLS</strong> estima <span class="math inline">\sigma_m</span> y <span class="math inline">\sigma_c</span> a partir de la dispersión de los residuos (estimación interna). Si los residuos son mayores que la incertidumbre instrumental, OLS producirá incertidumbres mayores.</li>
+<li><strong>WLS-y</strong> calcula <span class="math inline">\sigma_m</span> y <span class="math inline">\sigma_c</span> directamente a partir de la incertidumbre instrumental conocida (<span class="math inline">\sigma_f = 0.1</span> Hz), sin usar los residuos (estimación externa).</li>
+</ul>
+<p>Cuando la dispersión de los residuos es consistente con <span class="math inline">\sigma_f = 0.1</span> Hz, ambas estimaciones coinciden. Las discrepancias entre ambas indican si el modelo lineal captura toda la variabilidad de los datos o si existen fuentes de error adicionales no contempladas por la incertidumbre instrumental.</p>
+
+
+<!-- Closes the reading column opened by _gen/docs-nav.html, adds the right
+     "On this page" list, and wires: current-page marking in the left nav,
+     breadcrumbs, the page TOC (from h2/h3 in the reading column) and a
+     scroll-spy. Pure DOM, no library. -->
+  </div>
+  <aside class="docs-toc"><button class="docs-fold" type="button" data-fold="toc" aria-label="Hide the page outline" title="Hide the page outline">›</button><div class="t">On this page</div><ol></ol></aside>
+</div>
+<script>
+(function () {
+  /* 0. The two side panels fold on their chevrons; the choice is remembered in this browser. */
+  var docs = document.querySelector('.docs');
+  if (docs) {
+    var store = {};
+    try { store = JSON.parse(localStorage.getItem('docs-fold') || '{}'); } catch (e) { store = {}; }
+    function apply() {
+      docs.classList.toggle('nav-folded', !!store.nav);
+      docs.classList.toggle('toc-folded', !!store.toc);
+      document.querySelectorAll('.docs-fold').forEach(function (b) {
+        var which = b.getAttribute('data-fold'), folded = !!store[which];
+        b.innerHTML = (which === 'nav') === folded ? '&rsaquo;' : '&lsaquo;';
+        var what = which === 'nav' ? 'the navigation' : 'the page outline';
+        b.title = (folded ? 'Show ' : 'Hide ') + what; b.setAttribute('aria-label', b.title);
+      });
+    }
+    document.querySelectorAll('.docs-fold').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var which = b.getAttribute('data-fold'); store[which] = !store[which];
+        try { localStorage.setItem('docs-fold', JSON.stringify(store)); } catch (e) {}
+        apply();
+      });
+    });
+    apply();
+  }
+  /* 0b. The header ribbon: mark the entry whose section holds this page. Quarto rewrites the hrefs to
+     relative paths, so folders are read from the resolved URLs; the Overview link gives the site root. */
+  (function () {
+    var links = Array.prototype.slice.call(document.querySelectorAll('.site-nav a'));
+    if (!links.length) return;
+    /* a served URL may end in '/' (GitHub Pages: …/about/); read it as …/about/index.html */
+    function folder(path) { if (/\/$/.test(path)) path += 'index.html'; var s = path.split('/').filter(Boolean); return s.length > 1 ? s[s.length - 2] : ''; }
+    var wm = document.querySelector('a.wordmark');            // the wordmark links to the site root
+    var root = folder((wm || links[0]).pathname);
+    var map = { rietveld: 'cases', drude: 'cases', dielectric: 'cases' };
+    function key(path) { var f = folder(path); if (f === root) return 'overview'; return map[f] || f; }
+    var here = key(location.pathname);
+    links.forEach(function (a) { a.classList.toggle('current', key(a.pathname) === here); });
+  })();
+
+  var main = document.querySelector('.docs-main');
+  var nav = document.querySelector('.docs-nav');
+  var toc = document.querySelector('.docs-toc ol');
+  if (!main || !nav || !toc) return;
+
+  /* 1. Left nav: mark the current page (and section, if the hash matches). */
+  var here = location.pathname.replace(/\/index\.html$/, '/');
+  var links = Array.prototype.slice.call(nav.querySelectorAll('a'));
+  var pageLink = null, hashLink = null;
+  links.forEach(function (a) {
+    var p = a.pathname.replace(/\/index\.html$/, '/');
+    if (p !== here) return;
+    if (!a.hash && !pageLink) pageLink = a;
+    if (a.hash && a.hash === location.hash) hashLink = a;
+  });
+  var cur = hashLink || pageLink;
+  if (cur) {
+    cur.classList.add('current');
+    var det = cur.closest('details.group');
+    if (det) { det.open = true; det.classList.add('has-current'); }
+    /* Breadcrumbs: group title › page (› section). */
+    var crumbs = document.createElement('div');
+    crumbs.className = 'docs-crumbs';
+    var g = det ? det.querySelector('summary.t') : null;
+    var parts = [];
+    function push(t) { if (t && parts[parts.length - 1] !== t) parts.push(t); }
+    if (g) push(g.textContent.trim());
+    if (pageLink && pageLink !== cur) push(pageLink.textContent.trim());
+    push(cur.textContent.trim());
+    crumbs.innerHTML = parts.map(function (t, i) {
+      return (i ? '<span class="sep">›</span>' : '') + '<span>' + t.replace(/</g, '&lt;') + '</span>';
+    }).join('');
+    main.insertBefore(crumbs, main.firstChild);
+  }
+
+  /* 2. Right "On this page": h2 and h3 of the reading column. */
+  var used = {};
+  var heads = Array.prototype.slice.call(main.querySelectorAll('h2, h3')).filter(function (h) {
+    if (h.closest('.site-foot, .featured-band, .msg-grid, [data-toc="no"]')) return false;
+    if (h.classList.contains('unnumbered') || h.id === 'contenido') return false;
+    return h.textContent.trim().length > 0;
+  });
+  heads.forEach(function (h) {
+    if (!h.id) {
+      var s = h.textContent.trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+        .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60) || 'sec';
+      while (used[s] || document.getElementById(s)) s += '-';
+      h.id = s;
+    }
+    used[h.id] = true;
+    var li = document.createElement('li');
+    if (h.tagName === 'H3') li.className = 'l3';
+    var a = document.createElement('a');
+    a.href = '#' + h.id;
+    /* This runs before KaTeX has rendered the headings, so a heading with mathematics still holds TeX
+       source: copy its markup, including the math spans, and let the page's KaTeX pass render the copy. */
+    var copy = h.cloneNode(true);
+    copy.querySelectorAll('.katex-mathml, annotation, .anchorjs-link').forEach(function (n) { n.remove(); });
+    var label = copy.textContent.trim().replace(/\s+/g, ' ');
+    if (copy.querySelector('.math, .math-done, .katex')) a.innerHTML = copy.innerHTML.trim();
+    else a.textContent = label.length > 72 ? label.slice(0, 70).replace(/[\s,;:]+\S*$/, '') + '…' : label;
+    a.title = label;
+    li.appendChild(a);
+    toc.appendChild(li);
+  });
+  if (!heads.length) { document.querySelector('.docs-toc').hidden = true; return; }
+
+  /* 3. Scroll-spy. */
+  var items = Array.prototype.slice.call(toc.querySelectorAll('a'));
+  function spy() {
+    var y = window.scrollY + 120, best = null;
+    heads.forEach(function (h) { if (h.getBoundingClientRect().top + window.scrollY <= y) best = h; });
+    items.forEach(function (a) { a.classList.toggle('current', best && a.getAttribute('href') === '#' + best.id); });
+  }
+  window.addEventListener('scroll', spy, { passive: true });
+  window.addEventListener('hashchange', spy);
+  spy();
+})();
+</script>
+<footer class="site-foot">
+  <div class="site-foot__inner">
+    <div class="foot-grid">
+      <div class="foot-about">
+        <h4 class="anchored">Qué es esto</h4>
+        <p>Los guiones de las prácticas de laboratorio que la UNED realiza en la Facultad de Ciencia y Tecnología de la UPV/EHU (Leioa), para Bases Físicas del Medio Ambiente, Física I y II, Mecánica y Técnicas Experimentales I.</p>
+        <div class="cite-block">Josu M. Igartua · Departamento de Física, Facultad de Ciencia y Tecnología, UPV/EHU<br>josu.igartua@ehu.eus · +34 94 601 5335</div>
+      </div>
+      <div><h4 class="anchored">Este sitio</h4><ul>
+        <li><a href="../../../index.html">Inicio</a></li><li><a href="../../../practicas/index.html">Prácticas</a></li><li><a href="../../../asignaturas/index.html">Asignaturas</a></li><li><a href="../../../recursos/index.html">Recursos</a></li><li><a href="../../../informe/index.html">Informe</a></li><li><a href="../../../manual/index.html">Manual TE I</a></li><li><a href="../../../contacto/index.html">Contacto</a></li>
+      </ul></div>
+      <div><h4 class="anchored">Instituciones</h4><ul>
+        <li><a href="https://www.uned.es">UNED</a></li>
+        <li><a href="https://www.ehu.eus">UPV/EHU</a></li></ul></div>
+      <div><h4 class="anchored">Dónde</h4><ul>
+        <li>Barrio Sarriena s/n, 48940 Leioa (Bizkaia)</li>
+        <li>Laboratorios 0.16 y 0.21</li></ul></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Josu M. Igartua</span>
+      <span>curso 2025–2026</span>
+    </div>
+  </div>
+</footer>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+    tabsets.forEach(function(tabset) {
+      const tabby = new Tabby('#' + tabset.id);
+    });
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+
+
+
+
+<script src="../../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

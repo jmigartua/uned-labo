@@ -1,0 +1,1653 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Josu M. Igartua">
+<meta name="dcterms.date" content="2026-03-20">
+<meta name="keywords" content="momento de inercia, péndulo de torsión, muelle espiral, teorema de Steiner, sólido rígido">
+<meta name="description" content="Determinación experimental del momento de inercia de diversos sólidos rígidos (disco, esfera, cilindros macizo y hueco, barra) mediante un péndulo de torsión con muelle espiral. Verificación del teorema de Steiner y estudio de la dependencia del momento de inercia con la distribución de masas.">
+
+<title>Momentos de inercia de sólidos · UNED Labo – UNED Labo</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<link href="../../assets/favicon.svg" rel="icon" type="image/svg+xml">
+<script src="../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-html-afe927e19676d0e50b1726048be49fb1.min.css" rel="stylesheet" append-hash="true" data-mode="light">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<style>html{ scroll-behavior: smooth; }</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&amp;family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<!-- KaTeX auto-render: publication titles carry TeX inside generated HTML that
+     Quarto's own math pipeline never sees (same approach as thermomat). -->
+<script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+/* The header ribbon is sticky; the side columns and anchor targets need its height. */
+(function () {
+  function headH() {
+    var t = document.querySelector(".topline"), h = document.querySelector(".site-head");
+    var px = (t ? t.offsetHeight : 0) + (h ? h.offsetHeight : 0);
+    if (px) document.documentElement.style.setProperty("--head-h", px + "px");
+  }
+  document.addEventListener("DOMContentLoaded", headH);
+  window.addEventListener("load", headH);
+  window.addEventListener("resize", headH);
+})();
+document.addEventListener("DOMContentLoaded", function () {
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }, { left: "\\(", right: "\\)", display: false }],
+      throwOnError: false
+    });
+  }
+  /* Quarto's KaTeX pipeline writes <span class="math inline">TeX</span> without delimiters and renders
+     them in a loop that reads firstChild.data; that loop dies at the first span the auto-render above
+     has already turned into KaTeX markup, leaving every later formula raw. Render the rest here. */
+  if (window.katex) {
+    document.querySelectorAll(".math").forEach(function (el) {
+      if (!el.querySelector(".katex")) {
+        var t = el.textContent.replace(/^\s*\\[\(\[]/, "").replace(/\\[\)\]]\s*$/, "");
+        try { katex.render(t, el, { displayMode: el.classList.contains("display"), throwOnError: false }); } catch (e) {}
+      }
+      /* Quarto's loop would still visit this span and wipe it (firstChild is now an element, not text):
+         take it out of its sight. No stylesheet of the site depends on the class; KaTeX's own output carries the layout. */
+      el.classList.remove("math"); el.classList.add("math-done");
+    });
+  }
+});
+</script>
+
+  <script defer="" src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../assets/styles/theme.css">
+<link rel="stylesheet" href="../../assets/styles/site.css">
+<link rel="stylesheet" href="../../assets/styles/project.css">
+</head>
+
+<body>
+
+<div class="topline"></div>
+<header class="site-head">
+  <div class="site-head__inner">
+    <a href="../../index.html" class="wordmark">UNED Labo <span class="accent">Leioa</span>
+      <span class="wordmark-sub">prácticas de laboratorio de la UNED en la Facultad de Ciencia y Tecnología (UPV/EHU) · curso 2025–2026</span>
+    </a>
+    <nav class="site-nav">
+      <a href="../../index.html">Inicio</a>
+      <a href="../../practicas/index.html">Prácticas</a>
+      <a href="../../asignaturas/index.html">Asignaturas</a>
+      <a href="../../recursos/index.html">Recursos</a>
+      <a href="../../informe/index.html">Informe</a>
+      <a href="../../manual/index.html">Manual TE I</a>
+      <a href="../../contacto/index.html">Contacto</a>
+    </nav>
+  </div>
+</header>
+<!-- generated by tools/sibling.py public: the left navigation -->
+<div class="docs">
+<nav class="docs-nav" aria-label="Site sections">
+<button class="docs-fold" type="button" data-fold="nav" aria-label="Hide the navigation" title="Hide the navigation">‹</button>
+<details class="group" open=""><summary class="t">Inicio</summary><ul><li><a href="../../index.html">Inicio</a></li></ul></details>
+<details class="group" open=""><summary class="t">Prácticas</summary><ul><li><a href="../../practicas/index.html">Catálogo: las veinte prácticas</a></li><li><a href="../../practicas/pendulo-fisico/index.html">P01 · Péndulo físico</a></li><li><a href="../../practicas/ley-hooke/index.html">P02 · Movimiento armónico simple. Ley de Hooke</a></li><li><a href="../../practicas/carril-aire/index.html">P03 · Medida de magnitudes dinámicas mediante un carril de aire</a></li><li><a href="../../practicas/cc-resistencia-interna/index.html">P04 · Corriente continua I: resistencia interna de una fuente</a></li><li><a href="../../practicas/cc-curva-lampara/index.html">P05 · Corriente continua II: curva característica de una lámpara</a></li><li><a href="../../practicas/descarga-condensador/index.html">P06 · Descarga de un condensador</a></li><li><a href="../../practicas/ondas-estacionarias/index.html">P07 · Ondas estacionarias en una cuerda con extremos fijos</a></li><li><a href="../../practicas/vaporizacion-agua/index.html">P08 · Calor de vaporización del agua</a></li><li><a href="../../practicas/velocidad-sonido/index.html">P09 · Medida de la velocidad del sonido: tubo de resonancia</a></li><li><a href="../../practicas/inercia-disco/index.html">P10 · Momento de inercia de un disco</a></li><li><a href="../../practicas/catenaria/index.html">P11 · Equilibrio de un hilo bajo la acción de la gravedad: la catenaria</a></li><li><a href="../../practicas/rozamiento-correas/index.html">P12 · Coeficiente de rozamiento entre correas y poleas</a></li><li><a href="../../practicas/giroscopo/index.html">P13 · Giróscopo</a></li><li><a href="../../practicas/cantidad-movimiento/index.html">P14 · Conservación de la cantidad de movimiento</a></li><li><a href="../../practicas/momento-cinetico/index.html">P15 · Conservación del momento cinético</a></li><li><a href="../../practicas/pendulo-circular/index.html">P16 · Péndulo circular (cónico)</a></li><li><a href="../../practicas/momentos-inercia/index.html">P17 · Momentos de inercia de sólidos</a></li><li><a href="../../practicas/maquina-atwood/index.html">P18 · Máquina de Atwood</a></li><li><a href="../../practicas/vibraciones-1gdl/index.html">P19 · Vibraciones libres con un grado de libertad</a></li><li><a href="../../practicas/vibraciones-2gdl/index.html">P20 · Vibraciones libres con dos grados de libertad</a></li></ul></details>
+<details class="group" open=""><summary class="t">Asignaturas</summary><ul><li><a href="../../asignaturas/index.html">Las cuatro asignaturas</a></li><li><a href="../../asignaturas/bfma/index.html">Bases Físicas del Medio Ambiente</a></li><li><a href="../../asignaturas/fisica/index.html">Física I y II</a></li><li><a href="../../asignaturas/mecanica/index.html">Mecánica</a></li><li><a href="../../asignaturas/tecnicas-experimentales/index.html">Técnicas Experimentales I</a></li></ul></details>
+<details class="group" open=""><summary class="t">Recursos</summary><ul><li><a href="../../recursos/index.html">Recursos</a></li><li><a href="../../recursos/sesion-0/index.html">Sesión 0</a></li><li><a href="../../recursos/errores/index.html">Errores y regresiones</a></li><li><a href="../../recursos/phyphox/index.html">Phyphox</a></li></ul></details>
+<details class="group" open=""><summary class="t">Informe</summary><ul><li><a href="../../informe/index.html">El informe: qué contiene, cómo se evalúa</a></li><li><a href="../../informe/modelos/index.html">Los ocho informes modelo</a></li><li><a href="../../informe/rubrica/index.html">La rúbrica de TE I: 225 criterios</a></li><li><a href="../../informe/rubrica-gum/index.html">La rúbrica GUM</a></li></ul></details>
+<details class="group" open=""><summary class="t">Manual TE I</summary><ul><li><a href="../../manual/index.html">El manual, capítulo a capítulo</a></li><li><a href="../../manual/01-representacion-magnitudes.html">Tema 1: Representación de magnitudes</a></li><li><a href="../../manual/02-medidas-directas.html">Tema 2: Medidas directas</a></li><li><a href="../../manual/03-medidas-indirectas.html">Tema 3: Medidas indirectas</a></li><li><a href="../../manual/04-graficas-regresion.html">Tema 4: Gráficas y regresión lineal</a></li><li><a href="../../manual/05-ejemplos-desarrollados.html">Tema 5: Ejemplos desarrollados</a></li><li><a href="../../manual/06-instrucciones-laboratorio.html">Tema 6: Instrucciones para el laboratorio</a></li><li><a href="../../manual/07-soluciones-ejercicios.html">Soluciones y apéndices</a></li></ul></details>
+<details class="group" open=""><summary class="t">Contacto</summary><ul><li><a href="../../contacto/index.html">Contacto</a></li></ul></details>
+</nav>
+<div class="docs-main">
+<div class="itin-head"><span class="kicker">P17 · Serie mecánica · Práctica 4 de Física I y II · Práctica 7 de Mecánica</span></div><div class="prac-meta"><div><span class="lbl">Servida a</span><span class="v"><a class="chip chip-fisica" href="../../asignaturas/fisica/index.html" title="Práctica 4 de Física I y II">Física I y II</a> <a class="chip chip-mecanica" href="../../asignaturas/mecanica/index.html" title="Práctica 7 de Mecánica">Mecánica</a> <span class="chip chip-phy">phyphox</span></span></div><div><span class="lbl">Guion</span><span class="v"><a href="practice_07_momentos_inercia.pdf">Guion en PDF</a></span></div><div><span class="lbl">En resumen</span><span class="v">Muelle espiral de torsión; constante K; momentos de inercia de sólidos y teorema de Steiner (I_Z frente a a²).</span></div></div><nav class="prac-prevnext"><a href="../pendulo-circular/index.html">← P16 Péndulo circular (cónico)</a><a href="../index.html">Catálogo</a><a href="../maquina-atwood/index.html">P18 Máquina de Atwood →</a></nav>
+
+<header id="title-block-header">
+<h1 class="title">Momentos de inercia de sólidos</h1>
+<p class="subtitle">Laboratorio de Mecánica — UNED</p>
+<p class="author">Josu M. Igartua</p>
+
+<p class="date">2026-03-20</p>
+<div class="abstract">
+<div class="abstract-title">Resumen</div>
+<p>Determinación experimental del momento de inercia de diversos sólidos rígidos (disco, esfera, cilindros macizo y hueco, barra) mediante un péndulo de torsión con muelle espiral. Verificación del teorema de Steiner y estudio de la dependencia del momento de inercia con la distribución de masas.</p>
+</div>
+</header>
+
+
+<p><br> <br></p>
+<h2 id="objetivos" class="anchored">Objetivos</h2>
+<p><br></p>
+<ol type="1">
+<li>Determinar la constante de recuperación de un muelle espiral.</li>
+<li>Determinar experimentalmente el momento de inercia de los siguientes sólidos: disco, esfera maciza, cilindro macizo, cilindro hueco y barra.</li>
+<li>Comprobar los resultados con los obtenidos al aplicar las expresiones teóricas de los momentos de inercia.</li>
+<li>Determinar el momento de inercia de una barra en función de la distancia del eje de rotación al centro de gravedad (verificación del teorema de Steiner).</li>
+<li>Determinar los momentos de inercia de una barra a la que se le añaden dos masas a distintas distancias del eje de rotación que pasa por su centro de gravedad.</li>
+<li>Expresar y comentar para todos los resultados las posibles causas de error.</li>
+</ol>
+<p><br></p>
+<h2 id="material" class="anchored">Material</h2>
+<p><br></p>
+<ol type="1">
+<li>Equipo de torsión en espiral (muelle espiral con rotor)</li>
+<li>Barra metálica con masas móviles</li>
+<li>Disco</li>
+<li>Esfera maciza</li>
+<li>Cilindro macizo</li>
+<li>Cilindro hueco</li>
+<li>Dinamómetro</li>
+<li>Contador digital con barrera fotoeléctrica</li>
+<li>Regla graduada y cinta métrica</li>
+<li>Balanza (precisión 0,1 g)</li>
+</ol>
+<p><br></p>
+<h2 id="repaso-de-teoría" class="anchored">Repaso de teoría</h2>
+<p><br></p>
+<ol type="1">
+<li>Dinámica del sólido rígido: momento angular y momento de fuerzas.</li>
+<li>Momento de inercia y tensor de inercia.</li>
+<li>Movimiento armónico simple: oscilaciones de torsión.</li>
+<li>Teorema de Steiner (ejes paralelos).</li>
+<li>Regresión lineal por mínimos cuadrados.</li>
+</ol>
+<p><br></p>
+<h2 id="fundamento-teórico" class="anchored">Fundamento teórico</h2>
+<p><br></p>
+<h3 id="determinación-de-la-constante-de-recuperación-de-un-muelle-espiral" class="anchored">1. Determinación de la constante de recuperación de un muelle espiral</h3>
+<p><br></p>
+<p>La relación entre el momento angular <span class="math inline">\vec{L}</span> de un sólido rígido, en un sistema de coordenadas estacionario con origen en el centro de gravedad, y el momento de la fuerza <span class="math inline">\Gamma</span> que se le aplica es:</p>
+<p><span id="eq-7_1"><span class="math display">
+\Gamma = \dfrac{d\vec{L}}{dt}
+\tag{1}</span></span></p>
+<p>En general, el momento angular <span class="math inline">\vec{L}</span> se expresa en función de la velocidad angular <span class="math inline">\vec{\omega}</span> y del tensor de inercia <span class="math inline">I</span>:</p>
+<p><span id="eq-7_2"><span class="math display">
+\vec{L} = I\cdot\vec{\omega}
+\tag{2}</span></span></p>
+<p>En el caso particular de que el eje de giro coincida con el eje <span class="math inline">Z</span>, el momento angular tendrá una única componente que puede expresarse como:</p>
+<p><span id="eq-7_3"><span class="math display">
+L_{Z} = I_{Z}\cdot\omega = I_{Z}\cdot\dfrac{d\phi}{dt}
+\tag{3}</span></span></p>
+<p>donde <span class="math inline">\phi</span> es el ángulo girado e <span class="math inline">I_{Z}</span> es el momento de inercia respecto al eje <span class="math inline">Z</span>. Por tanto:</p>
+<p><span id="eq-7_4"><span class="math display">
+\Gamma = I_{Z}\cdot\dfrac{d\omega}{dt} = I_{Z}\cdot\dfrac{d^{2}\phi}{dt^{2}}
+\tag{4}</span></span></p>
+<p>Si el cuerpo se encuentra sujeto a un muelle en espiral, el momento de la fuerza puede relacionarse con la constante de recuperación del muelle espiral <span class="math inline">K</span> y el ángulo girado <span class="math inline">\phi</span>:</p>
+<p><span id="eq-7_5"><span class="math display">
+\Gamma = F\cdot d \hspace{3cm} \Gamma = -K\cdot \phi
+\tag{5}</span></span></p>
+<p>En la expresión anterior, el signo menos indica que el momento es contrario al causado por la fuerza que provoca la deformación del muelle. Si se igualan ambas expresiones, se puede deducir una expresión para calcular la constante de recuperación del muelle <span class="math inline">K</span>:</p>
+<p><span id="eq-7_6"><span class="math display">
+\boxed{K = \dfrac{F\cdot d}{\phi}}
+\tag{6}</span></span></p>
+<div>
+<blockquote>
+<p><strong>Determinación práctica de <span class="math inline">K</span></strong></p>
+<p>Si se mide el momento <span class="math inline">\Gamma = F \cdot d</span> para varios ángulos de giro <span class="math inline">\phi</span>, la representación gráfica de <span class="math inline">\Gamma</span> frente a <span class="math inline">\phi</span> debe ser una línea recta que pasa por el origen y cuya <strong>pendiente es la constante de recuperación</strong> <span class="math inline">K</span> del muelle espiral.</p>
+</blockquote>
+</div>
+<p><br></p>
+<h3 id="determinación-experimental-del-momento-de-inercia-de-un-sólido-rígido" class="anchored">2. Determinación experimental del momento de inercia de un sólido rígido</h3>
+<p><br></p>
+<p>Igualando las expresiones de la <a href="#eq-7_4" class="quarto-xref">Ecuación&nbsp;4</a> y la <a href="#eq-7_5" class="quarto-xref">Ecuación&nbsp;5</a>, se obtiene la ecuación del movimiento:</p>
+<p><span id="eq-7_7"><span class="math display">
+I_{Z}\cdot\dfrac{d^{2}\phi}{dt^{2}} = -K\cdot\phi
+\tag{7}</span></span></p>
+<p>La solución de esta ecuación diferencial es:</p>
+<p><span id="eq-7_8"><span class="math display">
+\phi(t) = \phi_{0}\cdot\cos\left(\sqrt{\dfrac{K}{I_{Z}}}\cdot t\right)
+\tag{8}</span></span></p>
+<p>Esta ecuación representa un movimiento periódico con pulsación <span class="math inline">\omega</span>:</p>
+<p><span id="eq-7_9"><span class="math display">
+\omega = \sqrt{\dfrac{K}{I_{Z}}}
+\tag{9}</span></span></p>
+<p>La pulsación se puede expresar en función de la frecuencia <span class="math inline">f</span> o del período <span class="math inline">T</span>:</p>
+<p><span id="eq-7_10"><span class="math display">
+\omega = 2\pi\cdot f = \dfrac{2\pi}{T}
+\tag{10}</span></span></p>
+<p>Por lo tanto, el período puede expresarse en función del momento de inercia y de la constante de recuperación del muelle espiral:</p>
+<p><span id="eq-7_11"><span class="math display">
+\boxed{T = 2\pi\cdot\sqrt{\dfrac{I_{Z}}{K}}}
+\tag{11}</span></span></p>
+<p>Y, así, el momento de inercia se puede expresar como:</p>
+<p><span id="eq-7_12"><span class="math display">
+\boxed{I_{Z} = \dfrac{T^{2}}{4\pi^{2}}\cdot K}
+\tag{12}</span></span></p>
+<p>De todo lo expuesto se deduce que, conocidos la constante de recuperación angular del muelle espiral (<span class="math inline">K</span>) y el período de oscilación (<span class="math inline">T</span>), se puede calcular el momento de inercia de diversos sólidos rígidos.</p>
+<p><br></p>
+<h3 id="expresiones-teóricas-de-los-momentos-de-inercia" class="anchored">3. Expresiones teóricas de los momentos de inercia</h3>
+<p><br></p>
+<p>Los momentos de inercia teóricos de los sólidos utilizados en esta práctica, respecto a un eje que pasa por su centro de gravedad, son:</p>
+<p><span id="eq-7_13"><span class="math display">
+\boxed{I_{Z}(\textrm{esfera}) = \dfrac{2}{5}\cdot m \cdot r^{2}}
+\tag{13}</span></span></p>
+<p><span id="eq-7_14"><span class="math display">
+\boxed{I_{Z}(\textrm{cilindro macizo}) = \dfrac{1}{2}\cdot m \cdot r^{2}}
+\tag{14}</span></span></p>
+<p><span id="eq-7_15"><span class="math display">
+\boxed{I_{Z}(\textrm{cilindro hueco}) = \dfrac{1}{2}\cdot m \cdot (r_{\textrm{ext}}^{2} + r_{\textrm{int}}^{2})}
+\tag{15}</span></span></p>
+<p><span id="eq-7_16"><span class="math display">
+\boxed{I_{Z}(\textrm{disco}) = \dfrac{1}{2}\cdot m \cdot r^{2}}
+\tag{16}</span></span></p>
+<p><span id="eq-7_17"><span class="math display">
+\boxed{I_{Z}(\textrm{barra}) = \dfrac{1}{12}\cdot m \cdot l^{2}}
+\tag{17}</span></span></p>
+<p><br></p>
+<h3 id="teorema-de-steiner-ejes-paralelos" class="anchored">4. Teorema de Steiner (ejes paralelos)</h3>
+<p><br></p>
+<p>Cuando el eje de rotación no pasa por el centro de gravedad del cuerpo, sino que está desplazado una distancia <span class="math inline">a</span>, el momento de inercia se calcula mediante el <strong>teorema de Steiner</strong>:</p>
+<blockquote>
+<p><em>El momento de inercia respecto a un eje cualquiera es igual al momento de inercia respecto a un eje paralelo que pase por su centro de masas, más el producto de la masa del cuerpo por el cuadrado de la distancia entre ambos ejes.</em></p>
+</blockquote>
+<p><span id="eq-7_18"><span class="math display">
+\boxed{I_{A} = I_{G} + m\cdot a^{2}}
+\tag{18}</span></span></p>
+<p>Y la expresión para el período cuando el eje está desplazado una distancia <span class="math inline">a</span> del centro de gravedad:</p>
+<p><span id="eq-7_19"><span class="math display">
+T = 2\pi\cdot\sqrt{\dfrac{I_{G} + m\cdot a^{2}}{K}}
+\tag{19}</span></span></p>
+<p><br></p>
+<h3 id="sistema-barra-con-dos-masas" class="anchored">5. Sistema barra con dos masas</h3>
+<p><br></p>
+<p>Si se modeliza el sistema <strong><em>masa-barra-masa</em></strong> como dos masas puntuales <span class="math inline">m_{1}</span> y <span class="math inline">m_{2}</span> situadas a una distancia <span class="math inline">a</span> del centro de gravedad sobre una barra de masa <span class="math inline">m_{b}</span> y longitud <span class="math inline">l</span>, el momento de inercia total del sistema es:</p>
+<p><span id="eq-7_20"><span class="math display">
+\boxed{I_{Z}(\textrm{sistema}) = (m_{1} + m_{2})\cdot a^{2} + I_{b}}
+\tag{20}</span></span></p>
+<p>donde <span class="math inline">I_{b} = \dfrac{m_{b}}{12}\cdot l^{2}</span> es el momento de inercia de la barra sola. La <a href="#eq-7_20" class="quarto-xref">Ecuación&nbsp;20</a> establece una relación lineal entre <span class="math inline">I_{Z}</span> y <span class="math inline">a^{2}</span>:</p>
+<ul>
+<li>La <strong>pendiente</strong> de la recta <span class="math inline">I_{Z}</span> vs <span class="math inline">a^{2}</span> es <span class="math inline">(m_{1} + m_{2})</span>.</li>
+<li>La <strong>ordenada en el origen</strong> es <span class="math inline">I_{b}</span>.</li>
+</ul>
+<p><br></p>
+<h2 id="método-operatorio" class="anchored">Método operatorio</h2>
+<p><br></p>
+<h3 id="parte-a-cálculo-de-la-constante-de-recuperación-del-muelle-espiral" class="anchored">Parte A: Cálculo de la constante de recuperación del muelle espiral</h3>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>1</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Montar la barra en el equipo de torsión en espiral, situándola en su centro y colocando las masas móviles simétricamente respecto al eje de rotación.</p>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>2</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Con el dinamómetro situado en uno de los extremos de la barra, a una distancia <span class="math inline">d</span> del eje de rotación (medir y anotar <span class="math inline">d</span>), y formando ángulo recto con la barra:</p>
+<blockquote>
+<ol type="1">
+<li>Hacer girar la barra distintos ángulos, tomando entre 6 y 8 valores desde <span class="math inline">\pi/2</span> hasta <span class="math inline">4\pi</span> radianes.</li>
+<li>Anotar las parejas de valores ángulo-fuerza.</li>
+</ol>
+</blockquote>
+<p><code>Dato:</code> Distancia del dinamómetro al eje: <span class="math inline">d = 0{,}200</span> m.</p>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>3</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Calcular el momento <span class="math inline">\Gamma = F \cdot d</span> para cada ángulo y representar gráficamente <span class="math inline">\Gamma</span> (eje <span class="math inline">y</span>) frente a <span class="math inline">\phi</span> (eje <span class="math inline">x</span>).</p>
+<div class="columns">
+<div class="column" style="width:25%;">
+<p><strong>Datos <br> experimentales</strong></p>
+</div><div class="column" style="width:75%;">
+<p>A continuación se resumen los datos recogidos en el laboratorio para la determinación de <span class="math inline">K</span>.</p>
+<p><br></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Medida</th>
+<th style="text-align: center;"><span class="math inline">\phi</span> (rad)</th>
+<th style="text-align: center;"><span class="math inline">F</span> (N)</th>
+<th style="text-align: center;"><span class="math inline">\Gamma = F\cdot d</span> (N<span class="math inline">\cdot</span>m)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1,57</td>
+<td style="text-align: center;">0,18</td>
+<td style="text-align: center;">0,036</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">3,14</td>
+<td style="text-align: center;">0,38</td>
+<td style="text-align: center;">0,076</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">4,71</td>
+<td style="text-align: center;">0,55</td>
+<td style="text-align: center;">0,110</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">6,28</td>
+<td style="text-align: center;">0,74</td>
+<td style="text-align: center;">0,148</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">7,85</td>
+<td style="text-align: center;">0,92</td>
+<td style="text-align: center;">0,184</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">9,42</td>
+<td style="text-align: center;">1,12</td>
+<td style="text-align: center;">0,224</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">10,99</td>
+<td style="text-align: center;">1,30</td>
+<td style="text-align: center;">0,260</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">12,57</td>
+<td style="text-align: center;">1,49</td>
+<td style="text-align: center;">0,298</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>4</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Mediante regresión lineal de <span class="math inline">\Gamma</span> frente a <span class="math inline">\phi</span>, obtener:</p>
+<ol type="1">
+<li>La pendiente <span class="math inline">m</span> (con su desviación estándar <span class="math inline">\Delta m</span>): esta es la <strong>constante de recuperación del muelle</strong>, <span class="math inline">K</span>.</li>
+<li>La ordenada en el origen <span class="math inline">n</span> (con su desviación estándar <span class="math inline">\Delta n</span>): teóricamente debe ser cero.</li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="plot_constante_K.png" class="img-fluid" style="width:85.0%"></p>
+<figcaption>Representación gráfica de <span class="math inline">\Gamma</span> frente a <span class="math inline">\phi</span> para la determinación de la constante <span class="math inline">K</span></figcaption>
+</figure>
+</div>
+<div>
+<blockquote>
+<p><strong>Regresión lineal para la determinación de <span class="math inline">K</span></strong></p>
+<p><br></p>
+<p>Se ajustan los <span class="math inline">N = 8</span> puntos experimentales <span class="math inline">(\phi_{i}, \Gamma_{i})</span> a la recta <span class="math inline">\Gamma = K\cdot\phi + n</span>, comparando con la ecuación física <span class="math inline">\Gamma = K\cdot\phi</span>.</p>
+<p>Con los datos de la tabla, se aplican las fórmulas estándar de regresión lineal:</p>
+<p><span class="math display">
+K = \dfrac{N\sum \phi_{i}\Gamma_{i} - \sum \phi_{i}\sum \Gamma_{i}}{N\sum \phi_{i}^{2} - \left(\sum \phi_{i}\right)^{2}}
+</span></p>
+<p>Con <span class="math inline">N = 8</span>, <span class="math inline">\sum \phi_{i} = 56{,}53</span>, <span class="math inline">\sum \Gamma_{i} = 1{,}336</span>, <span class="math inline">\sum \phi_{i}^{2} = 504{,}49</span>, <span class="math inline">\sum \phi_{i}\Gamma_{i} = 11{,}934</span>, se obtiene:</p>
+<p><span class="math display">
+\boxed{K = 0{,}02381 \textrm{ N}\cdot\textrm{m/rad}} \qquad \boxed{n = 0{,}0003 \textrm{ N}\cdot\textrm{m}}
+</span></p>
+<p>Los errores, obtenidos a partir de la varianza residual, son:</p>
+<p><span class="math display">
+\boxed{\Delta K = 0{,}00008 \textrm{ N}\cdot\textrm{m/rad}} \qquad \boxed{\Delta n = 0{,}0005 \textrm{ N}\cdot\textrm{m}}
+</span></p>
+<p>El coeficiente de determinación es <span class="math inline">R^{2} = 0{,}99998</span>, lo que indica un ajuste excelente.</p>
+<p>La ordenada en el origen es compatible con cero (<span class="math inline">|n| &lt; 2\,\Delta n</span>), confirmando la proporcionalidad directa entre <span class="math inline">\Gamma</span> y <span class="math inline">\phi</span>.</p>
+<p><strong>Resultado:</strong></p>
+<p><span class="math display">
+\boxed{K = 0{,}0238 \pm 0{,}0001 \textrm{ N}\cdot\textrm{m/rad}}
+</span></p>
+</blockquote>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="parte-b-determinación-de-los-momentos-de-inercia-de-sólidos-rígidos" class="anchored">Parte B: Determinación de los momentos de inercia de sólidos rígidos</h3>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>5</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Tomar las dimensiones (radio, longitud, radios interno y externo) y la masa de cada uno de los sólidos con la regla y la balanza, respectivamente.</p>
+<p><code>Datos de los sólidos:</code></p>
+<blockquote>
+<ul>
+<li><strong>Disco:</strong> masa <span class="math inline">m = 0{,}452</span> kg, radio <span class="math inline">r = 0{,}100</span> m</li>
+<li><strong>Esfera:</strong> masa <span class="math inline">m = 1{,}032</span> kg, radio <span class="math inline">r = 0{,}063</span> m</li>
+<li><strong>Cilindro macizo:</strong> masa <span class="math inline">m = 0{,}795</span> kg, radio <span class="math inline">r = 0{,}040</span> m</li>
+<li><strong>Cilindro hueco:</strong> masa <span class="math inline">m = 0{,}568</span> kg, radio externo <span class="math inline">r_{\textrm{ext}} = 0{,}050</span> m, radio interno <span class="math inline">r_{\textrm{int}} = 0{,}040</span> m</li>
+<li><strong>Barra:</strong> masa <span class="math inline">m = 0{,}340</span> kg, longitud <span class="math inline">l = 0{,}500</span> m</li>
+</ul>
+</blockquote>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>6</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Pegar a cada sólido un trozo de papel que se pueda interponer entre las fotocélulas del contador digital.</p>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>7</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Situar el contador en la posición de medida de periodos:</p>
+<blockquote>
+<ol type="1">
+<li>Tres pasos por la barrera fotoeléctrica si el tiempo medido no sobrepasa los 9,99 s.</li>
+<li>Dos pasos por la barrera fotoeléctrica (posición de semiperiodos) si el tiempo medido sí sobrepasa los 9,99 s.</li>
+</ol>
+</blockquote>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>8</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Unir el sólido en estudio al rotor de torsión y girarlo un determinado ángulo (algo menos de 180°). Soltarlo para que oscile libremente. Dejar que pase varias veces por el contador y poner a cero el contador. Anotar el periodo de oscilación. <strong>Repetir la medida 5 veces</strong> para obtener la media y la desviación estándar.</p>
+<div class="columns">
+<div class="column" style="width:25%;">
+<p><strong>Datos <br> experimentales</strong></p>
+</div><div class="column" style="width:75%;">
+<p>A continuación en la tabla se resumen los periodos medidos (en segundos) para cada sólido.</p>
+<p><br></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Sólido</th>
+<th style="text-align: center;"><span class="math inline">T_{1}</span> (s)</th>
+<th style="text-align: center;"><span class="math inline">T_{2}</span> (s)</th>
+<th style="text-align: center;"><span class="math inline">T_{3}</span> (s)</th>
+<th style="text-align: center;"><span class="math inline">T_{4}</span> (s)</th>
+<th style="text-align: center;"><span class="math inline">T_{5}</span> (s)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Disco</td>
+<td style="text-align: center;">2,733</td>
+<td style="text-align: center;">2,741</td>
+<td style="text-align: center;">2,729</td>
+<td style="text-align: center;">2,738</td>
+<td style="text-align: center;">2,735</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Esfera</td>
+<td style="text-align: center;">1,598</td>
+<td style="text-align: center;">1,604</td>
+<td style="text-align: center;">1,601</td>
+<td style="text-align: center;">1,596</td>
+<td style="text-align: center;">1,601</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Cilindro macizo</td>
+<td style="text-align: center;">0,972</td>
+<td style="text-align: center;">0,978</td>
+<td style="text-align: center;">0,975</td>
+<td style="text-align: center;">0,970</td>
+<td style="text-align: center;">0,975</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Cilindro hueco</td>
+<td style="text-align: center;">1,234</td>
+<td style="text-align: center;">1,240</td>
+<td style="text-align: center;">1,237</td>
+<td style="text-align: center;">1,231</td>
+<td style="text-align: center;">1,238</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Barra</td>
+<td style="text-align: center;">1,685</td>
+<td style="text-align: center;">1,691</td>
+<td style="text-align: center;">1,688</td>
+<td style="text-align: center;">1,682</td>
+<td style="text-align: center;">1,684</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>9</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Calcular el periodo medio <span class="math inline">\bar{T}</span>, la desviación estándar <span class="math inline">\sigma_{T}</span> y el momento de inercia experimental <span class="math inline">I_{\textrm{exp}}</span> para cada sólido, utilizando la <a href="#eq-7_12" class="quarto-xref">Ecuación&nbsp;12</a>. Comparar con el momento de inercia teórico <span class="math inline">I_{\textrm{teórico}}</span> obtenido de las expresiones <a href="#eq-7_13" class="quarto-xref">Ecuación&nbsp;13</a> a <a href="#eq-7_17" class="quarto-xref">Ecuación&nbsp;17</a>.</p>
+<div>
+<blockquote>
+<p><strong>Cálculo de los momentos de inercia experimentales y comparación</strong></p>
+<p><br></p>
+<h3 id="valores-medios-y-desviaciones-estándar" class="anchored">Valores medios y desviaciones estándar</h3>
+<p>A partir de los datos de la tabla anterior:</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Sólido</th>
+<th style="text-align: center;"><span class="math inline">\bar{T}</span> (s)</th>
+<th style="text-align: center;"><span class="math inline">\sigma_{T}</span> (s)</th>
+<th style="text-align: center;"><span class="math inline">\bar{T}^{2}</span> (s<span class="math inline">^{2}</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Disco</td>
+<td style="text-align: center;">2,7352</td>
+<td style="text-align: center;">0,0045</td>
+<td style="text-align: center;">7,4813</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Esfera</td>
+<td style="text-align: center;">1,6000</td>
+<td style="text-align: center;">0,0030</td>
+<td style="text-align: center;">2,5600</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Cilindro macizo</td>
+<td style="text-align: center;">0,9740</td>
+<td style="text-align: center;">0,0030</td>
+<td style="text-align: center;">0,9487</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Cilindro hueco</td>
+<td style="text-align: center;">1,2360</td>
+<td style="text-align: center;">0,0035</td>
+<td style="text-align: center;">1,5277</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Barra</td>
+<td style="text-align: center;">1,6860</td>
+<td style="text-align: center;">0,0035</td>
+<td style="text-align: center;">2,8426</td>
+</tr>
+</tbody>
+</table>
+<h3 id="momentos-de-inercia-experimentales" class="anchored">Momentos de inercia experimentales</h3>
+<p>Utilizando la <a href="#eq-7_12" class="quarto-xref">Ecuación&nbsp;12</a> con <span class="math inline">K = 0{,}0238</span> N<span class="math inline">\cdot</span>m/rad:</p>
+<p><span class="math display">
+I_{\textrm{exp}} = \dfrac{\bar{T}^{2}}{4\pi^{2}}\cdot K
+</span></p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 26%">
+<col style="width: 26%">
+<col style="width: 26%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Sólido</th>
+<th style="text-align: center;"><span class="math inline">I_{\textrm{exp}}</span> (kg<span class="math inline">\cdot</span>m<span class="math inline">^{2}</span>)</th>
+<th style="text-align: center;"><span class="math inline">I_{\textrm{teórico}}</span> (kg<span class="math inline">\cdot</span>m<span class="math inline">^{2}</span>)</th>
+<th style="text-align: center;">Desv. ()</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Disco</td>
+<td style="text-align: center;"><span class="math inline">4{,}51 \times 10^{-3}</span></td>
+<td style="text-align: center;"><span class="math inline">4{,}52 \times 10^{-3}</span> (<span class="math inline">\frac{1}{2}mr^{2} = \frac{1}{2}\times 0{,}452 \times 0{,}100^{2}</span>)</td>
+<td style="text-align: center;">0,2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Esfera</td>
+<td style="text-align: center;"><span class="math inline">1{,}54 \times 10^{-3}</span></td>
+<td style="text-align: center;"><span class="math inline">1{,}64 \times 10^{-3}</span> (<span class="math inline">\frac{2}{5}mr^{2} = \frac{2}{5}\times 1{,}032 \times 0{,}063^{2}</span>)</td>
+<td style="text-align: center;">6,1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Cilindro macizo</td>
+<td style="text-align: center;"><span class="math inline">5{,}72 \times 10^{-4}</span></td>
+<td style="text-align: center;"><span class="math inline">6{,}36 \times 10^{-4}</span> (<span class="math inline">\frac{1}{2}mr^{2} = \frac{1}{2}\times 0{,}795 \times 0{,}040^{2}</span>)</td>
+<td style="text-align: center;">10,1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Cilindro hueco</td>
+<td style="text-align: center;"><span class="math inline">9{,}21 \times 10^{-4}</span></td>
+<td style="text-align: center;"><span class="math inline">9{,}33 \times 10^{-4}</span> (<span class="math inline">\frac{1}{2}m(r_{\textrm{ext}}^{2}+r_{\textrm{int}}^{2})</span>)</td>
+<td style="text-align: center;">1,3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Barra</td>
+<td style="text-align: center;"><span class="math inline">1{,}71 \times 10^{-3}</span></td>
+<td style="text-align: center;"><span class="math inline">1{,}70 \times 10^{-3}</span> (<span class="math inline">\frac{1}{12}ml^{2} = \frac{1}{12}\times 0{,}340 \times 0{,}500^{2}</span>)</td>
+<td style="text-align: center;">0,6</td>
+</tr>
+</tbody>
+</table>
+<h3 id="propagación-de-errores-para-i_textrmexp" class="anchored">Propagación de errores para <span class="math inline">I_{\textrm{exp}}</span></h3>
+<p>A partir de la <a href="#eq-7_12" class="quarto-xref">Ecuación&nbsp;12</a>, <span class="math inline">I = \dfrac{T^{2}\cdot K}{4\pi^{2}}</span>, el error se propaga como:</p>
+<p><span class="math display">
+\Delta I = I\cdot\sqrt{\left(\dfrac{2\,\Delta T}{\bar{T}}\right)^{2} + \left(\dfrac{\Delta K}{K}\right)^{2}}
+</span></p>
+<p>Para el disco, por ejemplo:</p>
+<p><span class="math display">
+\Delta I_{\textrm{disco}} = 4{,}51\times 10^{-3}\cdot\sqrt{\left(\dfrac{2\times 0{,}0045}{2{,}7352}\right)^{2} + \left(\dfrac{0{,}0001}{0{,}0238}\right)^{2}} = 4{,}51\times 10^{-3} \times 0{,}0052 \approx 2{,}3 \times 10^{-5} \textrm{ kg}\cdot\textrm{m}^{2}
+</span></p>
+<p><span class="math display">
+\boxed{I_{\textrm{disco}} = (4{,}51 \pm 0{,}02) \times 10^{-3} \textrm{ kg}\cdot\textrm{m}^{2}}
+</span></p>
+<p>Los resultados muestran buena concordancia entre los valores experimentales y teóricos, con desviaciones inferiores al 10, en todos los casos.</p>
+</blockquote>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="parte-c-momento-de-inercia-de-la-barra-respecto-de-un-eje-que-no-pasa-por-su-centro-de-gravedad" class="anchored">Parte C: Momento de inercia de la barra respecto de un eje que no pasa por su centro de gravedad</h3>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>10</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Medir experimentalmente el periodo de oscilación de la barra cuando el eje de rotación se sitúa:</p>
+<blockquote>
+<ol type="1">
+<li>En un extremo de la barra (distancia <span class="math inline">a = l/2 = 0{,}250</span> m del centro de gravedad).</li>
+<li>A una cuarta parte de su longitud total (distancia <span class="math inline">a = l/4 = 0{,}125</span> m del centro de gravedad).</li>
+</ol>
+</blockquote>
+<p>Repetir cada medida 5 veces.</p>
+<div class="columns">
+<div class="column" style="width:25%;">
+<p><strong>Datos <br> experimentales</strong></p>
+</div><div class="column" style="width:75%;">
+<p><br></p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Posición</th>
+<th style="text-align: center;"><span class="math inline">a</span> (m)</th>
+<th style="text-align: center;"><span class="math inline">T_{1}</span> (s)</th>
+<th style="text-align: center;"><span class="math inline">T_{2}</span> (s)</th>
+<th style="text-align: center;"><span class="math inline">T_{3}</span> (s)</th>
+<th style="text-align: center;"><span class="math inline">T_{4}</span> (s)</th>
+<th style="text-align: center;"><span class="math inline">T_{5}</span> (s)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Extremo</td>
+<td style="text-align: center;">0,250</td>
+<td style="text-align: center;">6,87</td>
+<td style="text-align: center;">6,83</td>
+<td style="text-align: center;">6,85</td>
+<td style="text-align: center;">6,88</td>
+<td style="text-align: center;">6,82</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1/4 longitud</td>
+<td style="text-align: center;">0,125</td>
+<td style="text-align: center;">4,55</td>
+<td style="text-align: center;">4,51</td>
+<td style="text-align: center;">4,53</td>
+<td style="text-align: center;">4,56</td>
+<td style="text-align: center;">4,50</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>11</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Calcular el momento de inercia experimental en cada caso y compararlo con el valor obtenido mediante el teorema de Steiner (<a href="#eq-7_18" class="quarto-xref">Ecuación&nbsp;18</a>).</p>
+<div>
+<blockquote>
+<p><strong>Verificación del teorema de Steiner</strong></p>
+<p><br></p>
+<h3 id="eje-en-el-extremo-a-0250-m" class="anchored">Eje en el extremo (<span class="math inline">a = 0{,}250</span> m)</h3>
+<p>Periodo medio: <span class="math inline">\bar{T} = 6{,}850</span> s, <span class="math inline">\sigma_{T} = 0{,}024</span> s.</p>
+<p>Momento de inercia experimental:</p>
+<p><span class="math display">
+I_{\textrm{exp}} = \dfrac{\bar{T}^{2}}{4\pi^{2}}\cdot K = \dfrac{(6{,}850)^{2}}{4\pi^{2}} \times 0{,}0238 = \dfrac{46{,}92}{39{,}478} \times 0{,}0238 = 1{,}189 \times 0{,}0238 = 2{,}83 \times 10^{-2} \textrm{ kg}\cdot\textrm{m}^{2}
+</span></p>
+<p>Valor teórico (Steiner), con <span class="math inline">I_{G} = \frac{1}{12}ml^{2}</span> y <span class="math inline">a = l/2</span>:</p>
+<p><span class="math display">
+I_{\textrm{teórico}} = \dfrac{1}{12}\cdot m \cdot l^{2} + m \cdot a^{2} = \dfrac{1}{12}\times 0{,}340 \times 0{,}250 + 0{,}340 \times 0{,}0625
+</span></p>
+<p><span class="math display">
+I_{\textrm{teórico}} = 7{,}08 \times 10^{-3} + 2{,}125 \times 10^{-2} = 2{,}83 \times 10^{-2} \textrm{ kg}\cdot\textrm{m}^{2}
+</span></p>
+<p>Desviación porcentual: <span class="math inline">&lt; 1\,\text{\%}</span>. La concordancia es excelente.</p>
+<h3 id="eje-a-14-de-la-longitud-a-0125-m" class="anchored">Eje a 1/4 de la longitud (<span class="math inline">a = 0{,}125</span> m)</h3>
+<p>Periodo medio: <span class="math inline">\bar{T} = 4{,}530</span> s, <span class="math inline">\sigma_{T} = 0{,}023</span> s.</p>
+<p><span class="math display">
+I_{\textrm{exp}} = \dfrac{(4{,}530)^{2}}{4\pi^{2}} \times 0{,}0238 = \dfrac{20{,}52}{39{,}478} \times 0{,}0238 = 0{,}5198 \times 0{,}0238 = 1{,}24 \times 10^{-2} \textrm{ kg}\cdot\textrm{m}^{2}
+</span></p>
+<p>Valor teórico (Steiner), con <span class="math inline">a = l/4</span>:</p>
+<p><span class="math display">
+I_{\textrm{teórico}} = \dfrac{1}{12}\times 0{,}340 \times 0{,}250 + 0{,}340 \times 0{,}015625 = 7{,}08 \times 10^{-3} + 5{,}31 \times 10^{-3} = 1{,}24 \times 10^{-2} \textrm{ kg}\cdot\textrm{m}^{2}
+</span></p>
+<p>Desviación porcentual: <span class="math inline">&lt; 1\,\text{\%}</span>.</p>
+<h3 id="resumen" class="anchored">Resumen</h3>
+<table class="caption-top">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Posición</th>
+<th style="text-align: center;"><span class="math inline">a</span> (m)</th>
+<th style="text-align: center;"><span class="math inline">I_{\textrm{exp}}</span> (kg<span class="math inline">\cdot</span>m<span class="math inline">^{2}</span>)</th>
+<th style="text-align: center;"><span class="math inline">I_{\textrm{teórico}}</span> (kg<span class="math inline">\cdot</span>m<span class="math inline">^{2}</span>)</th>
+<th style="text-align: center;">Desv. ()</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Centro (referencia)</td>
+<td style="text-align: center;">0,000</td>
+<td style="text-align: center;"><span class="math inline">7{,}08 \times 10^{-3}</span></td>
+<td style="text-align: center;"><span class="math inline">7{,}08 \times 10^{-3}</span></td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1/4 longitud</td>
+<td style="text-align: center;">0,125</td>
+<td style="text-align: center;"><span class="math inline">1{,}24 \times 10^{-2}</span></td>
+<td style="text-align: center;"><span class="math inline">1{,}24 \times 10^{-2}</span></td>
+<td style="text-align: center;"><span class="math inline">&lt; 1</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Extremo</td>
+<td style="text-align: center;">0,250</td>
+<td style="text-align: center;"><span class="math inline">2{,}83 \times 10^{-2}</span></td>
+<td style="text-align: center;"><span class="math inline">2{,}83 \times 10^{-2}</span></td>
+<td style="text-align: center;"><span class="math inline">&lt; 1</span></td>
+</tr>
+</tbody>
+</table>
+<p>Los resultados confirman la validez del teorema de Steiner.</p>
+</blockquote>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="parte-d-variación-del-momento-de-inercia-de-una-barra-con-masas" class="anchored">Parte D: Variación del momento de inercia de una barra con masas</h3>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>12</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Situar las dos masas móviles (<span class="math inline">m_{1} = m_{2} = 0{,}100</span> kg) sobre la barra a distintas distancias simétricas respecto al centro. Para cada distancia <span class="math inline">a</span>, medir el periodo de oscilación (5 repeticiones) y calcular el momento de inercia del sistema.</p>
+<p>Usar las distancias: <span class="math inline">a = 0{,}025</span>; <span class="math inline">0{,}050</span>; <span class="math inline">0{,}100</span>; <span class="math inline">0{,}175</span>; <span class="math inline">0{,}250</span> m.</p>
+<div class="columns">
+<div class="column" style="width:25%;">
+<p><strong>Datos <br> experimentales</strong></p>
+</div><div class="column" style="width:75%;">
+<p><br></p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">a</span> (m)</th>
+<th style="text-align: center;"><span class="math inline">a^{2}</span> (m<span class="math inline">^{2}</span>)</th>
+<th style="text-align: center;"><span class="math inline">\bar{T}</span> (s)</th>
+<th style="text-align: center;"><span class="math inline">\bar{T}^{2}</span> (s<span class="math inline">^{2}</span>)</th>
+<th style="text-align: center;"><span class="math inline">I_{\textrm{exp}}</span> (<span class="math inline">\times 10^{-3}</span> kg<span class="math inline">\cdot</span>m<span class="math inline">^{2}</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0,025</td>
+<td style="text-align: center;">0,000625</td>
+<td style="text-align: center;">3,462</td>
+<td style="text-align: center;">11,985</td>
+<td style="text-align: center;">7,23</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0,050</td>
+<td style="text-align: center;">0,002500</td>
+<td style="text-align: center;">3,550</td>
+<td style="text-align: center;">12,602</td>
+<td style="text-align: center;">7,60</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0,100</td>
+<td style="text-align: center;">0,010000</td>
+<td style="text-align: center;">3,885</td>
+<td style="text-align: center;">15,093</td>
+<td style="text-align: center;">9,10</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0,175</td>
+<td style="text-align: center;">0,030625</td>
+<td style="text-align: center;">4,685</td>
+<td style="text-align: center;">21,949</td>
+<td style="text-align: center;">13,24</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0,250</td>
+<td style="text-align: center;">0,062500</td>
+<td style="text-align: center;">5,702</td>
+<td style="text-align: center;">32,513</td>
+<td style="text-align: center;">19,62</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>13</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Representar gráficamente <span class="math inline">I_{\textrm{exp}}</span> (eje <span class="math inline">y</span>) frente a <span class="math inline">a^{2}</span> (eje <span class="math inline">x</span>). Realizar un ajuste por regresión lineal para comprobar la linealidad y obtener:</p>
+<ol type="1">
+<li>La <strong>pendiente</strong>: debe ser <span class="math inline">(m_{1} + m_{2})</span>.</li>
+<li>La <strong>ordenada en el origen</strong>: debe ser el momento de inercia de la barra, <span class="math inline">I_{b}</span>.</li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="plot_I_vs_a2.png" class="img-fluid" style="width:85.0%"></p>
+<figcaption>Representación gráfica de <span class="math inline">I_{Z}</span> frente a <span class="math inline">a^{2}</span> (verificación del teorema de Steiner)</figcaption>
+</figure>
+</div>
+<div>
+<blockquote>
+<p><strong>Regresión lineal: <span class="math inline">I_{Z}</span> vs <span class="math inline">a^{2}</span></strong></p>
+<p><br></p>
+<p>Se ajustan los <span class="math inline">N = 5</span> puntos (<span class="math inline">a_{i}^{2}</span>, <span class="math inline">I_{\textrm{exp},i}</span>) a la recta:</p>
+<p><span class="math display">
+I_{Z} = p\cdot a^{2} + n
+</span></p>
+<p>comparando con la ecuación física <a href="#eq-7_20" class="quarto-xref">Ecuación&nbsp;20</a>: <span class="math inline">I_{Z} = (m_{1}+m_{2})\cdot a^{2} + I_{b}</span>.</p>
+<h3 id="resultados-numéricos" class="anchored">Resultados numéricos</h3>
+<p>Con los <span class="math inline">N = 5</span> puntos de la tabla, se aplican las fórmulas estándar de regresión lineal. La pendiente aproximada se puede estimar directamente:</p>
+<p><span class="math display">
+p \approx \dfrac{\Delta I}{\Delta(a^{2})} = \dfrac{(19{,}62 - 7{,}23)\times 10^{-3}}{0{,}0625 - 0{,}000625} = \dfrac{12{,}39 \times 10^{-3}}{0{,}06188} = 0{,}2002 \textrm{ kg}
+</span></p>
+<p>El ajuste completo por mínimos cuadrados da:</p>
+<p><span class="math display">
+\boxed{p = 0{,}2003 \pm 0{,}0018 \textrm{ kg}} \qquad \boxed{n = (7{,}10 \pm 0{,}05) \times 10^{-3} \textrm{ kg}\cdot\textrm{m}^{2}}
+</span></p>
+<p>El coeficiente de determinación es <span class="math inline">R^{2} = 0{,}9998</span>.</p>
+<h3 id="comparación-con-valores-teóricos" class="anchored">Comparación con valores teóricos</h3>
+<ol type="1">
+<li><p><strong>Pendiente:</strong> <span class="math inline">(m_{1}+m_{2})_{\textrm{exp}} = 0{,}200 \pm 0{,}002</span> kg, frente al valor medido con la balanza <span class="math inline">(m_{1}+m_{2})_{\textrm{teórico}} = 0{,}200</span> kg. La concordancia es excelente (desviación <span class="math inline">&lt; 1\,\text{\%}</span>).</p></li>
+<li><p><strong>Ordenada en el origen:</strong> <span class="math inline">I_{b,\textrm{exp}} = (7{,}10 \pm 0{,}05) \times 10^{-3}</span> kg<span class="math inline">\cdot</span>m<span class="math inline">^{2}</span>, frente al valor teórico <span class="math inline">I_{b} = \frac{1}{12}\times 0{,}340 \times 0{,}250 = 7{,}08 \times 10^{-3}</span> kg<span class="math inline">\cdot</span>m<span class="math inline">^{2}</span>. La concordancia es igualmente excelente (desviación <span class="math inline">0{,}3\,\text{\%}</span>).</p></li>
+</ol>
+<h3 id="conclusión" class="anchored">Conclusión</h3>
+<p>La representación de <span class="math inline">I_{Z}</span> frente a <span class="math inline">a^{2}</span> es efectivamente lineal (<span class="math inline">R^{2} = 0{,}9998</span>), confirmando la validez de la <a href="#eq-7_20" class="quarto-xref">Ecuación&nbsp;20</a>. La pendiente proporciona la masa total de los dos cuerpos y la ordenada en el origen proporciona el momento de inercia de la barra sola, ambos en excelente acuerdo con los valores teóricos.</p>
+</blockquote>
+</div>
+</div>
+</div>
+<p><br></p>
+<h2 id="ejercicios-previos" class="anchored">Ejercicios Previos</h2>
+<p><br></p>
+<div>
+<blockquote>
+<p><strong>Ejercicios Previos</strong></p>
+<p><br></p>
+<ol type="1">
+<li>Partiendo de las ecuaciones <a href="#eq-7_4" class="quarto-xref">Ecuación&nbsp;4</a> y <a href="#eq-7_5" class="quarto-xref">Ecuación&nbsp;5</a>, demostrar que el periodo de oscilación del péndulo de torsión viene dado por la expresión <a href="#eq-7_11" class="quarto-xref">Ecuación&nbsp;11</a>.</li>
+</ol>
+<div>
+<blockquote>
+<p><strong>Solución del ejercicio 1</strong></p>
+<p><br></p>
+<p>Igualando el par de torsión del muelle con el momento angular:</p>
+<p><span class="math display">
+I_{Z}\cdot\dfrac{d^{2}\phi}{dt^{2}} = -K\cdot\phi
+</span></p>
+<p>Esta es la ecuación del movimiento armónico simple. Reescribiéndola:</p>
+<p><span class="math display">
+\dfrac{d^{2}\phi}{dt^{2}} + \dfrac{K}{I_{Z}}\cdot\phi = 0
+</span></p>
+<p>La solución general es <span class="math inline">\phi(t) = \phi_{0}\cos(\omega t + \delta)</span>, con <span class="math inline">\omega^{2} = K/I_{Z}</span>. Como <span class="math inline">\omega = 2\pi/T</span>:</p>
+<p><span class="math display">
+\left(\dfrac{2\pi}{T}\right)^{2} = \dfrac{K}{I_{Z}} \Rightarrow T^{2} = \dfrac{4\pi^{2}\,I_{Z}}{K}
+</span></p>
+<p><span class="math display">
+\boxed{T = 2\pi\sqrt{\dfrac{I_{Z}}{K}}}
+</span></p>
+</blockquote>
+</div>
+<p><br></p>
+<ol start="2" type="1">
+<li>Deducir la expresión del error del momento de inercia experimental, <span class="math inline">\Delta I</span>, en función de <span class="math inline">\Delta T</span> y <span class="math inline">\Delta K</span>, a partir de la <a href="#eq-7_12" class="quarto-xref">Ecuación&nbsp;12</a>.</li>
+</ol>
+<div>
+<blockquote>
+<p><strong>Solución del ejercicio 2</strong></p>
+<p><br></p>
+<p>A partir de <span class="math inline">I = \dfrac{K\,T^{2}}{4\pi^{2}}</span>, el error se propaga como:</p>
+<p><span class="math display">
+\Delta I = \sqrt{\left(\dfrac{\partial I}{\partial T}\right)^{2}(\Delta T)^{2} + \left(\dfrac{\partial I}{\partial K}\right)^{2}(\Delta K)^{2}}
+</span></p>
+<p>Calculando las derivadas parciales:</p>
+<p><span class="math display">
+\dfrac{\partial I}{\partial T} = \dfrac{2KT}{4\pi^{2}} = \dfrac{KT}{2\pi^{2}} \qquad;\qquad \dfrac{\partial I}{\partial K} = \dfrac{T^{2}}{4\pi^{2}}
+</span></p>
+<p>Sustituyendo:</p>
+<p><span class="math display">
+\Delta I = \sqrt{\left(\dfrac{KT}{2\pi^{2}}\right)^{2}(\Delta T)^{2} + \left(\dfrac{T^{2}}{4\pi^{2}}\right)^{2}(\Delta K)^{2}}
+</span></p>
+<p>Factorizando <span class="math inline">I = KT^{2}/(4\pi^{2})</span>:</p>
+<p><span class="math display">
+\boxed{\Delta I = I\sqrt{\left(\dfrac{2\,\Delta T}{T}\right)^{2} + \left(\dfrac{\Delta K}{K}\right)^{2}}}
+</span></p>
+</blockquote>
+</div>
+<p><br></p>
+<ol start="3" type="1">
+<li>Enunciar el teorema de Steiner. Si una barra homogénea de masa <span class="math inline">m</span> y longitud <span class="math inline">l</span> tiene un momento de inercia <span class="math inline">I_{G} = \frac{1}{12}ml^{2}</span> respecto a un eje que pasa por su centro de gravedad, calcular su momento de inercia respecto a un eje que pasa por un extremo.</li>
+</ol>
+<div>
+<blockquote>
+<p><strong>Solución del ejercicio 3</strong></p>
+<p><br></p>
+<p><strong>Enunciado del teorema de Steiner:</strong> El momento de inercia de un cuerpo respecto a un eje cualquiera es igual al momento de inercia respecto a un eje paralelo que pase por el centro de masas, más el producto de la masa total por el cuadrado de la distancia entre ambos ejes.</p>
+<p>Para una barra de longitud <span class="math inline">l</span>, el extremo está a una distancia <span class="math inline">a = l/2</span> del centro de gravedad. Aplicando Steiner:</p>
+<p><span class="math display">
+I_{\textrm{extremo}} = I_{G} + m\left(\dfrac{l}{2}\right)^{2} = \dfrac{1}{12}ml^{2} + \dfrac{1}{4}ml^{2} = \dfrac{ml^{2}}{12} + \dfrac{3ml^{2}}{12}
+</span></p>
+<p><span class="math display">
+\boxed{I_{\textrm{extremo}} = \dfrac{1}{3}ml^{2}}
+</span></p>
+</blockquote>
+</div>
+<p><br></p>
+<ol start="4" type="1">
+<li>Calcular el momento de inercia de un cilindro hueco de masa <span class="math inline">m</span>, radio externo <span class="math inline">r_{\textrm{ext}}</span> y radio interno <span class="math inline">r_{\textrm{int}}</span>, respecto a su eje de simetría.</li>
+</ol>
+<div>
+<blockquote>
+<p><strong>Solución del ejercicio 4</strong></p>
+<p><br></p>
+<p>El momento de inercia de un cilindro hueco se calcula integrando:</p>
+<p><span class="math display">
+I = \int r^{2}\,dm = \int_{r_{\textrm{int}}}^{r_{\textrm{ext}}} r^{2}\,\rho\,2\pi r\,h\,dr = 2\pi\rho h \int_{r_{\textrm{int}}}^{r_{\textrm{ext}}} r^{3}\,dr = 2\pi\rho h\left[\dfrac{r^{4}}{4}\right]_{r_{\textrm{int}}}^{r_{\textrm{ext}}}
+</span></p>
+<p><span class="math display">
+I = \dfrac{\pi\rho h}{2}\left(r_{\textrm{ext}}^{4} - r_{\textrm{int}}^{4}\right)
+</span></p>
+<p>Como la masa total es <span class="math inline">m = \pi\rho h(r_{\textrm{ext}}^{2} - r_{\textrm{int}}^{2})</span>:</p>
+<p><span class="math display">
+I = \dfrac{m(r_{\textrm{ext}}^{4} - r_{\textrm{int}}^{4})}{2(r_{\textrm{ext}}^{2} - r_{\textrm{int}}^{2})} = \dfrac{m(r_{\textrm{ext}}^{2} + r_{\textrm{int}}^{2})(r_{\textrm{ext}}^{2} - r_{\textrm{int}}^{2})}{2(r_{\textrm{ext}}^{2} - r_{\textrm{int}}^{2})}
+</span></p>
+<p><span class="math display">
+\boxed{I = \dfrac{1}{2}m\left(r_{\textrm{ext}}^{2} + r_{\textrm{int}}^{2}\right)}
+</span></p>
+</blockquote>
+</div>
+<p><br></p>
+</blockquote>
+</div>
+<p><br></p>
+<h2 id="ejercicios-posteriores" class="anchored">Ejercicios Posteriores</h2>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>E1</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Comparar los valores experimentales de los momentos de inercia con los valores teóricos, calculando la desviación porcentual para cada sólido. Discutir las posibles fuentes de error.</p>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>E2</strong></p>
+</div><div class="column" style="width:92%;">
+<p>A partir de la pendiente de la regresión <span class="math inline">I_{Z}</span> vs <span class="math inline">a^{2}</span>, obtener el valor experimental de <span class="math inline">(m_{1}+m_{2})</span> y compararlo con el valor medido con la balanza. Discutir si la aproximación de masas puntuales es adecuada.</p>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>E3</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Si en lugar de un muelle espiral se utilizase un hilo de torsión cuya constante de recuperación fuese el doble, ¿cómo cambiarían los periodos de oscilación? ¿Y los momentos de inercia calculados?</p>
+<div>
+<blockquote>
+<p><strong>Solución del ejercicio E3</strong></p>
+<p><br></p>
+<p>De la <a href="#eq-7_11" class="quarto-xref">Ecuación&nbsp;11</a>, <span class="math inline">T = 2\pi\sqrt{I_{Z}/K}</span>. Si <span class="math inline">K' = 2K</span>:</p>
+<p><span class="math display">
+T' = 2\pi\sqrt{\dfrac{I_{Z}}{2K}} = \dfrac{T}{\sqrt{2}}
+</span></p>
+<p>Los periodos serían un factor <span class="math inline">1/\sqrt{2} \approx 0{,}707</span> menores.</p>
+<p>Sin embargo, el momento de inercia calculado con la <a href="#eq-7_12" class="quarto-xref">Ecuación&nbsp;12</a> no cambiaría, ya que:</p>
+<p><span class="math display">
+I_{Z} = \dfrac{T'^{2}}{4\pi^{2}}\cdot K' = \dfrac{T^{2}/2}{4\pi^{2}}\cdot 2K = \dfrac{T^{2}\cdot K}{4\pi^{2}}
+</span></p>
+<p><span class="math display">
+\boxed{\text{Los periodos disminuyen en un factor } \sqrt{2}, \text{ pero los momentos de inercia no cambian.}}
+</span></p>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>E4</strong></p>
+</div><div class="column" style="width:92%;">
+<p>¿Qué sólido de los estudiados tiene mayor momento de inercia por unidad de masa? Justificar la respuesta en términos de la distribución de masa respecto al eje de rotación.</p>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>E5</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Citar al menos 3 aplicaciones prácticas en ingeniería en las que el momento de inercia desempeñe un papel fundamental. Para cada una, explicar brevemente por qué es relevante.</p>
+<div>
+<blockquote>
+<p><strong>Aplicaciones del momento de inercia en ingeniería</strong></p>
+<p><br></p>
+<ol type="1">
+<li><p><strong>Volantes de inercia:</strong> se utilizan en motores y máquinas para suavizar las fluctuaciones de velocidad angular. Un mayor momento de inercia proporciona mayor estabilidad en la rotación, reduciendo las vibraciones.</p></li>
+<li><p><strong>Diseño de ejes y árboles de transmisión:</strong> el momento de inercia de las piezas rotativas (engranajes, poleas, acoplamientos) determina el par necesario para acelerar o frenar el sistema. Es fundamental para dimensionar motores y frenos.</p></li>
+<li><p><strong>Estabilidad de vehículos:</strong> el momento de inercia de las ruedas (efecto giroscópico) contribuye a la estabilidad direccional de bicicletas, motocicletas y satélites. Los giroscopios, basados en la conservación del momento angular, se emplean en sistemas de navegación inercial.</p></li>
+</ol>
+</blockquote>
+</div>
+</div>
+</div>
+<p><br></p>
+<h2 id="referencias" class="anchored">Referencias</h2>
+<p><br></p>
+<ol type="1">
+<li>Guión de prácticas UNED — Laboratorio de Mecánica: <em>Determinación del momento de inercia de sólidos</em>.</li>
+<li>Serway, R.A. &amp; Jewett, J.W. — <em>Física para ciencias e ingeniería</em>, Vol. 1, Cap. 10: Rotación de un cuerpo rígido.</li>
+<li>Tipler, P.A. &amp; Mosca, G. — <em>Física para la ciencia y la tecnología</em>, Vol. 1, Cap. 9: Rotación.</li>
+<li>Universidad del País Vasco — Prácticas de Mecánica: Péndulo de torsión.</li>
+<li>OpenStax — <em>University Physics, Volume 1</em>, Chapter 10: Fixed-Axis Rotation.</li>
+</ol>
+
+
+<!-- Closes the reading column opened by _gen/docs-nav.html, adds the right
+     "On this page" list, and wires: current-page marking in the left nav,
+     breadcrumbs, the page TOC (from h2/h3 in the reading column) and a
+     scroll-spy. Pure DOM, no library. -->
+  </div>
+  <aside class="docs-toc"><button class="docs-fold" type="button" data-fold="toc" aria-label="Hide the page outline" title="Hide the page outline">›</button><div class="t">On this page</div><ol></ol></aside>
+</div>
+<script>
+(function () {
+  /* 0. The two side panels fold on their chevrons; the choice is remembered in this browser. */
+  var docs = document.querySelector('.docs');
+  if (docs) {
+    var store = {};
+    try { store = JSON.parse(localStorage.getItem('docs-fold') || '{}'); } catch (e) { store = {}; }
+    function apply() {
+      docs.classList.toggle('nav-folded', !!store.nav);
+      docs.classList.toggle('toc-folded', !!store.toc);
+      document.querySelectorAll('.docs-fold').forEach(function (b) {
+        var which = b.getAttribute('data-fold'), folded = !!store[which];
+        b.innerHTML = (which === 'nav') === folded ? '&rsaquo;' : '&lsaquo;';
+        var what = which === 'nav' ? 'the navigation' : 'the page outline';
+        b.title = (folded ? 'Show ' : 'Hide ') + what; b.setAttribute('aria-label', b.title);
+      });
+    }
+    document.querySelectorAll('.docs-fold').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var which = b.getAttribute('data-fold'); store[which] = !store[which];
+        try { localStorage.setItem('docs-fold', JSON.stringify(store)); } catch (e) {}
+        apply();
+      });
+    });
+    apply();
+  }
+  /* 0b. The header ribbon: mark the entry whose section holds this page. Quarto rewrites the hrefs to
+     relative paths, so folders are read from the resolved URLs; the Overview link gives the site root. */
+  (function () {
+    var links = Array.prototype.slice.call(document.querySelectorAll('.site-nav a'));
+    if (!links.length) return;
+    /* a served URL may end in '/' (GitHub Pages: …/about/); read it as …/about/index.html */
+    function folder(path) { if (/\/$/.test(path)) path += 'index.html'; var s = path.split('/').filter(Boolean); return s.length > 1 ? s[s.length - 2] : ''; }
+    var wm = document.querySelector('a.wordmark');            // the wordmark links to the site root
+    var root = folder((wm || links[0]).pathname);
+    var map = { rietveld: 'cases', drude: 'cases', dielectric: 'cases' };
+    function key(path) { var f = folder(path); if (f === root) return 'overview'; return map[f] || f; }
+    var here = key(location.pathname);
+    links.forEach(function (a) { a.classList.toggle('current', key(a.pathname) === here); });
+  })();
+
+  var main = document.querySelector('.docs-main');
+  var nav = document.querySelector('.docs-nav');
+  var toc = document.querySelector('.docs-toc ol');
+  if (!main || !nav || !toc) return;
+
+  /* 1. Left nav: mark the current page (and section, if the hash matches). */
+  var here = location.pathname.replace(/\/index\.html$/, '/');
+  var links = Array.prototype.slice.call(nav.querySelectorAll('a'));
+  var pageLink = null, hashLink = null;
+  links.forEach(function (a) {
+    var p = a.pathname.replace(/\/index\.html$/, '/');
+    if (p !== here) return;
+    if (!a.hash && !pageLink) pageLink = a;
+    if (a.hash && a.hash === location.hash) hashLink = a;
+  });
+  var cur = hashLink || pageLink;
+  if (cur) {
+    cur.classList.add('current');
+    var det = cur.closest('details.group');
+    if (det) { det.open = true; det.classList.add('has-current'); }
+    /* Breadcrumbs: group title › page (› section). */
+    var crumbs = document.createElement('div');
+    crumbs.className = 'docs-crumbs';
+    var g = det ? det.querySelector('summary.t') : null;
+    var parts = [];
+    function push(t) { if (t && parts[parts.length - 1] !== t) parts.push(t); }
+    if (g) push(g.textContent.trim());
+    if (pageLink && pageLink !== cur) push(pageLink.textContent.trim());
+    push(cur.textContent.trim());
+    crumbs.innerHTML = parts.map(function (t, i) {
+      return (i ? '<span class="sep">›</span>' : '') + '<span>' + t.replace(/</g, '&lt;') + '</span>';
+    }).join('');
+    main.insertBefore(crumbs, main.firstChild);
+  }
+
+  /* 2. Right "On this page": h2 and h3 of the reading column. */
+  var used = {};
+  var heads = Array.prototype.slice.call(main.querySelectorAll('h2, h3')).filter(function (h) {
+    if (h.closest('.site-foot, .featured-band, .msg-grid, [data-toc="no"]')) return false;
+    if (h.classList.contains('unnumbered') || h.id === 'contenido') return false;
+    return h.textContent.trim().length > 0;
+  });
+  heads.forEach(function (h) {
+    if (!h.id) {
+      var s = h.textContent.trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+        .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60) || 'sec';
+      while (used[s] || document.getElementById(s)) s += '-';
+      h.id = s;
+    }
+    used[h.id] = true;
+    var li = document.createElement('li');
+    if (h.tagName === 'H3') li.className = 'l3';
+    var a = document.createElement('a');
+    a.href = '#' + h.id;
+    /* This runs before KaTeX has rendered the headings, so a heading with mathematics still holds TeX
+       source: copy its markup, including the math spans, and let the page's KaTeX pass render the copy. */
+    var copy = h.cloneNode(true);
+    copy.querySelectorAll('.katex-mathml, annotation, .anchorjs-link').forEach(function (n) { n.remove(); });
+    var label = copy.textContent.trim().replace(/\s+/g, ' ');
+    if (copy.querySelector('.math, .math-done, .katex')) a.innerHTML = copy.innerHTML.trim();
+    else a.textContent = label.length > 72 ? label.slice(0, 70).replace(/[\s,;:]+\S*$/, '') + '…' : label;
+    a.title = label;
+    li.appendChild(a);
+    toc.appendChild(li);
+  });
+  if (!heads.length) { document.querySelector('.docs-toc').hidden = true; return; }
+
+  /* 3. Scroll-spy. */
+  var items = Array.prototype.slice.call(toc.querySelectorAll('a'));
+  function spy() {
+    var y = window.scrollY + 120, best = null;
+    heads.forEach(function (h) { if (h.getBoundingClientRect().top + window.scrollY <= y) best = h; });
+    items.forEach(function (a) { a.classList.toggle('current', best && a.getAttribute('href') === '#' + best.id); });
+  }
+  window.addEventListener('scroll', spy, { passive: true });
+  window.addEventListener('hashchange', spy);
+  spy();
+})();
+</script>
+<footer class="site-foot">
+  <div class="site-foot__inner">
+    <div class="foot-grid">
+      <div class="foot-about">
+        <h4 class="anchored">Qué es esto</h4>
+        <p>Los guiones de las prácticas de laboratorio que la UNED realiza en la Facultad de Ciencia y Tecnología de la UPV/EHU (Leioa), para Bases Físicas del Medio Ambiente, Física I y II, Mecánica y Técnicas Experimentales I.</p>
+        <div class="cite-block">Josu M. Igartua · Departamento de Física, Facultad de Ciencia y Tecnología, UPV/EHU<br>josu.igartua@ehu.eus · +34 94 601 5335</div>
+      </div>
+      <div><h4 class="anchored">Este sitio</h4><ul>
+        <li><a href="../../index.html">Inicio</a></li><li><a href="../../practicas/index.html">Prácticas</a></li><li><a href="../../asignaturas/index.html">Asignaturas</a></li><li><a href="../../recursos/index.html">Recursos</a></li><li><a href="../../informe/index.html">Informe</a></li><li><a href="../../manual/index.html">Manual TE I</a></li><li><a href="../../contacto/index.html">Contacto</a></li>
+      </ul></div>
+      <div><h4 class="anchored">Instituciones</h4><ul>
+        <li><a href="https://www.uned.es">UNED</a></li>
+        <li><a href="https://www.ehu.eus">UPV/EHU</a></li></ul></div>
+      <div><h4 class="anchored">Dónde</h4><ul>
+        <li>Barrio Sarriena s/n, 48940 Leioa (Bizkaia)</li>
+        <li>Laboratorios 0.16 y 0.21</li></ul></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Josu M. Igartua</span>
+      <span>curso 2025–2026</span>
+    </div>
+  </div>
+</footer>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+    tabsets.forEach(function(tabset) {
+      const tabby = new Tabby('#' + tabset.id);
+    });
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

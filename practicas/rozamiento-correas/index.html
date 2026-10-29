@@ -1,0 +1,1582 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Josu M. Igartua">
+<meta name="dcterms.date" content="2026-03-20">
+<meta name="keywords" content="rozamiento, Euler-Eytelwein, correas y poleas, ecuación del cabrestante">
+<meta name="description" content="Determinación experimental del coeficiente de rozamiento por deslizamiento entre una correa y una polea cilíndrica mediante la fórmula de Euler-Eytelwein, T_2 = T_1 e^{\mu\theta}. Estudio con correas planas y trapezoidales a distintos ángulos de abrazamiento.Asignaturas: Mecánica (61042107, Grado en Física, 2º curso) · Mecánica I (68031087, Grado en Ing. Mecánica, 1er curso)Universidad: UNED · Curso académico: 2025–2026Coordinadores: Dr.&nbsp;José Español Garrigós (Física Fundamental) · Juan Carlos García Prada (Mecánica)">
+
+<title>Coeficiente de rozamiento entre correas y poleas · UNED Labo – UNED Labo</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<link href="../../assets/favicon.svg" rel="icon" type="image/svg+xml">
+<script src="../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-html-afe927e19676d0e50b1726048be49fb1.min.css" rel="stylesheet" append-hash="true" data-mode="light">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<style>html{ scroll-behavior: smooth; }</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&amp;family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<!-- KaTeX auto-render: publication titles carry TeX inside generated HTML that
+     Quarto's own math pipeline never sees (same approach as thermomat). -->
+<script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+/* The header ribbon is sticky; the side columns and anchor targets need its height. */
+(function () {
+  function headH() {
+    var t = document.querySelector(".topline"), h = document.querySelector(".site-head");
+    var px = (t ? t.offsetHeight : 0) + (h ? h.offsetHeight : 0);
+    if (px) document.documentElement.style.setProperty("--head-h", px + "px");
+  }
+  document.addEventListener("DOMContentLoaded", headH);
+  window.addEventListener("load", headH);
+  window.addEventListener("resize", headH);
+})();
+document.addEventListener("DOMContentLoaded", function () {
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }, { left: "\\(", right: "\\)", display: false }],
+      throwOnError: false
+    });
+  }
+  /* Quarto's KaTeX pipeline writes <span class="math inline">TeX</span> without delimiters and renders
+     them in a loop that reads firstChild.data; that loop dies at the first span the auto-render above
+     has already turned into KaTeX markup, leaving every later formula raw. Render the rest here. */
+  if (window.katex) {
+    document.querySelectorAll(".math").forEach(function (el) {
+      if (!el.querySelector(".katex")) {
+        var t = el.textContent.replace(/^\s*\\[\(\[]/, "").replace(/\\[\)\]]\s*$/, "");
+        try { katex.render(t, el, { displayMode: el.classList.contains("display"), throwOnError: false }); } catch (e) {}
+      }
+      /* Quarto's loop would still visit this span and wipe it (firstChild is now an element, not text):
+         take it out of its sight. No stylesheet of the site depends on the class; KaTeX's own output carries the layout. */
+      el.classList.remove("math"); el.classList.add("math-done");
+    });
+  }
+});
+</script>
+
+  <script defer="" src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../assets/styles/theme.css">
+<link rel="stylesheet" href="../../assets/styles/site.css">
+<link rel="stylesheet" href="../../assets/styles/project.css">
+</head>
+
+<body>
+
+<div class="topline"></div>
+<header class="site-head">
+  <div class="site-head__inner">
+    <a href="../../index.html" class="wordmark">UNED Labo <span class="accent">Leioa</span>
+      <span class="wordmark-sub">prácticas de laboratorio de la UNED en la Facultad de Ciencia y Tecnología (UPV/EHU) · curso 2025–2026</span>
+    </a>
+    <nav class="site-nav">
+      <a href="../../index.html">Inicio</a>
+      <a href="../../practicas/index.html">Prácticas</a>
+      <a href="../../asignaturas/index.html">Asignaturas</a>
+      <a href="../../recursos/index.html">Recursos</a>
+      <a href="../../informe/index.html">Informe</a>
+      <a href="../../manual/index.html">Manual TE I</a>
+      <a href="../../contacto/index.html">Contacto</a>
+    </nav>
+  </div>
+</header>
+<!-- generated by tools/sibling.py public: the left navigation -->
+<div class="docs">
+<nav class="docs-nav" aria-label="Site sections">
+<button class="docs-fold" type="button" data-fold="nav" aria-label="Hide the navigation" title="Hide the navigation">‹</button>
+<details class="group" open=""><summary class="t">Inicio</summary><ul><li><a href="../../index.html">Inicio</a></li></ul></details>
+<details class="group" open=""><summary class="t">Prácticas</summary><ul><li><a href="../../practicas/index.html">Catálogo: las veinte prácticas</a></li><li><a href="../../practicas/pendulo-fisico/index.html">P01 · Péndulo físico</a></li><li><a href="../../practicas/ley-hooke/index.html">P02 · Movimiento armónico simple. Ley de Hooke</a></li><li><a href="../../practicas/carril-aire/index.html">P03 · Medida de magnitudes dinámicas mediante un carril de aire</a></li><li><a href="../../practicas/cc-resistencia-interna/index.html">P04 · Corriente continua I: resistencia interna de una fuente</a></li><li><a href="../../practicas/cc-curva-lampara/index.html">P05 · Corriente continua II: curva característica de una lámpara</a></li><li><a href="../../practicas/descarga-condensador/index.html">P06 · Descarga de un condensador</a></li><li><a href="../../practicas/ondas-estacionarias/index.html">P07 · Ondas estacionarias en una cuerda con extremos fijos</a></li><li><a href="../../practicas/vaporizacion-agua/index.html">P08 · Calor de vaporización del agua</a></li><li><a href="../../practicas/velocidad-sonido/index.html">P09 · Medida de la velocidad del sonido: tubo de resonancia</a></li><li><a href="../../practicas/inercia-disco/index.html">P10 · Momento de inercia de un disco</a></li><li><a href="../../practicas/catenaria/index.html">P11 · Equilibrio de un hilo bajo la acción de la gravedad: la catenaria</a></li><li><a href="../../practicas/rozamiento-correas/index.html">P12 · Coeficiente de rozamiento entre correas y poleas</a></li><li><a href="../../practicas/giroscopo/index.html">P13 · Giróscopo</a></li><li><a href="../../practicas/cantidad-movimiento/index.html">P14 · Conservación de la cantidad de movimiento</a></li><li><a href="../../practicas/momento-cinetico/index.html">P15 · Conservación del momento cinético</a></li><li><a href="../../practicas/pendulo-circular/index.html">P16 · Péndulo circular (cónico)</a></li><li><a href="../../practicas/momentos-inercia/index.html">P17 · Momentos de inercia de sólidos</a></li><li><a href="../../practicas/maquina-atwood/index.html">P18 · Máquina de Atwood</a></li><li><a href="../../practicas/vibraciones-1gdl/index.html">P19 · Vibraciones libres con un grado de libertad</a></li><li><a href="../../practicas/vibraciones-2gdl/index.html">P20 · Vibraciones libres con dos grados de libertad</a></li></ul></details>
+<details class="group" open=""><summary class="t">Asignaturas</summary><ul><li><a href="../../asignaturas/index.html">Las cuatro asignaturas</a></li><li><a href="../../asignaturas/bfma/index.html">Bases Físicas del Medio Ambiente</a></li><li><a href="../../asignaturas/fisica/index.html">Física I y II</a></li><li><a href="../../asignaturas/mecanica/index.html">Mecánica</a></li><li><a href="../../asignaturas/tecnicas-experimentales/index.html">Técnicas Experimentales I</a></li></ul></details>
+<details class="group" open=""><summary class="t">Recursos</summary><ul><li><a href="../../recursos/index.html">Recursos</a></li><li><a href="../../recursos/sesion-0/index.html">Sesión 0</a></li><li><a href="../../recursos/errores/index.html">Errores y regresiones</a></li><li><a href="../../recursos/phyphox/index.html">Phyphox</a></li></ul></details>
+<details class="group" open=""><summary class="t">Informe</summary><ul><li><a href="../../informe/index.html">El informe: qué contiene, cómo se evalúa</a></li><li><a href="../../informe/modelos/index.html">Los ocho informes modelo</a></li><li><a href="../../informe/rubrica/index.html">La rúbrica de TE I: 225 criterios</a></li><li><a href="../../informe/rubrica-gum/index.html">La rúbrica GUM</a></li></ul></details>
+<details class="group" open=""><summary class="t">Manual TE I</summary><ul><li><a href="../../manual/index.html">El manual, capítulo a capítulo</a></li><li><a href="../../manual/01-representacion-magnitudes.html">Tema 1: Representación de magnitudes</a></li><li><a href="../../manual/02-medidas-directas.html">Tema 2: Medidas directas</a></li><li><a href="../../manual/03-medidas-indirectas.html">Tema 3: Medidas indirectas</a></li><li><a href="../../manual/04-graficas-regresion.html">Tema 4: Gráficas y regresión lineal</a></li><li><a href="../../manual/05-ejemplos-desarrollados.html">Tema 5: Ejemplos desarrollados</a></li><li><a href="../../manual/06-instrucciones-laboratorio.html">Tema 6: Instrucciones para el laboratorio</a></li><li><a href="../../manual/07-soluciones-ejercicios.html">Soluciones y apéndices</a></li></ul></details>
+<details class="group" open=""><summary class="t">Contacto</summary><ul><li><a href="../../contacto/index.html">Contacto</a></li></ul></details>
+</nav>
+<div class="docs-main">
+<div class="itin-head"><span class="kicker">P12 · Serie mecánica · Práctica 2 de Mecánica</span></div><div class="prac-meta"><div><span class="lbl">Servida a</span><span class="v"><a class="chip chip-mecanica" href="../../asignaturas/mecanica/index.html" title="Práctica 2 de Mecánica">Mecánica ★</a></span></div><div><span class="lbl">Guion</span><span class="v"><a href="practice_02_rozamiento_correas.pdf">Guion en PDF</a></span></div><div><span class="lbl">En resumen</span><span class="v">Fórmula de Euler–Eytelwein con correa plana y trapezoidal; μ por regresión lineal.</span></div></div><nav class="prac-prevnext"><a href="../catenaria/index.html">← P11 Equilibrio de un hilo bajo la acción de la gravedad: la catenaria</a><a href="../index.html">Catálogo</a><a href="../giroscopo/index.html">P13 Giróscopo →</a></nav>
+
+<header id="title-block-header">
+<h1 class="title">Coeficiente de rozamiento entre correas y poleas</h1>
+<p class="subtitle">Laboratorio de Mecánica — UNED</p>
+<p class="author">Josu M. Igartua</p>
+
+<p class="date">2026-03-20</p>
+<div class="abstract">
+<div class="abstract-title">Resumen</div>
+<p>Determinación experimental del coeficiente de rozamiento por deslizamiento entre una correa y una polea cilíndrica mediante la fórmula de Euler-Eytelwein, <span class="math inline">T_2 = T_1 e^{\mu\theta}</span>. Estudio con correas planas y trapezoidales a distintos ángulos de abrazamiento.</p>
+</div>
+</header>
+
+
+<p><br> <br></p>
+<h2 id="objetivos" class="anchored">Objetivos</h2>
+<p><br></p>
+<p>En esta experiencia se investiga el fenómeno de fricción entre una correa flexible y una polea cilíndrica, verificando experimentalmente la fórmula de Euler-Eytelwein. A partir de la medida de las tensiones en ambos extremos de la correa para distintos ángulos de abrazamiento, se determina el coeficiente de rozamiento <span class="math inline">\mu</span> entre la correa y la polea, tanto para correas planas como para correas trapezoidales (en V).</p>
+<p><br></p>
+<h2 id="material" class="anchored">Material</h2>
+<p><br></p>
+<ol type="1">
+<li>Polea cilíndrica montada sobre un eje fijo.</li>
+<li>Correa plana (de cuero o algodón).</li>
+<li>Correa trapezoidal (en V) con polea acanalada.</li>
+<li>Dos dinamómetros (0–20 N).</li>
+<li>Juego de masas (pesas colgantes).</li>
+<li>Transportador de ángulos (goniómetro).</li>
+<li>Cinta métrica.</li>
+<li>Soporte universal con mordaza.</li>
+</ol>
+<p><br></p>
+<h2 id="repaso-de-teoría" class="anchored">Repaso de teoría</h2>
+<p><br></p>
+<ol type="1">
+<li>Leyes de la fricción seca (Coulomb).</li>
+<li>Equilibrio de fuerzas en un elemento diferencial curvo.</li>
+<li>Ecuaciones diferenciales ordinarias de primer orden (separación de variables).</li>
+<li>Regresión lineal y linealización de relaciones exponenciales.</li>
+</ol>
+<p><br></p>
+<h2 id="fundamento-teórico" class="anchored">Fundamento teórico</h2>
+<p><br></p>
+<h3 id="el-problema-de-la-correa-sobre-una-polea" class="anchored">El problema de la correa sobre una polea</h3>
+<p><br></p>
+<p>Considérese una correa plana, flexible e inextensible, que abraza parcialmente una polea cilíndrica de radio <span class="math inline">R</span>, formando un ángulo de contacto (o ángulo de abrazamiento) <span class="math inline">\theta</span>. La correa está sometida a dos tensiones en sus extremos: <span class="math inline">T_{1}</span> en el lado flojo (<em>slack side</em>) y <span class="math inline">T_{2}</span> en el lado tenso (<em>tight side</em>), siendo <span class="math inline">T_{2} &gt; T_{1}</span>.</p>
+<p>Cuando la correa está a punto de deslizar sobre la polea, la fricción entre ambas superficies alcanza su valor máximo. El problema consiste en determinar la relación entre <span class="math inline">T_{2}</span> y <span class="math inline">T_{1}</span> en función del ángulo de abrazamiento <span class="math inline">\theta</span> y del coeficiente de rozamiento <span class="math inline">\mu</span>.</p>
+<p><br></p>
+<h3 id="derivación-a-partir-de-un-elemento-infinitesimal" class="anchored">Derivación a partir de un elemento infinitesimal</h3>
+<p><br></p>
+<p>Para obtener la relación entre las tensiones, se analiza el equilibrio de un elemento diferencial de correa que subtiende un ángulo <span class="math inline">d\varphi</span> sobre la polea.</p>
+<p>Sobre este elemento actúan:</p>
+<ul>
+<li>La tensión <span class="math inline">T</span> en un extremo y <span class="math inline">T + dT</span> en el otro.</li>
+<li>La reacción normal <span class="math inline">dN</span> ejercida por la polea, dirigida hacia el centro.</li>
+<li>La fuerza de rozamiento <span class="math inline">dF_{r} = \mu \, dN</span>, tangente a la superficie y opuesta al deslizamiento inminente.</li>
+</ul>
+<p><strong>Equilibrio en la dirección radial (normal):</strong></p>
+<p>El elemento subtiende un ángulo <span class="math inline">d\varphi</span>. Proyectando las tensiones en la dirección radial:</p>
+<p><span id="eq-2_1"><span class="math display">
+dN = T \sin\!\left(\dfrac{d\varphi}{2}\right) + (T + dT)\sin\!\left(\dfrac{d\varphi}{2}\right)
+\tag{1}</span></span></p>
+<p>Para ángulos infinitesimales, <span class="math inline">\sin\!\left(\dfrac{d\varphi}{2}\right) \approx \dfrac{d\varphi}{2}</span>, y despreciando el término <span class="math inline">dT\,\dfrac{d\varphi}{2}</span> (infinitésimo de segundo orden):</p>
+<p><span id="eq-2_2"><span class="math display">
+dN \approx T\, d\varphi
+\tag{2}</span></span></p>
+<p><strong>Equilibrio en la dirección tangencial:</strong></p>
+<p><span id="eq-2_3"><span class="math display">
+(T + dT)\cos\!\left(\dfrac{d\varphi}{2}\right) - T\cos\!\left(\dfrac{d\varphi}{2}\right) = \mu\, dN
+\tag{3}</span></span></p>
+<p>Para ángulos infinitesimales, <span class="math inline">\cos\!\left(\dfrac{d\varphi}{2}\right) \approx 1</span>:</p>
+<p><span id="eq-2_4"><span class="math display">
+dT = \mu\, dN
+\tag{4}</span></span></p>
+<p>Sustituyendo la <a href="#eq-2_2" class="quarto-xref">Ecuación&nbsp;2</a> en la <a href="#eq-2_4" class="quarto-xref">Ecuación&nbsp;4</a>:</p>
+<p><span id="eq-2_5"><span class="math display">
+dT = \mu\, T\, d\varphi
+\tag{5}</span></span></p>
+<p>Esta es una ecuación diferencial de variables separables. Separando e integrando entre los extremos de la zona de contacto:</p>
+<p><span id="eq-2_6"><span class="math display">
+\int_{T_{1}}^{T_{2}} \dfrac{dT}{T} = \int_{0}^{\theta} \mu\, d\varphi
+\tag{6}</span></span></p>
+<p><span id="eq-2_7"><span class="math display">
+\ln\!\left(\dfrac{T_{2}}{T_{1}}\right) = \mu\,\theta
+\tag{7}</span></span></p>
+<div>
+<blockquote>
+<p><strong>Fórmula de Euler-Eytelwein (correa plana)</strong></p>
+<p>La relación fundamental entre las tensiones de una correa plana sobre una polea es:</p>
+<p><span id="eq-2_8"><span class="math display">
+\boxed{T_{2} = T_{1}\, e^{\mu\, \theta}}
+\tag{8}</span></span></p>
+<p>donde <span class="math inline">\theta</span> se mide en <strong>radianes</strong>, <span class="math inline">T_{2}</span> es la tensión en el lado tenso, <span class="math inline">T_{1}</span> es la tensión en el lado flojo y <span class="math inline">\mu</span> es el coeficiente de rozamiento estático entre la correa y la polea.</p>
+</blockquote>
+</div>
+<p><br></p>
+<h3 id="observaciones-importantes" class="anchored">Observaciones importantes</h3>
+<p><br></p>
+<ol type="1">
+<li><p>La fórmula es <strong>independiente del radio</strong> <span class="math inline">R</span> de la polea. Solo depende del ángulo de abrazamiento y del coeficiente de rozamiento.</p></li>
+<li><p>La relación es <strong>exponencial</strong>: pequeños aumentos del ángulo de contacto producen grandes incrementos en la relación <span class="math inline">T_{2}/T_{1}</span>. Esto explica por qué basta dar varias vueltas de cuerda alrededor de un poste para sujetar cargas muy elevadas.</p></li>
+<li><p>La fórmula fue publicada por Leonhard Euler en 1762 y posteriormente redescubierta por Johann Albert Eytelwein en 1808.</p></li>
+</ol>
+<p><br></p>
+<h3 id="extensión-a-correas-trapezoidales-en-v" class="anchored">Extensión a correas trapezoidales (en V)</h3>
+<p><br></p>
+<p>En una correa trapezoidal, la sección transversal tiene forma de cuña con un semiángulo <span class="math inline">\alpha</span>. La correa se asienta en una ranura acanalada en la polea, de modo que el contacto se produce en las caras laterales de la cuña, no en el fondo de la ranura.</p>
+<p>Debido a la geometría, la fuerza normal que la polea ejerce sobre la correa se amplifica por un factor <span class="math inline">1/\sin\alpha</span> respecto a la correa plana. El análisis del elemento diferencial conduce a la fórmula modificada:</p>
+<p><span id="eq-2_9"><span class="math display">
+\boxed{T_{2} = T_{1}\, e^{\mu\, \theta / \sin\alpha}}
+\tag{9}</span></span></p>
+<p>Como <span class="math inline">\sin\alpha &lt; 1</span> (para los ángulos típicos de correas trapezoidales, <span class="math inline">\alpha \approx 17°</span>–<span class="math inline">20°</span>), el efecto de la fricción se multiplica considerablemente, lo que permite transmitir mayores fuerzas con menor ángulo de abrazamiento.</p>
+<p><br></p>
+<h3 id="linealización" class="anchored">Linealización</h3>
+<p><br></p>
+<p>Para la determinación experimental de <span class="math inline">\mu</span>, se toman logaritmos en la ecuación <a href="#eq-2_8" class="quarto-xref">Ecuación&nbsp;8</a>:</p>
+<p><span id="eq-2_10"><span class="math display">
+\boxed{\ln\!\left(\dfrac{T_{2}}{T_{1}}\right) = \mu\,\theta}
+\tag{10}</span></span></p>
+<p>Si se representa gráficamente <span class="math inline">\ln(T_{2}/T_{1})</span> frente a <span class="math inline">\theta</span> (en radianes), los puntos experimentales deben ajustarse a una recta que pasa por el origen, cuya <strong>pendiente es el coeficiente de rozamiento</strong> <span class="math inline">\mu</span>.</p>
+<p>De forma análoga, para la correa trapezoidal:</p>
+<p><span id="eq-2_11"><span class="math display">
+\ln\!\left(\dfrac{T_{2}}{T_{1}}\right) = \dfrac{\mu}{\sin\alpha}\,\theta
+\tag{11}</span></span></p>
+<p>y la pendiente de la recta es <span class="math inline">\mu/\sin\alpha</span>, de donde se puede extraer <span class="math inline">\mu</span> si se conoce <span class="math inline">\alpha</span>.</p>
+<p><br></p>
+<h2 id="descripción-del-aparato" class="anchored">Descripción del aparato</h2>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:40%;">
+<p>El dispositivo experimental consta de una polea cilíndrica montada sobre un eje horizontal fijo en un soporte universal. La correa (plana o trapezoidal) se coloca sobre la polea abrazando un ángulo <span class="math inline">\theta</span> que se puede variar y medir con un transportador de ángulos (goniómetro) solidario al soporte.</p>
+<p>En cada extremo de la correa se conecta un dinamómetro. En el lado flojo se cuelga una masa fija conocida que proporciona la tensión <span class="math inline">T_{1}</span>. En el lado tenso se tira progresivamente del dinamómetro hasta que la correa comienza a deslizar; en ese instante, la lectura del dinamómetro corresponde a la tensión <span class="math inline">T_{2}</span>.</p>
+</div><div class="column" style="width:60%;">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Elemento</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Polea</td>
+<td>Cilindro metálico, <span class="math inline">R \approx 5</span> cm</td>
+</tr>
+<tr class="even">
+<td>Correa plana</td>
+<td>Banda de cuero/algodón, ancho <span class="math inline">\approx 2</span> cm</td>
+</tr>
+<tr class="odd">
+<td>Correa en V</td>
+<td>Sección trapezoidal, <span class="math inline">\alpha \approx 20°</span></td>
+</tr>
+<tr class="even">
+<td>Dinamómetros</td>
+<td>Rango 0–20 N, precisión 0.1 N</td>
+</tr>
+<tr class="odd">
+<td>Goniómetro</td>
+<td>Precisión <span class="math inline">\pm\, 5°</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- end columns -->
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="figura1.png" class="img-fluid quarto-figure quarto-figure-center" width="400"></p>
+</figure>
+</div>
+<p><br></p>
+<h2 id="método-operatorio" class="anchored">Método operatorio</h2>
+<p><br></p>
+<h3 id="parte-a-correa-plana" class="anchored">Parte A: Correa plana</h3>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>1</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Montar la polea en el soporte universal y colocar la correa plana sobre ella, de modo que abarque un ángulo de contacto <span class="math inline">\theta = 60°</span> (<span class="math inline">\pi/3</span> rad).</p>
+<p>Asegurarse de que la correa quede en contacto uniforme con la superficie de la polea y de que los dinamómetros estén correctamente enganchados a ambos extremos.</p>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>2</strong></p>
+</div><div class="column" style="width:92%;">
+<p>En el lado flojo de la correa, colgar una masa fija que produzca una tensión <span class="math inline">T_{1}</span> conocida. Se recomienda utilizar <span class="math inline">T_{1} \approx 2</span> N (por ejemplo, una masa de <span class="math inline">\approx 200</span> g).</p>
+<p>Anotar el valor exacto de <span class="math inline">T_{1}</span> leído en el dinamómetro del lado flojo.</p>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>3</strong></p>
+</div><div class="column" style="width:92%;">
+<p>En el lado tenso, tirar lentamente del dinamómetro hasta que la correa comience a deslizar sobre la polea.</p>
+<p>Anotar el valor de <span class="math inline">T_{2}</span> en el instante en que se inicia el deslizamiento.</p>
+<p>Repetir esta medida <strong>5 veces</strong> para el mismo ángulo y calcular el valor medio de <span class="math inline">T_{2}</span>.</p>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>4</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Repetir los pasos 2 y 3 para los siguientes ángulos de abrazamiento: <span class="math inline">\theta = 90°, 120°, 150°, 180°, 210°, 240°, 270°</span>.</p>
+<p>Para cada ángulo, registrar <span class="math inline">T_{1}</span>, las 5 medidas de <span class="math inline">T_{2}</span> y el valor medio.</p>
+<div class="columns">
+<div class="column" style="width:25%;">
+<p><strong>Datos <br> experimentales</strong></p>
+</div><div class="column" style="width:75%;">
+<p>A continuación se resumen los datos recogidos en el laboratorio para la <strong>correa plana</strong>.</p>
+<p>Se ha fijado <span class="math inline">T_{1} = 2.0</span> N en todos los casos.</p>
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Medida</th>
+<th style="text-align: center;"><span class="math inline">\theta\textrm{ (°)}</span></th>
+<th style="text-align: center;"><span class="math inline">\theta\textrm{ (rad)}</span></th>
+<th style="text-align: center;"><span class="math inline">T_{2,1}\textrm{ (N)}</span></th>
+<th style="text-align: center;"><span class="math inline">T_{2,2}\textrm{ (N)}</span></th>
+<th style="text-align: center;"><span class="math inline">T_{2,3}\textrm{ (N)}</span></th>
+<th style="text-align: center;"><span class="math inline">T_{2,4}\textrm{ (N)}</span></th>
+<th style="text-align: center;"><span class="math inline">T_{2,5}\textrm{ (N)}</span></th>
+<th style="text-align: center;"><span class="math inline">\overline{T_{2}}\textrm{ (N)}</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">60</td>
+<td style="text-align: center;">1.047</td>
+<td style="text-align: center;">2.7</td>
+<td style="text-align: center;">2.6</td>
+<td style="text-align: center;">2.7</td>
+<td style="text-align: center;">2.8</td>
+<td style="text-align: center;">2.6</td>
+<td style="text-align: center;">2.68</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">90</td>
+<td style="text-align: center;">1.571</td>
+<td style="text-align: center;">3.0</td>
+<td style="text-align: center;">2.9</td>
+<td style="text-align: center;">3.0</td>
+<td style="text-align: center;">3.1</td>
+<td style="text-align: center;">2.9</td>
+<td style="text-align: center;">2.98</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">120</td>
+<td style="text-align: center;">2.094</td>
+<td style="text-align: center;">3.4</td>
+<td style="text-align: center;">3.3</td>
+<td style="text-align: center;">3.5</td>
+<td style="text-align: center;">3.4</td>
+<td style="text-align: center;">3.3</td>
+<td style="text-align: center;">3.38</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">150</td>
+<td style="text-align: center;">2.618</td>
+<td style="text-align: center;">3.8</td>
+<td style="text-align: center;">3.9</td>
+<td style="text-align: center;">3.8</td>
+<td style="text-align: center;">3.7</td>
+<td style="text-align: center;">3.9</td>
+<td style="text-align: center;">3.82</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">180</td>
+<td style="text-align: center;">3.142</td>
+<td style="text-align: center;">4.3</td>
+<td style="text-align: center;">4.4</td>
+<td style="text-align: center;">4.4</td>
+<td style="text-align: center;">4.3</td>
+<td style="text-align: center;">4.5</td>
+<td style="text-align: center;">4.38</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">210</td>
+<td style="text-align: center;">3.665</td>
+<td style="text-align: center;">5.0</td>
+<td style="text-align: center;">4.9</td>
+<td style="text-align: center;">5.0</td>
+<td style="text-align: center;">5.1</td>
+<td style="text-align: center;">4.9</td>
+<td style="text-align: center;">4.98</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">240</td>
+<td style="text-align: center;">4.189</td>
+<td style="text-align: center;">5.6</td>
+<td style="text-align: center;">5.7</td>
+<td style="text-align: center;">5.7</td>
+<td style="text-align: center;">5.5</td>
+<td style="text-align: center;">5.6</td>
+<td style="text-align: center;">5.62</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">270</td>
+<td style="text-align: center;">4.712</td>
+<td style="text-align: center;">6.4</td>
+<td style="text-align: center;">6.5</td>
+<td style="text-align: center;">6.3</td>
+<td style="text-align: center;">6.5</td>
+<td style="text-align: center;">6.4</td>
+<td style="text-align: center;">6.42</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+</div>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>5</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Para cada ángulo, calcular <span class="math inline">\ln(\overline{T_{2}}/T_{1})</span>.</p>
+<p>Completar una tabla con las columnas: <span class="math inline">\theta</span> (rad), <span class="math inline">\overline{T_{2}}</span> (N), <span class="math inline">\overline{T_{2}}/T_{1}</span>, <span class="math inline">\ln(\overline{T_{2}}/T_{1})</span>.</p>
+<div class="columns">
+<div class="column" style="width:25%;">
+<p><strong>Cálculo</strong></p>
+</div><div class="column" style="width:75%;">
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">\theta\textrm{ (rad)}</span></th>
+<th style="text-align: center;"><span class="math inline">\overline{T_{2}}\textrm{ (N)}</span></th>
+<th style="text-align: center;"><span class="math inline">\overline{T_{2}}/T_{1}</span></th>
+<th style="text-align: center;"><span class="math inline">\ln(\overline{T_{2}}/T_{1})</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1.047</td>
+<td style="text-align: center;">2.68</td>
+<td style="text-align: center;">1.340</td>
+<td style="text-align: center;">0.293</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">1.571</td>
+<td style="text-align: center;">2.98</td>
+<td style="text-align: center;">1.490</td>
+<td style="text-align: center;">0.399</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">2.094</td>
+<td style="text-align: center;">3.38</td>
+<td style="text-align: center;">1.690</td>
+<td style="text-align: center;">0.525</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2.618</td>
+<td style="text-align: center;">3.82</td>
+<td style="text-align: center;">1.910</td>
+<td style="text-align: center;">0.647</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3.142</td>
+<td style="text-align: center;">4.38</td>
+<td style="text-align: center;">2.190</td>
+<td style="text-align: center;">0.783</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">3.665</td>
+<td style="text-align: center;">4.98</td>
+<td style="text-align: center;">2.490</td>
+<td style="text-align: center;">0.912</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">4.189</td>
+<td style="text-align: center;">5.62</td>
+<td style="text-align: center;">2.810</td>
+<td style="text-align: center;">1.033</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4.712</td>
+<td style="text-align: center;">6.42</td>
+<td style="text-align: center;">3.210</td>
+<td style="text-align: center;">1.166</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>6</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Representar gráficamente <span class="math inline">\ln(T_{2}/T_{1})</span> frente a <span class="math inline">\theta</span> (en radianes) y realizar una regresión lineal forzando el paso por el origen.</p>
+<p>La pendiente de la recta es el coeficiente de rozamiento <span class="math inline">\mu</span>.</p>
+<p>Calcular también el error en <span class="math inline">\mu</span> a partir de la regresión.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="plot_correa_plana.png" class="img-fluid" style="width:85.0%"></p>
+<figcaption>Representación gráfica de <span class="math inline">\ln(T_{2}/T_{1})</span> frente a <span class="math inline">\theta</span> para la correa plana</figcaption>
+</figure>
+</div>
+<div>
+<blockquote>
+<p><strong>Regresión lineal y obtención de <span class="math inline">\mu</span> (correa plana)</strong></p>
+<p><br></p>
+<h3 id="linealización-comparación-entre-la-ecuación-física-y-la-ecuación-matemática" class="anchored">Linealización: comparación entre la ecuación física y la ecuación matemática</h3>
+<p>La ecuación de Euler-Eytelwein linealizada (ecuación <a href="#eq-2_10" class="quarto-xref">Ecuación&nbsp;10</a>) es:</p>
+<p><span class="math display">
+\ln\!\left(\frac{T_{2}}{T_{1}}\right) = \mu\,\theta
+</span></p>
+<p>Esta expresión tiene la estructura de una recta que <strong>pasa por el origen</strong> (<span class="math inline">y = m\,x + 0</span>):</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Ecuación física</th>
+<th style="text-align: left;">Ecuación matemática (<span class="math inline">y = m\,x + n</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\ln(T_{2}/T_{1})</span></td>
+<td style="text-align: left;"><span class="math inline">y</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\theta</span></td>
+<td style="text-align: left;"><span class="math inline">x</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\mu</span></td>
+<td style="text-align: left;">pendiente <span class="math inline">m</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">0</span></td>
+<td style="text-align: left;">ordenada en el origen <span class="math inline">n</span></td>
+</tr>
+</tbody>
+</table>
+<p>Por lo tanto, al ajustar la nube de puntos experimentales a una recta que pasa por el origen, <strong>la pendiente <span class="math inline">m</span> es directamente el coeficiente de rozamiento</strong> <span class="math inline">\mu</span>.</p>
+<p><br></p>
+<h3 id="fórmulas-de-la-regresión-lineal-forzando-paso-por-el-origen" class="anchored">Fórmulas de la regresión lineal (forzando paso por el origen)</h3>
+<p>Cuando se fuerza <span class="math inline">n = 0</span>, la fórmula del estimador de la pendiente por mínimos cuadrados se simplifica a:</p>
+<p><span class="math display">
+\boxed{m = \dfrac{\displaystyle\sum_{i=1}^{N} x_{i}\, y_{i}}{\displaystyle\sum_{i=1}^{N} x_{i}^{2}}}
+</span></p>
+<p>Y el error de la pendiente se estima como:</p>
+<p><span class="math display">
+\boxed{\Delta m = \sqrt{\dfrac{\displaystyle\frac{1}{N-1}\sum_{i=1}^{N}\left(y_{i} - m\,x_{i}\right)^{2}}{\displaystyle\sum_{i=1}^{N} x_{i}^{2}}}}
+</span></p>
+<p><br></p>
+<h3 id="cálculo-numérico-con-los-datos-experimentales" class="anchored">Cálculo numérico con los datos experimentales</h3>
+<p>Con los <span class="math inline">N = 8</span> puntos de la tabla (<span class="math inline">x_{i} = \theta_{i}</span> en rad, <span class="math inline">y_{i} = \ln(\overline{T_{2}}/T_{1})</span>):</p>
+<p><span class="math display">
+\sum_{i=1}^{8} x_{i}\, y_{i} = 1{,}047\!\times\!0{,}293 + 1{,}571\!\times\!0{,}399 + \cdots + 4{,}712\!\times\!1{,}166 \approx 18{,}61
+</span></p>
+<p><span class="math display">
+\sum_{i=1}^{8} x_{i}^{2} = 1{,}047^{2} + 1{,}571^{2} + \cdots + 4{,}712^{2} \approx 74{,}15
+</span></p>
+<p>La pendiente es:</p>
+<p><span class="math display">
+m = \frac{18{,}61}{74{,}15} \approx 0{,}251
+</span></p>
+<p>Para el error, se calculan los residuos <span class="math inline">r_{i} = y_{i} - m\,x_{i}</span> y se obtiene:</p>
+<p><span class="math display">
+\frac{1}{N-1}\sum_{i=1}^{8}r_{i}^{2} \approx 2{,}0 \times 10^{-4}
+</span></p>
+<p><span class="math display">
+\Delta m = \sqrt{\frac{2{,}0\times 10^{-4}}{74{,}15}} \approx 0{,}005
+</span></p>
+<p><br></p>
+<h3 id="resultado-coeficiente-de-rozamiento-correa-plana" class="anchored">Resultado: coeficiente de rozamiento (correa plana)</h3>
+<p>Dado que <span class="math inline">\mu = m</span>, el valor final es:</p>
+<p><span class="math display">
+\boxed{\mu_{\textrm{plana}} = m \pm \Delta m = 0{,}251 \pm 0{,}005}
+</span></p>
+</blockquote>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="parte-b-correa-trapezoidal-en-v" class="anchored">Parte B: Correa trapezoidal (en V)</h3>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>7</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Sustituir la polea lisa por la polea acanalada y la correa plana por la correa trapezoidal. El semiángulo de la ranura es <span class="math inline">\alpha = 20°</span>.</p>
+<p>Repetir el mismo procedimiento de los pasos 1 a 5, utilizando la misma tensión <span class="math inline">T_{1} = 2.0</span> N.</p>
+<div class="columns">
+<div class="column" style="width:25%;">
+<p><strong>Datos <br> experimentales</strong></p>
+</div><div class="column" style="width:75%;">
+<p>A continuación se resumen los datos recogidos en el laboratorio para la <strong>correa trapezoidal</strong> (<span class="math inline">\alpha = 20°</span>).</p>
+<p>Se ha fijado <span class="math inline">T_{1} = 2.0</span> N en todos los casos.</p>
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Medida</th>
+<th style="text-align: center;"><span class="math inline">\theta\textrm{ (°)}</span></th>
+<th style="text-align: center;"><span class="math inline">\theta\textrm{ (rad)}</span></th>
+<th style="text-align: center;"><span class="math inline">T_{2,1}\textrm{ (N)}</span></th>
+<th style="text-align: center;"><span class="math inline">T_{2,2}\textrm{ (N)}</span></th>
+<th style="text-align: center;"><span class="math inline">T_{2,3}\textrm{ (N)}</span></th>
+<th style="text-align: center;"><span class="math inline">T_{2,4}\textrm{ (N)}</span></th>
+<th style="text-align: center;"><span class="math inline">T_{2,5}\textrm{ (N)}</span></th>
+<th style="text-align: center;"><span class="math inline">\overline{T_{2}}\textrm{ (N)}</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">60</td>
+<td style="text-align: center;">1.047</td>
+<td style="text-align: center;">4.3</td>
+<td style="text-align: center;">4.4</td>
+<td style="text-align: center;">4.2</td>
+<td style="text-align: center;">4.5</td>
+<td style="text-align: center;">4.3</td>
+<td style="text-align: center;">4.34</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">90</td>
+<td style="text-align: center;">1.571</td>
+<td style="text-align: center;">6.1</td>
+<td style="text-align: center;">5.9</td>
+<td style="text-align: center;">6.2</td>
+<td style="text-align: center;">6.0</td>
+<td style="text-align: center;">6.1</td>
+<td style="text-align: center;">6.06</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">120</td>
+<td style="text-align: center;">2.094</td>
+<td style="text-align: center;">8.4</td>
+<td style="text-align: center;">8.6</td>
+<td style="text-align: center;">8.3</td>
+<td style="text-align: center;">8.5</td>
+<td style="text-align: center;">8.7</td>
+<td style="text-align: center;">8.50</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">150</td>
+<td style="text-align: center;">2.618</td>
+<td style="text-align: center;">11.8</td>
+<td style="text-align: center;">12.0</td>
+<td style="text-align: center;">11.9</td>
+<td style="text-align: center;">12.1</td>
+<td style="text-align: center;">11.7</td>
+<td style="text-align: center;">11.90</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">180</td>
+<td style="text-align: center;">3.142</td>
+<td style="text-align: center;">16.5</td>
+<td style="text-align: center;">16.8</td>
+<td style="text-align: center;">16.3</td>
+<td style="text-align: center;">16.7</td>
+<td style="text-align: center;">16.6</td>
+<td style="text-align: center;">16.58</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">\theta\textrm{ (rad)}</span></th>
+<th style="text-align: center;"><span class="math inline">\overline{T_{2}}\textrm{ (N)}</span></th>
+<th style="text-align: center;"><span class="math inline">\overline{T_{2}}/T_{1}</span></th>
+<th style="text-align: center;"><span class="math inline">\ln(\overline{T_{2}}/T_{1})</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1.047</td>
+<td style="text-align: center;">4.34</td>
+<td style="text-align: center;">2.170</td>
+<td style="text-align: center;">0.775</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">1.571</td>
+<td style="text-align: center;">6.06</td>
+<td style="text-align: center;">3.030</td>
+<td style="text-align: center;">1.109</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">2.094</td>
+<td style="text-align: center;">8.50</td>
+<td style="text-align: center;">4.250</td>
+<td style="text-align: center;">1.447</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2.618</td>
+<td style="text-align: center;">11.90</td>
+<td style="text-align: center;">5.950</td>
+<td style="text-align: center;">1.784</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3.142</td>
+<td style="text-align: center;">16.58</td>
+<td style="text-align: center;">8.290</td>
+<td style="text-align: center;">2.115</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>8</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Representar gráficamente <span class="math inline">\ln(T_{2}/T_{1})</span> frente a <span class="math inline">\theta</span> y realizar la regresión lineal forzando el paso por el origen.</p>
+<p>La pendiente obtenida es <span class="math inline">m = \mu/\sin\alpha</span>. Conocido <span class="math inline">\alpha = 20°</span> (<span class="math inline">\sin 20° = 0.342</span>), despejar <span class="math inline">\mu</span>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="plot_correa_trapezoidal.png" class="img-fluid" style="width:85.0%"></p>
+<figcaption>Representación gráfica de <span class="math inline">\ln(T_{2}/T_{1})</span> frente a <span class="math inline">\theta</span> para la correa trapezoidal</figcaption>
+</figure>
+</div>
+<div>
+<blockquote>
+<p><strong>Regresión lineal y obtención de <span class="math inline">\mu</span> (correa trapezoidal)</strong></p>
+<p><br></p>
+<h3 id="linealización-comparación-entre-la-ecuación-física-y-la-ecuación-matemática-1" class="anchored">Linealización: comparación entre la ecuación física y la ecuación matemática</h3>
+<p>Para la correa trapezoidal, la ecuación linealizada (ecuación <a href="#eq-2_11" class="quarto-xref">Ecuación&nbsp;11</a>) es:</p>
+<p><span class="math display">
+\ln\!\left(\frac{T_{2}}{T_{1}}\right) = \frac{\mu}{\sin\alpha}\,\theta
+</span></p>
+<p>De nuevo, se trata de una recta que pasa por el origen (<span class="math inline">y = m\,x + 0</span>):</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Ecuación física</th>
+<th style="text-align: left;">Ecuación matemática (<span class="math inline">y = m\,x + n</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\ln(T_{2}/T_{1})</span></td>
+<td style="text-align: left;"><span class="math inline">y</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\theta</span></td>
+<td style="text-align: left;"><span class="math inline">x</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\mu/\sin\alpha</span></td>
+<td style="text-align: left;">pendiente <span class="math inline">m</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">0</span></td>
+<td style="text-align: left;">ordenada en el origen <span class="math inline">n</span></td>
+</tr>
+</tbody>
+</table>
+<p>La pendiente <span class="math inline">m</span> <strong>no es directamente <span class="math inline">\mu</span></strong>, sino <span class="math inline">m = \mu/\sin\alpha</span>. Por tanto:</p>
+<p><span class="math display">
+\boxed{\mu = m \cdot \sin\alpha}
+</span></p>
+<p><br></p>
+<h3 id="cálculo-numérico-con-los-datos-experimentales-1" class="anchored">Cálculo numérico con los datos experimentales</h3>
+<p>Con los <span class="math inline">N = 5</span> puntos de la tabla (<span class="math inline">x_{i} = \theta_{i}</span> en rad, <span class="math inline">y_{i} = \ln(\overline{T_{2}}/T_{1})</span>), aplicando la misma fórmula de regresión lineal con paso por el origen:</p>
+<p><span class="math display">
+\sum_{i=1}^{5} x_{i}\, y_{i} = 1{,}047\!\times\!0{,}775 + 1{,}571\!\times\!1{,}109 + 2{,}094\!\times\!1{,}447 + 2{,}618\!\times\!1{,}784 + 3{,}142\!\times\!2{,}115 \approx 15{,}17
+</span></p>
+<p><span class="math display">
+\sum_{i=1}^{5} x_{i}^{2} = 1{,}047^{2} + 1{,}571^{2} + 2{,}094^{2} + 2{,}618^{2} + 3{,}142^{2} \approx 20{,}92
+</span></p>
+<p>La pendiente es:</p>
+<p><span class="math display">
+m = \frac{15{,}17}{20{,}92} \approx 0{,}725
+</span></p>
+<p>Para el error de la pendiente, calculando los residuos:</p>
+<p><span class="math display">
+\Delta m = \sqrt{\frac{\frac{1}{N-1}\sum r_{i}^{2}}{\sum x_{i}^{2}}} \approx 0{,}008
+</span></p>
+<p><br></p>
+<h3 id="obtención-de-mu-y-su-error" class="anchored">Obtención de <span class="math inline">\mu</span> y su error</h3>
+<p>Despejando <span class="math inline">\mu</span>:</p>
+<p><span class="math display">
+\mu = m \cdot \sin\alpha = 0{,}725 \times \sin(20°) = 0{,}725 \times 0{,}342 = 0{,}248
+</span></p>
+<p><strong>Propagación del error.</strong> El coeficiente de rozamiento <span class="math inline">\mu = m\,\sin\alpha</span> es función de dos variables: <span class="math inline">m</span> (de la regresión) y <span class="math inline">\alpha</span> (medido con el goniómetro). Aplicando propagación de errores:</p>
+<p><span class="math display">
+\Delta\mu = \sqrt{\left(\frac{\partial\mu}{\partial m}\right)^{2}(\Delta m)^{2} + \left(\frac{\partial\mu}{\partial \alpha}\right)^{2}(\Delta\alpha)^{2}}
+</span></p>
+<p>Calculando las derivadas parciales:</p>
+<p><span class="math display">
+\frac{\partial\mu}{\partial m} = \sin\alpha \qquad;\qquad \frac{\partial\mu}{\partial\alpha} = m\,\cos\alpha
+</span></p>
+<p>Con <span class="math inline">\Delta m = 0{,}008</span> y <span class="math inline">\Delta\alpha = 5° = 0{,}087</span> rad (precisión del goniómetro):</p>
+<p><span class="math display">
+\Delta\mu = \sqrt{(\sin 20°)^{2}\,(0{,}008)^{2} + (0{,}725\,\cos 20°)^{2}\,(0{,}087)^{2}}
+</span></p>
+<p><span class="math display">
+\Delta\mu = \sqrt{(0{,}342)^{2}\times(6{,}4\times 10^{-5}) + (0{,}681)^{2}\times(7{,}6\times 10^{-3})} \approx 0{,}008
+</span></p>
+<p><br></p>
+<h3 id="resultado-coeficiente-de-rozamiento-correa-trapezoidal" class="anchored">Resultado: coeficiente de rozamiento (correa trapezoidal)</h3>
+<p><span class="math display">
+\boxed{\mu_{\textrm{V}} = 0{,}248 \pm 0{,}008}
+</span></p>
+<p><br></p>
+<h3 id="comparación-entre-correa-plana-y-correa-trapezoidal" class="anchored">Comparación entre correa plana y correa trapezoidal</h3>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Tipo de correa</th>
+<th style="text-align: center;"><span class="math inline">\mu</span></th>
+<th style="text-align: center;">Pendiente <span class="math inline">m</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Plana</td>
+<td style="text-align: center;"><span class="math inline">0{,}251 \pm 0{,}005</span></td>
+<td style="text-align: center;"><span class="math inline">0{,}251</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Trapezoidal (<span class="math inline">\alpha = 20°</span>)</td>
+<td style="text-align: center;"><span class="math inline">0{,}248 \pm 0{,}008</span></td>
+<td style="text-align: center;"><span class="math inline">0{,}725</span></td>
+</tr>
+</tbody>
+</table>
+<p>Obsérvese que:</p>
+<ul>
+<li>El valor de <span class="math inline">\mu</span> es esencialmente el <strong>mismo</strong> en ambos casos (dentro del margen de error experimental), como cabría esperar, ya que el material de la correa y la superficie de la polea son los mismos.</li>
+<li>Sin embargo, la pendiente de la recta <span class="math inline">\ln(T_{2}/T_{1})</span> vs <span class="math inline">\theta</span> es casi 3 veces mayor para la correa trapezoidal (<span class="math inline">0{,}725</span> frente a <span class="math inline">0{,}251</span>). Esto se debe a que la geometría en cuña <strong>amplifica el efecto de la fricción</strong> por un factor <span class="math inline">1/\sin\alpha = 1/\sin 20° \approx 2{,}92</span>.</li>
+<li>La diferencia radica en que, a igualdad de ángulo de abrazamiento, la correa trapezoidal puede transmitir fuerzas mucho mayores sin deslizar.</li>
+</ul>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>9</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Comparar los valores de <span class="math inline">\mu</span> obtenidos en ambos casos (correa plana y correa trapezoidal). Discutir:</p>
+<ol type="1">
+<li>Si ambos valores son compatibles dentro del error experimental.</li>
+<li>Qué ventajas ofrece la correa trapezoidal frente a la plana en aplicaciones industriales.</li>
+<li>Qué fuentes de error sistemático pueden afectar a las medidas (rigidez de la correa, incertidumbre en el ángulo, etc.).</li>
+</ol>
+</div>
+</div>
+<p><br></p>
+<div>
+<blockquote>
+<p><strong>Ejercicios Previos</strong></p>
+<p><br></p>
+<p><strong>Ejercicio 2.1.</strong> Derivar la fórmula de Euler-Eytelwein (<a href="#eq-2_8" class="quarto-xref">Ecuación&nbsp;8</a>) a partir del análisis del equilibrio de un elemento infinitesimal de correa sobre la polea. Explicar con detalle qué aproximaciones se realizan al considerar ángulos infinitesimales.</p>
+<p><br></p>
+<p><strong>Ejercicio 2.2.</strong> Demostrar que la fórmula de Euler-Eytelwein es <strong>independiente del radio</strong> <span class="math inline">R</span> de la polea. Explicar físicamente por qué el radio no interviene.</p>
+<div>
+<blockquote>
+<p><strong>Solución del Ejercicio 2.2</strong></p>
+<p><br></p>
+<p>En el análisis del elemento infinitesimal, las fuerzas que intervienen son las tensiones <span class="math inline">T</span> y <span class="math inline">T + dT</span> y las fuerzas de contacto <span class="math inline">dN</span> y <span class="math inline">\mu\, dN</span>. Ninguna de estas fuerzas depende explícitamente del radio <span class="math inline">R</span>.</p>
+<p>Físicamente, al aumentar el radio de la polea, la longitud de contacto aumenta (para el mismo ángulo <span class="math inline">\theta</span>), pero la presión de contacto disminuye proporcionalmente, de modo que la fuerza de rozamiento total permanece inalterada.</p>
+<p>Matemáticamente, el arco de contacto es <span class="math inline">s = R\,\theta</span>. La presión normal por unidad de longitud es <span class="math inline">p = T/(R)</span>, y la fuerza de rozamiento por unidad de longitud es <span class="math inline">\mu\, p = \mu\, T / R</span>. La fuerza de rozamiento total integrada sobre el arco es <span class="math inline">\mu\, T\, \theta</span>, que no depende de <span class="math inline">R</span>.</p>
+</blockquote>
+</div>
+<p><br></p>
+<p><strong>Ejercicio 2.3.</strong> Un marinero sujeta un cabo enrollado 3 vueltas completas alrededor de un noray (poste de amarre). Si el coeficiente de rozamiento es <span class="math inline">\mu = 0.3</span>, y el marinero ejerce una fuerza de 50 N en su extremo, ¿cuál es la máxima tensión que puede soportar el cabo en el otro extremo (el conectado al barco)?</p>
+<div>
+<blockquote>
+<p><strong>Solución del Ejercicio 2.3</strong></p>
+<p><br></p>
+<p>Tres vueltas completas corresponden a un ángulo de abrazamiento <span class="math inline">\theta = 3 \times 2\pi = 6\pi</span> rad.</p>
+<p>Aplicando la fórmula de Euler-Eytelwein:</p>
+<p><span class="math display">
+T_{2} = T_{1}\, e^{\mu\,\theta} = 50\, e^{0.3 \times 6\pi} = 50\, e^{5.655}
+</span></p>
+<p><span class="math display">
+T_{2} = 50 \times 286.0 \approx 14\,300 \textrm{ N} \approx 14.3 \textrm{ kN}
+</span></p>
+<p>Esto ilustra el enorme efecto multiplicador de la fricción: con apenas 50 N de fuerza, el marinero puede contener una tensión de más de 14 kN, lo que equivale a sujetar un peso de aproximadamente 1.4 toneladas.</p>
+</blockquote>
+</div>
+<p><br></p>
+<p><strong>Ejercicio 2.4.</strong> Explicar por qué la correa trapezoidal transmite más fuerza que la correa plana para el mismo ángulo de abrazamiento y el mismo coeficiente de rozamiento. ¿Qué ocurre en el límite <span class="math inline">\alpha \to 90°</span>?</p>
+<div>
+<blockquote>
+<p><strong>Solución del Ejercicio 2.4</strong></p>
+<p><br></p>
+<p>En la correa trapezoidal, la fuerza radial que ejerce la tensión de la correa se reparte entre las dos caras laterales de la ranura. Para mantener el equilibrio radial, la fuerza normal total sobre cada cara debe ser mayor que en el caso plano, concretamente un factor <span class="math inline">1/\sin\alpha</span> mayor.</p>
+<p>Como la fuerza de rozamiento es proporcional a la normal, el rozamiento efectivo se multiplica por el mismo factor, resultando una pendiente <span class="math inline">\mu/\sin\alpha</span> en lugar de <span class="math inline">\mu</span>.</p>
+<p>En el límite <span class="math inline">\alpha \to 90°</span>, <span class="math inline">\sin\alpha \to 1</span>, y la correa trapezoidal se comporta como una correa plana (la ranura se convierte en una superficie plana). Por el contrario, cuanto menor es <span class="math inline">\alpha</span>, mayor es el efecto de amplificación, aunque en la práctica ángulos muy pequeños pueden provocar que la correa se atasque en la ranura.</p>
+</blockquote>
+</div>
+</blockquote>
+</div>
+<p><br></p>
+<div>
+<blockquote>
+<p><strong>Ejercicios Posteriores</strong></p>
+<p><br></p>
+<p><strong>Ejercicio 2.5.</strong> Con los datos experimentales de la correa plana, calcular el valor de <span class="math inline">\mu</span> y su error <span class="math inline">\Delta \mu</span> mediante regresión lineal forzando el paso por el origen. Representar gráficamente <span class="math inline">\ln(T_{2}/T_{1})</span> vs <span class="math inline">\theta</span> con la recta de ajuste.</p>
+<p><br></p>
+<p><strong>Ejercicio 2.6.</strong> Repetir el cálculo anterior para la correa trapezoidal. Obtener <span class="math inline">\mu</span> y <span class="math inline">\Delta\mu</span>. Comparar con el valor obtenido para la correa plana y discutir si son compatibles.</p>
+<p><br></p>
+<p><strong>Ejercicio 2.7.</strong> Un sistema de transmisión por correa plana conecta dos poleas de radios <span class="math inline">R_{1} = 10</span> cm y <span class="math inline">R_{2} = 25</span> cm. La distancia entre centros es <span class="math inline">d = 60</span> cm. Si el coeficiente de rozamiento es <span class="math inline">\mu = 0.25</span> y la tensión máxima admisible en la correa es <span class="math inline">T_{\max} = 500</span> N:</p>
+<ol type="1">
+<li>Calcular el ángulo de abrazamiento en la polea menor.</li>
+<li>Determinar la máxima diferencia de tensiones <span class="math inline">T_{2} - T_{1}</span> que puede transmitir el sistema sin deslizamiento.</li>
+<li>Si la polea menor gira a <span class="math inline">n = 1500</span> rpm, calcular la potencia máxima transmisible.</li>
+</ol>
+<div>
+<blockquote>
+<p><strong>Solución del Ejercicio 2.7</strong></p>
+<p><br></p>
+<p><strong>1.</strong> El ángulo de abrazamiento en la polea menor se obtiene geométricamente:</p>
+<p><span class="math display">
+\theta_{1} = \pi - 2\arcsin\!\left(\dfrac{R_{2} - R_{1}}{d}\right) = \pi - 2\arcsin\!\left(\dfrac{0.15}{0.60}\right) = \pi - 2\arcsin(0.25)
+</span></p>
+<p><span class="math display">
+\theta_{1} = \pi - 2 \times 0.2527 = \pi - 0.5054 \approx 2.636 \textrm{ rad} \approx 151°
+</span></p>
+<p><strong>2.</strong> La condición de no deslizamiento impone <span class="math inline">T_{2}/T_{1} \leq e^{\mu\,\theta_{1}}</span>. El máximo se alcanza cuando <span class="math inline">T_{2} = T_{\max} = 500</span> N:</p>
+<p><span class="math display">
+T_{1} = \dfrac{T_{2}}{e^{\mu\,\theta_{1}}} = \dfrac{500}{e^{0.25 \times 2.636}} = \dfrac{500}{e^{0.659}} = \dfrac{500}{1.933} \approx 258.7 \textrm{ N}
+</span></p>
+<p><span class="math display">
+T_{2} - T_{1} \approx 500 - 258.7 = 241.3 \textrm{ N}
+</span></p>
+<p><strong>3.</strong> La velocidad lineal de la correa es <span class="math inline">v = \omega_{1}\, R_{1} = \dfrac{2\pi \times 1500}{60} \times 0.10 = 15.71</span> m/s.</p>
+<p>La potencia máxima transmisible es:</p>
+<p><span class="math display">
+P = (T_{2} - T_{1})\, v = 241.3 \times 15.71 \approx 3791 \textrm{ W} \approx 3.8 \textrm{ kW}
+</span></p>
+</blockquote>
+</div>
+<p><br></p>
+<p><strong>Ejercicio 2.8.</strong> Discutir las posibles fuentes de error en el experimento. En particular:</p>
+<ol type="1">
+<li>¿Cómo afecta la rigidez de la correa a la medida?</li>
+<li>¿Qué error se comete si la correa no está perfectamente en contacto con la polea en toda la superficie?</li>
+<li>¿Es razonable suponer que el coeficiente de rozamiento es constante a lo largo de todo el arco de contacto?</li>
+</ol>
+</blockquote>
+</div>
+<p><br></p>
+<div>
+<blockquote>
+<p><strong>Referencias</strong></p>
+<p><br></p>
+<ol type="1">
+<li>Universidad Carlos III de Madrid. <em>Práctica 3: Rozamiento en correas</em>. Departamento de Ingeniería Mecánica.</li>
+<li>Universidad Politécnica de Valencia. <em>Fórmula de Euler-Eytelwein</em>. Apuntes de Teoría de Máquinas y Mecanismos.</li>
+<li>Engineering LibreTexts. <em>Belt Friction (Euler-Eytelwein)</em>. LibreTexts Engineering.</li>
+<li>Meriam, J.L. y Kraige, L.G. <em>Engineering Mechanics: Statics</em>. Wiley. Cap. 6: Fricción.</li>
+<li>Beer, F.P. y Johnston, E.R. <em>Mecánica Vectorial para Ingenieros: Estática</em>. McGraw-Hill. Cap. 8: Rozamiento.</li>
+</ol>
+</blockquote>
+</div>
+
+
+<!-- Closes the reading column opened by _gen/docs-nav.html, adds the right
+     "On this page" list, and wires: current-page marking in the left nav,
+     breadcrumbs, the page TOC (from h2/h3 in the reading column) and a
+     scroll-spy. Pure DOM, no library. -->
+  </div>
+  <aside class="docs-toc"><button class="docs-fold" type="button" data-fold="toc" aria-label="Hide the page outline" title="Hide the page outline">›</button><div class="t">On this page</div><ol></ol></aside>
+</div>
+<script>
+(function () {
+  /* 0. The two side panels fold on their chevrons; the choice is remembered in this browser. */
+  var docs = document.querySelector('.docs');
+  if (docs) {
+    var store = {};
+    try { store = JSON.parse(localStorage.getItem('docs-fold') || '{}'); } catch (e) { store = {}; }
+    function apply() {
+      docs.classList.toggle('nav-folded', !!store.nav);
+      docs.classList.toggle('toc-folded', !!store.toc);
+      document.querySelectorAll('.docs-fold').forEach(function (b) {
+        var which = b.getAttribute('data-fold'), folded = !!store[which];
+        b.innerHTML = (which === 'nav') === folded ? '&rsaquo;' : '&lsaquo;';
+        var what = which === 'nav' ? 'the navigation' : 'the page outline';
+        b.title = (folded ? 'Show ' : 'Hide ') + what; b.setAttribute('aria-label', b.title);
+      });
+    }
+    document.querySelectorAll('.docs-fold').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var which = b.getAttribute('data-fold'); store[which] = !store[which];
+        try { localStorage.setItem('docs-fold', JSON.stringify(store)); } catch (e) {}
+        apply();
+      });
+    });
+    apply();
+  }
+  /* 0b. The header ribbon: mark the entry whose section holds this page. Quarto rewrites the hrefs to
+     relative paths, so folders are read from the resolved URLs; the Overview link gives the site root. */
+  (function () {
+    var links = Array.prototype.slice.call(document.querySelectorAll('.site-nav a'));
+    if (!links.length) return;
+    /* a served URL may end in '/' (GitHub Pages: …/about/); read it as …/about/index.html */
+    function folder(path) { if (/\/$/.test(path)) path += 'index.html'; var s = path.split('/').filter(Boolean); return s.length > 1 ? s[s.length - 2] : ''; }
+    var wm = document.querySelector('a.wordmark');            // the wordmark links to the site root
+    var root = folder((wm || links[0]).pathname);
+    var map = { rietveld: 'cases', drude: 'cases', dielectric: 'cases' };
+    function key(path) { var f = folder(path); if (f === root) return 'overview'; return map[f] || f; }
+    var here = key(location.pathname);
+    links.forEach(function (a) { a.classList.toggle('current', key(a.pathname) === here); });
+  })();
+
+  var main = document.querySelector('.docs-main');
+  var nav = document.querySelector('.docs-nav');
+  var toc = document.querySelector('.docs-toc ol');
+  if (!main || !nav || !toc) return;
+
+  /* 1. Left nav: mark the current page (and section, if the hash matches). */
+  var here = location.pathname.replace(/\/index\.html$/, '/');
+  var links = Array.prototype.slice.call(nav.querySelectorAll('a'));
+  var pageLink = null, hashLink = null;
+  links.forEach(function (a) {
+    var p = a.pathname.replace(/\/index\.html$/, '/');
+    if (p !== here) return;
+    if (!a.hash && !pageLink) pageLink = a;
+    if (a.hash && a.hash === location.hash) hashLink = a;
+  });
+  var cur = hashLink || pageLink;
+  if (cur) {
+    cur.classList.add('current');
+    var det = cur.closest('details.group');
+    if (det) { det.open = true; det.classList.add('has-current'); }
+    /* Breadcrumbs: group title › page (› section). */
+    var crumbs = document.createElement('div');
+    crumbs.className = 'docs-crumbs';
+    var g = det ? det.querySelector('summary.t') : null;
+    var parts = [];
+    function push(t) { if (t && parts[parts.length - 1] !== t) parts.push(t); }
+    if (g) push(g.textContent.trim());
+    if (pageLink && pageLink !== cur) push(pageLink.textContent.trim());
+    push(cur.textContent.trim());
+    crumbs.innerHTML = parts.map(function (t, i) {
+      return (i ? '<span class="sep">›</span>' : '') + '<span>' + t.replace(/</g, '&lt;') + '</span>';
+    }).join('');
+    main.insertBefore(crumbs, main.firstChild);
+  }
+
+  /* 2. Right "On this page": h2 and h3 of the reading column. */
+  var used = {};
+  var heads = Array.prototype.slice.call(main.querySelectorAll('h2, h3')).filter(function (h) {
+    if (h.closest('.site-foot, .featured-band, .msg-grid, [data-toc="no"]')) return false;
+    if (h.classList.contains('unnumbered') || h.id === 'contenido') return false;
+    return h.textContent.trim().length > 0;
+  });
+  heads.forEach(function (h) {
+    if (!h.id) {
+      var s = h.textContent.trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+        .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60) || 'sec';
+      while (used[s] || document.getElementById(s)) s += '-';
+      h.id = s;
+    }
+    used[h.id] = true;
+    var li = document.createElement('li');
+    if (h.tagName === 'H3') li.className = 'l3';
+    var a = document.createElement('a');
+    a.href = '#' + h.id;
+    /* This runs before KaTeX has rendered the headings, so a heading with mathematics still holds TeX
+       source: copy its markup, including the math spans, and let the page's KaTeX pass render the copy. */
+    var copy = h.cloneNode(true);
+    copy.querySelectorAll('.katex-mathml, annotation, .anchorjs-link').forEach(function (n) { n.remove(); });
+    var label = copy.textContent.trim().replace(/\s+/g, ' ');
+    if (copy.querySelector('.math, .math-done, .katex')) a.innerHTML = copy.innerHTML.trim();
+    else a.textContent = label.length > 72 ? label.slice(0, 70).replace(/[\s,;:]+\S*$/, '') + '…' : label;
+    a.title = label;
+    li.appendChild(a);
+    toc.appendChild(li);
+  });
+  if (!heads.length) { document.querySelector('.docs-toc').hidden = true; return; }
+
+  /* 3. Scroll-spy. */
+  var items = Array.prototype.slice.call(toc.querySelectorAll('a'));
+  function spy() {
+    var y = window.scrollY + 120, best = null;
+    heads.forEach(function (h) { if (h.getBoundingClientRect().top + window.scrollY <= y) best = h; });
+    items.forEach(function (a) { a.classList.toggle('current', best && a.getAttribute('href') === '#' + best.id); });
+  }
+  window.addEventListener('scroll', spy, { passive: true });
+  window.addEventListener('hashchange', spy);
+  spy();
+})();
+</script>
+<footer class="site-foot">
+  <div class="site-foot__inner">
+    <div class="foot-grid">
+      <div class="foot-about">
+        <h4 class="anchored">Qué es esto</h4>
+        <p>Los guiones de las prácticas de laboratorio que la UNED realiza en la Facultad de Ciencia y Tecnología de la UPV/EHU (Leioa), para Bases Físicas del Medio Ambiente, Física I y II, Mecánica y Técnicas Experimentales I.</p>
+        <div class="cite-block">Josu M. Igartua · Departamento de Física, Facultad de Ciencia y Tecnología, UPV/EHU<br>josu.igartua@ehu.eus · +34 94 601 5335</div>
+      </div>
+      <div><h4 class="anchored">Este sitio</h4><ul>
+        <li><a href="../../index.html">Inicio</a></li><li><a href="../../practicas/index.html">Prácticas</a></li><li><a href="../../asignaturas/index.html">Asignaturas</a></li><li><a href="../../recursos/index.html">Recursos</a></li><li><a href="../../informe/index.html">Informe</a></li><li><a href="../../manual/index.html">Manual TE I</a></li><li><a href="../../contacto/index.html">Contacto</a></li>
+      </ul></div>
+      <div><h4 class="anchored">Instituciones</h4><ul>
+        <li><a href="https://www.uned.es">UNED</a></li>
+        <li><a href="https://www.ehu.eus">UPV/EHU</a></li></ul></div>
+      <div><h4 class="anchored">Dónde</h4><ul>
+        <li>Barrio Sarriena s/n, 48940 Leioa (Bizkaia)</li>
+        <li>Laboratorios 0.16 y 0.21</li></ul></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Josu M. Igartua</span>
+      <span>curso 2025–2026</span>
+    </div>
+  </div>
+</footer>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+    tabsets.forEach(function(tabset) {
+      const tabby = new Tabby('#' + tabset.id);
+    });
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

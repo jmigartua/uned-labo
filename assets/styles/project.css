@@ -1,0 +1,114 @@
+/* UNED Labo — rules of this project only; theme.css and site.css are the family kit, copied unchanged (L002).
+   Identity: an orange, as Josu asked (D8): burnt orange #c96a14 as the primary (the kit names its primary token
+   --teal for history), a slate blue as the accent. Distinct from tesi-proposamena's vermilion #c2410c. */
+:root {
+  --teal: #c96a14; --teal-soft: #e0842c; --amber: #3a5a78;
+  --ok: #2e6b5e; --warn: #8a6a00; --bad: #9a3f3f;
+  --orange-tint: #fbf3ea;
+  --tl-bfma: #4b7f52; --tl-fisica: #c96a14; --tl-mecanica: #2b5f8e; --tl-teci: #7a4a9a;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --teal: #f2a35a; --teal-soft: #f7bd84; --amber: #9fb8d0;
+    --ok: #7fc4b3; --warn: #e3c15a; --bad: #e08a8a;
+    --orange-tint: #2a1f14;
+  }
+}
+
+/* Shown only in the public sibling (tools/sibling.py unwraps it there). */
+.sibling-only { display: none !important; }
+
+/* Labels, ids, chips. */
+.lbl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); margin: 0 0 3px; }
+.pid { font-family: var(--mono); font-size: 12px; color: var(--teal); letter-spacing: 0.04em; }
+.whose { font-size: 13px; color: var(--ink-soft); font-style: italic; }
+.chip { display: inline-block; font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; padding: 1px 7px; border-radius: 2px; border: 1px solid currentColor; line-height: 1.6; }
+.chip-sel { color: var(--amber); } .chip-phy { color: var(--ok); } .chip-pdf { color: var(--ink-faint); } .chip-dup { color: var(--bad); }
+.chip-bfma { color: var(--tl-bfma); } .chip-fisica { color: var(--tl-fisica); } .chip-mecanica { color: var(--tl-mecanica); } .chip-teci { color: var(--tl-teci); }
+
+/* Verbatim texts: the brief, the originals. */
+.verbatim { border-left: 3px solid var(--teal); background: var(--tint); padding: 12px 18px; margin: 14px 0 22px; font-family: var(--serif); font-size: 15.5px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.verbatim .who { display: block; font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 6px; white-space: normal; }
+
+/* The catalogue matrix (I9). */
+.matrix-wrap { overflow-x: auto; }
+.matrix { width: 100%; font-size: 14.5px; font-variant-numeric: tabular-nums; }
+.matrix th:first-child, .matrix td:first-child { width: 52px; }
+.matrix th.sub { text-align: center; width: 92px; }
+.matrix td.m { text-align: center; font-family: var(--mono); font-size: 15px; }
+.matrix td.m.on { color: var(--teal); } .matrix td.m.sel { color: var(--amber); font-weight: 600; }
+.matrix tr.series td { padding-top: 16px; font-family: var(--sans); font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); border-bottom: 0; }
+.matrix .t { font-family: var(--serif); font-weight: 600; }
+.matrix .s { display: block; font-size: 13px; color: var(--ink-soft); }
+.matrix td .chip { margin-left: 6px; vertical-align: 1px; }
+
+/* An itinerary page, and the home's subject cards. */
+.itin-head { border-top: 3px solid var(--teal); padding-top: 10px; margin: 0 0 18px; }
+.itin-head .kicker { font-family: var(--sans); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); }
+.itin-head h1 { font-size: clamp(26px, 3.4vw, 34px); margin: 2px 0 6px; line-height: 1.2; text-wrap: balance; }
+.itin-head .lead { font-size: 16px; color: var(--ink-soft); max-width: 68ch; }
+.itin-head .links { font-size: 14px; margin: 8px 0 0; }
+.itin-group { margin: 26px 0 8px; font-family: var(--sans); font-size: 12.5px; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: var(--teal); }
+.pcards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+.pcard { border: 1px solid var(--line-soft); padding: 14px 16px 12px; display: flex; flex-direction: column; gap: 6px; background: var(--paper); color: inherit; text-decoration: none; }
+a.pcard:hover { border-color: var(--teal); text-decoration: none; }
+.pcard.sel { border-color: var(--amber); }
+.pcard .num { font-family: var(--mono); font-size: 12px; color: var(--ink-faint); }
+.pcard h3 { font-family: var(--serif); font-size: 17px; margin: 0; line-height: 1.3; }
+.pcard p { font-size: 14px; color: var(--ink-soft); margin: 0; flex: 1; }
+.pcard .links { font-family: var(--sans); font-size: 13.5px; display: flex; gap: 12px; flex-wrap: wrap; margin-top: 4px; align-items: center; }
+
+/* A practice page (the guides' own Markdown, inside the docs layout). */
+.prac-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px 24px; border-top: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft); padding: 12px 0; margin: 14px 0 22px; font-size: 14px; }
+.prac-meta .v { color: var(--ink); }
+.edition { border: 1px dashed var(--teal); background: var(--orange-tint); padding: 10px 14px; margin: 18px 0; font-size: 14.5px; }
+.workshop-note { border: 1px dashed var(--amber); background: var(--tint); padding: 10px 14px 4px; margin: 0 0 18px; font-size: 14.5px; }
+.workshop-note p, .workshop-note ul, .workshop-note ol { margin: 0 0 8px; }
+.docs-main br + br { display: none; }                      /* the guides' <br><br> spacing, calmed */
+.docs-main .columns { display: flex; gap: 20px; flex-wrap: wrap; align-items: flex-start; }
+.docs-main .column { min-width: 0; }
+.docs-main .column img, .docs-main figure img, .docs-main p img { max-width: 100%; height: auto; }
+.docs-main img[style*="float"], .docs-main .quarto-figure-right { float: none; }
+.docs-main table { display: block; width: max-content; max-width: 100%; overflow-x: auto; }   /* the guides' data tables scroll on a phone */
+.docs-main .quarto-title-block table, .docs-main #title-block-header table { display: table; width: auto; }
+.page-article code, .docs-main code, .mission .mono, .files li, .docs-main a, .docs-main p, .docs-main li { overflow-wrap: anywhere; }
+.docs-main p:has(.katex), .docs-main li:has(.katex), .docs-main blockquote:has(.katex) { overflow-x: auto; }   /* a long inline formula scrolls instead of widening the page */
+.docs-main .table-wrap, .docs-main .cell-output-display { overflow-x: auto; }
+.docs-main .quarto-title-block, .docs-main #title-block-header { display: block !important; max-width: none; padding: 0; margin: 0 0 8px; }
+.docs-main .quarto-title-block .quarto-title-meta, .docs-main .quarto-title-block .quarto-other-links { display: none; }
+.docs-main .quarto-title-block .abstract { display: none; }
+.docs-main iframe { max-width: 100%; }
+@media (max-width: 760px) { .docs-main .columns { flex-direction: column; } .docs-main .column { width: 100% !important; } }
+
+.prac-prevnext { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-family: var(--sans); font-size: 14px; margin: 0 0 18px; }
+.prac-prevnext a { color: var(--ink-soft); } .prac-prevnext a:hover { color: var(--teal); }
+
+/* Decisions and ideas. */
+.dec { border: 1px solid var(--line-soft); border-left: 4px solid var(--amber); padding: 12px 18px 8px; margin: 16px 0; background: var(--paper); scroll-margin-top: calc(var(--head-h, 92px) + 12px); }
+.dec-head { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.dec h3 { margin: 6px 0 8px; font-size: 18px; line-height: 1.3; }
+.dec p, .dec ul { margin: 0 0 8px; font-size: 15px; }
+.dec-ans { background: var(--tint); border-left: 3px solid var(--ok); padding: 8px 12px 2px; margin: 8px 0; }
+.status-answered { color: var(--ok); border-color: var(--ok); }
+.idea { border-left: 3px solid var(--teal); padding: 4px 16px 2px; margin: 14px 0; }
+.idea h3 { margin: 0 0 6px; font-size: 17px; }
+.idea p, .idea ul { font-size: 15px; margin: 0 0 8px; }
+.status-proposed { color: var(--warn); border-color: var(--warn); } .status-built, .status-accepted { color: var(--ok); border-color: var(--ok); }
+
+/* Roadmap. */
+.phase { border-top: 1px solid var(--line); padding: 10px 0 4px; }
+.phase h3 { margin: 0 0 6px; }
+.phase .state { font-family: var(--mono); font-size: 12px; color: var(--ink-faint); margin-left: 8px; }
+
+/* Resource files. */
+.files { list-style: none; padding: 0; } .files li { padding: 6px 0; border-bottom: 1px solid var(--line-soft); font-size: 15px; }
+.files .m { font-family: var(--mono); font-size: 12.5px; color: var(--ink-faint); margin-left: 8px; }
+
+/* Phones (thermomat L009): the kit's site.css keeps the left navigation sticky at every width. */
+@media (max-width: 760px) {
+  .docs-main { overflow-x: hidden; min-width: 0; }
+  .docs-nav { position: static; top: auto; max-height: none; overflow: visible; }
+  .docs-nav .docs-fold, .docs-toc .docs-fold { display: none; }
+  .docs.nav-folded, .docs.toc-folded, .docs.nav-folded.toc-folded, .docs.docs-wide.nav-folded { grid-template-columns: 1fr; }
+  .docs.nav-folded .docs-nav > :not(.docs-fold) { display: block; }
+}

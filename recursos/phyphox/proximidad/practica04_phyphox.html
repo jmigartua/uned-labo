@@ -1,0 +1,1590 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Josu M. Igartua">
+<meta name="dcterms.date" content="2026-04-16">
+<meta name="keywords" content="Phyphox, colisiones, cantidad de movimiento, carril de aire, sensor de proximidad">
+<meta name="description" content="Adaptación detallada del protocolo experimental de la Práctica 4 (Conservación de la cantidad de movimiento) para utilizar smartphones con la aplicación Phyphox en lugar de fotopuertas, siguiendo la técnica de Khongthiamsri &amp; Puttharugsa (2024).">
+
+<title>Adaptación de la Práctica 4 al método Phyphox · UNED Labo – UNED Labo</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<link href="../../../assets/favicon.svg" rel="icon" type="image/svg+xml">
+<script src="../../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-html-afe927e19676d0e50b1726048be49fb1.min.css" rel="stylesheet" append-hash="true" data-mode="light">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<style>html{ scroll-behavior: smooth; }</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&amp;family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<!-- KaTeX auto-render: publication titles carry TeX inside generated HTML that
+     Quarto's own math pipeline never sees (same approach as thermomat). -->
+<script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+/* The header ribbon is sticky; the side columns and anchor targets need its height. */
+(function () {
+  function headH() {
+    var t = document.querySelector(".topline"), h = document.querySelector(".site-head");
+    var px = (t ? t.offsetHeight : 0) + (h ? h.offsetHeight : 0);
+    if (px) document.documentElement.style.setProperty("--head-h", px + "px");
+  }
+  document.addEventListener("DOMContentLoaded", headH);
+  window.addEventListener("load", headH);
+  window.addEventListener("resize", headH);
+})();
+document.addEventListener("DOMContentLoaded", function () {
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }, { left: "\\(", right: "\\)", display: false }],
+      throwOnError: false
+    });
+  }
+  /* Quarto's KaTeX pipeline writes <span class="math inline">TeX</span> without delimiters and renders
+     them in a loop that reads firstChild.data; that loop dies at the first span the auto-render above
+     has already turned into KaTeX markup, leaving every later formula raw. Render the rest here. */
+  if (window.katex) {
+    document.querySelectorAll(".math").forEach(function (el) {
+      if (!el.querySelector(".katex")) {
+        var t = el.textContent.replace(/^\s*\\[\(\[]/, "").replace(/\\[\)\]]\s*$/, "");
+        try { katex.render(t, el, { displayMode: el.classList.contains("display"), throwOnError: false }); } catch (e) {}
+      }
+      /* Quarto's loop would still visit this span and wipe it (firstChild is now an element, not text):
+         take it out of its sight. No stylesheet of the site depends on the class; KaTeX's own output carries the layout. */
+      el.classList.remove("math"); el.classList.add("math-done");
+    });
+  }
+});
+</script>
+
+  <script defer="" src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../../assets/styles/theme.css">
+<link rel="stylesheet" href="../../../assets/styles/site.css">
+<link rel="stylesheet" href="../../../assets/styles/project.css">
+</head>
+
+<body>
+
+<div class="topline"></div>
+<header class="site-head">
+  <div class="site-head__inner">
+    <a href="../../../index.html" class="wordmark">UNED Labo <span class="accent">Leioa</span>
+      <span class="wordmark-sub">prácticas de laboratorio de la UNED en la Facultad de Ciencia y Tecnología (UPV/EHU) · curso 2025–2026</span>
+    </a>
+    <nav class="site-nav">
+      <a href="../../../index.html">Inicio</a>
+      <a href="../../../practicas/index.html">Prácticas</a>
+      <a href="../../../asignaturas/index.html">Asignaturas</a>
+      <a href="../../../recursos/index.html">Recursos</a>
+      <a href="../../../informe/index.html">Informe</a>
+      <a href="../../../manual/index.html">Manual TE I</a>
+      <a href="../../../contacto/index.html">Contacto</a>
+    </nav>
+  </div>
+</header>
+<!-- generated by tools/sibling.py public: the left navigation -->
+<div class="docs">
+<nav class="docs-nav" aria-label="Site sections">
+<button class="docs-fold" type="button" data-fold="nav" aria-label="Hide the navigation" title="Hide the navigation">‹</button>
+<details class="group" open=""><summary class="t">Inicio</summary><ul><li><a href="../../../index.html">Inicio</a></li></ul></details>
+<details class="group" open=""><summary class="t">Prácticas</summary><ul><li><a href="../../../practicas/index.html">Catálogo: las veinte prácticas</a></li><li><a href="../../../practicas/pendulo-fisico/index.html">P01 · Péndulo físico</a></li><li><a href="../../../practicas/ley-hooke/index.html">P02 · Movimiento armónico simple. Ley de Hooke</a></li><li><a href="../../../practicas/carril-aire/index.html">P03 · Medida de magnitudes dinámicas mediante un carril de aire</a></li><li><a href="../../../practicas/cc-resistencia-interna/index.html">P04 · Corriente continua I: resistencia interna de una fuente</a></li><li><a href="../../../practicas/cc-curva-lampara/index.html">P05 · Corriente continua II: curva característica de una lámpara</a></li><li><a href="../../../practicas/descarga-condensador/index.html">P06 · Descarga de un condensador</a></li><li><a href="../../../practicas/ondas-estacionarias/index.html">P07 · Ondas estacionarias en una cuerda con extremos fijos</a></li><li><a href="../../../practicas/vaporizacion-agua/index.html">P08 · Calor de vaporización del agua</a></li><li><a href="../../../practicas/velocidad-sonido/index.html">P09 · Medida de la velocidad del sonido: tubo de resonancia</a></li><li><a href="../../../practicas/inercia-disco/index.html">P10 · Momento de inercia de un disco</a></li><li><a href="../../../practicas/catenaria/index.html">P11 · Equilibrio de un hilo bajo la acción de la gravedad: la catenaria</a></li><li><a href="../../../practicas/rozamiento-correas/index.html">P12 · Coeficiente de rozamiento entre correas y poleas</a></li><li><a href="../../../practicas/giroscopo/index.html">P13 · Giróscopo</a></li><li><a href="../../../practicas/cantidad-movimiento/index.html">P14 · Conservación de la cantidad de movimiento</a></li><li><a href="../../../practicas/momento-cinetico/index.html">P15 · Conservación del momento cinético</a></li><li><a href="../../../practicas/pendulo-circular/index.html">P16 · Péndulo circular (cónico)</a></li><li><a href="../../../practicas/momentos-inercia/index.html">P17 · Momentos de inercia de sólidos</a></li><li><a href="../../../practicas/maquina-atwood/index.html">P18 · Máquina de Atwood</a></li><li><a href="../../../practicas/vibraciones-1gdl/index.html">P19 · Vibraciones libres con un grado de libertad</a></li><li><a href="../../../practicas/vibraciones-2gdl/index.html">P20 · Vibraciones libres con dos grados de libertad</a></li></ul></details>
+<details class="group" open=""><summary class="t">Asignaturas</summary><ul><li><a href="../../../asignaturas/index.html">Las cuatro asignaturas</a></li><li><a href="../../../asignaturas/bfma/index.html">Bases Físicas del Medio Ambiente</a></li><li><a href="../../../asignaturas/fisica/index.html">Física I y II</a></li><li><a href="../../../asignaturas/mecanica/index.html">Mecánica</a></li><li><a href="../../../asignaturas/tecnicas-experimentales/index.html">Técnicas Experimentales I</a></li></ul></details>
+<details class="group" open=""><summary class="t">Recursos</summary><ul><li><a href="../../../recursos/index.html">Recursos</a></li><li><a href="../../../recursos/sesion-0/index.html">Sesión 0</a></li><li><a href="../../../recursos/errores/index.html">Errores y regresiones</a></li><li><a href="../../../recursos/phyphox/index.html">Phyphox</a></li></ul></details>
+<details class="group" open=""><summary class="t">Informe</summary><ul><li><a href="../../../informe/index.html">El informe: qué contiene, cómo se evalúa</a></li><li><a href="../../../informe/modelos/index.html">Los ocho informes modelo</a></li><li><a href="../../../informe/rubrica/index.html">La rúbrica de TE I: 225 criterios</a></li><li><a href="../../../informe/rubrica-gum/index.html">La rúbrica GUM</a></li></ul></details>
+<details class="group" open=""><summary class="t">Manual TE I</summary><ul><li><a href="../../../manual/index.html">El manual, capítulo a capítulo</a></li><li><a href="../../../manual/01-representacion-magnitudes.html">Tema 1: Representación de magnitudes</a></li><li><a href="../../../manual/02-medidas-directas.html">Tema 2: Medidas directas</a></li><li><a href="../../../manual/03-medidas-indirectas.html">Tema 3: Medidas indirectas</a></li><li><a href="../../../manual/04-graficas-regresion.html">Tema 4: Gráficas y regresión lineal</a></li><li><a href="../../../manual/05-ejemplos-desarrollados.html">Tema 5: Ejemplos desarrollados</a></li><li><a href="../../../manual/06-instrucciones-laboratorio.html">Tema 6: Instrucciones para el laboratorio</a></li><li><a href="../../../manual/07-soluciones-ejercicios.html">Soluciones y apéndices</a></li></ul></details>
+<details class="group" open=""><summary class="t">Contacto</summary><ul><li><a href="../../../contacto/index.html">Contacto</a></li></ul></details>
+</nav>
+<div class="docs-main">
+
+<header id="title-block-header">
+<h1 class="title">Adaptación de la Práctica 4 al método Phyphox</h1>
+<p class="subtitle">Conservación de la cantidad de movimiento — Medida de velocidades con sensor de proximidad</p>
+<p class="author">Josu M. Igartua</p>
+
+<p class="date">2026-04-16</p>
+<div class="abstract">
+<div class="abstract-title">Resumen</div>
+<p>Se presenta la adaptación completa del protocolo de la Práctica 4 (Conservación de la cantidad de movimiento lineal en colisiones sobre carril de aire) para centros que no disponen de fotopuertas. Se sustituyen las fotopuertas por dos smartphones ejecutando el cronómetro de proximidad de Phyphox, y se reemplazan los banderines estándar de 5 cm por banderines de cartón de 20 cm para garantizar tiempos de tránsito superiores a la resolución mínima del sensor (<span class="math inline">\sim 120</span> ms). Se detallan los procedimientos adaptados para las tres partes de la práctica: colisión perfectamente inelástica, colisión elástica con masas iguales, y colisión elástica con masas desiguales. Se incluye un análisis comparativo de errores entre ambos métodos.</p>
+</div>
+</header>
+
+<nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#motivación" id="toc-motivación">Motivación</a></li>
+  <li><a href="#modificaciones-respecto-al-protocolo-original" id="toc-modificaciones-respecto-al-protocolo-original">Modificaciones respecto al protocolo original</a></li>
+  <li><a href="#material-necesario-adicional-al-original" id="toc-material-necesario-adicional-al-original">Material necesario (adicional al original)</a></li>
+  <li><a href="#preparación-del-montaje" id="toc-preparación-del-montaje">Preparación del montaje</a>
+  <ul>
+  <li><a href="#paso-1-preparar-los-banderines-de-cartón" id="toc-paso-1-preparar-los-banderines-de-cartón">Paso 1: Preparar los banderines de cartón</a></li>
+  <li><a href="#paso-2-verificar-el-sensor-de-proximidad" id="toc-paso-2-verificar-el-sensor-de-proximidad">Paso 2: Verificar el sensor de proximidad</a></li>
+  <li><a href="#paso-3-posicionar-los-smartphones" id="toc-paso-3-posicionar-los-smartphones">Paso 3: Posicionar los smartphones</a></li>
+  <li><a href="#paso-4-nivelar-el-carril" id="toc-paso-4-nivelar-el-carril">Paso 4: Nivelar el carril</a></li>
+  </ul></li>
+  <li><a href="#parte-a-colisión-perfectamente-inelástica" id="toc-parte-a-colisión-perfectamente-inelástica">Parte A: Colisión perfectamente inelástica</a>
+  <ul>
+  <li><a href="#configuración" id="toc-configuración">Configuración</a></li>
+  <li><a href="#procedimiento" id="toc-procedimiento">Procedimiento</a></li>
+  </ul></li>
+  <li><a href="#parte-b-colisión-elástica-con-masas-iguales" id="toc-parte-b-colisión-elástica-con-masas-iguales">Parte B: Colisión elástica con masas iguales</a>
+  <ul>
+  <li><a href="#configuración-1" id="toc-configuración-1">Configuración</a></li>
+  <li><a href="#procedimiento-1" id="toc-procedimiento-1">Procedimiento</a></li>
+  </ul></li>
+  <li><a href="#parte-c-colisión-elástica-con-masas-desiguales" id="toc-parte-c-colisión-elástica-con-masas-desiguales">Parte C: Colisión elástica con masas desiguales</a>
+  <ul>
+  <li><a href="#configuración-2" id="toc-configuración-2">Configuración</a></li>
+  <li><a href="#procedimiento-2" id="toc-procedimiento-2">Procedimiento</a></li>
+  </ul></li>
+  <li><a href="#análisis-de-errores-específico-del-método-phyphox" id="toc-análisis-de-errores-específico-del-método-phyphox">Análisis de errores específico del método Phyphox</a>
+  <ul>
+  <li><a href="#error-en-la-velocidad" id="toc-error-en-la-velocidad">Error en la velocidad</a></li>
+  <li><a href="#fuentes-de-error-adicionales" id="toc-fuentes-de-error-adicionales">Fuentes de error adicionales</a></li>
+  </ul></li>
+  <li><a href="#recomendaciones-finales" id="toc-recomendaciones-finales">Recomendaciones finales</a></li>
+  <li><a href="#referencias" id="toc-referencias">Referencias</a></li>
+  </ul>
+</nav>
+<p><a href="../../../recursos/phyphox/proximidad/guia_general.html" class="btn btn-outline-primary btn-sm">Descargar guía general: Técnica Phyphox</a> <a href="../../../practicas/cantidad-movimiento/index.html" class="btn btn-outline-secondary btn-sm">Volver a Práctica 4</a></p>
+<p><br></p>
+<h2 id="motivación" class="anchored">Motivación</h2>
+<p><br></p>
+<p>La Práctica 4 del Laboratorio de Mecánica verifica experimentalmente la conservación de la cantidad de movimiento (momento lineal) en colisiones unidimensionales sobre un carril de aire. El protocolo original requiere <strong>fotopuertas</strong> para medir las velocidades de los coches antes y después de la colisión. En centros que no dispongan de este equipamiento, el sensor de proximidad del smartphone, gestionado mediante la aplicación Phyphox, ofrece una alternativa viable.</p>
+<p>El método se basa en el trabajo de <span class="citation" data-cites="khongthiamsri2024">Khongthiamsri &amp; Puttharugsa (2024)</span>, quienes demostraron la viabilidad de utilizar el <em>cronómetro de proximidad</em> de Phyphox para medir velocidades y aceleraciones en movimiento rectilíneo. En el presente documento se adapta esta técnica específicamente al experimento de colisiones sobre carril de aire.</p>
+<div>
+<blockquote>
+<p><strong>Lectura previa recomendada</strong></p>
+<p>Antes de seguir este protocolo, el alumnado debe leer la <strong>guía general de la técnica Phyphox</strong> (disponible en este mismo sitio web), donde se explican en detalle el principio de funcionamiento, la configuración de la aplicación, y las limitaciones del método.</p>
+</blockquote>
+</div>
+<p><br></p>
+<h2 id="modificaciones-respecto-al-protocolo-original" class="anchored">Modificaciones respecto al protocolo original</h2>
+<p><br></p>
+<p>El protocolo adaptado introduce los siguientes cambios respecto al original:</p>
+<div id="tbl-comparison" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;1: Comparación entre los dos protocolos.
+</figcaption>
+<div aria-describedby="tbl-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Elemento</th>
+<th style="text-align: left;">Protocolo original</th>
+<th style="text-align: left;">Protocolo Phyphox</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Sensor de velocidad</td>
+<td style="text-align: left;">2 fotopuertas</td>
+<td style="text-align: left;">2 smartphones con Phyphox</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Banderín</td>
+<td style="text-align: left;">5 cm (banderín estándar)</td>
+<td style="text-align: left;"><strong>20 cm</strong> (cartón)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Resolución temporal</td>
+<td style="text-align: left;"><span class="math inline">\sim 0{,}1</span> ms</td>
+<td style="text-align: left;"><span class="math inline">\sim 120\textrm{–}200</span> ms</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Rango de velocidad</td>
+<td style="text-align: left;">Sin limitación práctica</td>
+<td style="text-align: left;"><span class="math inline">\lesssim 1{,}0</span> m/s</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Error relativo típico en <span class="math inline">v</span></td>
+<td style="text-align: left;"><span class="math inline">\sim 1\%</span></td>
+<td style="text-align: left;"><span class="math inline">\sim 5\textrm{–}15\%</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Coste adicional</td>
+<td style="text-align: left;">Fotopuertas (€50–200)</td>
+<td style="text-align: left;">€0 (smartphones del alumnado)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<div>
+<blockquote>
+<p><strong>Cambio crítico: longitud del banderín</strong></p>
+<p>El banderín debe ser de <strong>20 cm</strong> (no de 5 cm). Con el banderín original de 5 cm, a velocidades típicas de <span class="math inline">0{,}5\textrm{–}1{,}0</span> m/s, el tiempo de tránsito sería de <span class="math inline">50\textrm{–}100</span> ms, <strong>inferior a la resolución mínima del sensor</strong> (<span class="math inline">\sim 120</span> ms). Esto haría la medida inviable. Con 20 cm, los tiempos de tránsito son de <span class="math inline">200\textrm{–}400</span> ms, dentro del rango utilizable.</p>
+</blockquote>
+</div>
+<p><br></p>
+<h2 id="material-necesario-adicional-al-original" class="anchored">Material necesario (adicional al original)</h2>
+<p><br></p>
+<p>Además del material estándar de la práctica (carril de aire, coches dinámicos, topes, balanza, nivel de burbuja, cinta métrica), se necesita:</p>
+<ol type="1">
+<li><strong>Dos smartphones</strong> con sensor de proximidad y aplicación Phyphox instalada</li>
+<li><strong>Dos rectángulos de cartón</strong> de <span class="math inline">20 \times 10</span> cm (<span class="math inline">\pm\,0{,}5</span> cm), que se fijarán verticalmente sobre cada coche dinámico con cinta adhesiva de doble cara</li>
+<li><strong>Dos soportes</strong> para los smartphones (libros gruesos, bloques de madera, o pinzas de laboratorio), que mantengan el teléfono boca abajo sobre la trayectoria del coche, con el sensor de proximidad apuntando hacia abajo a <span class="math inline">\sim 2\textrm{–}3</span> cm del borde superior del banderín de cartón</li>
+</ol>
+<p><br></p>
+<h2 id="preparación-del-montaje" class="anchored">Preparación del montaje</h2>
+<p><br></p>
+<h3 class="unnumbered anchored" id="paso-1-preparar-los-banderines-de-cartón">Paso 1: Preparar los banderines de cartón</h3>
+<p><br></p>
+<p>Recortar dos rectángulos de cartón rígido de <span class="math inline">20 \times 10</span> cm. Marcar con precisión la longitud de 20,0 cm y medir con regla milimetrada:</p>
+<p><span class="math display">
+\Delta d = 20{,}0 \pm 0{,}05 \text{ cm} = 0{,}200 \pm 0{,}0005 \text{ m}
+</span></p>
+<p>Fijar un banderín verticalmente sobre cada coche dinámico, asegurándose de que:</p>
+<ul>
+<li>El banderín esté <strong>perpendicular</strong> al eje del carril</li>
+<li>La parte superior del banderín sobresalga al menos 5 cm por encima de cualquier obstáculo</li>
+<li>El banderín esté <strong>centrado</strong> respecto al coche (para que pase directamente bajo el sensor)</li>
+</ul>
+<p><br></p>
+<h3 class="unnumbered anchored" id="paso-2-verificar-el-sensor-de-proximidad">Paso 2: Verificar el sensor de proximidad</h3>
+<p><br></p>
+<p>Para <strong>cada</strong> smartphone:</p>
+<ol type="1">
+<li>Abrir Phyphox → <em>Proximity Stopwatch</em> → modo duración</li>
+<li>Iniciar la medida</li>
+<li>Pasar el banderín de 20 cm <strong>rápidamente</strong> por delante del sensor (a mano)</li>
+<li>Anotar el tiempo registrado</li>
+<li>Repetir 5 veces</li>
+</ol>
+<p>El tiempo mínimo registrado es <span class="math inline">\Delta t_{\min}</span>. Si <span class="math inline">\Delta t_{\min} &gt; 250</span> ms, considerar usar un banderín de 30 cm.</p>
+<p><br></p>
+<h3 class="unnumbered anchored" id="paso-3-posicionar-los-smartphones">Paso 3: Posicionar los smartphones</h3>
+<p><br></p>
+<p>Colocar los smartphones <strong>boca abajo</strong> sobre soportes a cada lado de la zona de colisión, de modo que:</p>
+<ul>
+<li><strong>Smartphone S1</strong> (antes de la colisión): se coloca en la trayectoria del coche proyectil, antes de que este llegue a la zona de colisión</li>
+<li><strong>Smartphone S2</strong> (después de la colisión): se coloca en la trayectoria posterior, por donde saldrá el conjunto (colisión inelástica) o el coche blanco (colisión elástica)</li>
+</ul>
+<p>La disposición es análoga a la de las fotopuertas FP1 y FP2 del protocolo original:</p>
+<pre><code>        S1 (Phyphox)               S2 (Phyphox)
+        ┌──────┐                   ┌──────┐
+        │ 📱↓  │                   │ 📱↓  │
+        └──┬───┘                   └──┬───┘
+           │                          │
+    ═══════╪══════════════════════════╪══════════  ← Carril de aire
+           │                          │
+   ┌───┐ ┌─┤                        ┌─┤ ┌───┐
+   │ 1 │ │▓│  ──→        ●         │▓│ │ 2 │
+   └───┘ └─┘             ↑         └─┘ └───┘
+   Coche 1   Banderín  Zona de    Banderín  Coche 2
+  (proyectil) 20 cm   colisión    20 cm    (blanco)</code></pre>
+<div id="fig-setup" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-setup-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="air_track_setup.png" class="img-fluid quarto-figure quarto-figure-center" style="width:90.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-setup-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1: Esquema del montaje experimental: posicionamiento de los smartphones S1 y S2 sobre el carril de aire, con los coches dinámicos y los banderines de cartón de 20 cm.
+</figcaption>
+</figure>
+</div>
+<div>
+<blockquote>
+<p><strong>Altura del soporte</strong></p>
+<p>El sensor de proximidad del smartphone debe estar a <strong>2–3 cm</strong> del borde superior del banderín cuando el coche pasa por debajo. Si la distancia es mayor que 5 cm, el sensor no detectará el paso. Si es menor que 1 cm, el banderín podría golpear el teléfono.</p>
+</blockquote>
+</div>
+<p><br></p>
+<h3 class="unnumbered anchored" id="paso-4-nivelar-el-carril">Paso 4: Nivelar el carril</h3>
+<p><br></p>
+<p><strong>Idéntico al protocolo original</strong>: verificar que el carril está perfectamente horizontal. Con el secador encendido, un coche colocado en el centro no debe desplazarse apreciablemente durante al menos 5 segundos. La nivelación es <em>aún más crítica</em> con el método Phyphox, ya que el mayor error del sensor amplifica cualquier desviación sistemática.</p>
+<p><br></p>
+<h2 id="parte-a-colisión-perfectamente-inelástica" class="anchored">Parte A: Colisión perfectamente inelástica</h2>
+<p><br></p>
+<h3 class="unnumbered anchored" id="configuración">Configuración</h3>
+<ul>
+<li>Topes de <strong>velcro</strong> en los extremos enfrentados de ambos coches</li>
+<li>Medir las masas: <span class="math inline">m_1</span> y <span class="math inline">m_2</span> con la balanza (<span class="math inline">\pm\,0{,}1</span> g)</li>
+<li>Banderines de 20 cm montados en ambos coches</li>
+<li>S1 y S2 posicionados como se describe arriba</li>
+<li>Ambos smartphones en Phyphox → <em>Proximity Stopwatch</em> → <strong>modo duración</strong></li>
+</ul>
+<h3 class="unnumbered anchored" id="procedimiento">Procedimiento</h3>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>1</strong></p>
+</div><div class="column" style="width:92%;">
+<p>En ambos smartphones, iniciar la medida en Phyphox (modo duración).</p>
+<p>Colocar el coche 2 (blanco) en reposo entre S1 y S2, cerca de la zona de colisión.</p>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>2</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Dar un impulso <strong>suave</strong> al coche 1 (proyectil). Es fundamental que la velocidad no supere <span class="math inline">\sim 1{,}0</span> m/s para que el tiempo de tránsito en S1 sea al menos <span class="math inline">\sim 200</span> ms.</p>
+<div>
+<blockquote>
+<p><strong>Control de la velocidad</strong></p>
+<p>Un impulso que haga que el coche 1 recorra <span class="math inline">\sim 50</span> cm en 1 segundo produce una velocidad de <span class="math inline">\sim 0{,}5</span> m/s, ideal para este método. Evitar impulsos enérgicos.</p>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>3</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Registrar:</p>
+<ul>
+<li><span class="math inline">\Delta t_{1i}</span>: tiempo registrado por <strong>S1</strong> (tránsito del banderín del coche 1, <strong>antes</strong> de la colisión)</li>
+<li><span class="math inline">\Delta t_f</span>: tiempo registrado por <strong>S2</strong> (tránsito del banderín del conjunto adherido, <strong>después</strong> de la colisión)</li>
+</ul>
+<p>Calcular las velocidades:</p>
+<p><span class="math display">
+v_{1i} = \frac{\Delta d}{\Delta t_{1i}} \qquad;\qquad v_f = \frac{\Delta d}{\Delta t_f}
+</span></p>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>4</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Repetir la medida <strong>5 veces</strong>, reiniciando Phyphox entre cada ensayo. Variar ligeramente la velocidad del impulso (siempre suave).</p>
+<p>Registrar todos los datos en la siguiente tabla:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Medida</th>
+<th style="text-align: center;"><span class="math inline">\Delta t_{1i}</span> (ms)</th>
+<th style="text-align: center;"><span class="math inline">v_{1i}</span> (m/s)</th>
+<th style="text-align: center;"><span class="math inline">\Delta t_f</span> (ms)</th>
+<th style="text-align: center;"><span class="math inline">v_f</span> (m/s)</th>
+<th style="text-align: center;"><span class="math inline">p_i</span> (kg·m/s)</th>
+<th style="text-align: center;"><span class="math inline">p_f</span> (kg·m/s)</th>
+<th style="text-align: center;"><span class="math inline">\Delta p/p_i</span> (%)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+<p>donde:</p>
+<p><span class="math display">
+p_i = m_1 \cdot v_{1i} \qquad;\qquad p_f = (m_1 + m_2) \cdot v_f
+</span></p>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>5</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Calcular la energía cinética antes y después de la colisión. Determinar la fracción de energía perdida y comparar con el valor teórico <span class="math inline">\Delta E_c / E_{c,i} = m_2/(m_1+m_2)</span>:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Medida</th>
+<th style="text-align: center;"><span class="math inline">E_{c,i}</span> (mJ)</th>
+<th style="text-align: center;"><span class="math inline">E_{c,f}</span> (mJ)</th>
+<th style="text-align: center;"><span class="math inline">\Delta E_c/E_{c,i}</span> (%)</th>
+<th style="text-align: center;">Valor teórico (%)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><br></p>
+<h2 id="parte-b-colisión-elástica-con-masas-iguales" class="anchored">Parte B: Colisión elástica con masas iguales</h2>
+<p><br></p>
+<h3 class="unnumbered anchored" id="configuración-1">Configuración</h3>
+<ul>
+<li>Sustituir los topes de velcro por topes de <strong>muelle</strong> (bumpers elásticos)</li>
+<li>Mantener las mismas masas: <span class="math inline">m_1 \approx m_2</span></li>
+<li>Banderines de 20 cm en ambos coches</li>
+<li>S1 y S2 en modo duración</li>
+</ul>
+<h3 class="unnumbered anchored" id="procedimiento-1">Procedimiento</h3>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>1</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Iniciar Phyphox en ambos smartphones (modo duración).</p>
+<p>Colocar el coche 2 en reposo entre S1 y S2.</p>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>2</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Dar un impulso suave al coche 1. Tras la colisión:</p>
+<ul>
+<li>El coche 1 se <strong>detiene</strong> (si la colisión es perfectamente elástica con masas iguales)</li>
+<li>El coche 2 sale con la velocidad que tenía el coche 1</li>
+</ul>
+<div>
+<blockquote>
+<p><strong>Nota sobre la medida con Phyphox</strong></p>
+<p>En el protocolo original con fotopuertas, S1 mide el coche 1 antes de la colisión y S2 mide el coche 2 después. Con Phyphox, el procedimiento es <strong>idéntico</strong>: S1 registra el tránsito del banderín del coche 1, y S2 registra el tránsito del banderín del coche 2.</p>
+<p>Si el coche 1 no se detiene completamente y retrocede a través de S1, la app registrará un segundo evento de duración. Este valor corresponde a la velocidad residual <span class="math inline">v_{1f}</span> del coche 1.</p>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>3</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Registrar:</p>
+<ul>
+<li><span class="math inline">\Delta t_{1i}</span>: primer tiempo en S1 (coche 1 antes de la colisión)</li>
+<li><span class="math inline">\Delta t_{2f}</span>: tiempo en S2 (coche 2 después de la colisión)</li>
+</ul>
+<p>Repetir 5 veces.</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Medida</th>
+<th style="text-align: center;"><span class="math inline">\Delta t_{1i}</span> (ms)</th>
+<th style="text-align: center;"><span class="math inline">v_{1i}</span> (m/s)</th>
+<th style="text-align: center;"><span class="math inline">\Delta t_{2f}</span> (ms)</th>
+<th style="text-align: center;"><span class="math inline">v_{2f}</span> (m/s)</th>
+<th style="text-align: center;"><span class="math inline">p_i</span> (kg·m/s)</th>
+<th style="text-align: center;"><span class="math inline">p_f</span> (kg·m/s)</th>
+<th style="text-align: center;"><span class="math inline">\Delta p/p_i</span> (%)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>4</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Verificar la conservación de la energía cinética:</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Medida</th>
+<th style="text-align: center;"><span class="math inline">E_{c,i}</span> (mJ)</th>
+<th style="text-align: center;"><span class="math inline">E_{c,f}</span> (mJ)</th>
+<th style="text-align: center;"><span class="math inline">\Delta E_c/E_{c,i}</span> (%)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><br></p>
+<h2 id="parte-c-colisión-elástica-con-masas-desiguales" class="anchored">Parte C: Colisión elástica con masas desiguales</h2>
+<p><br></p>
+<h3 class="unnumbered anchored" id="configuración-2">Configuración</h3>
+<ul>
+<li>Topes de <strong>muelle</strong></li>
+<li>Añadir masa adicional a uno de los coches: <span class="math inline">m_1 &gt; m_2</span> (por ejemplo, <span class="math inline">m_1 \approx 400</span> g, <span class="math inline">m_2 \approx 210</span> g)</li>
+<li>Banderines de 20 cm en ambos coches</li>
+<li>S1 y S2 en modo duración</li>
+</ul>
+<h3 class="unnumbered anchored" id="procedimiento-2">Procedimiento</h3>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>1</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Iniciar Phyphox en ambos smartphones (modo duración).</p>
+<p>Colocar el coche 2 (ligero) en reposo entre S1 y S2.</p>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>2</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Dar un impulso suave al coche 1 (pesado). Tras la colisión:</p>
+<ul>
+<li>El coche 1 <strong>continúa</strong> moviéndose en la misma dirección, pero más lento</li>
+<li>El coche 2 sale con una velocidad <strong>mayor</strong> que la velocidad inicial del coche 1</li>
+</ul>
+<div>
+<blockquote>
+<p><strong>Tres medidas de tiempo necesarias</strong></p>
+<p>En esta parte se necesitan <strong>tres</strong> tiempos de tránsito:</p>
+<ol type="1">
+<li><span class="math inline">\Delta t_{1i}</span>: coche 1 pasando por S1 <strong>antes</strong> de la colisión</li>
+<li><span class="math inline">\Delta t_{1f}</span>: coche 1 pasando por S1 <strong>después</strong> de la colisión (ya que continúa moviéndose y puede volver a pasar por S1, o se coloca un tercer smartphone/se reposiciona S1)</li>
+<li><span class="math inline">\Delta t_{2f}</span>: coche 2 pasando por S2 <strong>después</strong> de la colisión</li>
+</ol>
+<p><strong>Opción práctica con dos smartphones:</strong> Dado que el coche 1 pasa dos veces por S1 (una antes y otra después de la colisión), la aplicación Phyphox registrará <strong>dos eventos de duración</strong> consecutivos en S1. El primer evento corresponde a <span class="math inline">\Delta t_{1i}</span> y el segundo a <span class="math inline">\Delta t_{1f}</span>.</p>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>3</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Registrar todos los tiempos. Repetir 5 veces.</p>
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Medida</th>
+<th style="text-align: center;"><span class="math inline">\Delta t_{1i}</span> (ms)</th>
+<th style="text-align: center;"><span class="math inline">v_{1i}</span> (m/s)</th>
+<th style="text-align: center;"><span class="math inline">\Delta t_{1f}</span> (ms)</th>
+<th style="text-align: center;"><span class="math inline">v_{1f}</span> (m/s)</th>
+<th style="text-align: center;"><span class="math inline">\Delta t_{2f}</span> (ms)</th>
+<th style="text-align: center;"><span class="math inline">v_{2f}</span> (m/s)</th>
+<th style="text-align: center;"><span class="math inline">p_i</span></th>
+<th style="text-align: center;"><span class="math inline">p_f</span></th>
+<th style="text-align: center;"><span class="math inline">\Delta p/p_i</span> (%)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+<p>Donde el momento lineal final incluye las contribuciones de ambos coches:</p>
+<p><span class="math display">
+p_f = m_1 \cdot v_{1f} + m_2 \cdot v_{2f}
+</span></p>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>4</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Comparar las velocidades finales medidas con las predicciones teóricas:</p>
+<p><span class="math display">
+v_{1f}^{\text{teo}} = \frac{m_1 - m_2}{m_1 + m_2}\,v_{1i} \qquad;\qquad v_{2f}^{\text{teo}} = \frac{2\,m_1}{m_1 + m_2}\,v_{1i}
+</span></p>
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Medida</th>
+<th style="text-align: center;"><span class="math inline">v_{1f}^{\text{exp}}</span></th>
+<th style="text-align: center;"><span class="math inline">v_{1f}^{\text{teo}}</span></th>
+<th style="text-align: center;">Discr. (%)</th>
+<th style="text-align: center;"><span class="math inline">v_{2f}^{\text{exp}}</span></th>
+<th style="text-align: center;"><span class="math inline">v_{2f}^{\text{teo}}</span></th>
+<th style="text-align: center;">Discr. (%)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><br></p>
+<h2 id="análisis-de-errores-específico-del-método-phyphox" class="anchored">Análisis de errores específico del método Phyphox</h2>
+<p><br></p>
+<h3 id="error-en-la-velocidad" class="anchored">Error en la velocidad</h3>
+<p><br></p>
+<p>Con <span class="math inline">\Delta d = 20{,}0 \pm 0{,}05</span> cm y una incertidumbre temporal estimada de <span class="math inline">\Delta(\Delta t) \approx 50</span> ms:</p>
+<div id="tbl-errors" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-errors-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;2: Error relativo estimado en la velocidad en función del tiempo de tránsito.
+</figcaption>
+<div aria-describedby="tbl-errors-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">\Delta t</span> (ms)</th>
+<th style="text-align: center;"><span class="math inline">v</span> (m/s)</th>
+<th style="text-align: center;"><span class="math inline">\Delta v/v</span> (%)</th>
+<th style="text-align: left;">Comentario</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">200</td>
+<td style="text-align: center;">1,00</td>
+<td style="text-align: center;">25,1</td>
+<td style="text-align: left;">En el límite — medir con precaución</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">300</td>
+<td style="text-align: center;">0,67</td>
+<td style="text-align: center;">16,7</td>
+<td style="text-align: left;">Aceptable para demostración</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">400</td>
+<td style="text-align: center;">0,50</td>
+<td style="text-align: center;">12,5</td>
+<td style="text-align: left;">Rango recomendado</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">500</td>
+<td style="text-align: center;">0,40</td>
+<td style="text-align: center;">10,0</td>
+<td style="text-align: left;">Buena calidad</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">600</td>
+<td style="text-align: center;">0,33</td>
+<td style="text-align: center;">8,4</td>
+<td style="text-align: left;">Óptimo</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<div>
+<blockquote>
+<p><strong>Implicación pedagógica</strong></p>
+<p>Los errores del método Phyphox (<span class="math inline">\sim 10\textrm{–}15\%</span>) son significativamente mayores que los de las fotopuertas (<span class="math inline">\sim 1\%</span>). Sin embargo, <strong>la conservación del momento lineal sigue siendo verificable</strong>: si <span class="math inline">p_i</span> y <span class="math inline">p_f</span> difieren en menos del <span class="math inline">\sim 15\%</span> con un instrumento cuyo error intrínseco es del <span class="math inline">\sim 12\%</span>, la conservación es consistente con los datos.</p>
+<p>Lo que cambia es la <strong>potencia discriminativa</strong>: con fotopuertas, una discrepancia del <span class="math inline">2\%</span> es significativa; con Phyphox, discrepancias de hasta el <span class="math inline">15\%</span> son compatibles con el error experimental.</p>
+</blockquote>
+</div>
+<p><br></p>
+<h3 id="fuentes-de-error-adicionales" class="anchored">Fuentes de error adicionales</h3>
+<p><br></p>
+<p>Además de las fuentes de error del protocolo original (nivelación, rozamiento, colisión no ideal), el método Phyphox introduce:</p>
+<ol type="1">
+<li><strong>Resolución temporal del sensor</strong>: es el error dominante. Varía entre modelos de teléfono.</li>
+<li><strong>Posicionamiento del smartphone</strong>: si el sensor no está alineado con la trayectoria del banderín, la detección puede ser parcial o erronea.</li>
+<li><strong>Altura sensor–banderín</strong>: si la distancia varía entre medidas, la calidad de la detección puede cambiar.</li>
+<li><strong>Velocidad excesiva</strong>: si <span class="math inline">v &gt; v_{\max}</span>, el sensor no registra el evento o lo registra con un tiempo igual a <span class="math inline">\Delta t_{\min}</span>, lo que da una velocidad constante espúrea.</li>
+</ol>
+<p><br></p>
+<h2 id="recomendaciones-finales" class="anchored">Recomendaciones finales</h2>
+<p><br></p>
+<ol type="1">
+<li><strong>Realizar la calibración del sensor</strong> (verificación de <span class="math inline">\Delta t_{\min}</span>) antes de empezar las medidas</li>
+<li><strong>Impulsar suavemente</strong> los coches: velocidades de <span class="math inline">0{,}3\textrm{–}0{,}7</span> m/s son ideales</li>
+<li><strong>Repetir cada medida al menos 5 veces</strong> para promediar las fluctuaciones del sensor</li>
+<li><strong>Usar el mismo teléfono</strong> en la misma posición durante toda la sesión (no intercambiar S1 y S2)</li>
+<li><strong>Anotar el modelo</strong> de cada smartphone utilizado, ya que la resolución temporal varía</li>
+<li><strong>Si los errores son inaceptablemente grandes</strong>, considerar el <strong>cronómetro acústico</strong> de Phyphox, que tiene mejor resolución temporal y puede detectar el sonido de la colisión para medir intervalos de tiempo</li>
+</ol>
+<p><br></p>
+<h2 id="referencias" class="anchored">Referencias</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-khongthiamsri2024" class="csl-entry" role="listitem">
+Khongthiamsri, N., &amp; Puttharugsa, C. (2024). Measuring velocity and acceleration of a moving object in linear motion using proximity sensor of smartphone. <em>Physics Education</em>, <em>59</em>(3), 033002. <a href="https://doi.org/10.1088/1361-6552/ad2f62">https://doi.org/10.1088/1361-6552/ad2f62</a>
+</div>
+</div>
+
+
+<!-- Closes the reading column opened by _gen/docs-nav.html, adds the right
+     "On this page" list, and wires: current-page marking in the left nav,
+     breadcrumbs, the page TOC (from h2/h3 in the reading column) and a
+     scroll-spy. Pure DOM, no library. -->
+  </div>
+  <aside class="docs-toc"><button class="docs-fold" type="button" data-fold="toc" aria-label="Hide the page outline" title="Hide the page outline">›</button><div class="t">On this page</div><ol></ol></aside>
+</div>
+<script>
+(function () {
+  /* 0. The two side panels fold on their chevrons; the choice is remembered in this browser. */
+  var docs = document.querySelector('.docs');
+  if (docs) {
+    var store = {};
+    try { store = JSON.parse(localStorage.getItem('docs-fold') || '{}'); } catch (e) { store = {}; }
+    function apply() {
+      docs.classList.toggle('nav-folded', !!store.nav);
+      docs.classList.toggle('toc-folded', !!store.toc);
+      document.querySelectorAll('.docs-fold').forEach(function (b) {
+        var which = b.getAttribute('data-fold'), folded = !!store[which];
+        b.innerHTML = (which === 'nav') === folded ? '&rsaquo;' : '&lsaquo;';
+        var what = which === 'nav' ? 'the navigation' : 'the page outline';
+        b.title = (folded ? 'Show ' : 'Hide ') + what; b.setAttribute('aria-label', b.title);
+      });
+    }
+    document.querySelectorAll('.docs-fold').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var which = b.getAttribute('data-fold'); store[which] = !store[which];
+        try { localStorage.setItem('docs-fold', JSON.stringify(store)); } catch (e) {}
+        apply();
+      });
+    });
+    apply();
+  }
+  /* 0b. The header ribbon: mark the entry whose section holds this page. Quarto rewrites the hrefs to
+     relative paths, so folders are read from the resolved URLs; the Overview link gives the site root. */
+  (function () {
+    var links = Array.prototype.slice.call(document.querySelectorAll('.site-nav a'));
+    if (!links.length) return;
+    /* a served URL may end in '/' (GitHub Pages: …/about/); read it as …/about/index.html */
+    function folder(path) { if (/\/$/.test(path)) path += 'index.html'; var s = path.split('/').filter(Boolean); return s.length > 1 ? s[s.length - 2] : ''; }
+    var wm = document.querySelector('a.wordmark');            // the wordmark links to the site root
+    var root = folder((wm || links[0]).pathname);
+    var map = { rietveld: 'cases', drude: 'cases', dielectric: 'cases' };
+    function key(path) { var f = folder(path); if (f === root) return 'overview'; return map[f] || f; }
+    var here = key(location.pathname);
+    links.forEach(function (a) { a.classList.toggle('current', key(a.pathname) === here); });
+  })();
+
+  var main = document.querySelector('.docs-main');
+  var nav = document.querySelector('.docs-nav');
+  var toc = document.querySelector('.docs-toc ol');
+  if (!main || !nav || !toc) return;
+
+  /* 1. Left nav: mark the current page (and section, if the hash matches). */
+  var here = location.pathname.replace(/\/index\.html$/, '/');
+  var links = Array.prototype.slice.call(nav.querySelectorAll('a'));
+  var pageLink = null, hashLink = null;
+  links.forEach(function (a) {
+    var p = a.pathname.replace(/\/index\.html$/, '/');
+    if (p !== here) return;
+    if (!a.hash && !pageLink) pageLink = a;
+    if (a.hash && a.hash === location.hash) hashLink = a;
+  });
+  var cur = hashLink || pageLink;
+  if (cur) {
+    cur.classList.add('current');
+    var det = cur.closest('details.group');
+    if (det) { det.open = true; det.classList.add('has-current'); }
+    /* Breadcrumbs: group title › page (› section). */
+    var crumbs = document.createElement('div');
+    crumbs.className = 'docs-crumbs';
+    var g = det ? det.querySelector('summary.t') : null;
+    var parts = [];
+    function push(t) { if (t && parts[parts.length - 1] !== t) parts.push(t); }
+    if (g) push(g.textContent.trim());
+    if (pageLink && pageLink !== cur) push(pageLink.textContent.trim());
+    push(cur.textContent.trim());
+    crumbs.innerHTML = parts.map(function (t, i) {
+      return (i ? '<span class="sep">›</span>' : '') + '<span>' + t.replace(/</g, '&lt;') + '</span>';
+    }).join('');
+    main.insertBefore(crumbs, main.firstChild);
+  }
+
+  /* 2. Right "On this page": h2 and h3 of the reading column. */
+  var used = {};
+  var heads = Array.prototype.slice.call(main.querySelectorAll('h2, h3')).filter(function (h) {
+    if (h.closest('.site-foot, .featured-band, .msg-grid, [data-toc="no"]')) return false;
+    if (h.classList.contains('unnumbered') || h.id === 'contenido') return false;
+    return h.textContent.trim().length > 0;
+  });
+  heads.forEach(function (h) {
+    if (!h.id) {
+      var s = h.textContent.trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+        .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60) || 'sec';
+      while (used[s] || document.getElementById(s)) s += '-';
+      h.id = s;
+    }
+    used[h.id] = true;
+    var li = document.createElement('li');
+    if (h.tagName === 'H3') li.className = 'l3';
+    var a = document.createElement('a');
+    a.href = '#' + h.id;
+    /* This runs before KaTeX has rendered the headings, so a heading with mathematics still holds TeX
+       source: copy its markup, including the math spans, and let the page's KaTeX pass render the copy. */
+    var copy = h.cloneNode(true);
+    copy.querySelectorAll('.katex-mathml, annotation, .anchorjs-link').forEach(function (n) { n.remove(); });
+    var label = copy.textContent.trim().replace(/\s+/g, ' ');
+    if (copy.querySelector('.math, .math-done, .katex')) a.innerHTML = copy.innerHTML.trim();
+    else a.textContent = label.length > 72 ? label.slice(0, 70).replace(/[\s,;:]+\S*$/, '') + '…' : label;
+    a.title = label;
+    li.appendChild(a);
+    toc.appendChild(li);
+  });
+  if (!heads.length) { document.querySelector('.docs-toc').hidden = true; return; }
+
+  /* 3. Scroll-spy. */
+  var items = Array.prototype.slice.call(toc.querySelectorAll('a'));
+  function spy() {
+    var y = window.scrollY + 120, best = null;
+    heads.forEach(function (h) { if (h.getBoundingClientRect().top + window.scrollY <= y) best = h; });
+    items.forEach(function (a) { a.classList.toggle('current', best && a.getAttribute('href') === '#' + best.id); });
+  }
+  window.addEventListener('scroll', spy, { passive: true });
+  window.addEventListener('hashchange', spy);
+  spy();
+})();
+</script>
+<footer class="site-foot">
+  <div class="site-foot__inner">
+    <div class="foot-grid">
+      <div class="foot-about">
+        <h4 class="anchored">Qué es esto</h4>
+        <p>Los guiones de las prácticas de laboratorio que la UNED realiza en la Facultad de Ciencia y Tecnología de la UPV/EHU (Leioa), para Bases Físicas del Medio Ambiente, Física I y II, Mecánica y Técnicas Experimentales I.</p>
+        <div class="cite-block">Josu M. Igartua · Departamento de Física, Facultad de Ciencia y Tecnología, UPV/EHU<br>josu.igartua@ehu.eus · +34 94 601 5335</div>
+      </div>
+      <div><h4 class="anchored">Este sitio</h4><ul>
+        <li><a href="../../../index.html">Inicio</a></li><li><a href="../../../practicas/index.html">Prácticas</a></li><li><a href="../../../asignaturas/index.html">Asignaturas</a></li><li><a href="../../../recursos/index.html">Recursos</a></li><li><a href="../../../informe/index.html">Informe</a></li><li><a href="../../../manual/index.html">Manual TE I</a></li><li><a href="../../../contacto/index.html">Contacto</a></li>
+      </ul></div>
+      <div><h4 class="anchored">Instituciones</h4><ul>
+        <li><a href="https://www.uned.es">UNED</a></li>
+        <li><a href="https://www.ehu.eus">UPV/EHU</a></li></ul></div>
+      <div><h4 class="anchored">Dónde</h4><ul>
+        <li>Barrio Sarriena s/n, 48940 Leioa (Bizkaia)</li>
+        <li>Laboratorios 0.16 y 0.21</li></ul></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Josu M. Igartua</span>
+      <span>curso 2025–2026</span>
+    </div>
+  </div>
+</footer>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+    tabsets.forEach(function(tabset) {
+      const tabby = new Tabby('#' + tabset.id);
+    });
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+
+
+
+
+<script src="../../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

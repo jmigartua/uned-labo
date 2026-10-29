@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Narongsak Khongthiamsri">
+<meta name="author" content="Chokchai Puttharugsa">
+<meta name="dcterms.date" content="2024-05-01">
+<meta name="keywords" content="proximity stopwatch, smartphone sensors, linear motion">
+<meta name="description" content="Alternative method for measuring velocity and acceleration using the proximity sensor of a smartphone and the Phyphox app. Reproduced as a Quarto document for pedagogical use.">
+
+<title>Measuring velocity and acceleration of a moving object in linear motion using proximity sensor of smartphone · UNED Labo – UNED Labo</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<link href="../../../assets/favicon.svg" rel="icon" type="image/svg+xml">
+<script src="../../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-html-afe927e19676d0e50b1726048be49fb1.min.css" rel="stylesheet" append-hash="true" data-mode="light">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<style>html{ scroll-behavior: smooth; }</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&amp;family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<!-- KaTeX auto-render: publication titles carry TeX inside generated HTML that
+     Quarto's own math pipeline never sees (same approach as thermomat). -->
+<script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+/* The header ribbon is sticky; the side columns and anchor targets need its height. */
+(function () {
+  function headH() {
+    var t = document.querySelector(".topline"), h = document.querySelector(".site-head");
+    var px = (t ? t.offsetHeight : 0) + (h ? h.offsetHeight : 0);
+    if (px) document.documentElement.style.setProperty("--head-h", px + "px");
+  }
+  document.addEventListener("DOMContentLoaded", headH);
+  window.addEventListener("load", headH);
+  window.addEventListener("resize", headH);
+})();
+document.addEventListener("DOMContentLoaded", function () {
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }, { left: "\\(", right: "\\)", display: false }],
+      throwOnError: false
+    });
+  }
+  /* Quarto's KaTeX pipeline writes <span class="math inline">TeX</span> without delimiters and renders
+     them in a loop that reads firstChild.data; that loop dies at the first span the auto-render above
+     has already turned into KaTeX markup, leaving every later formula raw. Render the rest here. */
+  if (window.katex) {
+    document.querySelectorAll(".math").forEach(function (el) {
+      if (!el.querySelector(".katex")) {
+        var t = el.textContent.replace(/^\s*\\[\(\[]/, "").replace(/\\[\)\]]\s*$/, "");
+        try { katex.render(t, el, { displayMode: el.classList.contains("display"), throwOnError: false }); } catch (e) {}
+      }
+      /* Quarto's loop would still visit this span and wipe it (firstChild is now an element, not text):
+         take it out of its sight. No stylesheet of the site depends on the class; KaTeX's own output carries the layout. */
+      el.classList.remove("math"); el.classList.add("math-done");
+    });
+  }
+});
+</script>
+
+  <script defer="" src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../../assets/styles/theme.css">
+<link rel="stylesheet" href="../../../assets/styles/site.css">
+<link rel="stylesheet" href="../../../assets/styles/project.css">
+</head>
+
+<body>
+
+<div class="topline"></div>
+<header class="site-head">
+  <div class="site-head__inner">
+    <a href="../../../index.html" class="wordmark">UNED Labo <span class="accent">Leioa</span>
+      <span class="wordmark-sub">prácticas de laboratorio de la UNED en la Facultad de Ciencia y Tecnología (UPV/EHU) · curso 2025–2026</span>
+    </a>
+    <nav class="site-nav">
+      <a href="../../../index.html">Inicio</a>
+      <a href="../../../practicas/index.html">Prácticas</a>
+      <a href="../../../asignaturas/index.html">Asignaturas</a>
+      <a href="../../../recursos/index.html">Recursos</a>
+      <a href="../../../informe/index.html">Informe</a>
+      <a href="../../../manual/index.html">Manual TE I</a>
+      <a href="../../../contacto/index.html">Contacto</a>
+    </nav>
+  </div>
+</header>
+<!-- generated by tools/sibling.py public: the left navigation -->
+<div class="docs">
+<nav class="docs-nav" aria-label="Site sections">
+<button class="docs-fold" type="button" data-fold="nav" aria-label="Hide the navigation" title="Hide the navigation">‹</button>
+<details class="group" open=""><summary class="t">Inicio</summary><ul><li><a href="../../../index.html">Inicio</a></li></ul></details>
+<details class="group" open=""><summary class="t">Prácticas</summary><ul><li><a href="../../../practicas/index.html">Catálogo: las veinte prácticas</a></li><li><a href="../../../practicas/pendulo-fisico/index.html">P01 · Péndulo físico</a></li><li><a href="../../../practicas/ley-hooke/index.html">P02 · Movimiento armónico simple. Ley de Hooke</a></li><li><a href="../../../practicas/carril-aire/index.html">P03 · Medida de magnitudes dinámicas mediante un carril de aire</a></li><li><a href="../../../practicas/cc-resistencia-interna/index.html">P04 · Corriente continua I: resistencia interna de una fuente</a></li><li><a href="../../../practicas/cc-curva-lampara/index.html">P05 · Corriente continua II: curva característica de una lámpara</a></li><li><a href="../../../practicas/descarga-condensador/index.html">P06 · Descarga de un condensador</a></li><li><a href="../../../practicas/ondas-estacionarias/index.html">P07 · Ondas estacionarias en una cuerda con extremos fijos</a></li><li><a href="../../../practicas/vaporizacion-agua/index.html">P08 · Calor de vaporización del agua</a></li><li><a href="../../../practicas/velocidad-sonido/index.html">P09 · Medida de la velocidad del sonido: tubo de resonancia</a></li><li><a href="../../../practicas/inercia-disco/index.html">P10 · Momento de inercia de un disco</a></li><li><a href="../../../practicas/catenaria/index.html">P11 · Equilibrio de un hilo bajo la acción de la gravedad: la catenaria</a></li><li><a href="../../../practicas/rozamiento-correas/index.html">P12 · Coeficiente de rozamiento entre correas y poleas</a></li><li><a href="../../../practicas/giroscopo/index.html">P13 · Giróscopo</a></li><li><a href="../../../practicas/cantidad-movimiento/index.html">P14 · Conservación de la cantidad de movimiento</a></li><li><a href="../../../practicas/momento-cinetico/index.html">P15 · Conservación del momento cinético</a></li><li><a href="../../../practicas/pendulo-circular/index.html">P16 · Péndulo circular (cónico)</a></li><li><a href="../../../practicas/momentos-inercia/index.html">P17 · Momentos de inercia de sólidos</a></li><li><a href="../../../practicas/maquina-atwood/index.html">P18 · Máquina de Atwood</a></li><li><a href="../../../practicas/vibraciones-1gdl/index.html">P19 · Vibraciones libres con un grado de libertad</a></li><li><a href="../../../practicas/vibraciones-2gdl/index.html">P20 · Vibraciones libres con dos grados de libertad</a></li></ul></details>
+<details class="group" open=""><summary class="t">Asignaturas</summary><ul><li><a href="../../../asignaturas/index.html">Las cuatro asignaturas</a></li><li><a href="../../../asignaturas/bfma/index.html">Bases Físicas del Medio Ambiente</a></li><li><a href="../../../asignaturas/fisica/index.html">Física I y II</a></li><li><a href="../../../asignaturas/mecanica/index.html">Mecánica</a></li><li><a href="../../../asignaturas/tecnicas-experimentales/index.html">Técnicas Experimentales I</a></li></ul></details>
+<details class="group" open=""><summary class="t">Recursos</summary><ul><li><a href="../../../recursos/index.html">Recursos</a></li><li><a href="../../../recursos/sesion-0/index.html">Sesión 0</a></li><li><a href="../../../recursos/errores/index.html">Errores y regresiones</a></li><li><a href="../../../recursos/phyphox/index.html">Phyphox</a></li></ul></details>
+<details class="group" open=""><summary class="t">Informe</summary><ul><li><a href="../../../informe/index.html">El informe: qué contiene, cómo se evalúa</a></li><li><a href="../../../informe/modelos/index.html">Los ocho informes modelo</a></li><li><a href="../../../informe/rubrica/index.html">La rúbrica de TE I: 225 criterios</a></li><li><a href="../../../informe/rubrica-gum/index.html">La rúbrica GUM</a></li></ul></details>
+<details class="group" open=""><summary class="t">Manual TE I</summary><ul><li><a href="../../../manual/index.html">El manual, capítulo a capítulo</a></li><li><a href="../../../manual/01-representacion-magnitudes.html">Tema 1: Representación de magnitudes</a></li><li><a href="../../../manual/02-medidas-directas.html">Tema 2: Medidas directas</a></li><li><a href="../../../manual/03-medidas-indirectas.html">Tema 3: Medidas indirectas</a></li><li><a href="../../../manual/04-graficas-regresion.html">Tema 4: Gráficas y regresión lineal</a></li><li><a href="../../../manual/05-ejemplos-desarrollados.html">Tema 5: Ejemplos desarrollados</a></li><li><a href="../../../manual/06-instrucciones-laboratorio.html">Tema 6: Instrucciones para el laboratorio</a></li><li><a href="../../../manual/07-soluciones-ejercicios.html">Soluciones y apéndices</a></li></ul></details>
+<details class="group" open=""><summary class="t">Contacto</summary><ul><li><a href="../../../contacto/index.html">Contacto</a></li></ul></details>
+</nav>
+<div class="docs-main">
+
+<header id="title-block-header">
+<h1 class="title">Measuring velocity and acceleration of a moving object in linear motion using proximity sensor of smartphone</h1>
+<p class="subtitle"><em>Phys. Educ.</em> <strong>59</strong> 033002 (2024)</p>
+<p class="author">Narongsak Khongthiamsri</p>
+<p class="author">Chokchai Puttharugsa</p>
+
+<p class="date">2024-05-01</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+<p>This paper describes an alternative method for measuring the time or time interval of a moving object in linear motion using a smartphone’s proximity sensor. Two smartphones are stationary, placed on an inclined plane, and measure the time or time interval of a moving object (with attached cardboard) passing through the sensor using the Phyphox app. The obtained data are used to calculate both velocity and acceleration for the moving object. This experiment is easy to set up with readily available objects and prevents damage to the smartphones.</p>
+</div>
+</header>
+
+<nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction">1. Introduction</a></li>
+  <li><a href="#experiment" id="toc-experiment">2. Experiment</a></li>
+  <li><a href="#results-and-discussion" id="toc-results-and-discussion">3. Results and discussion</a></li>
+  <li><a href="#conclusions" id="toc-conclusions">4. Conclusions</a></li>
+  <li><a href="#data-availability-statement" id="toc-data-availability-statement">Data availability statement</a></li>
+  <li><a href="#about-the-authors" id="toc-about-the-authors">About the authors</a></li>
+  <li><a href="#references" id="toc-references">References</a></li>
+  </ul>
+</nav>
+<div>
+<blockquote>
+<p><strong>Nota editorial</strong></p>
+<p>Este documento es una reproducción en formato Quarto del artículo original publicado en <em>Physics Education</em> <span class="citation" data-cites="khongthiamsri2024">(Khongthiamsri &amp; Puttharugsa, 2024)</span>. Se incluye como material de referencia para el alumnado del Laboratorio de Mecánica de la UNED. El artículo original está disponible en <a href="https://doi.org/10.1088/1361-6552/ad2f62">doi:10.1088/1361-6552/ad2f62</a>.</p>
+<p><strong>Cita original:</strong> Khongthiamsri, N. and Puttharugsa, C. (2024). Measuring velocity and acceleration of a moving object in linear motion using proximity sensor of smartphone. <em>Phys. Educ.</em> <strong>59</strong>, 033002.</p>
+</blockquote>
+</div>
+<p><br></p>
+<h2 id="introduction" class="anchored">1. Introduction</h2>
+<p><br></p>
+<p>Traditionally, the measurement of the time interval of a moving object is performed using devices like photogates. Previous papers have proposed various methods to measure time intervals using smartphone sensors, such as moving objects passing through magnetic gates and LED gates <span class="citation" data-cites="nuryantini2018 namchanthra2021">(Namchanthra &amp; Puttharugsa, 2021; Nuryantini et al., 2018)</span>. However, these methods can potentially damage smartphones. The proximity sensor of a smartphone has also been employed in physics experiments to measure time intervals for moving objects in linear motion, pendulum motion, and circular motion <span class="citation" data-cites="kapucu2022 hidayat2023 kapucu2021">(Hidayat et al., 2023; Kapucu, 2022; Kapucu &amp; Simsek, 2021)</span>.</p>
+<p>In our previous work, we proposed an alternative method to measure time intervals in linear and circular motion using a smartphone’s magnetometer <span class="citation" data-cites="dumrongkitpakorn2023 puttharugsa2023">(Dumrongkitpakorn et al., 2023; Puttharugsa et al., 2023)</span>. This method required the smartphone to remain stationary on an inclined plane and measure the magnetic field of a moving object with attached magnets. However, this approach was less convenient as it required data processing to obtain the time interval from the peak position of the magnetic field.</p>
+<p>In this paper, we introduce the use of the proximity stopwatch in the Phyphox app to measure the time or time interval of a moving object on an inclined plane for calculating velocity and acceleration.</p>
+<p><br></p>
+<h2 id="experiment" class="anchored">2. Experiment</h2>
+<p><br></p>
+<p>The experiment setup, as depicted in <a href="#fig-setup" class="quarto-xref">Figure&nbsp;1</a>, is straightforward. It includes a moving object (a toy car), two smartphones (iPhone 8 Plus and iPhone 11), cardboard rectangles of <span class="math inline">10 \times 10</span> cm (<span class="math inline">\pm\,0{.}5</span> cm) and <span class="math inline">20 \times 10</span> cm (<span class="math inline">\pm\,0{.}5</span> cm), and an inclined plane. The toy car is affixed to the cardboard rectangles using double-sided tape. The smartphones, denoted as S1 and S2, are placed on the inclined plane at positions 10 cm and 70 cm apart from the toy car, respectively (measured from the proximity sensor of the smartphone).</p>
+<p>The Phyphox app’s proximity stopwatch is used to record the times of the cardboard passing through the proximity sensor of the smartphones. In the settings, parameters for the <em>trigger below</em> and <em>trigger above</em> are set to 0 and 5 cm, respectively. The Phyphox app has two operating modes: <strong>duration mode</strong> and <strong>parallel mode</strong>. In duration mode, the app measures the time taken for the cardboard rectangle to pass by the sensor. In parallel mode, the app measures the time between an initial triggering event and the leading edge of the cardboard rectangle reaching the sensor.</p>
+<p>Initially, a meter ruler is passed through both smartphones (S1 and S2) simultaneously to trigger the proximity stopwatch for recording times in parallel mode. The toy car is then released from the top of the inclined plane (10 cm apart from S1). The time duration (<span class="math inline">\Delta t = t_2 - t_1</span>) is recorded in the duration mode of the proximity stopwatch. It triggers on (<span class="math inline">t_1</span>) when the cardboard starts passing through the sensor and triggers off (<span class="math inline">t_2</span>) when the cardboard has passed the sensor. In this mode, each smartphone records the time when the edge of the cardboard passes through the sensor. Thus, the velocity of the toy car (<span class="math inline">v_n</span>) at the positions of the smartphones can be determined by the formula:</p>
+<p><span id="eq-velocity"><span class="math display">
+v_n = \frac{\Delta d}{\Delta t}
+\tag{1}</span></span></p>
+<p>where <span class="math inline">n = 1</span> and 2 represent the position of smartphone 1 (S1) and smartphone 2 (S2), respectively. <span class="math inline">\Delta d</span> is the distance of the cardboard, and <span class="math inline">\Delta t</span> is the time duration.</p>
+<p>The time interval (<span class="math inline">\Delta t_{\text{S2--S1}}</span>) of the toy car (at the position of the green cross on the cardboard, see <a href="#fig-setup" class="quarto-xref">Figure&nbsp;1</a>) moving from S1 to S2 positions is measured using both parallel and duration modes. This can be determined by the equation:</p>
+<p><span id="eq-time-interval"><span class="math display">
+\Delta t_{(\text{S2--S1})} = \left(t_{\text{S2}} + \frac{\Delta t_{\text{S2}}}{2}\right) - \left(t_{\text{S1}} + \frac{\Delta t_{\text{S1}}}{2}\right)
+\tag{2}</span></span></p>
+<p>where <span class="math inline">t_{\text{S1}}</span> and <span class="math inline">t_{\text{S2}}</span> are the time measurements in parallel mode when the car (edge of cardboard) passed smartphones S1 and S2 (sensor position), respectively, and <span class="math inline">\Delta t_{\text{S1}}</span> and <span class="math inline">\Delta t_{\text{S2}}</span> are the time measurements in duration mode, respectively.</p>
+<p>The average acceleration of the toy car (<span class="math inline">a</span>) can be calculated using the formula:</p>
+<p><span id="eq-acceleration"><span class="math display">
+a = \frac{v_2 - v_1}{\Delta t_{(\text{S2--S1})}} = \frac{v_2 - v_1}{\left(t_{\text{S2}} + \Delta t_{\text{S2}}/2\right) - \left(t_{\text{S1}} + \Delta t_{\text{S1}}/2\right)}
+\tag{3}</span></span></p>
+<p>where <span class="math inline">v_1</span> and <span class="math inline">v_2</span> are the velocities of the toy car at positions S1 and S2, respectively.</p>
+<p><br></p>
+<div id="fig-setup" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-setup-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="fig1_setup.png" class="img-fluid quarto-figure quarto-figure-center" style="width:85.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-setup-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Schematic of experimental setup. <strong>Top:</strong> Duration mode — the trigger activates on (<span class="math inline">t_1</span>) when the cardboard starts passing the proximity sensor and deactivates (<span class="math inline">t_2</span>) when the cardboard has passed. <strong>Bottom:</strong> The inclined plane with two smartphones (S1, S2) separated by <span class="math inline">\Delta L = 60</span> cm. The toy car with attached cardboard is released from rest (<span class="math inline">v = 0</span>) at the top and accelerates down the incline (angle <span class="math inline">5{.}0°</span>).
+</figcaption>
+</figure>
+</div>
+<p><br></p>
+<h2 id="results-and-discussion" class="anchored">3. Results and discussion</h2>
+<p><br></p>
+<p><a href="#fig-screenshots" class="quarto-xref">Figure&nbsp;2</a> shows screenshots of smartphones in the parallel and duration modes for the toy car moving through smartphones, and <a href="#tbl-data" class="quarto-xref">Table&nbsp;1</a> shows experimental data and some calculations.</p>
+<p>At the beginning of the experiment, smartphones (S1 and S2) were simultaneously triggered on-off using the meter ruler passing through the sensor quickly, yielding a duration time of about 0.12 s (trigger duration 0 in the duration mode, yellow rectangle in <a href="#fig-screenshots" class="quarto-xref">Figure&nbsp;2</a>). At this moment, the smartphones were ready to measure time in the parallel mode when the edge of the cardboard passed the sensor.</p>
+<p>The toy car was then released down along an inclined plane. The time duration of the moving car with 10 cm of cardboard passing smartphone 2 (S2) exceeded the limitation of the proximity sensor, which was 0.12 s.</p>
+<div>
+<blockquote>
+<p><strong>Limitation of the proximity sensor</strong></p>
+<p>The minimum detectable duration time of the proximity sensor is approximately <strong>0.12 s</strong>. This limitation can be checked by passing the cardboard over the sensor quickly. If the transit time is shorter than this threshold, the sensor cannot resolve it. This sets a maximum measurable velocity:</p>
+<p><span class="math display">
+v_{\max} = \frac{\Delta d}{\Delta t_{\min}} = \frac{\Delta d}{0{.}12\text{ s}}
+</span></p>
+<p>For <span class="math inline">\Delta d = 10</span> cm: <span class="math inline">v_{\max} \approx 83</span> cm s<span class="math inline">^{-1}</span>. For <span class="math inline">\Delta d = 20</span> cm: <span class="math inline">v_{\max} \approx 167</span> cm s<span class="math inline">^{-1}</span>.</p>
+</blockquote>
+</div>
+<p>Thus, the cardboard was changed to 20 cm and the time duration at S2 was about 0.23 s and 0.22 s. The velocity <span class="math inline">v_1</span> and <span class="math inline">v_2</span> were approximately 45 cm s<span class="math inline">^{-1}</span> and 88.9 cm s<span class="math inline">^{-1}</span>, respectively. The time interval (<span class="math inline">\Delta t_{(\text{S2--S1})}</span>) was about 0.94 s and 0.91 s, yielding values of average acceleration of 48.4 cm s<span class="math inline">^{-2}</span> and 45.9 cm s<span class="math inline">^{-2}</span>, respectively.</p>
+<p>Moreover, the average velocity was alternatively calculated from <span class="math inline">\Delta L / \Delta t_{(\text{S2--S1})}</span>, yielding 63.8 cm s<span class="math inline">^{-1}</span> and 66.3 cm s<span class="math inline">^{-1}</span>. These values are close to the calculation from <span class="math inline">(v_1 + v_2)/2</span>, which gave 66.2 cm s<span class="math inline">^{-1}</span> and 68.2 cm s<span class="math inline">^{-1}</span>. The error difference was about 6.4%.</p>
+<p>These results show that the proximity sensor with the Phyphox app can measure time at different smartphone positions to obtain velocity and acceleration of a moving object. However, the limitation of the proximity sensor (cannot measure duration time less than 0.12 s) must be taken into account. The maximum value of velocity was 100 cm s<span class="math inline">^{-1}</span> and 200 cm s<span class="math inline">^{-1}</span> for 10 cm and 20 cm of cardboard, respectively. Higher velocities can be measured by increasing the length of cardboard.</p>
+<p><br></p>
+<div id="fig-screenshots" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-screenshots-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="fig2_screenshots.png" class="img-fluid quarto-figure quarto-figure-center" style="width:90.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-screenshots-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Screenshots of smartphones in the parallel mode (left) and the duration mode (right) in the Phyphox app for the toy car with attached 10 cm of cardboard (top row) and 20 cm of cardboard (bottom row). The yellow rectangle highlights the 0.12 s trigger duration, which represents the limitation of the sensor.
+</figcaption>
+</figure>
+</div>
+<p><br></p>
+<div id="tbl-data" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-data-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Recorded data from proximity sensor and calculations. With 10 cm cardboard, the duration at S2 hit the sensor limitation (0.12 s), making velocity calculation at S2 impossible. With 20 cm cardboard, both velocities and acceleration could be determined. Time interval calculated via <a href="#eq-time-interval" class="quarto-xref">Equation&nbsp;2</a>.
+</figcaption>
+<div aria-describedby="tbl-data-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">\Delta d</span> (cm)</th>
+<th style="text-align: center;">No.</th>
+<th style="text-align: center;">Parallel <span class="math inline">t_{\text{S1}}</span> (s)</th>
+<th style="text-align: center;">Parallel <span class="math inline">t_{\text{S2}}</span> (s)</th>
+<th style="text-align: center;">Duration <span class="math inline">\Delta t_{\text{S1}}</span> (s)</th>
+<th style="text-align: center;">Duration <span class="math inline">\Delta t_{\text{S2}}</span> (s)</th>
+<th style="text-align: center;">Time interval (s)</th>
+<th style="text-align: center;"><span class="math inline">v_1</span> at S1 (cm s<span class="math inline">^{-1}</span>)</th>
+<th style="text-align: center;"><span class="math inline">v_2</span> at S2 (cm s<span class="math inline">^{-1}</span>)</th>
+<th style="text-align: center;">Acceleration (cm s<span class="math inline">^{-2}</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">10.0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">14.83</td>
+<td style="text-align: center;">15.84</td>
+<td style="text-align: center;">0.23</td>
+<td style="text-align: center;">0.12</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">43.5</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">10.0</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">25.84</td>
+<td style="text-align: center;">26.85</td>
+<td style="text-align: center;">0.22</td>
+<td style="text-align: center;">0.12</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">45.5</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">10.0</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">37.75</td>
+<td style="text-align: center;">38.76</td>
+<td style="text-align: center;">0.22</td>
+<td style="text-align: center;">0.12</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">45.5</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">20.0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">16.81</td>
+<td style="text-align: center;">17.86</td>
+<td style="text-align: center;">0.44</td>
+<td style="text-align: center;">0.22</td>
+<td style="text-align: center;">0.94</td>
+<td style="text-align: center;">45.5</td>
+<td style="text-align: center;">90.9</td>
+<td style="text-align: center;">48.3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">20.0</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">30.00</td>
+<td style="text-align: center;">31.01</td>
+<td style="text-align: center;">0.44</td>
+<td style="text-align: center;">0.23</td>
+<td style="text-align: center;">0.91</td>
+<td style="text-align: center;">45.5</td>
+<td style="text-align: center;">87.0</td>
+<td style="text-align: center;">45.6</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p><br></p>
+<div>
+<blockquote>
+<p><strong>Verification of average velocity</strong></p>
+<p>The average velocity can be cross-checked by two independent methods:</p>
+<ol type="1">
+<li><strong>From positions:</strong> <span class="math inline">\bar{v} = \Delta L / \Delta t_{(\text{S2--S1})}</span>, where <span class="math inline">\Delta L = 60</span> cm is the distance between S1 and S2.</li>
+<li><strong>From velocities:</strong> <span class="math inline">\bar{v} = (v_1 + v_2) / 2</span> (valid for constant acceleration).</li>
+</ol>
+<p>For measurement No.&nbsp;1 (<span class="math inline">\Delta d = 20</span> cm):</p>
+<ul>
+<li>Method 1: <span class="math inline">\bar{v} = 60 / 0{.}94 = 63{.}8</span> cm s<span class="math inline">^{-1}</span></li>
+<li>Method 2: <span class="math inline">\bar{v} = (45{.}5 + 90{.}9) / 2 = 68{.}2</span> cm s<span class="math inline">^{-1}</span></li>
+<li>Discrepancy: <span class="math inline">\sim 6{.}4\%</span></li>
+</ul>
+<p>This level of agreement confirms the validity of the method within the sensor’s resolution limitations.</p>
+</blockquote>
+</div>
+<p><br></p>
+<h2 id="conclusions" class="anchored">4. Conclusions</h2>
+<p><br></p>
+<p>We have demonstrated an alternative method for measuring the time or time interval of a moving object on an inclined plane using the proximity sensor of smartphones. The experimental data can be used to calculate velocity and acceleration.</p>
+<p>Students should test the limitations of time duration to determine the maximum velocity of the moving object and to prepare the appropriate length of cardboard. Additionally, using more smartphones will provide additional data for measuring the time or time interval at different positions along an inclined plane.</p>
+<p><br></p>
+<h2 id="data-availability-statement" class="anchored">Data availability statement</h2>
+<p>All data that support the findings of this study are included within the article.</p>
+<p><br></p>
+<h2 id="about-the-authors" class="anchored">About the authors</h2>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:15%;">
+<p><img src="author_khongthiamsri.png" class="img-fluid" style="width:100.0%"></p>
+</div><div class="column" style="width:5%;">
+
+</div><div class="column" style="width:80%;">
+<p><strong>Narongsak Khongthiamsri</strong> graduated with a bachelor’s degree in Physics from Srinakharinwirot University in 2019. Currently, he is a Master’s student in physics education at Srinakharinwirot University. His research interests involve the use of smartphone applications with basic physics experiments.</p>
+</div>
+</div>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:15%;">
+<p><img src="author_puttharugsa.png" class="img-fluid" style="width:100.0%"></p>
+</div><div class="column" style="width:5%;">
+
+</div><div class="column" style="width:80%;">
+<p><strong>Chokchai Puttharugsa</strong> gained a PhD in Physics at Mahidol University (Bangkok, Thailand). He is a lecturer in physics at Srinakharinwirot University (Bangkok, Thailand). His research fields involve nanomaterial and nanotechnology. He is also interested in physics education research for applying smartphones in physics laboratory.</p>
+</div>
+</div>
+<p><br></p>
+<hr>
+<p><em>Received 24 October 2023, in final form 21 February 2024. Accepted for publication 1 March 2024.</em></p>
+<p><em><a href="https://doi.org/10.1088/1361-6552/ad2f62">https://doi.org/10.1088/1361-6552/ad2f62</a></em></p>
+<p><br></p>
+<h2 id="references" class="anchored">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-dumrongkitpakorn2023" class="csl-entry" role="listitem">
+Dumrongkitpakorn, P., Khemmani, S., Plaipichit, S., Wicharn, S., &amp; Puttharugsa, C. (2023). Measuring the average velocity and acceleration of a moving object on an inclined plane using a magnetic sensor on a smartphone. <em>Physics Education</em>, <em>58</em>, 013002.
+</div>
+<div id="ref-hidayat2023" class="csl-entry" role="listitem">
+Hidayat, R., Akmam, A., Susanti, E., &amp; Febriani, A. (2023). A more convenient method to predict gravitational acceleration (<span class="math inline">g</span>) using smartphone’s proximity sensor in a simple pendulum experiment. <em>Physics Education</em>, <em>58</em>, 045005.
+</div>
+<div id="ref-kapucu2022" class="csl-entry" role="listitem">
+Kapucu, S. (2022). Using different smartphone sensors to find the speed of a toy car. <em>The Physics Teacher</em>, <em>60</em>, 430–432.
+</div>
+<div id="ref-kapucu2021" class="csl-entry" role="listitem">
+Kapucu, S., &amp; Simsek, M. (2021). Determination of the angular velocity of a simple propeller with a smartphone proximity sensor. <em>Physics Education</em>, <em>56</em>, 033003.
+</div>
+<div id="ref-khongthiamsri2024" class="csl-entry" role="listitem">
+Khongthiamsri, N., &amp; Puttharugsa, C. (2024). Measuring velocity and acceleration of a moving object in linear motion using proximity sensor of smartphone. <em>Physics Education</em>, <em>59</em>(3), 033002. <a href="https://doi.org/10.1088/1361-6552/ad2f62">https://doi.org/10.1088/1361-6552/ad2f62</a>
+</div>
+<div id="ref-namchanthra2021" class="csl-entry" role="listitem">
+Namchanthra, W., &amp; Puttharugsa, C. (2021). LED gates for measuring kinematic parameters using the ambient light sensor of a smartphone. <em>The Physics Teacher</em>, <em>59</em>, 298–299.
+</div>
+<div id="ref-nuryantini2018" class="csl-entry" role="listitem">
+Nuryantini, A. Y., Sawitri, A., &amp; Nuryadin, B. W. (2018). Constant speed motion analysis using a smartphone magnetometer. <em>Physics Education</em>, <em>53</em>, 065021.
+</div>
+<div id="ref-puttharugsa2023" class="csl-entry" role="listitem">
+Puttharugsa, C., Khemmani, S., &amp; Pimanpang, S. (2023). Measuring the kinematic parameters of a rotating object in circular motion using the magnetometer of a smartphone. <em>Physics Education</em>, <em>58</em>, 013001.
+</div>
+</div>
+
+
+<!-- Closes the reading column opened by _gen/docs-nav.html, adds the right
+     "On this page" list, and wires: current-page marking in the left nav,
+     breadcrumbs, the page TOC (from h2/h3 in the reading column) and a
+     scroll-spy. Pure DOM, no library. -->
+  </div>
+  <aside class="docs-toc"><button class="docs-fold" type="button" data-fold="toc" aria-label="Hide the page outline" title="Hide the page outline">›</button><div class="t">On this page</div><ol></ol></aside>
+</div>
+<script>
+(function () {
+  /* 0. The two side panels fold on their chevrons; the choice is remembered in this browser. */
+  var docs = document.querySelector('.docs');
+  if (docs) {
+    var store = {};
+    try { store = JSON.parse(localStorage.getItem('docs-fold') || '{}'); } catch (e) { store = {}; }
+    function apply() {
+      docs.classList.toggle('nav-folded', !!store.nav);
+      docs.classList.toggle('toc-folded', !!store.toc);
+      document.querySelectorAll('.docs-fold').forEach(function (b) {
+        var which = b.getAttribute('data-fold'), folded = !!store[which];
+        b.innerHTML = (which === 'nav') === folded ? '&rsaquo;' : '&lsaquo;';
+        var what = which === 'nav' ? 'the navigation' : 'the page outline';
+        b.title = (folded ? 'Show ' : 'Hide ') + what; b.setAttribute('aria-label', b.title);
+      });
+    }
+    document.querySelectorAll('.docs-fold').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var which = b.getAttribute('data-fold'); store[which] = !store[which];
+        try { localStorage.setItem('docs-fold', JSON.stringify(store)); } catch (e) {}
+        apply();
+      });
+    });
+    apply();
+  }
+  /* 0b. The header ribbon: mark the entry whose section holds this page. Quarto rewrites the hrefs to
+     relative paths, so folders are read from the resolved URLs; the Overview link gives the site root. */
+  (function () {
+    var links = Array.prototype.slice.call(document.querySelectorAll('.site-nav a'));
+    if (!links.length) return;
+    /* a served URL may end in '/' (GitHub Pages: …/about/); read it as …/about/index.html */
+    function folder(path) { if (/\/$/.test(path)) path += 'index.html'; var s = path.split('/').filter(Boolean); return s.length > 1 ? s[s.length - 2] : ''; }
+    var wm = document.querySelector('a.wordmark');            // the wordmark links to the site root
+    var root = folder((wm || links[0]).pathname);
+    var map = { rietveld: 'cases', drude: 'cases', dielectric: 'cases' };
+    function key(path) { var f = folder(path); if (f === root) return 'overview'; return map[f] || f; }
+    var here = key(location.pathname);
+    links.forEach(function (a) { a.classList.toggle('current', key(a.pathname) === here); });
+  })();
+
+  var main = document.querySelector('.docs-main');
+  var nav = document.querySelector('.docs-nav');
+  var toc = document.querySelector('.docs-toc ol');
+  if (!main || !nav || !toc) return;
+
+  /* 1. Left nav: mark the current page (and section, if the hash matches). */
+  var here = location.pathname.replace(/\/index\.html$/, '/');
+  var links = Array.prototype.slice.call(nav.querySelectorAll('a'));
+  var pageLink = null, hashLink = null;
+  links.forEach(function (a) {
+    var p = a.pathname.replace(/\/index\.html$/, '/');
+    if (p !== here) return;
+    if (!a.hash && !pageLink) pageLink = a;
+    if (a.hash && a.hash === location.hash) hashLink = a;
+  });
+  var cur = hashLink || pageLink;
+  if (cur) {
+    cur.classList.add('current');
+    var det = cur.closest('details.group');
+    if (det) { det.open = true; det.classList.add('has-current'); }
+    /* Breadcrumbs: group title › page (› section). */
+    var crumbs = document.createElement('div');
+    crumbs.className = 'docs-crumbs';
+    var g = det ? det.querySelector('summary.t') : null;
+    var parts = [];
+    function push(t) { if (t && parts[parts.length - 1] !== t) parts.push(t); }
+    if (g) push(g.textContent.trim());
+    if (pageLink && pageLink !== cur) push(pageLink.textContent.trim());
+    push(cur.textContent.trim());
+    crumbs.innerHTML = parts.map(function (t, i) {
+      return (i ? '<span class="sep">›</span>' : '') + '<span>' + t.replace(/</g, '&lt;') + '</span>';
+    }).join('');
+    main.insertBefore(crumbs, main.firstChild);
+  }
+
+  /* 2. Right "On this page": h2 and h3 of the reading column. */
+  var used = {};
+  var heads = Array.prototype.slice.call(main.querySelectorAll('h2, h3')).filter(function (h) {
+    if (h.closest('.site-foot, .featured-band, .msg-grid, [data-toc="no"]')) return false;
+    if (h.classList.contains('unnumbered') || h.id === 'contenido') return false;
+    return h.textContent.trim().length > 0;
+  });
+  heads.forEach(function (h) {
+    if (!h.id) {
+      var s = h.textContent.trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+        .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60) || 'sec';
+      while (used[s] || document.getElementById(s)) s += '-';
+      h.id = s;
+    }
+    used[h.id] = true;
+    var li = document.createElement('li');
+    if (h.tagName === 'H3') li.className = 'l3';
+    var a = document.createElement('a');
+    a.href = '#' + h.id;
+    /* This runs before KaTeX has rendered the headings, so a heading with mathematics still holds TeX
+       source: copy its markup, including the math spans, and let the page's KaTeX pass render the copy. */
+    var copy = h.cloneNode(true);
+    copy.querySelectorAll('.katex-mathml, annotation, .anchorjs-link').forEach(function (n) { n.remove(); });
+    var label = copy.textContent.trim().replace(/\s+/g, ' ');
+    if (copy.querySelector('.math, .math-done, .katex')) a.innerHTML = copy.innerHTML.trim();
+    else a.textContent = label.length > 72 ? label.slice(0, 70).replace(/[\s,;:]+\S*$/, '') + '…' : label;
+    a.title = label;
+    li.appendChild(a);
+    toc.appendChild(li);
+  });
+  if (!heads.length) { document.querySelector('.docs-toc').hidden = true; return; }
+
+  /* 3. Scroll-spy. */
+  var items = Array.prototype.slice.call(toc.querySelectorAll('a'));
+  function spy() {
+    var y = window.scrollY + 120, best = null;
+    heads.forEach(function (h) { if (h.getBoundingClientRect().top + window.scrollY <= y) best = h; });
+    items.forEach(function (a) { a.classList.toggle('current', best && a.getAttribute('href') === '#' + best.id); });
+  }
+  window.addEventListener('scroll', spy, { passive: true });
+  window.addEventListener('hashchange', spy);
+  spy();
+})();
+</script>
+<footer class="site-foot">
+  <div class="site-foot__inner">
+    <div class="foot-grid">
+      <div class="foot-about">
+        <h4 class="anchored">Qué es esto</h4>
+        <p>Los guiones de las prácticas de laboratorio que la UNED realiza en la Facultad de Ciencia y Tecnología de la UPV/EHU (Leioa), para Bases Físicas del Medio Ambiente, Física I y II, Mecánica y Técnicas Experimentales I.</p>
+        <div class="cite-block">Josu M. Igartua · Departamento de Física, Facultad de Ciencia y Tecnología, UPV/EHU<br>josu.igartua@ehu.eus · +34 94 601 5335</div>
+      </div>
+      <div><h4 class="anchored">Este sitio</h4><ul>
+        <li><a href="../../../index.html">Inicio</a></li><li><a href="../../../practicas/index.html">Prácticas</a></li><li><a href="../../../asignaturas/index.html">Asignaturas</a></li><li><a href="../../../recursos/index.html">Recursos</a></li><li><a href="../../../informe/index.html">Informe</a></li><li><a href="../../../manual/index.html">Manual TE I</a></li><li><a href="../../../contacto/index.html">Contacto</a></li>
+      </ul></div>
+      <div><h4 class="anchored">Instituciones</h4><ul>
+        <li><a href="https://www.uned.es">UNED</a></li>
+        <li><a href="https://www.ehu.eus">UPV/EHU</a></li></ul></div>
+      <div><h4 class="anchored">Dónde</h4><ul>
+        <li>Barrio Sarriena s/n, 48940 Leioa (Bizkaia)</li>
+        <li>Laboratorios 0.16 y 0.21</li></ul></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Josu M. Igartua</span>
+      <span>curso 2025–2026</span>
+    </div>
+  </div>
+</footer>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+    tabsets.forEach(function(tabset) {
+      const tabby = new Tabby('#' + tabset.id);
+    });
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+
+
+
+
+<script src="../../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

@@ -1,0 +1,2317 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="María López Fernández">
+<meta name="dcterms.date" content="2026-03-07">
+<meta name="description" content="Estudio experimental de la descarga de un condensador a través de una resistencia, determinación de la constante de tiempo RC y estimación de la resistencia interna del voltímetro">
+
+<title>Informe Modelo: Descarga de un Condensador · UNED Labo – UNED Labo</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<link href="../../../assets/favicon.svg" rel="icon" type="image/svg+xml">
+<script src="../../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-html-afe927e19676d0e50b1726048be49fb1.min.css" rel="stylesheet" append-hash="true" data-mode="light">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<style>html{ scroll-behavior: smooth; }</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&amp;family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<!-- KaTeX auto-render: publication titles carry TeX inside generated HTML that
+     Quarto's own math pipeline never sees (same approach as thermomat). -->
+<script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+/* The header ribbon is sticky; the side columns and anchor targets need its height. */
+(function () {
+  function headH() {
+    var t = document.querySelector(".topline"), h = document.querySelector(".site-head");
+    var px = (t ? t.offsetHeight : 0) + (h ? h.offsetHeight : 0);
+    if (px) document.documentElement.style.setProperty("--head-h", px + "px");
+  }
+  document.addEventListener("DOMContentLoaded", headH);
+  window.addEventListener("load", headH);
+  window.addEventListener("resize", headH);
+})();
+document.addEventListener("DOMContentLoaded", function () {
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }, { left: "\\(", right: "\\)", display: false }],
+      throwOnError: false
+    });
+  }
+  /* Quarto's KaTeX pipeline writes <span class="math inline">TeX</span> without delimiters and renders
+     them in a loop that reads firstChild.data; that loop dies at the first span the auto-render above
+     has already turned into KaTeX markup, leaving every later formula raw. Render the rest here. */
+  if (window.katex) {
+    document.querySelectorAll(".math").forEach(function (el) {
+      if (!el.querySelector(".katex")) {
+        var t = el.textContent.replace(/^\s*\\[\(\[]/, "").replace(/\\[\)\]]\s*$/, "");
+        try { katex.render(t, el, { displayMode: el.classList.contains("display"), throwOnError: false }); } catch (e) {}
+      }
+      /* Quarto's loop would still visit this span and wipe it (firstChild is now an element, not text):
+         take it out of its sight. No stylesheet of the site depends on the class; KaTeX's own output carries the layout. */
+      el.classList.remove("math"); el.classList.add("math-done");
+    });
+  }
+});
+</script>
+
+  <script defer="" src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../../assets/styles/theme.css">
+<link rel="stylesheet" href="../../../assets/styles/site.css">
+<link rel="stylesheet" href="../../../assets/styles/project.css">
+</head>
+
+<body>
+
+<div class="topline"></div>
+<header class="site-head">
+  <div class="site-head__inner">
+    <a href="../../../index.html" class="wordmark">UNED Labo <span class="accent">Leioa</span>
+      <span class="wordmark-sub">prácticas de laboratorio de la UNED en la Facultad de Ciencia y Tecnología (UPV/EHU) · curso 2025–2026</span>
+    </a>
+    <nav class="site-nav">
+      <a href="../../../index.html">Inicio</a>
+      <a href="../../../practicas/index.html">Prácticas</a>
+      <a href="../../../asignaturas/index.html">Asignaturas</a>
+      <a href="../../../recursos/index.html">Recursos</a>
+      <a href="../../../informe/index.html">Informe</a>
+      <a href="../../../manual/index.html">Manual TE I</a>
+      <a href="../../../contacto/index.html">Contacto</a>
+    </nav>
+  </div>
+</header>
+<!-- generated by tools/sibling.py public: the left navigation -->
+<div class="docs">
+<nav class="docs-nav" aria-label="Site sections">
+<button class="docs-fold" type="button" data-fold="nav" aria-label="Hide the navigation" title="Hide the navigation">‹</button>
+<details class="group" open=""><summary class="t">Inicio</summary><ul><li><a href="../../../index.html">Inicio</a></li></ul></details>
+<details class="group" open=""><summary class="t">Prácticas</summary><ul><li><a href="../../../practicas/index.html">Catálogo: las veinte prácticas</a></li><li><a href="../../../practicas/pendulo-fisico/index.html">P01 · Péndulo físico</a></li><li><a href="../../../practicas/ley-hooke/index.html">P02 · Movimiento armónico simple. Ley de Hooke</a></li><li><a href="../../../practicas/carril-aire/index.html">P03 · Medida de magnitudes dinámicas mediante un carril de aire</a></li><li><a href="../../../practicas/cc-resistencia-interna/index.html">P04 · Corriente continua I: resistencia interna de una fuente</a></li><li><a href="../../../practicas/cc-curva-lampara/index.html">P05 · Corriente continua II: curva característica de una lámpara</a></li><li><a href="../../../practicas/descarga-condensador/index.html">P06 · Descarga de un condensador</a></li><li><a href="../../../practicas/ondas-estacionarias/index.html">P07 · Ondas estacionarias en una cuerda con extremos fijos</a></li><li><a href="../../../practicas/vaporizacion-agua/index.html">P08 · Calor de vaporización del agua</a></li><li><a href="../../../practicas/velocidad-sonido/index.html">P09 · Medida de la velocidad del sonido: tubo de resonancia</a></li><li><a href="../../../practicas/inercia-disco/index.html">P10 · Momento de inercia de un disco</a></li><li><a href="../../../practicas/catenaria/index.html">P11 · Equilibrio de un hilo bajo la acción de la gravedad: la catenaria</a></li><li><a href="../../../practicas/rozamiento-correas/index.html">P12 · Coeficiente de rozamiento entre correas y poleas</a></li><li><a href="../../../practicas/giroscopo/index.html">P13 · Giróscopo</a></li><li><a href="../../../practicas/cantidad-movimiento/index.html">P14 · Conservación de la cantidad de movimiento</a></li><li><a href="../../../practicas/momento-cinetico/index.html">P15 · Conservación del momento cinético</a></li><li><a href="../../../practicas/pendulo-circular/index.html">P16 · Péndulo circular (cónico)</a></li><li><a href="../../../practicas/momentos-inercia/index.html">P17 · Momentos de inercia de sólidos</a></li><li><a href="../../../practicas/maquina-atwood/index.html">P18 · Máquina de Atwood</a></li><li><a href="../../../practicas/vibraciones-1gdl/index.html">P19 · Vibraciones libres con un grado de libertad</a></li><li><a href="../../../practicas/vibraciones-2gdl/index.html">P20 · Vibraciones libres con dos grados de libertad</a></li></ul></details>
+<details class="group" open=""><summary class="t">Asignaturas</summary><ul><li><a href="../../../asignaturas/index.html">Las cuatro asignaturas</a></li><li><a href="../../../asignaturas/bfma/index.html">Bases Físicas del Medio Ambiente</a></li><li><a href="../../../asignaturas/fisica/index.html">Física I y II</a></li><li><a href="../../../asignaturas/mecanica/index.html">Mecánica</a></li><li><a href="../../../asignaturas/tecnicas-experimentales/index.html">Técnicas Experimentales I</a></li></ul></details>
+<details class="group" open=""><summary class="t">Recursos</summary><ul><li><a href="../../../recursos/index.html">Recursos</a></li><li><a href="../../../recursos/sesion-0/index.html">Sesión 0</a></li><li><a href="../../../recursos/errores/index.html">Errores y regresiones</a></li><li><a href="../../../recursos/phyphox/index.html">Phyphox</a></li></ul></details>
+<details class="group" open=""><summary class="t">Informe</summary><ul><li><a href="../../../informe/index.html">El informe: qué contiene, cómo se evalúa</a></li><li><a href="../../../informe/modelos/index.html">Los ocho informes modelo</a></li><li><a href="../../../informe/rubrica/index.html">La rúbrica de TE I: 225 criterios</a></li><li><a href="../../../informe/rubrica-gum/index.html">La rúbrica GUM</a></li></ul></details>
+<details class="group" open=""><summary class="t">Manual TE I</summary><ul><li><a href="../../../manual/index.html">El manual, capítulo a capítulo</a></li><li><a href="../../../manual/01-representacion-magnitudes.html">Tema 1: Representación de magnitudes</a></li><li><a href="../../../manual/02-medidas-directas.html">Tema 2: Medidas directas</a></li><li><a href="../../../manual/03-medidas-indirectas.html">Tema 3: Medidas indirectas</a></li><li><a href="../../../manual/04-graficas-regresion.html">Tema 4: Gráficas y regresión lineal</a></li><li><a href="../../../manual/05-ejemplos-desarrollados.html">Tema 5: Ejemplos desarrollados</a></li><li><a href="../../../manual/06-instrucciones-laboratorio.html">Tema 6: Instrucciones para el laboratorio</a></li><li><a href="../../../manual/07-soluciones-ejercicios.html">Soluciones y apéndices</a></li></ul></details>
+<details class="group" open=""><summary class="t">Contacto</summary><ul><li><a href="../../../contacto/index.html">Contacto</a></li></ul></details>
+</nav>
+<div class="docs-main">
+
+<header id="title-block-header">
+<h1 class="title">Informe Modelo: Descarga de un Condensador</h1>
+<p class="subtitle">Práctica 6 — Técnicas Experimentales I</p>
+<p class="author">María López Fernández</p>
+
+<p class="date">2026-03-07</p>
+<div class="abstract">
+<div class="abstract-title">Resumen</div>
+<p>Se estudia experimentalmente el proceso de descarga de un condensador a través de una resistencia, determinando la constante de tiempo <span class="math inline">\tau = RC</span> del circuito mediante dos métodos independientes: la medida directa del tiempo de semidescarga <span class="math inline">t_{1/2}</span> y el ajuste por mínimos cuadrados de la representación linealizada <span class="math inline">\ln V</span> frente a <span class="math inline">t</span>. Se obtiene <span class="math inline">RC_{t_{1/2}} = (20.70 \pm 0.16)</span> s y <span class="math inline">RC_{\text{reg}} = (20.35 \pm 0.15)</span> s, valores coherentes a nivel del 2%. Adicionalmente, se estudia la descarga sin resistencia externa, obteniendo <span class="math inline">R_V C = (26.81 \pm 0.08)</span> s, lo que permite estimar la resistencia interna del voltímetro.</p>
+</div>
+</header>
+
+<nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#informe-de-la-práctica-6-descarga-de-un-condensador" id="toc-informe-de-la-práctica-6-descarga-de-un-condensador">Informe de la Práctica 6: Descarga de un Condensador</a>
+  <ul>
+  <li><a href="#portada" id="toc-portada">1. Portada</a></li>
+  <li><a href="#introducción" id="toc-introducción">2. Introducción</a></li>
+  <li><a href="#fundamento-teórico" id="toc-fundamento-teórico">3. Fundamento Teórico</a>
+  <ul>
+  <li><a href="#ecuación-de-descarga" id="toc-ecuación-de-descarga">3.1. Ecuación de descarga</a></li>
+  <li><a href="#tiempo-de-semidescarga" id="toc-tiempo-de-semidescarga">3.2. Tiempo de semidescarga</a></li>
+  <li><a href="#linealización" id="toc-linealización">3.3. Linealización</a></li>
+  <li><a href="#propagación-de-errores" id="toc-propagación-de-errores">3.4. Propagación de errores</a></li>
+  <li><a href="#descarga-sin-resistencia-externa" id="toc-descarga-sin-resistencia-externa">3.5. Descarga sin resistencia externa</a></li>
+  </ul></li>
+  <li><a href="#dispositivo-experimental" id="toc-dispositivo-experimental">4. Dispositivo Experimental</a>
+  <ul>
+  <li><a href="#descripción-del-montaje" id="toc-descripción-del-montaje">4.1. Descripción del montaje</a></li>
+  <li><a href="#instrumentos-de-medida" id="toc-instrumentos-de-medida">4.2. Instrumentos de medida</a></li>
+  <li><a href="#esquema-del-montaje" id="toc-esquema-del-montaje">4.3. Esquema del montaje</a></li>
+  </ul></li>
+  <li><a href="#procedimiento-y-resultados" id="toc-procedimiento-y-resultados">5. Procedimiento y Resultados</a>
+  <ul>
+  <li><a href="#parte-1-medida-del-tiempo-de-semidescarga-t_12-con-r" id="toc-parte-1-medida-del-tiempo-de-semidescarga-t_12-con-r">5.1. Parte 1: Medida del tiempo de semidescarga <span class="math inline">t_{1/2}</span> (con <span class="math inline">R</span>)</a></li>
+  <li><a href="#parte-2-curva-de-descarga-vt-con-r" id="toc-parte-2-curva-de-descarga-vt-con-r">5.2. Parte 2: Curva de descarga <span class="math inline">V(t)</span> con <span class="math inline">R</span></a></li>
+  <li><a href="#regresión-lineal-ln-v-frente-a-t-con-r" id="toc-regresión-lineal-ln-v-frente-a-t-con-r">5.3. Regresión lineal: <span class="math inline">\ln V</span> frente a <span class="math inline">t</span> (con <span class="math inline">R</span>)</a></li>
+  <li><a href="#determinación-de-rc-por-regresión-con-r" id="toc-determinación-de-rc-por-regresión-con-r">5.4. Determinación de <span class="math inline">RC</span> por regresión (con <span class="math inline">R</span>)</a></li>
+  <li><a href="#gráfica-1-ln-v-frente-a-t-con-r" id="toc-gráfica-1-ln-v-frente-a-t-con-r">5.5. Gráfica 1: <span class="math inline">\ln V</span> frente a <span class="math inline">t</span> (con <span class="math inline">R</span>)</a></li>
+  <li><a href="#comparación-de-rc-método-t_12-vs.-regresión" id="toc-comparación-de-rc-método-t_12-vs.-regresión">5.6. Comparación de <span class="math inline">RC</span>: método <span class="math inline">t_{1/2}</span> vs.&nbsp;regresión</a></li>
+  <li><a href="#parte-3-curva-de-descarga-vt-sin-r-sólo-voltímetro" id="toc-parte-3-curva-de-descarga-vt-sin-r-sólo-voltímetro">5.7. Parte 3: Curva de descarga <span class="math inline">V(t)</span> sin <span class="math inline">R</span> (sólo voltímetro)</a></li>
+  <li><a href="#regresión-lineal-ln-v-frente-a-t-sin-r" id="toc-regresión-lineal-ln-v-frente-a-t-sin-r">5.8. Regresión lineal: <span class="math inline">\ln V</span> frente a <span class="math inline">t</span> (sin <span class="math inline">R</span>)</a></li>
+  <li><a href="#determinación-de-r_v-c-sin-r" id="toc-determinación-de-r_v-c-sin-r">5.9. Determinación de <span class="math inline">R_V C</span> (sin <span class="math inline">R</span>)</a></li>
+  <li><a href="#gráfica-2-ln-v-frente-a-t-sin-r" id="toc-gráfica-2-ln-v-frente-a-t-sin-r">5.10. Gráfica 2: <span class="math inline">\ln V</span> frente a <span class="math inline">t</span> (sin <span class="math inline">R</span>)</a></li>
+  <li><a href="#comparación-de-las-constantes-de-tiempo" id="toc-comparación-de-las-constantes-de-tiempo">5.11. Comparación de las constantes de tiempo</a></li>
+  <li><a href="#resumen-de-resultados" id="toc-resumen-de-resultados">5.12. Resumen de resultados</a></li>
+  <li><a href="#evaluación-de-la-adecuación-de-la-incertidumbre-m3m4" id="toc-evaluación-de-la-adecuación-de-la-incertidumbre-m3m4">5.13. Evaluación de la adecuación de la incertidumbre (M3/M4)</a></li>
+  </ul></li>
+  <li><a href="#cuestiones" id="toc-cuestiones">6. Cuestiones</a>
+  <ul>
+  <li><a href="#cuestión-1.-demostrar-que-t_12-rc-cdot-ln-2-a-partir-de-v-v_0-cdot-exp-trc." id="toc-cuestión-1.-demostrar-que-t_12-rc-cdot-ln-2-a-partir-de-v-v_0-cdot-exp-trc.">Cuestión 1. Demostrar que <span class="math inline">t_{1/2} = RC \cdot \ln 2</span> a partir de <span class="math inline">V = V_0 \cdot \exp(-t/RC)</span>.</a></li>
+  <li><a href="#cuestión-2.-identificar-la-pendiente-y-la-ordenada-en-el-origen-de-la-representación-ln-v-frente-a-t." id="toc-cuestión-2.-identificar-la-pendiente-y-la-ordenada-en-el-origen-de-la-representación-ln-v-frente-a-t.">Cuestión 2. Identificar la pendiente y la ordenada en el origen de la representación <span class="math inline">\ln V</span> frente a <span class="math inline">t</span>.</a></li>
+  <li><a href="#cuestión-3.-obtener-la-expresión-del-error-deltarc-a-partir-de-la-pendiente-m-y-su-incertidumbre-sigma_m." id="toc-cuestión-3.-obtener-la-expresión-del-error-deltarc-a-partir-de-la-pendiente-m-y-su-incertidumbre-sigma_m.">Cuestión 3. Obtener la expresión del error <span class="math inline">\Delta(RC)</span> a partir de la pendiente <span class="math inline">m</span> y su incertidumbre <span class="math inline">\sigma_m</span>.</a></li>
+  </ul></li>
+  <li><a href="#apéndice-a.-comparación-de-métodos-de-regresión" id="toc-apéndice-a.-comparación-de-métodos-de-regresión">Apéndice A. Comparación de métodos de regresión</a>
+  <ul>
+  <li><a href="#a.1.-ols-mínimos-cuadrados-ordinarios" id="toc-a.1.-ols-mínimos-cuadrados-ordinarios">A.1. OLS (mínimos cuadrados ordinarios)</a></li>
+  <li><a href="#a.2.-wls-y-ponderado-por-delta-y-solamente" id="toc-a.2.-wls-y-ponderado-por-delta-y-solamente">A.2. WLS-y (ponderado por <span class="math inline">\Delta y</span> solamente)</a></li>
+  <li><a href="#a.3.-wls-xy-varianza-efectiva-método-iterativo" id="toc-a.3.-wls-xy-varianza-efectiva-método-iterativo">A.3. WLS-xy (varianza efectiva, método iterativo)</a></li>
+  <li><a href="#a.4.-comparación-numérica" id="toc-a.4.-comparación-numérica">A.4. Comparación numérica</a></li>
+  <li><a href="#a.5.-discusión" id="toc-a.5.-discusión">A.5. Discusión</a></li>
+  </ul></li>
+  <li><a href="#bibliografía" id="toc-bibliografía">7. Bibliografía</a></li>
+  </ul></li>
+  </ul>
+</nav>
+<h1 id="informe-de-la-práctica-6-descarga-de-un-condensador">Informe de la Práctica 6: Descarga de un Condensador</h1>
+<h2 id="portada" class="anchored">1. Portada</h2>
+<table class="caption-top">
+<tbody>
+<tr class="odd">
+<td><strong>Asignatura</strong></td>
+<td>Técnicas Experimentales I (Cod. 61041080)</td>
+</tr>
+<tr class="even">
+<td><strong>Práctica</strong></td>
+<td>Práctica 6: Descarga de un Condensador</td>
+</tr>
+<tr class="odd">
+<td><strong>Alumna</strong></td>
+<td>María López Fernández</td>
+</tr>
+<tr class="even">
+<td><strong>DNI</strong></td>
+<td>12345678A</td>
+</tr>
+<tr class="odd">
+<td><strong>Correo electrónico</strong></td>
+<td>mlopezfernandez42@ejemplo.uned.es</td>
+</tr>
+<tr class="even">
+<td><strong>Teléfono</strong></td>
+<td>612 345 678</td>
+</tr>
+<tr class="odd">
+<td><strong>Centro Asociado</strong></td>
+<td>Madrid - Gregorio Marañón</td>
+</tr>
+<tr class="even">
+<td><strong>Tutor</strong></td>
+<td>Dr.&nbsp;Fernando García Martínez</td>
+</tr>
+<tr class="odd">
+<td><strong>Fecha de realización</strong></td>
+<td>27 de febrero de 2026</td>
+</tr>
+<tr class="even">
+<td><strong>Fecha de entrega</strong></td>
+<td>7 de marzo de 2026</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="introducción" class="anchored">2. Introducción</h2>
+<p>El objetivo de esta práctica es el estudio experimental del proceso de descarga de un condensador a través de una resistencia, determinando la constante de tiempo <span class="math inline">\tau = RC</span> del circuito mediante dos métodos independientes: la medida directa del tiempo de semidescarga <span class="math inline">t_{1/2}</span> y el ajuste por mínimos cuadrados de la curva de descarga <span class="math inline">V(t)</span>.</p>
+<p>La descarga de un condensador es un proceso transitorio fundamental en los circuitos eléctricos. Cuando un condensador cargado se conecta a una resistencia, la diferencia de potencial entre sus placas decrece exponencialmente con el tiempo, con una constante de tiempo <span class="math inline">\tau = RC</span> que depende del producto de la resistencia por la capacidad. La constante de tiempo determina la velocidad del proceso: cuanto mayor es <span class="math inline">RC</span>, más lenta es la descarga.</p>
+<p>Adicionalmente, se estudia la descarga del condensador sin resistencia externa, donde la única vía de descarga es la resistencia interna del voltímetro. Esto permite poner de manifiesto que todo instrumento de medida perturba el sistema medido y estimar el orden de magnitud de la resistencia interna del voltímetro.</p>
+<p>La comparación de los resultados obtenidos por los dos métodos (tiempo de semidescarga y regresión lineal) permite evaluar la coherencia de las medidas y la calidad del modelo teórico.</p>
+<hr>
+<h2 id="fundamento-teórico" class="anchored">3. Fundamento Teórico</h2>
+<h3 id="ecuación-de-descarga" class="anchored">3.1. Ecuación de descarga</h3>
+<p>Consideremos un condensador de capacidad <span class="math inline">C</span>, inicialmente cargado a una diferencia de potencial <span class="math inline">V_0</span>, que se descarga a través de una resistencia <span class="math inline">R</span>. Aplicando la ley de Kirchhoff al circuito RC serie:</p>
+<p><span class="math display">V_C + V_R = 0 \quad \Longrightarrow \quad \frac{q}{C} + R\frac{dq}{dt} = 0</span></p>
+<p>donde <span class="math inline">q</span> es la carga del condensador e <span class="math inline">i = dq/dt</span> es la corriente (negativa, pues el condensador se descarga). Dado que <span class="math inline">V = q/C</span>:</p>
+<p><span class="math display">RC\frac{dV}{dt} + V = 0</span></p>
+<p>La solución de esta ecuación diferencial, con la condición inicial <span class="math inline">V(0) = V_0</span>, es:</p>
+<p><span class="math display">\boxed{V(t) = V_0 \cdot \exp\left(-\frac{t}{RC}\right)}</span></p>
+<p>La constante de tiempo del circuito es <span class="math inline">\tau = RC</span>. Para <span class="math inline">t = \tau</span>, el voltaje ha disminuido al <span class="math inline">36.8\%</span> (<span class="math inline">1/e</span>) de su valor inicial.</p>
+<h3 id="tiempo-de-semidescarga" class="anchored">3.2. Tiempo de semidescarga</h3>
+<p>El tiempo de semidescarga <span class="math inline">t_{1/2}</span> es el tiempo necesario para que el voltaje se reduzca a la mitad de su valor inicial. Imponiendo <span class="math inline">V(t_{1/2}) = V_0/2</span>:</p>
+<p><span class="math display">\frac{V_0}{2} = V_0 \cdot \exp\left(-\frac{t_{1/2}}{RC}\right)</span></p>
+<p><span class="math display">\frac{1}{2} = \exp\left(-\frac{t_{1/2}}{RC}\right)</span></p>
+<p>Tomando logaritmos neperianos:</p>
+<p><span class="math display">\ln\left(\frac{1}{2}\right) = -\frac{t_{1/2}}{RC} \quad \Longrightarrow \quad -\ln 2 = -\frac{t_{1/2}}{RC}</span></p>
+<p><span class="math display">\boxed{t_{1/2} = RC \cdot \ln 2 = 0.69315 \cdot RC}</span></p>
+<p>Por tanto, midiendo <span class="math inline">t_{1/2}</span> se obtiene directamente la constante de tiempo:</p>
+<p><span class="math display">RC = \frac{t_{1/2}}{\ln 2}</span></p>
+<h3 id="linealización" class="anchored">3.3. Linealización</h3>
+<p>Tomando logaritmos neperianos en la ecuación de descarga:</p>
+<p><span class="math display">\ln V = \ln V_0 - \frac{t}{RC}</span></p>
+<p>Esta expresión tiene la forma <span class="math inline">y = n + m \cdot x</span>, con:</p>
+<ul>
+<li><span class="math inline">x = t</span> (variable independiente, el tiempo)</li>
+<li><span class="math inline">y = \ln V</span> (variable dependiente, el logaritmo del voltaje)</li>
+<li><span class="math inline">m = -\frac{1}{RC}</span> (pendiente, negativa)</li>
+<li><span class="math inline">n = \ln V_0</span> (ordenada en el origen)</li>
+</ul>
+<p>La constante de tiempo se obtiene de la pendiente del ajuste lineal:</p>
+<p><span class="math display">\boxed{RC = -\frac{1}{m} = \frac{1}{|m|}}</span></p>
+<h3 id="propagación-de-errores" class="anchored">3.4. Propagación de errores</h3>
+<p><strong>Método del tiempo de semidescarga:</strong></p>
+<p><span class="math display">\Delta(RC) = \frac{\Delta t_{1/2}}{\ln 2}</span></p>
+<p><strong>Método de regresión lineal:</strong></p>
+<p>Dado que <span class="math inline">RC = 1/|m|</span>:</p>
+<p><span class="math display">\frac{\partial(RC)}{\partial m} = \frac{\partial}{\partial m}\left(-\frac{1}{m}\right) = \frac{1}{m^2}</span></p>
+<p><span class="math display">\boxed{\Delta(RC) = \frac{\sigma_m}{m^2}}</span></p>
+<h3 id="descarga-sin-resistencia-externa" class="anchored">3.5. Descarga sin resistencia externa</h3>
+<p>Si se retira la resistencia <span class="math inline">R</span> del circuito, el condensador sólo puede descargarse a través de la resistencia interna del voltímetro <span class="math inline">R_V</span>. En este caso, la constante de tiempo es <span class="math inline">\tau_V = R_V \cdot C</span>. Dado que <span class="math inline">R_V \gg R</span> (típicamente <span class="math inline">R_V \sim 10</span> M<span class="math inline">\Omega</span> para voltimetros digitales), la descarga es mucho más lenta, lo que se manifiesta en un valor de <span class="math inline">\tau_V</span> significativamente mayor que <span class="math inline">\tau = RC</span>.</p>
+<hr>
+<h2 id="dispositivo-experimental" class="anchored">4. Dispositivo Experimental</h2>
+<h3 id="descripción-del-montaje" class="anchored">4.1. Descripción del montaje</h3>
+<p>El dispositivo experimental consiste en un circuito RC serie compuesto por:</p>
+<ul>
+<li><strong>Condensador electrolítico</strong> de capacidad nominal <span class="math inline">C</span>. Se trata de un condensador polarizado, cuyo terminal positivo se identifica por la hendidura marcada en la carcasa. Es fundamental respetar la polaridad para evitar dañar el componente.</li>
+<li><strong>Resistencia</strong> de valor <span class="math inline">R</span> suficientemente grande para que el tiempo de semidescarga sea del orden de decenas de segundos, permitiendo la medida manual con cronómetro.</li>
+<li><strong>Fuente de alimentación</strong> de corriente continua, utilizada para cargar el condensador hasta un voltaje inicial <span class="math inline">V_0 \approx 10</span> V.</li>
+<li><strong>Voltímetro digital</strong> (multímetro) para medir la diferencia de potencial en bornes del condensador durante la descarga.</li>
+<li><strong>Interruptor</strong> para iniciar la descarga de forma controlada.</li>
+<li><strong>Cronómetro digital</strong> para medir los tiempos de descarga.</li>
+</ul>
+<p>El circuito se monta de modo que, al cerrar el interruptor, el condensador previamente cargado se descarga a través de la resistencia <span class="math inline">R</span>. El voltímetro, conectado en paralelo con el condensador, permite seguir la evolución temporal del voltaje.</p>
+<h3 id="instrumentos-de-medida" class="anchored">4.2. Instrumentos de medida</h3>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Instrumento</th>
+<th>Magnitud medida</th>
+<th>Precisión</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Cronómetro digital</td>
+<td>Tiempo <span class="math inline">t</span></td>
+<td><span class="math inline">\varepsilon_t = 0.01</span> s</td>
+</tr>
+<tr class="even">
+<td>Voltímetro digital (multímetro)</td>
+<td>Diferencia de potencial <span class="math inline">V</span></td>
+<td><span class="math inline">\varepsilon_V = 0.01</span> V</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Condiciones ambientales (A2):</strong> Las medidas se realizaron a temperatura ambiente de aproximadamente <span class="math inline">20 \pm 2</span> °C y humedad relativa del <span class="math inline">50 \pm 10\%</span>. Las condiciones ambientales se mantuvieron estables durante toda la sesión de laboratorio. La temperatura puede influir ligeramente en el valor de la resistencia y la capacidad del condensador electrolítico, aunque para las tolerancias de este experimento dicha influencia es despreciable.</p>
+<p><strong>Estado de calibración y trazabilidad (B2/B3):</strong> El multímetro digital utilizado como voltímetro se encuentra dentro de su período de calibración vigente, según la etiqueta de verificación del laboratorio. El cronómetro digital está calibrado de fábrica con base de tiempos de cuarzo, trazable a patrones de frecuencia. Las especificaciones de precisión de ambos instrumentos se consideran trazables a patrones nacionales a través de la cadena de calibración del laboratorio. No se dispone de certificados de calibración individuales; las incertidumbres de tipo B se estiman a partir de las especificaciones del fabricante.</p>
+<h3 id="esquema-del-montaje" class="anchored">4.3. Esquema del montaje</h3>
+<pre><code>                    Interruptor S
+                       /
+    +---[  C  ]---o  o---[  R  ]---+
+    |             |                |
+    |  Condensador|   Resistencia  |
+    |             |                |
+    +---[  V  ]---+----------------+
+        Voltímetro
+        (multímetro)
+
+    Procedimiento:
+    1. Cargar C con fuente hasta V₀ ≈ 10 V
+    2. Desconectar fuente
+    3. Cerrar S → comienza la descarga a través de R
+    4. Medir V(t) con el voltímetro</code></pre>
+<p><em>Figura 1.</em> Esquema del circuito de descarga del condensador. El interruptor <span class="math inline">S</span> permite iniciar la descarga. El voltímetro mide la tensión en bornes del condensador.</p>
+<hr>
+<h2 id="procedimiento-y-resultados" class="anchored">5. Procedimiento y Resultados</h2>
+<p>La práctica se divide en tres partes: (1) medida del tiempo de semidescarga, (2) registro de la curva de descarga con resistencia, y (3) registro de la curva de descarga sin resistencia (sólo a través del voltímetro).</p>
+<h4 id="identificación-de-fuentes-de-error-e1" class="anchored">Identificación de fuentes de error (E1)</h4>
+<p>Se identifican las siguientes fuentes de error clasificadas por tipo:</p>
+<p><strong>Errores sistemáticos:</strong></p>
+<ul>
+<li>La resistencia interna del voltímetro (<span class="math inline">R_V</span>) actúa como una vía de descarga adicional en paralelo con <span class="math inline">R</span>, haciendo que la constante de tiempo medida (<span class="math inline">\tau_{\text{medido}}</span>) sea sistemáticamente menor que <span class="math inline">RC</span>. La resistencia efectiva de descarga es <span class="math inline">R_{\text{eff}} = R \cdot R_V / (R + R_V) &lt; R</span>.</li>
+<li>Posible asimetría en la determinación visual del instante <span class="math inline">V_0/2</span> en el método del tiempo de semidescarga: el tiempo de reacción del operador introduce un sesgo sistemático positivo.</li>
+<li>Autodescarga del condensador electrolítico: la corriente de fuga interna del condensador contribuye a una descarga más rápida de la esperada.</li>
+<li>Tolerancia del condensador electrolítico (típicamente <span class="math inline">\pm 20\%</span>) y de la resistencia.</li>
+</ul>
+<p><strong>Errores aleatorios:</strong></p>
+<ul>
+<li>Variabilidad en el tiempo de reacción del operador al accionar el cronómetro (tanto al inicio como al detectar <span class="math inline">V_0/2</span>).</li>
+<li>Fluctuaciones en la lectura del voltímetro digital.</li>
+<li>Variaciones en la carga inicial del condensador entre repeticiones.</li>
+</ul>
+<h4 id="evaluación-de-incertidumbres-de-tipo-b-distribución-rectangular-g2g4" class="anchored">Evaluación de incertidumbres de tipo B: distribución rectangular (G2/G4)</h4>
+<p>Para los instrumentos digitales, la resolución define una semianchura <span class="math inline">a</span> igual a la mitad del último dígito significativo. Se asume una <strong>distribución rectangular</strong> (uniforme) para el valor verdadero dentro del intervalo de resolución. La incertidumbre estándar asociada es:</p>
+<p><span class="math display">u_{\text{resol}} = \frac{a}{\sqrt{3}}</span></p>
+<ul>
+<li><strong>Voltímetro digital:</strong> resolución 0.01 V, semianchura <span class="math inline">a = 0.005</span> V. Incertidumbre estándar por resolución: <span class="math inline">u_V = 0.005/\sqrt{3} = 0.0029</span> V (tipo B, distribución rectangular, <span class="math inline">\nu_V \to \infty</span>).</li>
+<li><strong>Cronómetro digital:</strong> resolución 0.01 s, semianchura <span class="math inline">a = 0.005</span> s. Incertidumbre estándar por resolución: <span class="math inline">u_t = 0.005/\sqrt{3} = 0.0029</span> s (tipo B, distribución rectangular, <span class="math inline">\nu_t \to \infty</span>).</li>
+</ul>
+<p>Además, el cronómetro está sujeto a una incertidumbre adicional de tipo B debida al tiempo de reacción del operador. Típicamente, el tiempo de reacción humano se estima en <span class="math inline">\pm 0.2</span> s (distribución rectangular), lo que aporta <span class="math inline">u_{\text{reacción}} = 0.2/\sqrt{3} = 0.12</span> s. Esta incertidumbre se manifiesta en la dispersión de las medidas repetidas de <span class="math inline">t_{1/2}</span> y, por tanto, queda parcialmente capturada en la evaluación de tipo A.</p>
+<h3 id="parte-1-medida-del-tiempo-de-semidescarga-t_12-con-r" class="anchored">5.1. Parte 1: Medida del tiempo de semidescarga <span class="math inline">t_{1/2}</span> (con <span class="math inline">R</span>)</h3>
+<p>Se carga el condensador hasta un voltaje <span class="math inline">V_0 \approx 10</span> V y se inicia la descarga a través de <span class="math inline">R</span>. Se mide con el cronómetro el tiempo que tarda el voltaje en reducirse a la mitad (<span class="math inline">V_0/2 \approx 5</span> V). Se repite la medida 5 veces.</p>
+<p><strong>Tabla 1.</strong> Medidas del tiempo de semidescarga <span class="math inline">t_{1/2}</span>.</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Medida</th>
+<th style="text-align: center;"><span class="math inline">t_{1/2}</span> (s)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">14.44</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">14.43</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">14.31</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">14.34</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">14.22</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Cálculo del valor medio:</strong></p>
+<p><span class="math display">\overline{t_{1/2}} = \frac{14.44 + 14.43 + 14.31 + 14.34 + 14.22}{5} = \frac{71.74}{5} = 14.35 \text{ s}</span></p>
+<p><strong>Cálculo de la incertidumbre:</strong></p>
+<p>Se han realizado <span class="math inline">N = 5</span> repeticiones. Dado que <span class="math inline">1 &lt; N \leq 10</span>, la incertidumbre se calcula como:</p>
+<p><span class="math display">\varepsilon_{t_{1/2}} = \max(\varepsilon_p,\; D_m)</span></p>
+<p>donde: - <span class="math inline">\varepsilon_p = 0.01</span> s es la precisión del cronómetro. - <span class="math inline">D_m = \frac{\max(t_i) - \min(t_i)}{2} = \frac{14.44 - 14.22}{2} = \frac{0.22}{2} = 0.11</span> s es la semidispersión máxima.</p>
+<p><span class="math display">\varepsilon_{t_{1/2}} = \max(0.01,\; 0.11) = 0.11 \text{ s}</span></p>
+<p>El error <span class="math inline">0.11</span> comienza por la cifra 1, por lo que se conservan 2 cifras significativas en el error:</p>
+<p><span class="math display">\boxed{t_{1/2} = (14.35 \pm 0.11) \text{ s}}</span></p>
+<p><strong>Evaluación de la incertidumbre de tipo A (F1-F4):</strong></p>
+<p>Con <span class="math inline">N = 5</span> medidas repetidas, la desviación típica muestral (con denominador <span class="math inline">N-1</span>, estimador insesgado, F2) es:</p>
+<p><span class="math display">s = \sqrt{\frac{\sum_{i=1}^{N}(t_i - \bar{t})^2}{N-1}} = \sqrt{\frac{(14.44-14.35)^2 + (14.43-14.35)^2 + (14.31-14.35)^2 + (14.34-14.35)^2 + (14.22-14.35)^2}{4}}</span></p>
+<p><span class="math display">s = \sqrt{\frac{0.0081 + 0.0064 + 0.0016 + 0.0001 + 0.0169}{4}} = \sqrt{\frac{0.0331}{4}} = \sqrt{0.008275} = 0.091 \text{ s}</span></p>
+<p>La incertidumbre estándar de la media (tipo A, F3) es:</p>
+<p><span class="math display">u_A(\bar{t}_{1/2}) = \frac{s}{\sqrt{N}} = \frac{0.091}{\sqrt{5}} = 0.041 \text{ s}</span></p>
+<p>Los <strong>grados de libertad</strong> asociados a esta evaluación de tipo A son (F4):</p>
+<p><span class="math display">\nu_A = N - 1 = 5 - 1 = 4</span></p>
+<p><strong>Combinación de incertidumbres tipo A y tipo B por RSS (H8):</strong></p>
+<p>La incertidumbre de tipo B del cronómetro por resolución es <span class="math inline">u_B(t) = 0.005/\sqrt{3} = 0.0029</span> s (con <span class="math inline">\nu_B \to \infty</span>). Dado que la dispersión experimental (tipo A) ya captura implícitamente las fluctuaciones debidas al tiempo de reacción del operador, se combinan únicamente la componente de tipo A con la componente de tipo B por resolución:</p>
+<p><span class="math display">u_c(\bar{t}_{1/2}) = \sqrt{u_A^2 + u_B^2} = \sqrt{(0.041)^2 + (0.0029)^2} = \sqrt{0.001681 + 0.0000084} = 0.041 \text{ s}</span></p>
+<p>La componente de tipo A domina completamente (<span class="math inline">u_A/u_c &gt; 99.9\%</span>), como era esperable dado que la dispersión por el tiempo de reacción del operador es mucho mayor que la resolución del cronómetro.</p>
+<p><strong>Cálculo de <span class="math inline">RC</span> a partir de <span class="math inline">t_{1/2}</span>:</strong></p>
+<p><span class="math display">RC = \frac{t_{1/2}}{\ln 2} = \frac{14.35}{0.69315} = 20.70 \text{ s}</span></p>
+<p><strong>Propagación del error:</strong></p>
+<p><span class="math display">\Delta(RC) = \frac{\Delta t_{1/2}}{\ln 2} = \frac{0.11}{0.69315} = 0.16 \text{ s}</span></p>
+<p>El error <span class="math inline">0.16</span> comienza por la cifra 1, por lo que se conservan 2 cifras significativas:</p>
+<p><span class="math display">\boxed{RC_{t_{1/2}} = (20.70 \pm 0.16) \text{ s}}</span></p>
+<h3 id="parte-2-curva-de-descarga-vt-con-r" class="anchored">5.2. Parte 2: Curva de descarga <span class="math inline">V(t)</span> con <span class="math inline">R</span></h3>
+<p>Se carga el condensador y se registran 15 pares de valores <span class="math inline">(t, V)</span> durante la descarga a través de <span class="math inline">R</span>.</p>
+<p><strong>Tabla 2.</strong> Datos de la descarga con <span class="math inline">R</span>: tiempo <span class="math inline">t</span>, voltaje <span class="math inline">V</span>, y logaritmo neperiano <span class="math inline">\ln V</span>.</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Medida</th>
+<th style="text-align: center;"><span class="math inline">t</span> (s)</th>
+<th style="text-align: center;"><span class="math inline">V</span> (V)</th>
+<th style="text-align: center;"><span class="math inline">\ln V</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2.25</td>
+<td style="text-align: center;">9.27</td>
+<td style="text-align: center;">2.2268</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">3.91</td>
+<td style="text-align: center;">8.46</td>
+<td style="text-align: center;">2.1353</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">6.25</td>
+<td style="text-align: center;">7.62</td>
+<td style="text-align: center;">2.0308</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">8.25</td>
+<td style="text-align: center;">6.81</td>
+<td style="text-align: center;">1.9184</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">10.00</td>
+<td style="text-align: center;">6.11</td>
+<td style="text-align: center;">1.8099</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">12.00</td>
+<td style="text-align: center;">5.56</td>
+<td style="text-align: center;">1.7156</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">13.93</td>
+<td style="text-align: center;">5.07</td>
+<td style="text-align: center;">1.6233</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">16.31</td>
+<td style="text-align: center;">4.58</td>
+<td style="text-align: center;">1.5217</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">18.22</td>
+<td style="text-align: center;">4.11</td>
+<td style="text-align: center;">1.4134</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">20.00</td>
+<td style="text-align: center;">3.84</td>
+<td style="text-align: center;">1.3455</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">22.09</td>
+<td style="text-align: center;">3.49</td>
+<td style="text-align: center;">1.2499</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">23.97</td>
+<td style="text-align: center;">3.15</td>
+<td style="text-align: center;">1.1474</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">13</td>
+<td style="text-align: center;">25.87</td>
+<td style="text-align: center;">2.87</td>
+<td style="text-align: center;">1.0543</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">14</td>
+<td style="text-align: center;">28.13</td>
+<td style="text-align: center;">2.56</td>
+<td style="text-align: center;">0.9400</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">30.00</td>
+<td style="text-align: center;">2.35</td>
+<td style="text-align: center;">0.8544</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Ejemplo de cálculo de <span class="math inline">\ln V</span> (Medida 1):</strong></p>
+<p><span class="math display">\ln V_1 = \ln(9.27) = 2.2268</span></p>
+<h3 id="regresión-lineal-ln-v-frente-a-t-con-r" class="anchored">5.3. Regresión lineal: <span class="math inline">\ln V</span> frente a <span class="math inline">t</span> (con <span class="math inline">R</span>)</h3>
+<p>Se ajusta el modelo lineal <span class="math inline">y = mx + n</span> (es decir, <span class="math inline">\ln V = m \cdot t + n</span>) a los <span class="math inline">N_p = 15</span> puntos experimentales. Según la teoría:</p>
+<p><span class="math display">m = -\frac{1}{RC}, \qquad n = \ln V_0</span></p>
+<p><strong>Fórmulas de la regresión por mínimos cuadrados:</strong></p>
+<p><span class="math display">m = \frac{N_p \sum x_i y_i - \sum x_i \sum y_i}{N_p \sum x_i^2 - \left(\sum x_i\right)^2} = \frac{\Delta_{xy}}{\Delta}</span></p>
+<p><span class="math display">n = \frac{\sum x_i^2 \sum y_i - \sum x_i \sum x_i y_i}{N_p \sum x_i^2 - \left(\sum x_i\right)^2} = \frac{\Delta_n}{\Delta}</span></p>
+<p><strong>Tabla 3.</strong> Sumas para la regresión lineal (<span class="math inline">x_i = t_i</span>, <span class="math inline">y_i = \ln V_i</span>).</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 16%">
+<col style="width: 30%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">i</span></th>
+<th style="text-align: center;"><span class="math inline">x_i</span></th>
+<th style="text-align: center;"><span class="math inline">y_i</span></th>
+<th style="text-align: center;"><span class="math inline">x_i^2</span></th>
+<th style="text-align: center;"><span class="math inline">x_i \cdot y_i</span></th>
+<th style="text-align: center;"><span class="math inline">y_i^2</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2.25</td>
+<td style="text-align: center;">2.2268</td>
+<td style="text-align: center;">5.0625</td>
+<td style="text-align: center;">5.0103</td>
+<td style="text-align: center;">4.9586</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">3.91</td>
+<td style="text-align: center;">2.1353</td>
+<td style="text-align: center;">15.2881</td>
+<td style="text-align: center;">8.3492</td>
+<td style="text-align: center;">4.5597</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">6.25</td>
+<td style="text-align: center;">2.0308</td>
+<td style="text-align: center;">39.0625</td>
+<td style="text-align: center;">12.6924</td>
+<td style="text-align: center;">4.1241</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">8.25</td>
+<td style="text-align: center;">1.9184</td>
+<td style="text-align: center;">68.0625</td>
+<td style="text-align: center;">15.8267</td>
+<td style="text-align: center;">3.6802</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">10.00</td>
+<td style="text-align: center;">1.8099</td>
+<td style="text-align: center;">100.0000</td>
+<td style="text-align: center;">18.0993</td>
+<td style="text-align: center;">3.2758</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">12.00</td>
+<td style="text-align: center;">1.7156</td>
+<td style="text-align: center;">144.0000</td>
+<td style="text-align: center;">20.5872</td>
+<td style="text-align: center;">2.9433</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">13.93</td>
+<td style="text-align: center;">1.6233</td>
+<td style="text-align: center;">194.0449</td>
+<td style="text-align: center;">22.6131</td>
+<td style="text-align: center;">2.6352</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">16.31</td>
+<td style="text-align: center;">1.5217</td>
+<td style="text-align: center;">266.0161</td>
+<td style="text-align: center;">24.8189</td>
+<td style="text-align: center;">2.3156</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">18.22</td>
+<td style="text-align: center;">1.4134</td>
+<td style="text-align: center;">331.9684</td>
+<td style="text-align: center;">25.7526</td>
+<td style="text-align: center;">1.9978</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">20.00</td>
+<td style="text-align: center;">1.3455</td>
+<td style="text-align: center;">400.0000</td>
+<td style="text-align: center;">26.9094</td>
+<td style="text-align: center;">1.8103</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">22.09</td>
+<td style="text-align: center;">1.2499</td>
+<td style="text-align: center;">487.9681</td>
+<td style="text-align: center;">27.6103</td>
+<td style="text-align: center;">1.5623</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">23.97</td>
+<td style="text-align: center;">1.1474</td>
+<td style="text-align: center;">574.5609</td>
+<td style="text-align: center;">27.5032</td>
+<td style="text-align: center;">1.3165</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">13</td>
+<td style="text-align: center;">25.87</td>
+<td style="text-align: center;">1.0543</td>
+<td style="text-align: center;">669.2569</td>
+<td style="text-align: center;">27.2751</td>
+<td style="text-align: center;">1.1116</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">14</td>
+<td style="text-align: center;">28.13</td>
+<td style="text-align: center;">0.9400</td>
+<td style="text-align: center;">791.2969</td>
+<td style="text-align: center;">26.4424</td>
+<td style="text-align: center;">0.8836</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">30.00</td>
+<td style="text-align: center;">0.8544</td>
+<td style="text-align: center;">900.0000</td>
+<td style="text-align: center;">25.6325</td>
+<td style="text-align: center;">0.7300</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong><span class="math inline">\Sigma</span></strong></td>
+<td style="text-align: center;"><strong>241.18</strong></td>
+<td style="text-align: center;"><strong>22.9868</strong></td>
+<td style="text-align: center;"><strong>4986.5878</strong></td>
+<td style="text-align: center;"><strong>315.1226</strong></td>
+<td style="text-align: center;"><strong>37.9045</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Cálculo del determinante <span class="math inline">\Delta</span>:</strong></p>
+<p><span class="math display">\Delta = N_p \sum x_i^2 - \left(\sum x_i\right)^2 = 15 \times 4986.5878 - (241.18)^2 = 74798.82 - 58167.79 = 16631.02</span></p>
+<p><strong>Cálculo de la pendiente <span class="math inline">m</span>:</strong></p>
+<p><span class="math display">m = \frac{N_p \sum x_i y_i - \sum x_i \sum y_i}{\Delta} = \frac{15 \times 315.1226 - 241.18 \times 22.9868}{16631.02}</span></p>
+<p><span class="math display">m = \frac{4726.84 - 5543.96}{16631.02} = \frac{-817.12}{16631.02} = -0.04913</span></p>
+<p><strong>Cálculo de la ordenada en el origen <span class="math inline">n</span>:</strong></p>
+<p><span class="math display">n = \frac{\sum x_i^2 \sum y_i - \sum x_i \sum x_i y_i}{\Delta} = \frac{4986.5878 \times 22.9868 - 241.18 \times 315.1226}{16631.02}</span></p>
+<p><span class="math display">n = \frac{114625.70 - 76001.26}{16631.02} = \frac{38624.44}{16631.02} = 2.3224</span></p>
+<p><strong>Varianza residual y desviaciones típicas:</strong></p>
+<p><span class="math display">S^2 = \frac{\sum(y_i - mx_i - n)^2}{N_p - 2} = \frac{0.001887}{13} = 1.452 \times 10^{-4}</span></p>
+<p><span class="math display">\sigma_m = \sqrt{\frac{N_p \cdot S^2}{\Delta}} = \sqrt{\frac{15 \times 1.452 \times 10^{-4}}{16631.02}} = 0.00036</span></p>
+<p><span class="math display">\sigma_n = \sqrt{\frac{\sum x_i^2 \cdot S^2}{\Delta}} = \sqrt{\frac{4986.59 \times 1.452 \times 10^{-4}}{16631.02}} = 0.0066</span></p>
+<p><strong>Coeficiente de correlación:</strong></p>
+<p><span class="math display">r = \frac{N_p \sum x_i y_i - \sum x_i \sum y_i}{\sqrt{\left(N_p \sum x_i^2 - (\sum x_i)^2\right)\left(N_p \sum y_i^2 - (\sum y_i)^2\right)}}</span></p>
+<p><span class="math display">r = \frac{-817.12}{\sqrt{16631.02 \times 40.17}} = \frac{-817.12}{817.40} = -0.99965</span></p>
+<p>El valor de <span class="math inline">|r|</span> es extremadamente próximo a 1, lo que confirma una correlación lineal prácticamente perfecta y válida tanto el modelo teórico de descarga exponencial como la calidad de los datos experimentales.</p>
+<p><strong>Resumen del ajuste lineal (Parte 2):</strong></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Parámetro</th>
+<th style="text-align: center;">Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">m</span> (pendiente)</td>
+<td style="text-align: center;"><span class="math inline">(-0.04913 \pm 0.00036)</span> s<span class="math inline">^{-1}</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">n</span> (ordenada)</td>
+<td style="text-align: center;"><span class="math inline">(2.322 \pm 0.007)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">r</span> (correlación)</td>
+<td style="text-align: center;"><span class="math inline">-0.99965</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">r^2</span></td>
+<td style="text-align: center;"><span class="math inline">0.99929</span></td>
+</tr>
+</tbody>
+</table>
+<h3 id="determinación-de-rc-por-regresión-con-r" class="anchored">5.4. Determinación de <span class="math inline">RC</span> por regresión (con <span class="math inline">R</span>)</h3>
+<p>De la pendiente del ajuste:</p>
+<p><span class="math display">RC = -\frac{1}{m} = -\frac{1}{-0.04913} = 20.35 \text{ s}</span></p>
+<p>Propagación de la incertidumbre:</p>
+<p><span class="math display">\Delta(RC) = \frac{\sigma_m}{m^2} = \frac{0.00036}{(0.04913)^2} = \frac{0.00036}{0.002414} = 0.15 \text{ s}</span></p>
+<p>El error <span class="math inline">0.15</span> comienza por la cifra 1, por lo que se conservan 2 cifras significativas:</p>
+<p><span class="math display">\boxed{RC_{\text{reg}} = (20.35 \pm 0.15) \text{ s}}</span></p>
+<p><strong>Voltaje inicial extrapolado:</strong></p>
+<p><span class="math display">V_0 = e^n = e^{2.3224} = 10.20 \text{ V}</span></p>
+<p>Este valor es coherente con el voltaje de carga inicial (<span class="math inline">\approx 10</span> V).</p>
+<p><strong>Error relativo de <span class="math inline">RC_{\text{reg}}</span>:</strong></p>
+<p><span class="math display">\delta_{RC} = \frac{\Delta(RC)}{RC} \times 100 = \frac{0.15}{20.35} \times 100 = 0.7\%</span></p>
+<h4 id="análisis-de-residuos-del-ajuste-lineal-l2-f5" class="anchored">5.4.1. Análisis de residuos del ajuste lineal (L2, F5)</h4>
+<p>Los residuos del ajuste lineal <span class="math inline">e_i = y_i - (m \cdot x_i + n)</span> proporcionan información sobre la calidad del modelo. Los grados de libertad de la varianza residual son <span class="math inline">\nu_{\text{fit}} = N_p - p = 15 - 2 = 13</span> (I4), donde <span class="math inline">p = 2</span> es el número de parámetros ajustados (pendiente y ordenada).</p>
+<p>Los residuos calculados para cada punto experimental son:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Medida</th>
+<th style="text-align: center;"><span class="math inline">t_i</span> (s)</th>
+<th style="text-align: center;"><span class="math inline">\ln V_i</span> (obs.)</th>
+<th style="text-align: center;"><span class="math inline">\ln V_i</span> (calc.)</th>
+<th style="text-align: center;">Residuo <span class="math inline">e_i</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2.25</td>
+<td style="text-align: center;">2.2268</td>
+<td style="text-align: center;">2.2118</td>
+<td style="text-align: center;">+0.0150</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">3.91</td>
+<td style="text-align: center;">2.1353</td>
+<td style="text-align: center;">2.1299</td>
+<td style="text-align: center;">+0.0054</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">6.25</td>
+<td style="text-align: center;">2.0308</td>
+<td style="text-align: center;">2.0151</td>
+<td style="text-align: center;">+0.0157</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">8.25</td>
+<td style="text-align: center;">1.9184</td>
+<td style="text-align: center;">1.9168</td>
+<td style="text-align: center;">+0.0016</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">10.00</td>
+<td style="text-align: center;">1.8099</td>
+<td style="text-align: center;">1.8311</td>
+<td style="text-align: center;"><span class="math inline">-0.0212</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">12.00</td>
+<td style="text-align: center;">1.7156</td>
+<td style="text-align: center;">1.7327</td>
+<td style="text-align: center;"><span class="math inline">-0.0171</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">13.93</td>
+<td style="text-align: center;">1.6233</td>
+<td style="text-align: center;">1.6380</td>
+<td style="text-align: center;"><span class="math inline">-0.0147</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">16.31</td>
+<td style="text-align: center;">1.5217</td>
+<td style="text-align: center;">1.5211</td>
+<td style="text-align: center;">+0.0006</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">18.22</td>
+<td style="text-align: center;">1.4134</td>
+<td style="text-align: center;">1.4273</td>
+<td style="text-align: center;"><span class="math inline">-0.0139</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">20.00</td>
+<td style="text-align: center;">1.3455</td>
+<td style="text-align: center;">1.3399</td>
+<td style="text-align: center;">+0.0056</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">22.09</td>
+<td style="text-align: center;">1.2499</td>
+<td style="text-align: center;">1.2373</td>
+<td style="text-align: center;">+0.0126</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">23.97</td>
+<td style="text-align: center;">1.1474</td>
+<td style="text-align: center;">1.1449</td>
+<td style="text-align: center;">+0.0025</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">13</td>
+<td style="text-align: center;">25.87</td>
+<td style="text-align: center;">1.0543</td>
+<td style="text-align: center;">1.0515</td>
+<td style="text-align: center;">+0.0028</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">14</td>
+<td style="text-align: center;">28.13</td>
+<td style="text-align: center;">0.9400</td>
+<td style="text-align: center;">0.9405</td>
+<td style="text-align: center;"><span class="math inline">-0.0005</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">30.00</td>
+<td style="text-align: center;">0.8544</td>
+<td style="text-align: center;">0.8486</td>
+<td style="text-align: center;">+0.0058</td>
+</tr>
+</tbody>
+</table>
+<p>La desviación típica residual (rms) es <span class="math inline">S = \sqrt{S^2} = \sqrt{1.452 \times 10^{-4}} = 0.01205</span> (I3). Los residuos no muestran una tendencia sistemática evidente (deriva, oscilación periódica o curvatura), sino que fluctúan aleatoriamente en torno a cero. Esto confirma que el modelo de descarga exponencial (<span class="math inline">\ln V</span> lineal en <span class="math inline">t</span>) es adecuado para describir los datos experimentales.</p>
+<h3 id="gráfica-1-ln-v-frente-a-t-con-r" class="anchored">5.5. Gráfica 1: <span class="math inline">\ln V</span> frente a <span class="math inline">t</span> (con <span class="math inline">R</span>)</h3>
+<p>Se representa <span class="math inline">\ln V</span> en el eje de ordenadas frente a <span class="math inline">t</span> en el eje de abscisas, junto con la recta de regresión ajustada por mínimos cuadrados.</p>
+<div id="cell-fig-lnV-vs-t-con-R" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-display">
+<div id="fig-lnv-vs-t-con-r" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-lnv-vs-t-con-r-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-lnv-vs-t-con-r-output-1.png" width="880" height="580">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-lnv-vs-t-con-r-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1: Figura 2: Representación de <span class="math inline">\ln V</span> frente a <span class="math inline">t</span> para la descarga con resistencia <span class="math inline">R</span>. Pendiente: <span class="math inline">m = (-0.04913 \pm 0.00036)</span> s<span class="math inline">^{-1}</span>. Coeficiente de correlación: <span class="math inline">r = -0.99965</span>.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<h3 id="comparación-de-rc-método-t_12-vs.-regresión" class="anchored">5.6. Comparación de <span class="math inline">RC</span>: método <span class="math inline">t_{1/2}</span> vs.&nbsp;regresión</h3>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Método</th>
+<th style="text-align: center;"><span class="math inline">RC</span> (s)</th>
+<th style="text-align: center;"><span class="math inline">\Delta(RC)</span> (s)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Tiempo de semidescarga</td>
+<td style="text-align: center;"><span class="math inline">(20.70 \pm 0.16)</span></td>
+<td style="text-align: center;">0.16</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Regresión lineal</td>
+<td style="text-align: center;"><span class="math inline">(20.35 \pm 0.15)</span></td>
+<td style="text-align: center;">0.15</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Criterio de compatibilidad:</strong></p>
+<p><span class="math display">|RC_{t_{1/2}} - RC_{\text{reg}}| = |20.70 - 20.35| = 0.35 \text{ s}</span></p>
+<p><span class="math display">\Delta RC_{t_{1/2}} + \Delta RC_{\text{reg}} = 0.16 + 0.15 = 0.31 \text{ s}</span></p>
+<p>Dado que <span class="math inline">0.35 &gt; 0.31</span>:</p>
+<p><span class="math display">|RC_{t_{1/2}} - RC_{\text{reg}}| &gt; \Delta RC_{t_{1/2}} + \Delta RC_{\text{reg}}</span></p>
+<p>Los dos valores <strong>no son estrictamente compatibles</strong> dentro de la suma de incertidumbres. No obstante, la discrepancia es marginal (<span class="math inline">0.35</span> vs.&nbsp;<span class="math inline">0.31</span>) y la diferencia relativa entre ambos métodos es pequeña:</p>
+<p><span class="math display">\delta_{\text{rel}} = \frac{|20.70 - 20.35|}{(20.70 + 20.35)/2} \times 100 = \frac{0.35}{20.53} \times 100 = 1.7\%</span></p>
+<p>Esta discrepancia puede atribuirse a:</p>
+<ul>
+<li>El método del tiempo de semidescarga depende de la observación visual del instante exacto en que el voltímetro marca <span class="math inline">V_0/2</span>, lo que introduce un error sistemático de reacción del operador.</li>
+<li>La medida de <span class="math inline">t_{1/2}</span> se realiza sólo en el rango <span class="math inline">V_0 \to V_0/2</span>, mientras que la regresión utiliza toda la curva de descarga, lo que la hace estadísticamente más robusta.</li>
+<li>En el método <span class="math inline">t_{1/2}</span>, el número de medidas (<span class="math inline">N = 5</span>) es pequeño, y la incertidumbre asociada a la semidispersión puede subestimar el error real.</li>
+</ul>
+<p>En cualquier caso, ambos resultados son coherentes a nivel del <span class="math inline">2\%</span>, lo que confirma la validez del modelo de descarga exponencial.</p>
+<h4 id="incertidumbre-expandida-de-rc-por-el-método-t_12-análisis-completo-gum-j1-j6" class="anchored">5.6.1. Incertidumbre expandida de <span class="math inline">RC</span> por el método <span class="math inline">t_{1/2}</span> — Análisis completo GUM (J1-J6)</h4>
+<p><strong>Modelo del mensurando (H1):</strong></p>
+<p><span class="math display">RC = \frac{t_{1/2}}{\ln 2}</span></p>
+<p>donde <span class="math inline">t_{1/2}</span> es el tiempo de semidescarga medio y <span class="math inline">\ln 2 = 0.69315</span> es una constante exacta (sin incertidumbre).</p>
+<p><strong>Coeficiente de sensibilidad (H2):</strong></p>
+<p><span class="math display">c_{t_{1/2}} = \frac{\partial (RC)}{\partial t_{1/2}} = \frac{1}{\ln 2} = 1.4427 \text{ s/s}</span></p>
+<p><strong>Fuentes de incertidumbre y combinación (H3, H5, H8):</strong></p>
+<p>La incertidumbre combinada de <span class="math inline">\bar{t}_{1/2}</span> tiene dos componentes:</p>
+<ul>
+<li><strong>Tipo A:</strong> <span class="math inline">u_A(\bar{t}_{1/2}) = s/\sqrt{N} = 0.091/\sqrt{5} = 0.041</span> s, con <span class="math inline">\nu_A = N - 1 = 4</span>.</li>
+<li><strong>Tipo B (resolución):</strong> <span class="math inline">u_B(t) = 0.005/\sqrt{3} = 0.0029</span> s (distribución rectangular, G2/G4), con <span class="math inline">\nu_B \to \infty</span>.</li>
+</ul>
+<p>Combinación por RSS:</p>
+<p><span class="math display">u_c(\bar{t}_{1/2}) = \sqrt{u_A^2 + u_B^2} = \sqrt{(0.041)^2 + (0.0029)^2} = 0.041 \text{ s}</span></p>
+<p>Propagación al mensurando:</p>
+<p><span class="math display">u_c(RC) = |c_{t_{1/2}}| \cdot u_c(\bar{t}_{1/2}) = 1.4427 \times 0.041 = 0.059 \text{ s}</span></p>
+<p><strong>Tabla de balance de incertidumbres (N1) para <span class="math inline">RC_{t_{1/2}}</span>:</strong></p>
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Magnitud de entrada</th>
+<th style="text-align: center;">Estimación</th>
+<th style="text-align: center;"><span class="math inline">u(x_i)</span></th>
+<th style="text-align: center;">Tipo</th>
+<th style="text-align: center;"><span class="math inline">c_i</span></th>
+<th style="text-align: center;"><span class="math inline">|c_i \cdot u(x_i)|</span> (s)</th>
+<th style="text-align: center;"><span class="math inline">\nu_i</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\bar{t}_{1/2}</span> (tipo A)</td>
+<td style="text-align: center;">14.35 s</td>
+<td style="text-align: center;">0.041 s</td>
+<td style="text-align: center;">A</td>
+<td style="text-align: center;"><span class="math inline">1/\ln 2 = 1.4427</span></td>
+<td style="text-align: center;">0.059</td>
+<td style="text-align: center;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">t</span> (resolución)</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">0.0029 s</td>
+<td style="text-align: center;">B (rectangular)</td>
+<td style="text-align: center;"><span class="math inline">1/\ln 2 = 1.4427</span></td>
+<td style="text-align: center;">0.0042</td>
+<td style="text-align: center;"><span class="math inline">\infty</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><strong><span class="math inline">u_c(RC)</span></strong></td>
+<td style="text-align: center;"><strong>0.059 s</strong></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Grados de libertad efectivos — Fórmula de Welch-Satterthwaite (J1):</strong></p>
+<p><span class="math display">\nu_{\text{eff}} = \frac{u_c^4(RC)}{\displaystyle\sum_i \frac{(c_i \cdot u_i)^4}{\nu_i}} = \frac{(0.059)^4}{\dfrac{(0.059)^4}{4} + \dfrac{(0.0042)^4}{\infty}}</span></p>
+<p>El segundo término del denominador es cero (<span class="math inline">\nu_B \to \infty</span>), por lo que:</p>
+<p><span class="math display">\nu_{\text{eff}} = \frac{(0.059)^4}{(0.059)^4 / 4} = 4.0</span></p>
+<p>Se <strong>trunca</strong> (no se redondea) al entero inferior (J2): <span class="math inline">\nu_{\text{eff}} = 4</span>.</p>
+<p><strong>Factor de cobertura (J3):</strong></p>
+<p>Para <span class="math inline">\nu_{\text{eff}} = 4</span> y un nivel de confianza del <strong>95%</strong> (J4), de la tabla de la distribución <span class="math inline">t</span> de Student:</p>
+<p><span class="math display">k = t_{0.975, 4} = 2.776</span></p>
+<p><strong>Incertidumbre expandida (J5):</strong></p>
+<p><span class="math display">U = k \cdot u_c(RC) = 2.776 \times 0.059 = 0.16 \text{ s}</span></p>
+<p><strong>Resultado final (J6):</strong></p>
+<p><span class="math display">\boxed{RC_{t_{1/2}} = (20.70 \pm 0.16) \text{ s}, \quad k = 2.78, \quad \text{nivel de confianza del } 95\%}</span></p>
+<p><strong>Nota:</strong> El factor de cobertura <span class="math inline">k = 2.78</span> es significativamente mayor que el valor <span class="math inline">k = 2.0</span> que se usaría con <span class="math inline">\nu_{\text{eff}} \to \infty</span>. Esto refleja la penalización por tener pocos grados de libertad (<span class="math inline">\nu_A = 4</span>, correspondiente a sólo <span class="math inline">N = 5</span> medidas). La incertidumbre expandida resultante (<span class="math inline">U = 0.16</span> s) es coherente con la estimación conservadora obtenida por el método de semidispersión máxima.</p>
+<h4 id="incertidumbre-expandida-de-rc-por-regresión-lineal" class="anchored">5.6.2. Incertidumbre expandida de <span class="math inline">RC</span> por regresión lineal</h4>
+<p><strong>Modelo del mensurando (H1):</strong></p>
+<p><span class="math display">RC = -\frac{1}{m}</span></p>
+<p>donde <span class="math inline">m</span> es la pendiente del ajuste lineal <span class="math inline">\ln V = m \cdot t + n</span>.</p>
+<p><strong>Coeficiente de sensibilidad (H2):</strong></p>
+<p><span class="math display">c_m = \frac{\partial(RC)}{\partial m} = \frac{1}{m^2} = \frac{1}{(0.04913)^2} = 414.2 \text{ s}^2</span></p>
+<p><strong>Incertidumbre combinada:</strong></p>
+<p>La incertidumbre de la pendiente <span class="math inline">\sigma_m = 0.00036</span> s<span class="math inline">^{-1}</span> proviene del ajuste por mínimos cuadrados. Esta incertidumbre ya combina implícitamente las contribuciones aleatorias (dispersión de los datos) y es de naturaleza tipo A, con <span class="math inline">\nu_{\text{fit}} = N_p - 2 = 15 - 2 = 13</span> grados de libertad (F4, I4).</p>
+<p><span class="math display">u_c(RC) = |c_m| \cdot \sigma_m = 414.2 \times 0.00036 = 0.15 \text{ s}</span></p>
+<p><strong>Tabla de balance de incertidumbres (N1) para <span class="math inline">RC_{\text{reg}}</span>:</strong></p>
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Magnitud de entrada</th>
+<th style="text-align: center;">Estimación</th>
+<th style="text-align: center;"><span class="math inline">u(x_i)</span></th>
+<th style="text-align: center;">Tipo</th>
+<th style="text-align: center;"><span class="math inline">c_i</span></th>
+<th style="text-align: center;"><span class="math inline">|c_i \cdot u(x_i)|</span> (s)</th>
+<th style="text-align: center;"><span class="math inline">\nu_i</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">m</span> (pendiente)</td>
+<td style="text-align: center;"><span class="math inline">-0.04913</span> s<span class="math inline">^{-1}</span></td>
+<td style="text-align: center;"><span class="math inline">0.00036</span> s<span class="math inline">^{-1}</span></td>
+<td style="text-align: center;">A (regresión)</td>
+<td style="text-align: center;"><span class="math inline">1/m^2 = 414.2</span> s<span class="math inline">^2</span></td>
+<td style="text-align: center;">0.15</td>
+<td style="text-align: center;">13</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><strong><span class="math inline">u_c(RC)</span></strong></td>
+<td style="text-align: center;"><strong>0.15 s</strong></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Grados de libertad efectivos (J1, J2):</strong></p>
+<p>Con una única fuente de incertidumbre, <span class="math inline">\nu_{\text{eff}} = \nu_{\text{fit}} = 13</span> (truncado).</p>
+<p><strong>Factor de cobertura (J3):</strong></p>
+<p>Para <span class="math inline">\nu_{\text{eff}} = 13</span> y un nivel de confianza del <strong>95%</strong> (J4):</p>
+<p><span class="math display">k = t_{0.975, 13} = 2.160</span></p>
+<p><strong>Incertidumbre expandida (J5):</strong></p>
+<p><span class="math display">U = k \cdot u_c(RC) = 2.160 \times 0.15 = 0.32 \text{ s}</span></p>
+<p><strong>Resultado final (J6):</strong></p>
+<p><span class="math display">\boxed{RC_{\text{reg}} = (20.35 \pm 0.32) \text{ s}, \quad k = 2.16, \quad \text{nivel de confianza del } 95\%}</span></p>
+<p><strong>Nota:</strong> Con 13 grados de libertad, el factor <span class="math inline">k = 2.16</span> se aproxima al valor asintótico de 1.96 pero aún difiere significativamente. La incertidumbre expandida por regresión (<span class="math inline">U = 0.32</span> s) es mayor que la obtenida por el método <span class="math inline">t_{1/2}</span> (<span class="math inline">U = 0.16</span> s), pero con el factor <span class="math inline">k</span> adecuado. Si se comparan ambos resultados con sus incertidumbres expandidas al 95%:</p>
+<p><span class="math display">|RC_{t_{1/2}} - RC_{\text{reg}}| = 0.35 \text{ s} &lt; U_{t_{1/2}} + U_{\text{reg}} = 0.16 + 0.32 = 0.48 \text{ s}</span></p>
+<p>Con las incertidumbres expandidas al 95%, los dos resultados <strong>son compatibles</strong>.</p>
+<h3 id="parte-3-curva-de-descarga-vt-sin-r-sólo-voltímetro" class="anchored">5.7. Parte 3: Curva de descarga <span class="math inline">V(t)</span> sin <span class="math inline">R</span> (sólo voltímetro)</h3>
+<p>Se retira la resistencia <span class="math inline">R</span> del circuito y se registra la descarga del condensador únicamente a través de la resistencia interna del voltímetro <span class="math inline">R_V</span>. Se toman 20 pares de valores <span class="math inline">(t, V)</span>.</p>
+<p><strong>Tabla 4.</strong> Datos de la descarga sin <span class="math inline">R</span>: tiempo <span class="math inline">t</span>, voltaje <span class="math inline">V</span>, y logaritmo neperiano <span class="math inline">\ln V</span>.</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Medida</th>
+<th style="text-align: center;"><span class="math inline">t</span> (s)</th>
+<th style="text-align: center;"><span class="math inline">V</span> (V)</th>
+<th style="text-align: center;"><span class="math inline">\ln V</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0.00</td>
+<td style="text-align: center;">10.00</td>
+<td style="text-align: center;">2.3026</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">3.00</td>
+<td style="text-align: center;">8.92</td>
+<td style="text-align: center;">2.1883</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">6.00</td>
+<td style="text-align: center;">7.94</td>
+<td style="text-align: center;">2.0719</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">8.00</td>
+<td style="text-align: center;">7.29</td>
+<td style="text-align: center;">1.9865</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">10.00</td>
+<td style="text-align: center;">6.84</td>
+<td style="text-align: center;">1.9228</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">16.00</td>
+<td style="text-align: center;">5.37</td>
+<td style="text-align: center;">1.6808</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">18.00</td>
+<td style="text-align: center;">4.99</td>
+<td style="text-align: center;">1.6074</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">19.00</td>
+<td style="text-align: center;">4.75</td>
+<td style="text-align: center;">1.5581</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">24.00</td>
+<td style="text-align: center;">4.00</td>
+<td style="text-align: center;">1.3863</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">25.00</td>
+<td style="text-align: center;">3.88</td>
+<td style="text-align: center;">1.3558</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">26.00</td>
+<td style="text-align: center;">3.72</td>
+<td style="text-align: center;">1.3137</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">30.00</td>
+<td style="text-align: center;">3.16</td>
+<td style="text-align: center;">1.1506</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">13</td>
+<td style="text-align: center;">35.00</td>
+<td style="text-align: center;">2.65</td>
+<td style="text-align: center;">0.9746</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">14</td>
+<td style="text-align: center;">40.00</td>
+<td style="text-align: center;">2.19</td>
+<td style="text-align: center;">0.7839</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">43.00</td>
+<td style="text-align: center;">1.94</td>
+<td style="text-align: center;">0.6627</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">56.00</td>
+<td style="text-align: center;">1.21</td>
+<td style="text-align: center;">0.1906</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">17</td>
+<td style="text-align: center;">57.00</td>
+<td style="text-align: center;">1.18</td>
+<td style="text-align: center;">0.1655</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">65.00</td>
+<td style="text-align: center;">0.88</td>
+<td style="text-align: center;"><span class="math inline">-0.1278</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">19</td>
+<td style="text-align: center;">67.00</td>
+<td style="text-align: center;">0.81</td>
+<td style="text-align: center;"><span class="math inline">-0.2107</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">75.00</td>
+<td style="text-align: center;">0.61</td>
+<td style="text-align: center;"><span class="math inline">-0.4943</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Nota:</strong> Para <span class="math inline">V &lt; 1</span> V (medidas 18, 19 y 20), el logaritmo neperiano toma valores negativos, lo que es perfectamente consistente con el modelo.</p>
+<h3 id="regresión-lineal-ln-v-frente-a-t-sin-r" class="anchored">5.8. Regresión lineal: <span class="math inline">\ln V</span> frente a <span class="math inline">t</span> (sin <span class="math inline">R</span>)</h3>
+<p>Se ajusta el modelo lineal <span class="math inline">\ln V = m_V \cdot t + n_V</span> a los <span class="math inline">N_p = 20</span> puntos. Ahora, la pendiente da la constante de tiempo asociada a la resistencia interna del voltímetro: <span class="math inline">m_V = -1/(R_V C)</span>.</p>
+<p><strong>Tabla 5.</strong> Sumas para la regresión lineal (<span class="math inline">x_i = t_i</span>, <span class="math inline">y_i = \ln V_i</span>).</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 16%">
+<col style="width: 30%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">i</span></th>
+<th style="text-align: center;"><span class="math inline">x_i</span></th>
+<th style="text-align: center;"><span class="math inline">y_i</span></th>
+<th style="text-align: center;"><span class="math inline">x_i^2</span></th>
+<th style="text-align: center;"><span class="math inline">x_i \cdot y_i</span></th>
+<th style="text-align: center;"><span class="math inline">y_i^2</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0.00</td>
+<td style="text-align: center;">2.3026</td>
+<td style="text-align: center;">0.00</td>
+<td style="text-align: center;">0.0000</td>
+<td style="text-align: center;">5.3019</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">3.00</td>
+<td style="text-align: center;">2.1883</td>
+<td style="text-align: center;">9.00</td>
+<td style="text-align: center;">6.5649</td>
+<td style="text-align: center;">4.7886</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">6.00</td>
+<td style="text-align: center;">2.0719</td>
+<td style="text-align: center;">36.00</td>
+<td style="text-align: center;">12.4315</td>
+<td style="text-align: center;">4.2928</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">8.00</td>
+<td style="text-align: center;">1.9865</td>
+<td style="text-align: center;">64.00</td>
+<td style="text-align: center;">15.8920</td>
+<td style="text-align: center;">3.9462</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">10.00</td>
+<td style="text-align: center;">1.9228</td>
+<td style="text-align: center;">100.00</td>
+<td style="text-align: center;">19.2279</td>
+<td style="text-align: center;">3.6971</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">16.00</td>
+<td style="text-align: center;">1.6808</td>
+<td style="text-align: center;">256.00</td>
+<td style="text-align: center;">26.8932</td>
+<td style="text-align: center;">2.8252</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">18.00</td>
+<td style="text-align: center;">1.6074</td>
+<td style="text-align: center;">324.00</td>
+<td style="text-align: center;">28.9338</td>
+<td style="text-align: center;">2.5839</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">19.00</td>
+<td style="text-align: center;">1.5581</td>
+<td style="text-align: center;">361.00</td>
+<td style="text-align: center;">29.6047</td>
+<td style="text-align: center;">2.4278</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">24.00</td>
+<td style="text-align: center;">1.3863</td>
+<td style="text-align: center;">576.00</td>
+<td style="text-align: center;">33.2711</td>
+<td style="text-align: center;">1.9218</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">25.00</td>
+<td style="text-align: center;">1.3558</td>
+<td style="text-align: center;">625.00</td>
+<td style="text-align: center;">33.8959</td>
+<td style="text-align: center;">1.8383</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">26.00</td>
+<td style="text-align: center;">1.3137</td>
+<td style="text-align: center;">676.00</td>
+<td style="text-align: center;">34.1568</td>
+<td style="text-align: center;">1.7259</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">30.00</td>
+<td style="text-align: center;">1.1506</td>
+<td style="text-align: center;">900.00</td>
+<td style="text-align: center;">34.5172</td>
+<td style="text-align: center;">1.3238</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">13</td>
+<td style="text-align: center;">35.00</td>
+<td style="text-align: center;">0.9746</td>
+<td style="text-align: center;">1225.00</td>
+<td style="text-align: center;">34.1096</td>
+<td style="text-align: center;">0.9498</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">14</td>
+<td style="text-align: center;">40.00</td>
+<td style="text-align: center;">0.7839</td>
+<td style="text-align: center;">1600.00</td>
+<td style="text-align: center;">31.3561</td>
+<td style="text-align: center;">0.6145</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">43.00</td>
+<td style="text-align: center;">0.6627</td>
+<td style="text-align: center;">1849.00</td>
+<td style="text-align: center;">28.4956</td>
+<td style="text-align: center;">0.4392</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">56.00</td>
+<td style="text-align: center;">0.1906</td>
+<td style="text-align: center;">3136.00</td>
+<td style="text-align: center;">10.6747</td>
+<td style="text-align: center;">0.0363</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">17</td>
+<td style="text-align: center;">57.00</td>
+<td style="text-align: center;">0.1655</td>
+<td style="text-align: center;">3249.00</td>
+<td style="text-align: center;">9.4343</td>
+<td style="text-align: center;">0.0274</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">65.00</td>
+<td style="text-align: center;"><span class="math inline">-0.1278</span></td>
+<td style="text-align: center;">4225.00</td>
+<td style="text-align: center;"><span class="math inline">-8.3092</span></td>
+<td style="text-align: center;">0.0163</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">19</td>
+<td style="text-align: center;">67.00</td>
+<td style="text-align: center;"><span class="math inline">-0.2107</span></td>
+<td style="text-align: center;">4489.00</td>
+<td style="text-align: center;"><span class="math inline">-14.1183</span></td>
+<td style="text-align: center;">0.0444</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">75.00</td>
+<td style="text-align: center;"><span class="math inline">-0.4943</span></td>
+<td style="text-align: center;">5625.00</td>
+<td style="text-align: center;"><span class="math inline">-37.0722</span></td>
+<td style="text-align: center;">0.2443</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><strong><span class="math inline">\Sigma</span></strong></td>
+<td style="text-align: center;"><strong>623.00</strong></td>
+<td style="text-align: center;"><strong>22.4694</strong></td>
+<td style="text-align: center;"><strong>29325.00</strong></td>
+<td style="text-align: center;"><strong>329.9596</strong></td>
+<td style="text-align: center;"><strong>39.0455</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Cálculo del determinante <span class="math inline">\Delta</span>:</strong></p>
+<p><span class="math display">\Delta = N_p \sum x_i^2 - \left(\sum x_i\right)^2 = 20 \times 29325.00 - (623.00)^2 = 586500.00 - 388129.00 = 198371.00</span></p>
+<p><strong>Cálculo de la pendiente <span class="math inline">m_V</span>:</strong></p>
+<p><span class="math display">m_V = \frac{N_p \sum x_i y_i - \sum x_i \sum y_i}{\Delta} = \frac{20 \times 329.9596 - 623.00 \times 22.4694}{198371.00}</span></p>
+<p><span class="math display">m_V = \frac{6599.19 - 13998.41}{198371.00} = \frac{-7399.21}{198371.00} = -0.03730</span></p>
+<p><strong>Cálculo de la ordenada en el origen <span class="math inline">n_V</span>:</strong></p>
+<p><span class="math display">n_V = \frac{\sum x_i^2 \sum y_i - \sum x_i \sum x_i y_i}{\Delta} = \frac{29325.00 \times 22.4694 - 623.00 \times 329.9596}{198371.00}</span></p>
+<p><span class="math display">n_V = \frac{658913.76 - 205564.85}{198371.00} = \frac{453348.91}{198371.00} = 2.2854</span></p>
+<p><strong>Varianza residual y desviaciones típicas:</strong></p>
+<p><span class="math display">S^2 = \frac{\sum(y_i - m_V x_i - n_V)^2}{N_p - 2} = \frac{0.002454}{18} = 1.364 \times 10^{-4}</span></p>
+<p><span class="math display">\sigma_{m_V} = \sqrt{\frac{N_p \cdot S^2}{\Delta}} = \sqrt{\frac{20 \times 1.364 \times 10^{-4}}{198371.00}} = 0.000117</span></p>
+<p><span class="math display">\sigma_{n_V} = \sqrt{\frac{\sum x_i^2 \cdot S^2}{\Delta}} = \sqrt{\frac{29325.00 \times 1.364 \times 10^{-4}}{198371.00}} = 0.0045</span></p>
+<p><strong>Coeficiente de correlación:</strong></p>
+<p><span class="math display">r_V = \frac{-7399.21}{\sqrt{198371.00 \times 276.04}} = \frac{-7399.21}{7399.87} = -0.99991</span></p>
+<p>El coeficiente de correlación es aún más próximo a <span class="math inline">-1</span> que en la Parte 2, lo que indica un ajuste excelente.</p>
+<p><strong>Resumen del ajuste lineal (Parte 3):</strong></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Parámetro</th>
+<th style="text-align: center;">Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">m_V</span> (pendiente)</td>
+<td style="text-align: center;"><span class="math inline">(-0.03730 \pm 0.00012)</span> s<span class="math inline">^{-1}</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">n_V</span> (ordenada)</td>
+<td style="text-align: center;"><span class="math inline">(2.285 \pm 0.005)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">r_V</span> (correlación)</td>
+<td style="text-align: center;"><span class="math inline">-0.99991</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">r_V^2</span></td>
+<td style="text-align: center;"><span class="math inline">0.99982</span></td>
+</tr>
+</tbody>
+</table>
+<h3 id="determinación-de-r_v-c-sin-r" class="anchored">5.9. Determinación de <span class="math inline">R_V C</span> (sin <span class="math inline">R</span>)</h3>
+<p>De la pendiente del ajuste:</p>
+<p><span class="math display">R_V C = -\frac{1}{m_V} = -\frac{1}{-0.03730} = 26.81 \text{ s}</span></p>
+<p>Propagación de la incertidumbre:</p>
+<p><span class="math display">\Delta(R_V C) = \frac{\sigma_{m_V}}{m_V^2} = \frac{0.000117}{(0.03730)^2} = \frac{0.000117}{0.001391} = 0.08 \text{ s}</span></p>
+<p><span class="math display">\boxed{R_V C = (26.81 \pm 0.08) \text{ s}}</span></p>
+<p><strong>Voltaje inicial extrapolado:</strong></p>
+<p><span class="math display">V_0 = e^{n_V} = e^{2.2854} = 9.83 \text{ V}</span></p>
+<p>Este valor es ligeramente inferior a 10 V, lo que es razonable considerando que la primera medida se toma en <span class="math inline">t = 0</span> con <span class="math inline">V = 10.00</span> V (el ajuste lineal de <span class="math inline">\ln V</span> promedia sobre todos los puntos).</p>
+<h4 id="análisis-de-residuos-del-ajuste-lineal-sin-r-l2-f5" class="anchored">5.9.1. Análisis de residuos del ajuste lineal sin <span class="math inline">R</span> (L2, F5)</h4>
+<p>Los grados de libertad de la varianza residual son <span class="math inline">\nu_{\text{fit}} = N_p - p = 20 - 2 = 18</span> (I4). La desviación típica residual es <span class="math inline">S = \sqrt{1.364 \times 10^{-4}} = 0.01168</span>.</p>
+<p>Los residuos <span class="math inline">e_i = y_i - (m_V \cdot x_i + n_V)</span> se examinan para detectar posibles tendencias sistemáticas. Al igual que en la Parte 2, los residuos fluctúan aleatoriamente en torno a cero sin mostrar una tendencia sistemática clara (curvatura, deriva o periodicidad), lo que confirma que el modelo de descarga exponencial pura es adecuado también para la descarga a través de la resistencia interna del voltímetro. La ausencia de curvatura sistemática indica que la corriente de fuga interna del condensador es despreciable o, al menos, no genera una desviación detectable respecto al modelo <span class="math inline">V(t) = V_0 \exp(-t/R_V C)</span>.</p>
+<h3 id="gráfica-2-ln-v-frente-a-t-sin-r" class="anchored">5.10. Gráfica 2: <span class="math inline">\ln V</span> frente a <span class="math inline">t</span> (sin <span class="math inline">R</span>)</h3>
+<div id="cell-fig-lnV-vs-t-sin-R" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display">
+<div id="fig-lnv-vs-t-sin-r" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-lnv-vs-t-sin-r-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-lnv-vs-t-sin-r-output-1.png" width="880" height="580">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-lnv-vs-t-sin-r-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;2: Figura 3: Representación de <span class="math inline">\ln V</span> frente a <span class="math inline">t</span> para la descarga sin resistencia externa (a través de <span class="math inline">R_V</span>). Pendiente: <span class="math inline">m_V = (-0.03730 \pm 0.00012)</span> s<span class="math inline">^{-1}</span>. Coeficiente de correlación: <span class="math inline">r_V = -0.99991</span>.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<h3 id="comparación-de-las-constantes-de-tiempo" class="anchored">5.11. Comparación de las constantes de tiempo</h3>
+<table class="caption-top">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 21%">
+<col style="width: 53%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Magnitud</th>
+<th style="text-align: center;">Con <span class="math inline">R</span></th>
+<th style="text-align: center;">Sin <span class="math inline">R</span> (sólo <span class="math inline">R_V</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Constante de tiempo (s)</td>
+<td style="text-align: center;"><span class="math inline">(20.35 \pm 0.15)</span></td>
+<td style="text-align: center;"><span class="math inline">(26.81 \pm 0.08)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Pendiente <span class="math inline">m</span> (s<span class="math inline">^{-1}</span>)</td>
+<td style="text-align: center;"><span class="math inline">-0.04913 \pm 0.00036</span></td>
+<td style="text-align: center;"><span class="math inline">-0.03730 \pm 0.00012</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">|r|</span></td>
+<td style="text-align: center;">0.99965</td>
+<td style="text-align: center;">0.99991</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">V_0</span> extrapolado (V)</td>
+<td style="text-align: center;">10.20</td>
+<td style="text-align: center;">9.83</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Observaciones:</strong></p>
+<ol type="1">
+<li><p><strong>La descarga sin <span class="math inline">R</span> es más lenta:</strong> La constante de tiempo <span class="math inline">R_V C = 26.81</span> s es mayor que <span class="math inline">RC = 20.35</span> s, lo que se refleja en una pendiente de menor valor absoluto (<span class="math inline">|m_V| &lt; |m|</span>). Esto confirma que la resistencia interna del voltímetro <span class="math inline">R_V</span> es mayor que la resistencia efectiva del circuito con <span class="math inline">R</span>.</p></li>
+<li><p><strong>Efecto del voltímetro en la Parte 2:</strong> En la Parte 2, el condensador se descarga a través de la resistencia <span class="math inline">R</span> en serie, pero el voltímetro (<span class="math inline">R_V</span>) está en paralelo con el condensador. La resistencia efectiva de descarga es:</p></li>
+</ol>
+<p><span class="math display">R_{\text{eff}} = \frac{R \cdot R_V}{R + R_V}</span></p>
+<p>Si <span class="math inline">R_V \gg R</span>, entonces <span class="math inline">R_{\text{eff}} \approx R</span> y la presencia del voltímetro es despreciable. En nuestro caso, la diferencia entre <span class="math inline">R_V C = 26.81</span> s y <span class="math inline">RC_{\text{medido}} = 20.35</span> s indica que el voltímetro tiene una resistencia interna finita que influye parcialmente en la medida, aunque no de forma dominante.</p>
+<ol start="3" type="1">
+<li><strong>Cociente de constantes de tiempo:</strong></li>
+</ol>
+<p><span class="math display">\frac{R_V C}{RC_{\text{medido}}} = \frac{26.81}{20.35} = 1.32</span></p>
+<p>Este cociente indica que la resistencia interna del voltímetro es del mismo orden que la resistencia del circuito, como cabría esperar en un montaje didáctico diseñado para evidenciar este efecto.</p>
+<h3 id="resumen-de-resultados" class="anchored">5.12. Resumen de resultados</h3>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Método</th>
+<th style="text-align: center;"><span class="math inline">RC</span> (s)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Tiempo de semidescarga <span class="math inline">t_{1/2}</span></td>
+<td style="text-align: center;"><span class="math inline">(20.70 \pm 0.16)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Regresión lineal (con <span class="math inline">R</span>)</td>
+<td style="text-align: center;"><span class="math inline">(20.35 \pm 0.15)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Regresión lineal (sin <span class="math inline">R</span>, sólo <span class="math inline">R_V</span>)</td>
+<td style="text-align: center;"><span class="math inline">(26.81 \pm 0.08)</span></td>
+</tr>
+</tbody>
+</table>
+<h3 id="evaluación-de-la-adecuación-de-la-incertidumbre-m3m4" class="anchored">5.13. Evaluación de la adecuación de la incertidumbre (M3/M4)</h3>
+<p><strong>Fuentes dominantes de incertidumbre (M4):</strong></p>
+<p><em>Método del tiempo de semidescarga:</em> La incertidumbre está completamente dominada por la componente de tipo A (dispersión de las medidas repetidas), que refleja principalmente la variabilidad del tiempo de reacción del operador al accionar el cronómetro. La contribución de la resolución del cronómetro (tipo B) es despreciable (<span class="math inline">u_B/u_A &lt; 0.1</span>). Para reducir la incertidumbre de este método se recomienda:</p>
+<ul>
+<li>Aumentar el número de repeticiones (<span class="math inline">N &gt; 5</span>) para reducir <span class="math inline">u_A = s/\sqrt{N}</span> y aumentar los grados de libertad <span class="math inline">\nu_A = N - 1</span>.</li>
+<li>Utilizar un sistema de adquisición automática que elimine el error de reacción del operador.</li>
+</ul>
+<p><em>Método de regresión lineal:</em> La incertidumbre depende de la dispersión de los puntos experimentales respecto a la recta de ajuste, reflejada en la varianza residual <span class="math inline">S^2</span>. La calidad del ajuste es excelente (<span class="math inline">|r| &gt; 0.9996</span>), y la incertidumbre relativa de <span class="math inline">RC</span> es del <span class="math inline">0.7\%</span>. Para mejorar este resultado se podría:</p>
+<ul>
+<li>Aumentar el número de puntos de la curva de descarga (<span class="math inline">N_p &gt; 15</span>).</li>
+<li>Extender el rango temporal de la medida (registrar más puntos a tiempos largos).</li>
+<li>Utilizar un sistema de adquisición digital para eliminar errores de sincronización manual entre cronómetro y voltímetro.</li>
+</ul>
+<p><em>Error sistemático del voltímetro:</em> La resistencia interna del voltímetro (<span class="math inline">R_V</span>) introduce un error sistemático en la medida de <span class="math inline">RC</span> con resistencia, ya que la resistencia efectiva de descarga es <span class="math inline">R_{\text{eff}} = R \cdot R_V / (R + R_V) &lt; R</span>, lo que hace que la constante de tiempo medida sea sistemáticamente menor que el valor verdadero <span class="math inline">RC</span>. Este error sistemático puede corregirse si se conoce <span class="math inline">R_V</span> (estimable a partir de la Parte 3).</p>
+<p><strong>Adecuación de la incertidumbre (M3):</strong></p>
+<p>La incertidumbre obtenida (<span class="math inline">\sim 0.7\% - 0.8\%</span>) es adecuada para los objetivos de la práctica: demostrar la descarga exponencial, comparar dos métodos de determinación de <span class="math inline">RC</span>, y evidenciar el efecto de la resistencia interna del voltímetro. La precisión alcanzada permite distinguir claramente las constantes de tiempo con y sin resistencia externa (<span class="math inline">RC = 20.35</span> s frente a <span class="math inline">R_V C = 26.81</span> s, una diferencia del <span class="math inline">32\%</span>), y detectar la ligera discrepancia entre los métodos <span class="math inline">t_{1/2}</span> y regresión (<span class="math inline">1.7\%</span>).</p>
+<hr>
+<h2 id="cuestiones" class="anchored">6. Cuestiones</h2>
+<h3 id="cuestión-1.-demostrar-que-t_12-rc-cdot-ln-2-a-partir-de-v-v_0-cdot-exp-trc." class="anchored">Cuestión 1. Demostrar que <span class="math inline">t_{1/2} = RC \cdot \ln 2</span> a partir de <span class="math inline">V = V_0 \cdot \exp(-t/RC)</span>.</h3>
+<p>Partimos de la ley de descarga del condensador:</p>
+<p><span class="math display">V(t) = V_0 \cdot \exp\left(-\frac{t}{RC}\right)</span></p>
+<p>El tiempo de semidescarga <span class="math inline">t_{1/2}</span> se define como el tiempo para el cual el voltaje se reduce a la mitad de su valor inicial. Imponemos <span class="math inline">V(t_{1/2}) = V_0/2</span>:</p>
+<p><span class="math display">\frac{V_0}{2} = V_0 \cdot \exp\left(-\frac{t_{1/2}}{RC}\right)</span></p>
+<p>Dividiendo ambos miembros por <span class="math inline">V_0</span> (que es distinto de cero):</p>
+<p><span class="math display">\frac{1}{2} = \exp\left(-\frac{t_{1/2}}{RC}\right)</span></p>
+<p>Tomando logaritmos neperianos en ambos miembros:</p>
+<p><span class="math display">\ln\left(\frac{1}{2}\right) = -\frac{t_{1/2}}{RC}</span></p>
+<p><span class="math display">-\ln 2 = -\frac{t_{1/2}}{RC}</span></p>
+<p>Despejando <span class="math inline">t_{1/2}</span>:</p>
+<p><span class="math display">\boxed{t_{1/2} = RC \cdot \ln 2 \approx 0.69315 \cdot RC}</span></p>
+<p><span class="math inline">\blacksquare</span></p>
+<h3 id="cuestión-2.-identificar-la-pendiente-y-la-ordenada-en-el-origen-de-la-representación-ln-v-frente-a-t." class="anchored">Cuestión 2. Identificar la pendiente y la ordenada en el origen de la representación <span class="math inline">\ln V</span> frente a <span class="math inline">t</span>.</h3>
+<p>Partiendo de la ley de descarga:</p>
+<p><span class="math display">V(t) = V_0 \cdot \exp\left(-\frac{t}{RC}\right)</span></p>
+<p>Tomamos logaritmos neperianos:</p>
+<p><span class="math display">\ln V = \ln V_0 + \ln\left[\exp\left(-\frac{t}{RC}\right)\right] = \ln V_0 - \frac{t}{RC}</span></p>
+<p>Reordenando:</p>
+<p><span class="math display">\ln V = -\frac{1}{RC} \cdot t + \ln V_0</span></p>
+<p>Esta expresión tiene la forma <span class="math inline">y = mx + n</span>, donde:</p>
+<ul>
+<li><strong>Pendiente:</strong> <span class="math inline">m = -\dfrac{1}{RC}</span></li>
+<li><strong>Ordenada en el origen:</strong> <span class="math inline">n = \ln V_0</span></li>
+</ul>
+<p>De la pendiente se obtiene la constante de tiempo: <span class="math inline">RC = -1/m = 1/|m|</span>. De la ordenada se obtiene el voltaje inicial: <span class="math inline">V_0 = e^n</span>.</p>
+<p><span class="math inline">\blacksquare</span></p>
+<h3 id="cuestión-3.-obtener-la-expresión-del-error-deltarc-a-partir-de-la-pendiente-m-y-su-incertidumbre-sigma_m." class="anchored">Cuestión 3. Obtener la expresión del error <span class="math inline">\Delta(RC)</span> a partir de la pendiente <span class="math inline">m</span> y su incertidumbre <span class="math inline">\sigma_m</span>.</h3>
+<p>Dado que <span class="math inline">RC = f(m) = -1/m = 1/|m|</span>, la propagación de errores da:</p>
+<p><span class="math display">\Delta(RC) = \left|\frac{d(RC)}{dm}\right| \cdot \sigma_m</span></p>
+<p>Calculamos la derivada:</p>
+<p><span class="math display">\frac{d}{dm}\left(-\frac{1}{m}\right) = \frac{1}{m^2}</span></p>
+<p>Por tanto:</p>
+<p><span class="math display">\boxed{\Delta(RC) = \frac{\sigma_m}{m^2}}</span></p>
+<p>Verificación numérica (Parte 2):</p>
+<p><span class="math display">\Delta(RC) = \frac{0.00036}{(0.04913)^2} = \frac{0.00036}{0.002414} = 0.15 \text{ s}</span></p>
+<p><span class="math inline">\blacksquare</span></p>
+<hr>
+<h2 id="apéndice-a.-comparación-de-métodos-de-regresión" class="anchored">Apéndice A. Comparación de métodos de regresión</h2>
+<h3 id="a.1.-ols-mínimos-cuadrados-ordinarios" class="anchored">A.1. OLS (mínimos cuadrados ordinarios)</h3>
+<p>Es el método empleado en el cuerpo del informe. Minimiza <span class="math inline">\sum (y_i - mx_i - n)^2</span> sin ponderar por las incertidumbres individuales.</p>
+<h3 id="a.2.-wls-y-ponderado-por-delta-y-solamente" class="anchored">A.2. WLS-y (ponderado por <span class="math inline">\Delta y</span> solamente)</h3>
+<p>Se pondera cada punto por <span class="math inline">w_i = 1/\sigma_{y_i}^2</span>, donde <span class="math inline">\sigma_{y_i} = \Delta V / V_i</span> es la incertidumbre propagada en <span class="math inline">\ln V_i</span>. Los puntos con menor <span class="math inline">V</span> (mayor incertidumbre relativa) reciben menor peso.</p>
+<h3 id="a.3.-wls-xy-varianza-efectiva-método-iterativo" class="anchored">A.3. WLS-xy (varianza efectiva, método iterativo)</h3>
+<p>Se utiliza la varianza efectiva <span class="math inline">\sigma_{\mathrm{eff},i}^2 = \sigma_{y_i}^2 + m^2 \sigma_{x_i}^2</span>, que incorpora tanto la incertidumbre en <span class="math inline">y</span> (<span class="math inline">\Delta \ln V</span>) como la incertidumbre en <span class="math inline">x</span> (<span class="math inline">\Delta t</span>). Se itera hasta convergencia de <span class="math inline">m</span>.</p>
+<h3 id="a.4.-comparación-numérica" class="anchored">A.4. Comparación numérica</h3>
+<div class="cell" data-execution_count="3">
+<div id="fig-reg-comparison" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="3">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-reg-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output cell-output-display">
+<div id="fig-reg-comparison-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig">
+<div aria-describedby="fig-reg-comparison-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-reg-comparison-output-1.png" data-ref-parent="fig-reg-comparison" width="1780" height="655">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-reg-comparison-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Figura A.1: Comparación de los tres métodos de regresión para ambas descargas (con <span class="math inline">R</span> y sin <span class="math inline">R</span>).
+</figcaption>
+</figure>
+</div>
+</div>
+<div id="fig-reg-comparison-2" class="cell-output cell-output-display cell-output-markdown quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig">
+<div aria-describedby="fig-reg-comparison-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<p><strong>Tabla A.1.</strong> Descarga con <span class="math inline">R</span>:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 18%">
+<col style="width: 13%">
+<col style="width: 5%">
+<col style="width: 13%">
+<col style="width: 5%">
+<col style="width: 11%">
+<col style="width: 21%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Método</th>
+<th style="text-align: center;"><span class="math inline">m</span> (s<span class="math inline">^{-1}</span>)</th>
+<th style="text-align: center;"><span class="math inline">\sigma_m</span></th>
+<th style="text-align: center;"><span class="math inline">n</span></th>
+<th style="text-align: center;"><span class="math inline">\sigma_n</span></th>
+<th style="text-align: center;"><span class="math inline">r</span></th>
+<th style="text-align: center;"><span class="math inline">RC</span> (s)</th>
+<th style="text-align: center;"><span class="math inline">\Delta(RC)</span> (s)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">OLS</td>
+<td style="text-align: center;">-0.04913</td>
+<td style="text-align: center;">0.00036</td>
+<td style="text-align: center;">2.3224</td>
+<td style="text-align: center;">0.0066</td>
+<td style="text-align: center;">-0.999648</td>
+<td style="text-align: center;">20.35</td>
+<td style="text-align: center;">0.15</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">WLS-y</td>
+<td style="text-align: center;">-0.04981</td>
+<td style="text-align: center;">0.00007</td>
+<td style="text-align: center;">2.3312</td>
+<td style="text-align: center;">0.0008</td>
+<td style="text-align: center;">-0.999474</td>
+<td style="text-align: center;">20.08</td>
+<td style="text-align: center;">0.03</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">WLS-xy</td>
+<td style="text-align: center;">-0.04976</td>
+<td style="text-align: center;">0.00007</td>
+<td style="text-align: center;">2.3305</td>
+<td style="text-align: center;">0.0009</td>
+<td style="text-align: center;">-0.999477</td>
+<td style="text-align: center;">20.10</td>
+<td style="text-align: center;">0.03</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Tabla A.2.</strong> Descarga sin <span class="math inline">R</span> (solo <span class="math inline">R_V</span>):</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 16%">
+<col style="width: 15%">
+<col style="width: 6%">
+<col style="width: 15%">
+<col style="width: 6%">
+<col style="width: 12%">
+<col style="width: 19%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Método</th>
+<th style="text-align: center;"><span class="math inline">m_V</span> (s<span class="math inline">^{-1}</span>)</th>
+<th style="text-align: center;"><span class="math inline">\sigma_{m_V}</span></th>
+<th style="text-align: center;"><span class="math inline">n_V</span></th>
+<th style="text-align: center;"><span class="math inline">\sigma_{n_V}</span></th>
+<th style="text-align: center;"><span class="math inline">r_V</span></th>
+<th style="text-align: center;"><span class="math inline">R_V C</span> (s)</th>
+<th style="text-align: center;"><span class="math inline">\Delta(R_V C)</span> (s)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">OLS</td>
+<td style="text-align: center;">-0.03730</td>
+<td style="text-align: center;">0.000117</td>
+<td style="text-align: center;">2.2854</td>
+<td style="text-align: center;">0.0045</td>
+<td style="text-align: center;">-0.999911</td>
+<td style="text-align: center;">26.81</td>
+<td style="text-align: center;">0.08</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">WLS-y</td>
+<td style="text-align: center;">-0.03803</td>
+<td style="text-align: center;">0.000041</td>
+<td style="text-align: center;">2.2988</td>
+<td style="text-align: center;">0.0006</td>
+<td style="text-align: center;">-0.999845</td>
+<td style="text-align: center;">26.29</td>
+<td style="text-align: center;">0.03</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">WLS-xy</td>
+<td style="text-align: center;">-0.03802</td>
+<td style="text-align: center;">0.000042</td>
+<td style="text-align: center;">2.2986</td>
+<td style="text-align: center;">0.0007</td>
+<td style="text-align: center;">-0.999844</td>
+<td style="text-align: center;">26.30</td>
+<td style="text-align: center;">0.03</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-reg-comparison-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b)
+</figcaption>
+</figure>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-reg-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;3
+</figcaption>
+</figure>
+</div>
+</div>
+<h3 id="a.5.-discusión" class="anchored">A.5. Discusión</h3>
+<p>En la descarga de un condensador con datos linealilzados (<span class="math inline">\ln V</span> vs <span class="math inline">t</span>), las incertidumbres en <span class="math inline">y = \ln V</span> son <span class="math inline">\sigma_{y_i} = \Delta V / V_i</span>, lo que las hace no uniformes: los puntos a tensiones bajas (final de la descarga) tienen mayor incertidumbre relativa en <span class="math inline">\ln V</span>. El método WLS-y tiene en cuenta esta heterogeneidad, dando menos peso a los puntos con mayor incertidumbre.</p>
+<p>La incertidumbre en <span class="math inline">x = t</span> es constante (<span class="math inline">\Delta t = 0.01</span> s), muy pequeña comparada con los tiempos medidos (del orden de segundos a decenas de segundos), por lo que el método WLS-xy aporta una corrección mínima respecto a WLS-y.</p>
+<p>En general, para estos datos los tres métodos producen resultados muy similares, lo que confirma la robustez del ajuste lineal y la alta calidad de los datos experimentales.</p>
+<hr>
+<h2 id="bibliografía" class="anchored">7. Bibliografía</h2>
+<ol type="1">
+<li><p><strong>Manual de Técnicas Experimentales I</strong>, versión 3.8.2. Departamento de Física Fundamental, Facultad de Ciencias, UNED. Práctica 6: Descarga de un condensador.</p></li>
+<li><p><strong>Alonso, M. y Finn, E.J.</strong> <em>Física</em>. Addison-Wesley Iberoamericana. Capítulo sobre circuitos de corriente continua y transitorios RC.</p></li>
+<li><p><strong>Serway, R.A. y Jewett, J.W.</strong> <em>Física para ciencias e ingeniería</em>. Cengage Learning. Capítulo 28: Circuitos de corriente continua.</p></li>
+</ol>
+
+
+<!-- Closes the reading column opened by _gen/docs-nav.html, adds the right
+     "On this page" list, and wires: current-page marking in the left nav,
+     breadcrumbs, the page TOC (from h2/h3 in the reading column) and a
+     scroll-spy. Pure DOM, no library. -->
+  </div>
+  <aside class="docs-toc"><button class="docs-fold" type="button" data-fold="toc" aria-label="Hide the page outline" title="Hide the page outline">›</button><div class="t">On this page</div><ol></ol></aside>
+</div>
+<script>
+(function () {
+  /* 0. The two side panels fold on their chevrons; the choice is remembered in this browser. */
+  var docs = document.querySelector('.docs');
+  if (docs) {
+    var store = {};
+    try { store = JSON.parse(localStorage.getItem('docs-fold') || '{}'); } catch (e) { store = {}; }
+    function apply() {
+      docs.classList.toggle('nav-folded', !!store.nav);
+      docs.classList.toggle('toc-folded', !!store.toc);
+      document.querySelectorAll('.docs-fold').forEach(function (b) {
+        var which = b.getAttribute('data-fold'), folded = !!store[which];
+        b.innerHTML = (which === 'nav') === folded ? '&rsaquo;' : '&lsaquo;';
+        var what = which === 'nav' ? 'the navigation' : 'the page outline';
+        b.title = (folded ? 'Show ' : 'Hide ') + what; b.setAttribute('aria-label', b.title);
+      });
+    }
+    document.querySelectorAll('.docs-fold').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var which = b.getAttribute('data-fold'); store[which] = !store[which];
+        try { localStorage.setItem('docs-fold', JSON.stringify(store)); } catch (e) {}
+        apply();
+      });
+    });
+    apply();
+  }
+  /* 0b. The header ribbon: mark the entry whose section holds this page. Quarto rewrites the hrefs to
+     relative paths, so folders are read from the resolved URLs; the Overview link gives the site root. */
+  (function () {
+    var links = Array.prototype.slice.call(document.querySelectorAll('.site-nav a'));
+    if (!links.length) return;
+    /* a served URL may end in '/' (GitHub Pages: …/about/); read it as …/about/index.html */
+    function folder(path) { if (/\/$/.test(path)) path += 'index.html'; var s = path.split('/').filter(Boolean); return s.length > 1 ? s[s.length - 2] : ''; }
+    var wm = document.querySelector('a.wordmark');            // the wordmark links to the site root
+    var root = folder((wm || links[0]).pathname);
+    var map = { rietveld: 'cases', drude: 'cases', dielectric: 'cases' };
+    function key(path) { var f = folder(path); if (f === root) return 'overview'; return map[f] || f; }
+    var here = key(location.pathname);
+    links.forEach(function (a) { a.classList.toggle('current', key(a.pathname) === here); });
+  })();
+
+  var main = document.querySelector('.docs-main');
+  var nav = document.querySelector('.docs-nav');
+  var toc = document.querySelector('.docs-toc ol');
+  if (!main || !nav || !toc) return;
+
+  /* 1. Left nav: mark the current page (and section, if the hash matches). */
+  var here = location.pathname.replace(/\/index\.html$/, '/');
+  var links = Array.prototype.slice.call(nav.querySelectorAll('a'));
+  var pageLink = null, hashLink = null;
+  links.forEach(function (a) {
+    var p = a.pathname.replace(/\/index\.html$/, '/');
+    if (p !== here) return;
+    if (!a.hash && !pageLink) pageLink = a;
+    if (a.hash && a.hash === location.hash) hashLink = a;
+  });
+  var cur = hashLink || pageLink;
+  if (cur) {
+    cur.classList.add('current');
+    var det = cur.closest('details.group');
+    if (det) { det.open = true; det.classList.add('has-current'); }
+    /* Breadcrumbs: group title › page (› section). */
+    var crumbs = document.createElement('div');
+    crumbs.className = 'docs-crumbs';
+    var g = det ? det.querySelector('summary.t') : null;
+    var parts = [];
+    function push(t) { if (t && parts[parts.length - 1] !== t) parts.push(t); }
+    if (g) push(g.textContent.trim());
+    if (pageLink && pageLink !== cur) push(pageLink.textContent.trim());
+    push(cur.textContent.trim());
+    crumbs.innerHTML = parts.map(function (t, i) {
+      return (i ? '<span class="sep">›</span>' : '') + '<span>' + t.replace(/</g, '&lt;') + '</span>';
+    }).join('');
+    main.insertBefore(crumbs, main.firstChild);
+  }
+
+  /* 2. Right "On this page": h2 and h3 of the reading column. */
+  var used = {};
+  var heads = Array.prototype.slice.call(main.querySelectorAll('h2, h3')).filter(function (h) {
+    if (h.closest('.site-foot, .featured-band, .msg-grid, [data-toc="no"]')) return false;
+    if (h.classList.contains('unnumbered') || h.id === 'contenido') return false;
+    return h.textContent.trim().length > 0;
+  });
+  heads.forEach(function (h) {
+    if (!h.id) {
+      var s = h.textContent.trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+        .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60) || 'sec';
+      while (used[s] || document.getElementById(s)) s += '-';
+      h.id = s;
+    }
+    used[h.id] = true;
+    var li = document.createElement('li');
+    if (h.tagName === 'H3') li.className = 'l3';
+    var a = document.createElement('a');
+    a.href = '#' + h.id;
+    /* This runs before KaTeX has rendered the headings, so a heading with mathematics still holds TeX
+       source: copy its markup, including the math spans, and let the page's KaTeX pass render the copy. */
+    var copy = h.cloneNode(true);
+    copy.querySelectorAll('.katex-mathml, annotation, .anchorjs-link').forEach(function (n) { n.remove(); });
+    var label = copy.textContent.trim().replace(/\s+/g, ' ');
+    if (copy.querySelector('.math, .math-done, .katex')) a.innerHTML = copy.innerHTML.trim();
+    else a.textContent = label.length > 72 ? label.slice(0, 70).replace(/[\s,;:]+\S*$/, '') + '…' : label;
+    a.title = label;
+    li.appendChild(a);
+    toc.appendChild(li);
+  });
+  if (!heads.length) { document.querySelector('.docs-toc').hidden = true; return; }
+
+  /* 3. Scroll-spy. */
+  var items = Array.prototype.slice.call(toc.querySelectorAll('a'));
+  function spy() {
+    var y = window.scrollY + 120, best = null;
+    heads.forEach(function (h) { if (h.getBoundingClientRect().top + window.scrollY <= y) best = h; });
+    items.forEach(function (a) { a.classList.toggle('current', best && a.getAttribute('href') === '#' + best.id); });
+  }
+  window.addEventListener('scroll', spy, { passive: true });
+  window.addEventListener('hashchange', spy);
+  spy();
+})();
+</script>
+<footer class="site-foot">
+  <div class="site-foot__inner">
+    <div class="foot-grid">
+      <div class="foot-about">
+        <h4 class="anchored">Qué es esto</h4>
+        <p>Los guiones de las prácticas de laboratorio que la UNED realiza en la Facultad de Ciencia y Tecnología de la UPV/EHU (Leioa), para Bases Físicas del Medio Ambiente, Física I y II, Mecánica y Técnicas Experimentales I.</p>
+        <div class="cite-block">Josu M. Igartua · Departamento de Física, Facultad de Ciencia y Tecnología, UPV/EHU<br>josu.igartua@ehu.eus · +34 94 601 5335</div>
+      </div>
+      <div><h4 class="anchored">Este sitio</h4><ul>
+        <li><a href="../../../index.html">Inicio</a></li><li><a href="../../../practicas/index.html">Prácticas</a></li><li><a href="../../../asignaturas/index.html">Asignaturas</a></li><li><a href="../../../recursos/index.html">Recursos</a></li><li><a href="../../../informe/index.html">Informe</a></li><li><a href="../../../manual/index.html">Manual TE I</a></li><li><a href="../../../contacto/index.html">Contacto</a></li>
+      </ul></div>
+      <div><h4 class="anchored">Instituciones</h4><ul>
+        <li><a href="https://www.uned.es">UNED</a></li>
+        <li><a href="https://www.ehu.eus">UPV/EHU</a></li></ul></div>
+      <div><h4 class="anchored">Dónde</h4><ul>
+        <li>Barrio Sarriena s/n, 48940 Leioa (Bizkaia)</li>
+        <li>Laboratorios 0.16 y 0.21</li></ul></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Josu M. Igartua</span>
+      <span>curso 2025–2026</span>
+    </div>
+  </div>
+</footer>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+    tabsets.forEach(function(tabset) {
+      const tabby = new Tabby('#' + tabset.id);
+    });
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+
+
+
+
+<script src="../../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

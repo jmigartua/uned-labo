@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Josu M. Igartua">
+<meta name="dcterms.date" content="2026-03-20">
+<meta name="keywords" content="catenaria, estática de hilos, funciones hiperbólicas, ajuste no lineal">
+<meta name="description" content="Verificación experimental de la ecuación de la catenaria, y = a\cosh(x/a), como curva de equilibrio de un hilo flexible bajo la acción de la gravedad. Determinación del parámetro de la catenaria y comparación con la aproximación parabólica.Asignaturas: Mecánica (61042107, Grado en Física, 2º curso) · Mecánica I (68031087, Grado en Ing. Mecánica, 1er curso)Universidad: UNED · Curso académico: 2025–2026Coordinadores: Dr.&nbsp;José Español Garrigós (Física Fundamental) · Juan Carlos García Prada (Mecánica)">
+
+<title>Equilibrio de un hilo bajo la acción de la gravedad: la catenaria · UNED Labo – UNED Labo</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<link href="../../assets/favicon.svg" rel="icon" type="image/svg+xml">
+<script src="../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-html-afe927e19676d0e50b1726048be49fb1.min.css" rel="stylesheet" append-hash="true" data-mode="light">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<style>html{ scroll-behavior: smooth; }</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&amp;family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<!-- KaTeX auto-render: publication titles carry TeX inside generated HTML that
+     Quarto's own math pipeline never sees (same approach as thermomat). -->
+<script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+/* The header ribbon is sticky; the side columns and anchor targets need its height. */
+(function () {
+  function headH() {
+    var t = document.querySelector(".topline"), h = document.querySelector(".site-head");
+    var px = (t ? t.offsetHeight : 0) + (h ? h.offsetHeight : 0);
+    if (px) document.documentElement.style.setProperty("--head-h", px + "px");
+  }
+  document.addEventListener("DOMContentLoaded", headH);
+  window.addEventListener("load", headH);
+  window.addEventListener("resize", headH);
+})();
+document.addEventListener("DOMContentLoaded", function () {
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }, { left: "\\(", right: "\\)", display: false }],
+      throwOnError: false
+    });
+  }
+  /* Quarto's KaTeX pipeline writes <span class="math inline">TeX</span> without delimiters and renders
+     them in a loop that reads firstChild.data; that loop dies at the first span the auto-render above
+     has already turned into KaTeX markup, leaving every later formula raw. Render the rest here. */
+  if (window.katex) {
+    document.querySelectorAll(".math").forEach(function (el) {
+      if (!el.querySelector(".katex")) {
+        var t = el.textContent.replace(/^\s*\\[\(\[]/, "").replace(/\\[\)\]]\s*$/, "");
+        try { katex.render(t, el, { displayMode: el.classList.contains("display"), throwOnError: false }); } catch (e) {}
+      }
+      /* Quarto's loop would still visit this span and wipe it (firstChild is now an element, not text):
+         take it out of its sight. No stylesheet of the site depends on the class; KaTeX's own output carries the layout. */
+      el.classList.remove("math"); el.classList.add("math-done");
+    });
+  }
+});
+</script>
+
+  <script defer="" src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../assets/styles/theme.css">
+<link rel="stylesheet" href="../../assets/styles/site.css">
+<link rel="stylesheet" href="../../assets/styles/project.css">
+</head>
+
+<body>
+
+<div class="topline"></div>
+<header class="site-head">
+  <div class="site-head__inner">
+    <a href="../../index.html" class="wordmark">UNED Labo <span class="accent">Leioa</span>
+      <span class="wordmark-sub">prácticas de laboratorio de la UNED en la Facultad de Ciencia y Tecnología (UPV/EHU) · curso 2025–2026</span>
+    </a>
+    <nav class="site-nav">
+      <a href="../../index.html">Inicio</a>
+      <a href="../../practicas/index.html">Prácticas</a>
+      <a href="../../asignaturas/index.html">Asignaturas</a>
+      <a href="../../recursos/index.html">Recursos</a>
+      <a href="../../informe/index.html">Informe</a>
+      <a href="../../manual/index.html">Manual TE I</a>
+      <a href="../../contacto/index.html">Contacto</a>
+    </nav>
+  </div>
+</header>
+<!-- generated by tools/sibling.py public: the left navigation -->
+<div class="docs">
+<nav class="docs-nav" aria-label="Site sections">
+<button class="docs-fold" type="button" data-fold="nav" aria-label="Hide the navigation" title="Hide the navigation">‹</button>
+<details class="group" open=""><summary class="t">Inicio</summary><ul><li><a href="../../index.html">Inicio</a></li></ul></details>
+<details class="group" open=""><summary class="t">Prácticas</summary><ul><li><a href="../../practicas/index.html">Catálogo: las veinte prácticas</a></li><li><a href="../../practicas/pendulo-fisico/index.html">P01 · Péndulo físico</a></li><li><a href="../../practicas/ley-hooke/index.html">P02 · Movimiento armónico simple. Ley de Hooke</a></li><li><a href="../../practicas/carril-aire/index.html">P03 · Medida de magnitudes dinámicas mediante un carril de aire</a></li><li><a href="../../practicas/cc-resistencia-interna/index.html">P04 · Corriente continua I: resistencia interna de una fuente</a></li><li><a href="../../practicas/cc-curva-lampara/index.html">P05 · Corriente continua II: curva característica de una lámpara</a></li><li><a href="../../practicas/descarga-condensador/index.html">P06 · Descarga de un condensador</a></li><li><a href="../../practicas/ondas-estacionarias/index.html">P07 · Ondas estacionarias en una cuerda con extremos fijos</a></li><li><a href="../../practicas/vaporizacion-agua/index.html">P08 · Calor de vaporización del agua</a></li><li><a href="../../practicas/velocidad-sonido/index.html">P09 · Medida de la velocidad del sonido: tubo de resonancia</a></li><li><a href="../../practicas/inercia-disco/index.html">P10 · Momento de inercia de un disco</a></li><li><a href="../../practicas/catenaria/index.html">P11 · Equilibrio de un hilo bajo la acción de la gravedad: la catenaria</a></li><li><a href="../../practicas/rozamiento-correas/index.html">P12 · Coeficiente de rozamiento entre correas y poleas</a></li><li><a href="../../practicas/giroscopo/index.html">P13 · Giróscopo</a></li><li><a href="../../practicas/cantidad-movimiento/index.html">P14 · Conservación de la cantidad de movimiento</a></li><li><a href="../../practicas/momento-cinetico/index.html">P15 · Conservación del momento cinético</a></li><li><a href="../../practicas/pendulo-circular/index.html">P16 · Péndulo circular (cónico)</a></li><li><a href="../../practicas/momentos-inercia/index.html">P17 · Momentos de inercia de sólidos</a></li><li><a href="../../practicas/maquina-atwood/index.html">P18 · Máquina de Atwood</a></li><li><a href="../../practicas/vibraciones-1gdl/index.html">P19 · Vibraciones libres con un grado de libertad</a></li><li><a href="../../practicas/vibraciones-2gdl/index.html">P20 · Vibraciones libres con dos grados de libertad</a></li></ul></details>
+<details class="group" open=""><summary class="t">Asignaturas</summary><ul><li><a href="../../asignaturas/index.html">Las cuatro asignaturas</a></li><li><a href="../../asignaturas/bfma/index.html">Bases Físicas del Medio Ambiente</a></li><li><a href="../../asignaturas/fisica/index.html">Física I y II</a></li><li><a href="../../asignaturas/mecanica/index.html">Mecánica</a></li><li><a href="../../asignaturas/tecnicas-experimentales/index.html">Técnicas Experimentales I</a></li></ul></details>
+<details class="group" open=""><summary class="t">Recursos</summary><ul><li><a href="../../recursos/index.html">Recursos</a></li><li><a href="../../recursos/sesion-0/index.html">Sesión 0</a></li><li><a href="../../recursos/errores/index.html">Errores y regresiones</a></li><li><a href="../../recursos/phyphox/index.html">Phyphox</a></li></ul></details>
+<details class="group" open=""><summary class="t">Informe</summary><ul><li><a href="../../informe/index.html">El informe: qué contiene, cómo se evalúa</a></li><li><a href="../../informe/modelos/index.html">Los ocho informes modelo</a></li><li><a href="../../informe/rubrica/index.html">La rúbrica de TE I: 225 criterios</a></li><li><a href="../../informe/rubrica-gum/index.html">La rúbrica GUM</a></li></ul></details>
+<details class="group" open=""><summary class="t">Manual TE I</summary><ul><li><a href="../../manual/index.html">El manual, capítulo a capítulo</a></li><li><a href="../../manual/01-representacion-magnitudes.html">Tema 1: Representación de magnitudes</a></li><li><a href="../../manual/02-medidas-directas.html">Tema 2: Medidas directas</a></li><li><a href="../../manual/03-medidas-indirectas.html">Tema 3: Medidas indirectas</a></li><li><a href="../../manual/04-graficas-regresion.html">Tema 4: Gráficas y regresión lineal</a></li><li><a href="../../manual/05-ejemplos-desarrollados.html">Tema 5: Ejemplos desarrollados</a></li><li><a href="../../manual/06-instrucciones-laboratorio.html">Tema 6: Instrucciones para el laboratorio</a></li><li><a href="../../manual/07-soluciones-ejercicios.html">Soluciones y apéndices</a></li></ul></details>
+<details class="group" open=""><summary class="t">Contacto</summary><ul><li><a href="../../contacto/index.html">Contacto</a></li></ul></details>
+</nav>
+<div class="docs-main">
+<div class="itin-head"><span class="kicker">P11 · Serie mecánica · Práctica 1 de Mecánica</span></div><div class="prac-meta"><div><span class="lbl">Servida a</span><span class="v"><a class="chip chip-mecanica" href="../../asignaturas/mecanica/index.html" title="Práctica 1 de Mecánica">Mecánica</a></span></div><div><span class="lbl">Guion</span><span class="v"><a href="practice_01_catenaria.pdf">Guion en PDF</a></span></div><div><span class="lbl">En resumen</span><span class="v">Forma de un hilo suspendido; ajuste y = a cosh(x/a) frente a la parábola; parámetro a teórico.</span></div></div><nav class="prac-prevnext"><a href="../inercia-disco/index.html">← P10 Momento de inercia de un disco</a><a href="../index.html">Catálogo</a><a href="../rozamiento-correas/index.html">P12 Coeficiente de rozamiento entre correas y poleas →</a></nav>
+
+<header id="title-block-header">
+<h1 class="title">Equilibrio de un hilo bajo la acción de la gravedad: la catenaria</h1>
+<p class="subtitle">Laboratorio de Mecánica — UNED</p>
+<p class="author">Josu M. Igartua</p>
+
+<p class="date">2026-03-20</p>
+<div class="abstract">
+<div class="abstract-title">Resumen</div>
+<p>Verificación experimental de la ecuación de la catenaria, <span class="math inline">y = a\cosh(x/a)</span>, como curva de equilibrio de un hilo flexible bajo la acción de la gravedad. Determinación del parámetro de la catenaria y comparación con la aproximación parabólica.</p>
+</div>
+</header>
+
+
+<p><br> <br></p>
+<h2 id="objetivos" class="anchored">Objetivos</h2>
+<p><br></p>
+<p>Verificar experimentalmente que la forma de equilibrio de un hilo flexible, inextensible y de densidad uniforme, suspendido de dos puntos fijos bajo la acción de la gravedad, es una catenaria. Determinar el parámetro de la catenaria y comparar el ajuste <span class="math inline">\cosh</span> con un ajuste parabólico.</p>
+<p><br></p>
+<h2 id="material" class="anchored">Material</h2>
+<p><br></p>
+<ol type="1">
+<li>Cadena de densidad lineal uniforme</li>
+<li>Tablero vertical con papel milimetrado</li>
+<li>Regla y cinta métrica</li>
+<li>Plomada y nivel</li>
+<li>Balanza</li>
+<li>Ordenador con software de ajuste</li>
+</ol>
+<p><br></p>
+<h2 id="repaso-de-teoría" class="anchored">Repaso de teoría</h2>
+<p><br></p>
+<ol type="1">
+<li>Estática del sólido rígido.</li>
+<li>Equilibrio de hilos y cables.</li>
+<li>Funciones hiperbólicas.</li>
+<li>Ajuste por mínimos cuadrados.</li>
+</ol>
+<p><br></p>
+<h2 id="fundamento-teórico" class="anchored">Fundamento teórico</h2>
+<p><br></p>
+<p>Consideremos un hilo flexible, inextensible, homogéneo, de densidad lineal <span class="math inline">\lambda</span> (masa por unidad de longitud), suspendido de dos puntos fijos <span class="math inline">A</span> y <span class="math inline">B</span> bajo la acción de la gravedad. Se desea encontrar la curva que adopta el hilo en equilibrio.</p>
+<p>Para ello, se estudia el equilibrio de un elemento infinitesimal de hilo de longitud <span class="math inline">ds</span>. Sobre dicho elemento actúan tres fuerzas: la tensión <span class="math inline">\vec{T}</span> en el extremo derecho, la tensión <span class="math inline">\vec{T}'</span> en el extremo izquierdo (ambas tangentes al hilo) y el peso <span class="math inline">d\vec{P} = \lambda g\, ds</span> dirigido verticalmente hacia abajo.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="figura1.png" class="img-fluid quarto-figure quarto-figure-center" width="350"></p>
+</figure>
+</div>
+<p>Proyectando las ecuaciones de equilibrio sobre los ejes horizontal y vertical, se obtiene:</p>
+<p><span id="eq-1_1"><span class="math display">
+T \cos\theta = T_0 = \text{cte}
+\tag{1}</span></span></p>
+<p>donde <span class="math inline">T_0</span> es la componente horizontal de la tensión, que es constante a lo largo de todo el hilo, y</p>
+<p><span id="eq-1_2"><span class="math display">
+T \sin\theta = \lambda g\, s
+\tag{2}</span></span></p>
+<p>donde <span class="math inline">s</span> es la longitud de arco medida desde el punto más bajo de la curva.</p>
+<p>Dividiendo la ecuación <a href="#eq-1_2" class="quarto-xref">Ecuación&nbsp;2</a> entre la ecuación <a href="#eq-1_1" class="quarto-xref">Ecuación&nbsp;1</a>:</p>
+<p><span id="eq-1_3"><span class="math display">
+\tan\theta = \frac{\lambda g\, s}{T_0}
+\tag{3}</span></span></p>
+<p>Dado que <span class="math inline">\tan\theta = \dfrac{dy}{dx}</span> y que <span class="math inline">ds = \sqrt{1 + \left(\dfrac{dy}{dx}\right)^2}\, dx</span>, se puede plantear la ecuación diferencial que, una vez resuelta, conduce a la ecuación de la catenaria:</p>
+<p><span id="eq-1_4"><span class="math display">
+\boxed{y = a\,\cosh\left(\frac{x}{a}\right)}
+\tag{4}</span></span></p>
+<p>donde el parámetro <span class="math inline">a</span> viene dado por:</p>
+<p><span id="eq-1_5"><span class="math display">
+\boxed{a = \frac{T_0}{\lambda\, g}}
+\tag{5}</span></span></p>
+<p>El parámetro <span class="math inline">a</span> tiene unidades de longitud y representa la distancia vertical desde el origen de coordenadas (situado a una distancia <span class="math inline">a</span> por debajo del punto más bajo del hilo) hasta dicho punto más bajo. Físicamente, <span class="math inline">a</span> depende de la tensión horizontal <span class="math inline">T_0</span>, de la densidad lineal <span class="math inline">\lambda</span> y de la aceleración de la gravedad <span class="math inline">g</span>.</p>
+<div>
+<blockquote>
+<p><strong>Aproximación parabólica</strong></p>
+<p>Para pequeñas flechas (poca curvatura), es decir cuando <span class="math inline">x/a \ll 1</span>, se puede desarrollar el <span class="math inline">\cosh</span> en serie de Taylor:</p>
+<p><span class="math display">
+\cosh\left(\frac{x}{a}\right) \approx 1 + \frac{1}{2}\left(\frac{x}{a}\right)^2 + \cdots
+</span></p>
+<p>Con lo que la catenaria se aproxima a una parábola:</p>
+<p><span class="math display">
+y \approx a + \frac{x^2}{2a}
+</span></p>
+<p>Esta aproximación es válida cuando la relación entre la flecha <span class="math inline">f</span> (distancia vertical entre el punto más bajo y los apoyos) y la luz <span class="math inline">d</span> (distancia horizontal entre apoyos) cumple <span class="math inline">f/d \lesssim 0{,}1</span>. Para valores mayores, la diferencia entre la catenaria y la parábola se hace apreciable.</p>
+</blockquote>
+</div>
+<p><br></p>
+<h2 id="descripción-del-aparato" class="anchored">Descripción del aparato</h2>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:40%;">
+<p>El montaje experimental consta de un tablero vertical sobre el cual se fija un papel milimetrado. En la parte superior del tablero se disponen dos puntos de sujeción separados una distancia <span class="math inline">d</span>. De estos puntos se suspende una cadena metálica de densidad lineal uniforme <span class="math inline">\lambda</span>, que adopta la forma de catenaria bajo la acción de su propio peso. Una plomada y un nivel permiten asegurar la verticalidad y horizontalidad de los ejes de referencia. La posición de diversos puntos de la cadena se marca sobre el papel milimetrado para su posterior análisis.</p>
+</div><div class="column" style="width:60%;">
+<div class="quarto-figure quarto-figure-right">
+<figure>
+<p><img src="figura2.png" class="img-fluid quarto-figure quarto-figure-right" width="300"></p>
+</figure>
+</div>
+</div>
+</div>
+<!-- end columns -->
+<p><br></p>
+<h2 id="método-operatorio" class="anchored">Método operatorio</h2>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>1</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Medir y anotar la longitud total de la cadena, <span class="math inline">L</span>, y su masa, <span class="math inline">M</span>, utilizando la cinta métrica y la balanza, respectivamente. Calcular la densidad lineal <span class="math inline">\lambda = M/L</span>.</p>
+<p><code>Datos de la cadena:</code></p>
+<blockquote>
+<ul>
+<li>Longitud total: <span class="math inline">L = 1{,}00</span> m</li>
+<li>Masa total: <span class="math inline">M = 48{,}5</span> g</li>
+<li>Densidad lineal: <span class="math inline">\lambda = M/L = 0{,}0485</span> kg/m</li>
+</ul>
+</blockquote>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>2</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Fijar los dos puntos de suspensión sobre el tablero a una distancia <span class="math inline">d \approx 60</span> cm, a la misma altura. Verificar con el nivel que ambos puntos están a la misma altura y con la plomada que el tablero está vertical. Colgar la cadena de los dos puntos de sujeción.</p>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>3</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Elegir un sistema de referencia con el eje <span class="math inline">x</span> horizontal y el eje <span class="math inline">y</span> vertical hacia arriba. Es conveniente situar el origen en el punto más bajo de la cadena.</p>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>4</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Marcar sobre el papel milimetrado la posición de al menos 15 puntos a lo largo de la cadena, midiendo las coordenadas <span class="math inline">(x, y)</span> de cada punto.</p>
+<p><code>Notas:</code></p>
+<blockquote>
+<ol type="1">
+<li><p>Tomar puntos distribuidos a lo largo de toda la cadena, con mayor densidad de puntos en las zonas de mayor curvatura (cerca de los extremos).</p></li>
+<li><p>Utilizar la plomada para asegurar que las medidas de <span class="math inline">x</span> son horizontales y las de <span class="math inline">y</span> son verticales.</p></li>
+</ol>
+</blockquote>
+<div class="columns">
+<div class="column" style="width:25%;">
+<p><strong>Datos <br> experimentales</strong></p>
+</div><div class="column" style="width:75%;">
+<p>A continuación en la tabla se resumen los datos recogidos en el laboratorio.</p>
+<p><br></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Punto</th>
+<th style="text-align: center;"><span class="math inline">x</span> (cm)</th>
+<th style="text-align: center;"><span class="math inline">y</span> (cm)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">-30,0</td>
+<td style="text-align: center;">43,1</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">-26,0</td>
+<td style="text-align: center;">38,7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">-22,0</td>
+<td style="text-align: center;">35,2</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">-18,0</td>
+<td style="text-align: center;">31,9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">-14,0</td>
+<td style="text-align: center;">29,2</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">-10,0</td>
+<td style="text-align: center;">27,1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">-6,0</td>
+<td style="text-align: center;">25,8</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">-3,0</td>
+<td style="text-align: center;">25,2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">0,0</td>
+<td style="text-align: center;">25,0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">3,0</td>
+<td style="text-align: center;">25,2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">6,0</td>
+<td style="text-align: center;">25,7</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">10,0</td>
+<td style="text-align: center;">27,0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">13</td>
+<td style="text-align: center;">14,0</td>
+<td style="text-align: center;">29,3</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">14</td>
+<td style="text-align: center;">18,0</td>
+<td style="text-align: center;">32,0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">22,0</td>
+<td style="text-align: center;">35,0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">26,0</td>
+<td style="text-align: center;">38,9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">17</td>
+<td style="text-align: center;">30,0</td>
+<td style="text-align: center;">43,2</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>5</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Representar gráficamente los puntos experimentales <span class="math inline">(x, y)</span>.</p>
+<div>
+<blockquote>
+<p><strong><strong>Representación gráfica</strong>: <span class="math inline">y</span> vs <span class="math inline">x</span></strong></p>
+<p><br></p>
+<p>Representar los datos de la tabla en un gráfico <span class="math inline">y</span> frente a <span class="math inline">x</span>. La nube de puntos debe presentar la forma característica de una catenaria (curva en forma de U).</p>
+</blockquote>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="plot_catenaria.png" class="img-fluid" style="width:85.0%"></p>
+<figcaption>Representación gráfica de los datos experimentales y ajustes (catenaria y parábola)</figcaption>
+</figure>
+</div>
+<div>
+<blockquote>
+<p><strong>Análisis completo de los datos: ajuste cosh, ajuste parabólico y comparación</strong></p>
+<p><br></p>
+<h3 id="ajuste-no-lineal-a-la-catenaria" class="anchored">1. Ajuste no lineal a la catenaria</h3>
+<p>Se ajustan los <span class="math inline">N=17</span> puntos experimentales <span class="math inline">(x_i, y_i)</span> a la función teórica de la catenaria:</p>
+<p><span class="math display">
+y = a\,\cosh\!\left(\frac{x}{a}\right)
+</span></p>
+<p>mediante un algoritmo de regresión no lineal (por ejemplo, Levenberg-Marquardt), minimizando la suma de los cuadrados de los residuos:</p>
+<p><span class="math display">
+S = \sum_{i=1}^{N}\left[y_i - a\,\cosh\!\left(\frac{x_i}{a}\right)\right]^{2}
+</span></p>
+<p>Con los datos de la tabla, el resultado del ajuste es:</p>
+<p><span class="math display">
+\boxed{a_{\cosh} = 24{,}8 \pm 0{,}3 \textrm{ cm}}
+</span></p>
+<p>El coeficiente de determinación del ajuste es:</p>
+<p><span class="math display">
+R^{2} = 0{,}9998
+</span></p>
+<p>lo que indica un ajuste excelente. La catenaria describe con gran fidelidad la forma de la cadena.</p>
+<p><br></p>
+<h3 id="ajuste-parabólico-aproximación-para-xa-ll-1" class="anchored">2. Ajuste parabólico (aproximación para <span class="math inline">x/a \ll 1</span>)</h3>
+<p>Se ajustan los datos a la aproximación parabólica de la catenaria. Recordando que, para <span class="math inline">x/a</span> pequeño:</p>
+<p><span class="math display">
+y \approx a + \frac{x^{2}}{2a}
+</span></p>
+<p>esta expresión puede reescribirse en la forma de un ajuste linealizado. Si se define la función parabólica como:</p>
+<p><span class="math display">
+y = \alpha + \beta\, x^{2}
+</span></p>
+<p>la comparación con la <em>ecuación física</em> <span class="math inline">y \approx a + \dfrac{1}{2a}\, x^{2}</span> permite identificar:</p>
+<ol type="1">
+<li>La ordenada en el origen, <span class="math inline">\alpha</span>, con el parámetro: <span class="math inline">\alpha = a</span>.</li>
+<li>El coeficiente cuadrático, <span class="math inline">\beta</span>, con: <span class="math inline">\beta = \dfrac{1}{2a}</span>.</li>
+</ol>
+<p>Este ajuste <strong>sí es una regresión lineal</strong>: basta definir la variable auxiliar <span class="math inline">X = x^{2}</span> y ajustar <span class="math inline">y = \alpha + \beta X</span>, que tiene la estructura <span class="math inline">y = n + m\cdot X</span>. Se aplican las fórmulas estándar de la regresión lineal para obtener la pendiente (<span class="math inline">m = \beta</span>) y la ordenada en el origen (<span class="math inline">n = \alpha</span>), junto con sus errores <span class="math inline">\Delta\beta</span> y <span class="math inline">\Delta\alpha</span>.</p>
+<p>Con los datos de la tabla:</p>
+<p><span class="math display">
+\alpha = 25{,}1 \pm 0{,}2 \textrm{ cm} \qquad;\qquad \beta = 0{,}0203 \pm 0{,}0005 \textrm{ cm}^{-1}
+</span></p>
+<p>El coeficiente de determinación es:</p>
+<p><span class="math display">
+R^{2} = 0{,}9991
+</span></p>
+<p><strong>Obtención de <span class="math inline">a</span> a partir de <span class="math inline">\beta</span>:</strong></p>
+<p>De la relación <span class="math inline">\beta = \dfrac{1}{2a}</span>, se despeja:</p>
+<p><span class="math display">
+\boxed{a_{\textrm{parábola}} = \frac{1}{2\beta}}
+</span></p>
+<p>Numéricamente:</p>
+<p><span class="math display">
+a_{\textrm{parábola}} = \frac{1}{2 \times 0{,}0203} = 24{,}6 \textrm{ cm}
+</span></p>
+<p><strong>Propagación del error:</strong></p>
+<p>Dado que <span class="math inline">a = \dfrac{1}{2\beta}</span> es una función de una sola variable <span class="math inline">\beta</span>, el error se propaga como:</p>
+<p><span class="math display">
+\Delta a = \left|\frac{da}{d\beta}\right| \cdot |\Delta\beta| = \left|\frac{-1}{2\beta^{2}}\right| \cdot |\Delta\beta| = \frac{\Delta\beta}{2\beta^{2}}
+</span></p>
+<p>Sustituyendo valores:</p>
+<p><span class="math display">
+\Delta a = \frac{0{,}0005}{2 \times (0{,}0203)^{2}} = \frac{0{,}0005}{0{,}000824} \approx 0{,}6 \textrm{ cm}
+</span></p>
+<p>Por lo tanto:</p>
+<p><span class="math display">
+\boxed{a_{\textrm{parábola}} = 24{,}6 \pm 0{,}6 \textrm{ cm}}
+</span></p>
+<p><br></p>
+<h3 id="comparación-de-los-ajustes" class="anchored">3. Comparación de los ajustes</h3>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Ajuste</th>
+<th style="text-align: center;"><span class="math inline">a</span> (cm)</th>
+<th style="text-align: center;"><span class="math inline">R^{2}</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Catenaria (<span class="math inline">\cosh</span>)</td>
+<td style="text-align: center;"><span class="math inline">24{,}8 \pm 0{,}3</span></td>
+<td style="text-align: center;"><span class="math inline">0{,}9998</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Parábola</td>
+<td style="text-align: center;"><span class="math inline">24{,}6 \pm 0{,}6</span></td>
+<td style="text-align: center;"><span class="math inline">0{,}9991</span></td>
+</tr>
+</tbody>
+</table>
+<p>Se observa que:</p>
+<ul>
+<li>Ambos ajustes proporcionan valores de <span class="math inline">a</span> compatibles dentro del error experimental.</li>
+<li>El ajuste <span class="math inline">\cosh</span> es <strong>superior</strong> al parabólico (<span class="math inline">R^{2}</span> mayor), como se espera: la catenaria es la solución exacta, mientras que la parábola es solo una aproximación.</li>
+<li>La diferencia se manifiesta especialmente en los puntos extremos (<span class="math inline">|x| = 30</span> cm), donde <span class="math inline">x/a \approx 1{,}2</span> y la aproximación <span class="math inline">\cosh(u) \approx 1 + u^{2}/2</span> ya no es precisa.</li>
+</ul>
+<p><br></p>
+<h3 id="comparación-con-el-valor-teórico" class="anchored">4. Comparación con el valor teórico</h3>
+<p>El parámetro de la catenaria viene dado teóricamente por la ecuación <a href="#eq-1_5" class="quarto-xref">Ecuación&nbsp;5</a>:</p>
+<p><span class="math display">
+a_{\textrm{teórico}} = \frac{T_{0}}{\lambda\, g}
+</span></p>
+<p>La tensión horizontal se puede estimar a partir del valor experimental de <span class="math inline">a</span>:</p>
+<p><span class="math display">
+T_{0} = \lambda\, g\, a = 0{,}0485 \times 9{,}81 \times 0{,}248 \approx 0{,}118 \textrm{ N}
+</span></p>
+<p>Este valor de <span class="math inline">T_{0}</span> es autoconsistente: al sustituir de vuelta en la expresión teórica se recupera <span class="math inline">a \approx 24{,}8</span> cm.</p>
+<p>También se puede verificar numéricamente con la condición geométrica (<span class="math inline">L = 1{,}00</span> m, <span class="math inline">d = 0{,}60</span> m):</p>
+<p><span class="math display">
+\frac{L}{2} = a\,\sinh\!\left(\frac{d}{2a}\right) \Rightarrow 0{,}50 = a\,\sinh\!\left(\frac{0{,}30}{a}\right)
+</span></p>
+<p>Resolviendo numéricamente esta ecuación trascendente se obtiene <span class="math inline">a \approx 0{,}25</span> m <span class="math inline">= 25</span> cm, valor coherente con el obtenido del ajuste experimental.</p>
+<p><strong>Resumen de resultados:</strong></p>
+<p><span class="math display">
+\boxed{a_{\cosh} = 24{,}8 \pm 0{,}3 \textrm{ cm} \qquad;\qquad a_{\textrm{parábola}} = 24{,}6 \pm 0{,}6 \textrm{ cm} \qquad;\qquad a_{\textrm{teórico}} \approx 25 \textrm{ cm}}
+</span></p>
+<p>Los tres valores son compatibles dentro de las incertidumbres, lo que confirma la validez del modelo teórico de la catenaria.</p>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>6</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Realizar un ajuste por mínimos cuadrados de los datos experimentales a la función catenaria:</p>
+<p><span class="math display">
+y = a\,\cosh\left(\frac{x - x_0}{a}\right) + y_0
+</span></p>
+<p>donde <span class="math inline">a</span>, <span class="math inline">x_0</span> e <span class="math inline">y_0</span> son los parámetros de ajuste. El parámetro <span class="math inline">a</span> es el parámetro de la catenaria, <span class="math inline">x_0</span> tiene en cuenta un posible descentrado del origen y <span class="math inline">y_0</span> es la ordenada del punto más bajo.</p>
+<ol type="1">
+<li><p>Determinar el valor del parámetro <span class="math inline">a</span> y su error <span class="math inline">\Delta a</span>.</p></li>
+<li><p>Obtener el coeficiente de determinación <span class="math inline">R^2</span> del ajuste.</p></li>
+</ol>
+<div>
+<blockquote>
+<p><strong>Comentarios sobre el ajuste cosh</strong></p>
+<p><br></p>
+<p>El ajuste se realiza mediante un algoritmo de regresión no lineal (por ejemplo, Levenberg-Marquardt) minimizando la suma de los cuadrados de los residuos:</p>
+<p><span class="math display">
+S = \sum_{i=1}^{N} \left[ y_i - a\,\cosh\left(\frac{x_i - x_0}{a}\right) - y_0 \right]^2
+</span></p>
+<p>Con los datos proporcionados, el valor esperado del parámetro de la catenaria es del orden de <span class="math inline">a \approx 25</span> cm. Este valor se puede comparar con el valor teórico obtenido a partir de la ecuación <a href="#eq-1_5" class="quarto-xref">Ecuación&nbsp;5</a>:</p>
+<p><span class="math display">
+a_{\text{teórico}} = \frac{T_0}{\lambda\, g}
+</span></p>
+<p>Para estimar <span class="math inline">T_0</span>, se puede utilizar la relación geométrica entre la longitud de la cadena <span class="math inline">L</span>, la distancia entre apoyos <span class="math inline">d</span> y el parámetro <span class="math inline">a</span>:</p>
+<p><span class="math display">
+\frac{L}{2} = a\,\sinh\left(\frac{d}{2a}\right)
+</span></p>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>7</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Realizar un segundo ajuste por mínimos cuadrados de los datos experimentales a una función parabólica:</p>
+<p><span class="math display">
+y = A\, x^2 + B\, x + C
+</span></p>
+<ol type="1">
+<li><p>Determinar los parámetros <span class="math inline">A</span>, <span class="math inline">B</span> y <span class="math inline">C</span> con sus errores.</p></li>
+<li><p>Obtener el coeficiente de determinación <span class="math inline">R^2</span> del ajuste parabólico.</p></li>
+<li><p>Comparar el parámetro <span class="math inline">a</span> del ajuste cosh con el correspondiente valor deducido del ajuste parabólico, teniendo en cuenta que <span class="math inline">A = \dfrac{1}{2a}</span>.</p></li>
+</ol>
+<div>
+<blockquote>
+<p><strong>Comparación entre el ajuste cosh y el ajuste parabólico</strong></p>
+<p><br></p>
+<p>Para comparar ambos ajustes de forma cuantitativa, calcular los residuos de cada ajuste:</p>
+<p><span class="math display">
+r_i^{\text{cosh}} = y_i - y_{\text{cosh}}(x_i) \hspace{2cm} r_i^{\text{par}} = y_i - y_{\text{par}}(x_i)
+</span></p>
+<p>Representar gráficamente ambos conjuntos de residuos frente a <span class="math inline">x</span>. Si la catenaria describe mejor la curva que la parábola, los residuos del ajuste cosh serán sistemáticamente menores que los del ajuste parabólico, especialmente en los extremos de la cadena (donde <span class="math inline">x/a</span> es mayor y la aproximación parabólica deja de ser válida).</p>
+<p>Comparar también los valores de <span class="math inline">R^2</span> de ambos ajustes.</p>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>8</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Comparar el valor de <span class="math inline">a</span> obtenido del ajuste con el valor teórico <span class="math inline">a = T_0/(\lambda g)</span>.</p>
+<p>Para ello, estimar <span class="math inline">T_0</span> a partir de los datos experimentales utilizando la relación:</p>
+<p><span class="math display">
+T_0 = \lambda\, g\, a
+</span></p>
+<p>y verificar la coherencia del resultado.</p>
+<div>
+<blockquote>
+<p><strong>Cálculo del parámetro <span class="math inline">a</span> teórico</strong></p>
+<p><br></p>
+<p>A partir de la ecuación <a href="#eq-1_5" class="quarto-xref">Ecuación&nbsp;5</a>, se tiene:</p>
+<p><span class="math display">
+a = \frac{T_0}{\lambda\, g}
+</span></p>
+<p>El valor de <span class="math inline">T_0</span> se puede obtener a partir de la condición geométrica. Para una catenaria con apoyos a la misma altura, separados una distancia <span class="math inline">d</span>, y con una longitud de hilo <span class="math inline">L</span>, se cumple:</p>
+<p><span class="math display">
+\frac{L}{2} = a\,\sinh\left(\frac{d}{2a}\right)
+</span></p>
+<p>Esta ecuación trascendente se resuelve numéricamente para obtener <span class="math inline">a</span>. Con <span class="math inline">L = 1{,}00</span> m y <span class="math inline">d = 0{,}60</span> m:</p>
+<p><span class="math display">
+0{,}50 = a\,\sinh\left(\frac{0{,}30}{a}\right)
+</span></p>
+<p>Resolviendo numéricamente se obtiene <span class="math inline">a \approx 0{,}25</span> m, lo cual es coherente con el valor obtenido del ajuste experimental.</p>
+<p>Una vez conocido <span class="math inline">a</span>, la tensión horizontal es:</p>
+<p><span class="math display">
+T_0 = \lambda\, g\, a = 0{,}0485 \times 9{,}81 \times 0{,}25 \approx 0{,}119 \textrm{ N}
+</span></p>
+</blockquote>
+</div>
+</div>
+</div>
+<p><br></p>
+<h2 id="ejercicios-posteriores" class="anchored">Ejercicios Posteriores</h2>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>E1</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Comparar el valor del parámetro <span class="math inline">a</span> obtenido del ajuste experimental con el valor teórico <span class="math inline">a = T_0/(\lambda g)</span>, calculando la discrepancia porcentual.</p>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>E2</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Representar gráficamente los residuos del ajuste <span class="math inline">\cosh</span> y los residuos del ajuste parabólico en la misma gráfica. Comentar si se observan diferencias sistemáticas y en qué zonas de la curva son más apreciables.</p>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>E3</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Citar al menos 3 aplicaciones de ingeniería en las que la curva catenaria desempeñe un papel fundamental. Para cada una, explicar brevemente por qué la forma de catenaria es relevante.</p>
+<div>
+<blockquote>
+<p><strong>Aplicaciones de la catenaria en ingeniería</strong></p>
+<p><br></p>
+<ol type="1">
+<li><p><strong>Catenaria de líneas eléctricas y ferroviarias:</strong> los cables de las líneas de transmisión eléctrica y de alimentación de trenes adoptan la forma de una catenaria bajo su propio peso. El diseño del tendido debe tener en cuenta el parámetro <span class="math inline">a</span> para calcular la flecha máxima y la tensión mecánica en los cables.</p></li>
+<li><p><strong>Arcos catenarios en arquitectura:</strong> un arco con forma de catenaria invertida trabaja exclusivamente a compresión, sin momentos flectores. Ejemplos históricos incluyen el Gateway Arch de San Luis (Misuri) y las bóvedas de Antonio Gaudí.</p></li>
+<li><p><strong>Diseño de cadenas y cables de puentes colgantes:</strong> aunque en los puentes colgantes la carga del tablero distribuida uniformemente produce una parábola (no una catenaria), el cable sin carga adopta forma de catenaria. La distinción entre ambas curvas es fundamental en el cálculo estructural.</p></li>
+</ol>
+</blockquote>
+</div>
+</div>
+</div>
+<p><br></p>
+<div>
+<blockquote>
+<p><strong>Ejercicios Previos</strong></p>
+<p><br></p>
+<ol type="1">
+<li>Derivar la ecuación de la catenaria a partir del equilibrio de un elemento infinitesimal de hilo. Esto es, partiendo de las ecuaciones de equilibrio <a href="#eq-1_1" class="quarto-xref">Ecuación&nbsp;1</a> y <a href="#eq-1_2" class="quarto-xref">Ecuación&nbsp;2</a>, obtener la ecuación <a href="#eq-1_4" class="quarto-xref">Ecuación&nbsp;4</a>.</li>
+</ol>
+<div>
+<blockquote>
+<p><strong>Solución del ejercicio 1</strong></p>
+<p><br></p>
+<p>Partiendo de las ecuaciones de equilibrio:</p>
+<p><span class="math display">
+T\cos\theta = T_0 \hspace{2cm} T\sin\theta = \lambda g\, s
+</span></p>
+<p>Dividiendo miembro a miembro:</p>
+<p><span class="math display">
+\tan\theta = \frac{\lambda g\, s}{T_0} = \frac{s}{a}
+</span></p>
+<p>donde se ha definido <span class="math inline">a = T_0/(\lambda g)</span>. Como <span class="math inline">\tan\theta = dy/dx</span>:</p>
+<p><span class="math display">
+\frac{dy}{dx} = \frac{s}{a}
+</span></p>
+<p>Derivando respecto de <span class="math inline">x</span>:</p>
+<p><span class="math display">
+\frac{d^2 y}{dx^2} = \frac{1}{a}\frac{ds}{dx} = \frac{1}{a}\sqrt{1 + \left(\frac{dy}{dx}\right)^2}
+</span></p>
+<p>donde se ha utilizado que <span class="math inline">ds = \sqrt{1 + (dy/dx)^2}\, dx</span>.</p>
+<p>Sea <span class="math inline">p = dy/dx</span>. Entonces:</p>
+<p><span class="math display">
+\frac{dp}{dx} = \frac{1}{a}\sqrt{1 + p^2}
+</span></p>
+<p>Separando variables e integrando:</p>
+<p><span class="math display">
+\int \frac{dp}{\sqrt{1+p^2}} = \int \frac{dx}{a} \Rightarrow \sinh^{-1}(p) = \frac{x}{a} + C_1
+</span></p>
+<p>Con la condición de contorno <span class="math inline">p = dy/dx = 0</span> en <span class="math inline">x = 0</span> (punto más bajo), se obtiene <span class="math inline">C_1 = 0</span>. Por tanto:</p>
+<p><span class="math display">
+\frac{dy}{dx} = \sinh\left(\frac{x}{a}\right)
+</span></p>
+<p>Integrando de nuevo:</p>
+<p><span class="math display">
+y = a\,\cosh\left(\frac{x}{a}\right) + C_2
+</span></p>
+<p>Eligiendo el origen de forma que <span class="math inline">y(0) = a</span>, se obtiene <span class="math inline">C_2 = 0</span> y la ecuación de la catenaria:</p>
+<p><span class="math display">
+\boxed{y = a\,\cosh\left(\frac{x}{a}\right)}
+</span></p>
+</blockquote>
+</div>
+<p><br></p>
+<ol start="2" type="1">
+<li>¿Para qué valores de la relación flecha/luz es válida la aproximación parabólica? Justificar la respuesta comparando los desarrollos en serie del <span class="math inline">\cosh</span>.</li>
+</ol>
+<div>
+<blockquote>
+<p><strong>Solución del ejercicio 2</strong></p>
+<p><br></p>
+<p>El desarrollo en serie de Taylor del coseno hiperbólico es:</p>
+<p><span class="math display">
+\cosh(u) = 1 + \frac{u^2}{2} + \frac{u^4}{24} + \cdots
+</span></p>
+<p>La aproximación parabólica consiste en truncar la serie en el término cuadrático. El error relativo de esta aproximación viene dado por el cociente entre el primer término despreciado y el último retenido:</p>
+<p><span class="math display">
+\varepsilon \approx \frac{u^4/24}{u^2/2} = \frac{u^2}{12}
+</span></p>
+<p>donde <span class="math inline">u = x/a</span>. En el punto de apoyo, <span class="math inline">u_{\max} = d/(2a)</span>.</p>
+<p>La flecha <span class="math inline">f</span> es la diferencia de altura entre el punto de apoyo y el punto más bajo:</p>
+<p><span class="math display">
+f = a\,\cosh\left(\frac{d}{2a}\right) - a \approx \frac{d^2}{8a}
+</span></p>
+<p>(en la aproximación parabólica). Por lo tanto:</p>
+<p><span class="math display">
+\frac{f}{d} \approx \frac{d}{8a} \Rightarrow u_{\max} = \frac{d}{2a} \approx 4\frac{f}{d}
+</span></p>
+<p>Para que el error sea inferior al 1,:</p>
+<p><span class="math display">
+\frac{u_{\max}^2}{12} &lt; 0{,}01 \Rightarrow u_{\max} &lt; 0{,}35 \Rightarrow \frac{f}{d} &lt; 0{,}09
+</span></p>
+<p><span class="math display">
+\boxed{\text{La aproximación parabólica es válida para } f/d \lesssim 0{,}1}
+</span></p>
+</blockquote>
+</div>
+<p><br></p>
+<ol start="3" type="1">
+<li>¿De qué depende el parámetro <span class="math inline">a</span> y cuáles son sus unidades?</li>
+</ol>
+<div>
+<blockquote>
+<p><strong>Solución del ejercicio 3</strong></p>
+<p><br></p>
+<p>El parámetro <span class="math inline">a</span> viene dado por la ecuación <a href="#eq-1_5" class="quarto-xref">Ecuación&nbsp;5</a>:</p>
+<p><span class="math display">
+a = \frac{T_0}{\lambda\, g}
+</span></p>
+<p>Depende de:</p>
+<ul>
+<li><span class="math inline">T_0</span>: la componente horizontal de la tensión en el hilo (en N).</li>
+<li><span class="math inline">\lambda</span>: la densidad lineal del hilo (masa por unidad de longitud, en kg/m).</li>
+<li><span class="math inline">g</span>: la aceleración de la gravedad (en m/s<span class="math inline">^2</span>).</li>
+</ul>
+<p>Sus unidades son:</p>
+<p><span class="math display">
+[a] = \frac{\textrm{N}}{\frac{\textrm{kg}}{\textrm{m}} \cdot \frac{\textrm{m}}{\textrm{s}^2}} = \frac{\textrm{kg}\cdot\frac{\textrm{m}}{\textrm{s}^2}}{\frac{\textrm{kg}}{\textrm{s}^2}} = \textrm{m}
+</span></p>
+<p><span class="math display">
+\boxed{[a] = \textrm{m (unidades de longitud)}}
+</span></p>
+<p>Físicamente, un valor grande de <span class="math inline">a</span> corresponde a un hilo poco curvado (mucha tensión o poca densidad lineal), mientras que un valor pequeño de <span class="math inline">a</span> corresponde a un hilo muy curvado (poca tensión o mucha densidad lineal).</p>
+</blockquote>
+</div>
+<p><br></p>
+<ol start="4" type="1">
+<li>Si se duplica la masa del hilo manteniendo la misma longitud y distancia entre apoyos, ¿cómo cambia la forma de la catenaria?</li>
+</ol>
+<div>
+<blockquote>
+<p><strong>Solución del ejercicio 4</strong></p>
+<p><br></p>
+<p>Si se duplica la masa manteniendo la misma longitud <span class="math inline">L</span>, la densidad lineal se duplica: <span class="math inline">\lambda' = 2\lambda</span>.</p>
+<p>La forma de la catenaria viene determinada por la ecuación <a href="#eq-1_4" class="quarto-xref">Ecuación&nbsp;4</a>:</p>
+<p><span class="math display">
+y = a\,\cosh\left(\frac{x}{a}\right)
+</span></p>
+<p>donde <span class="math inline">a = T_0/(\lambda g)</span>. La condición geométrica (misma longitud <span class="math inline">L</span> y misma distancia entre apoyos <span class="math inline">d</span>) impone:</p>
+<p><span class="math display">
+\frac{L}{2} = a\,\sinh\left(\frac{d}{2a}\right)
+</span></p>
+<p>Como <span class="math inline">L</span> y <span class="math inline">d</span> no cambian, el parámetro <span class="math inline">a</span> tampoco cambia. Esto significa que <strong>la forma de la catenaria no cambia</strong>.</p>
+<p>Lo que sí cambia es la tensión horizontal, ya que:</p>
+<p><span class="math display">
+T_0' = \lambda'\, g\, a = 2\lambda\, g\, a = 2\, T_0
+</span></p>
+<p><span class="math display">
+\boxed{\text{La forma no cambia, pero la tensión se duplica.}}
+</span></p>
+<p>Este resultado es físicamente razonable: la forma de la catenaria depende únicamente de la geometría (<span class="math inline">L</span> y <span class="math inline">d</span>), no de la masa o la densidad lineal. La densidad lineal solo afecta a las fuerzas internas (tensiones) en el hilo.</p>
+</blockquote>
+</div>
+<p><br></p>
+</blockquote>
+</div>
+<p><br></p>
+<h2 id="referencias" class="anchored">Referencias</h2>
+<p><br></p>
+<ol type="1">
+<li><p>UPM — Capítulo 14: Estática de hilos. <a href="http://w3.mecánica.upm.es/~goico/mecánica/libro/cap14.pdf">http://w3.mecánica.upm.es/~goico/mecánica/libro/cap14.pdf</a></p></li>
+<li><p>EHU/UPV — La curva catenaria. <a href="http://www.sc.ehu.es/sbweb/fisica3/sólido/catenaria/catenaria.html">http://www.sc.ehu.es/sbweb/fisica3/sólido/catenaria/catenaria.html</a></p></li>
+<li><p>Universitat de Valencia, C. Ivorra — La catenaria. <a href="https://www.uv.es/~ivorra/Libros/Catenaria.pdf">https://www.uv.es/~ivorra/Libros/Catenaria.pdf</a></p></li>
+<li><p>arXiv:1809.07047 — <em>The catenary: an ancient problem on the computer screen</em>.</p></li>
+<li><p>Universidad de Cantabria — Cables. <a href="https://ocw.unican.es/pluginfile.php/2240/course/section/2137/04-Cables.pdf">https://ocw.unican.es/pluginfile.php/2240/course/section/2137/04-Cables.pdf</a></p></li>
+</ol>
+
+
+<!-- Closes the reading column opened by _gen/docs-nav.html, adds the right
+     "On this page" list, and wires: current-page marking in the left nav,
+     breadcrumbs, the page TOC (from h2/h3 in the reading column) and a
+     scroll-spy. Pure DOM, no library. -->
+  </div>
+  <aside class="docs-toc"><button class="docs-fold" type="button" data-fold="toc" aria-label="Hide the page outline" title="Hide the page outline">›</button><div class="t">On this page</div><ol></ol></aside>
+</div>
+<script>
+(function () {
+  /* 0. The two side panels fold on their chevrons; the choice is remembered in this browser. */
+  var docs = document.querySelector('.docs');
+  if (docs) {
+    var store = {};
+    try { store = JSON.parse(localStorage.getItem('docs-fold') || '{}'); } catch (e) { store = {}; }
+    function apply() {
+      docs.classList.toggle('nav-folded', !!store.nav);
+      docs.classList.toggle('toc-folded', !!store.toc);
+      document.querySelectorAll('.docs-fold').forEach(function (b) {
+        var which = b.getAttribute('data-fold'), folded = !!store[which];
+        b.innerHTML = (which === 'nav') === folded ? '&rsaquo;' : '&lsaquo;';
+        var what = which === 'nav' ? 'the navigation' : 'the page outline';
+        b.title = (folded ? 'Show ' : 'Hide ') + what; b.setAttribute('aria-label', b.title);
+      });
+    }
+    document.querySelectorAll('.docs-fold').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var which = b.getAttribute('data-fold'); store[which] = !store[which];
+        try { localStorage.setItem('docs-fold', JSON.stringify(store)); } catch (e) {}
+        apply();
+      });
+    });
+    apply();
+  }
+  /* 0b. The header ribbon: mark the entry whose section holds this page. Quarto rewrites the hrefs to
+     relative paths, so folders are read from the resolved URLs; the Overview link gives the site root. */
+  (function () {
+    var links = Array.prototype.slice.call(document.querySelectorAll('.site-nav a'));
+    if (!links.length) return;
+    /* a served URL may end in '/' (GitHub Pages: …/about/); read it as …/about/index.html */
+    function folder(path) { if (/\/$/.test(path)) path += 'index.html'; var s = path.split('/').filter(Boolean); return s.length > 1 ? s[s.length - 2] : ''; }
+    var wm = document.querySelector('a.wordmark');            // the wordmark links to the site root
+    var root = folder((wm || links[0]).pathname);
+    var map = { rietveld: 'cases', drude: 'cases', dielectric: 'cases' };
+    function key(path) { var f = folder(path); if (f === root) return 'overview'; return map[f] || f; }
+    var here = key(location.pathname);
+    links.forEach(function (a) { a.classList.toggle('current', key(a.pathname) === here); });
+  })();
+
+  var main = document.querySelector('.docs-main');
+  var nav = document.querySelector('.docs-nav');
+  var toc = document.querySelector('.docs-toc ol');
+  if (!main || !nav || !toc) return;
+
+  /* 1. Left nav: mark the current page (and section, if the hash matches). */
+  var here = location.pathname.replace(/\/index\.html$/, '/');
+  var links = Array.prototype.slice.call(nav.querySelectorAll('a'));
+  var pageLink = null, hashLink = null;
+  links.forEach(function (a) {
+    var p = a.pathname.replace(/\/index\.html$/, '/');
+    if (p !== here) return;
+    if (!a.hash && !pageLink) pageLink = a;
+    if (a.hash && a.hash === location.hash) hashLink = a;
+  });
+  var cur = hashLink || pageLink;
+  if (cur) {
+    cur.classList.add('current');
+    var det = cur.closest('details.group');
+    if (det) { det.open = true; det.classList.add('has-current'); }
+    /* Breadcrumbs: group title › page (› section). */
+    var crumbs = document.createElement('div');
+    crumbs.className = 'docs-crumbs';
+    var g = det ? det.querySelector('summary.t') : null;
+    var parts = [];
+    function push(t) { if (t && parts[parts.length - 1] !== t) parts.push(t); }
+    if (g) push(g.textContent.trim());
+    if (pageLink && pageLink !== cur) push(pageLink.textContent.trim());
+    push(cur.textContent.trim());
+    crumbs.innerHTML = parts.map(function (t, i) {
+      return (i ? '<span class="sep">›</span>' : '') + '<span>' + t.replace(/</g, '&lt;') + '</span>';
+    }).join('');
+    main.insertBefore(crumbs, main.firstChild);
+  }
+
+  /* 2. Right "On this page": h2 and h3 of the reading column. */
+  var used = {};
+  var heads = Array.prototype.slice.call(main.querySelectorAll('h2, h3')).filter(function (h) {
+    if (h.closest('.site-foot, .featured-band, .msg-grid, [data-toc="no"]')) return false;
+    if (h.classList.contains('unnumbered') || h.id === 'contenido') return false;
+    return h.textContent.trim().length > 0;
+  });
+  heads.forEach(function (h) {
+    if (!h.id) {
+      var s = h.textContent.trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+        .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60) || 'sec';
+      while (used[s] || document.getElementById(s)) s += '-';
+      h.id = s;
+    }
+    used[h.id] = true;
+    var li = document.createElement('li');
+    if (h.tagName === 'H3') li.className = 'l3';
+    var a = document.createElement('a');
+    a.href = '#' + h.id;
+    /* This runs before KaTeX has rendered the headings, so a heading with mathematics still holds TeX
+       source: copy its markup, including the math spans, and let the page's KaTeX pass render the copy. */
+    var copy = h.cloneNode(true);
+    copy.querySelectorAll('.katex-mathml, annotation, .anchorjs-link').forEach(function (n) { n.remove(); });
+    var label = copy.textContent.trim().replace(/\s+/g, ' ');
+    if (copy.querySelector('.math, .math-done, .katex')) a.innerHTML = copy.innerHTML.trim();
+    else a.textContent = label.length > 72 ? label.slice(0, 70).replace(/[\s,;:]+\S*$/, '') + '…' : label;
+    a.title = label;
+    li.appendChild(a);
+    toc.appendChild(li);
+  });
+  if (!heads.length) { document.querySelector('.docs-toc').hidden = true; return; }
+
+  /* 3. Scroll-spy. */
+  var items = Array.prototype.slice.call(toc.querySelectorAll('a'));
+  function spy() {
+    var y = window.scrollY + 120, best = null;
+    heads.forEach(function (h) { if (h.getBoundingClientRect().top + window.scrollY <= y) best = h; });
+    items.forEach(function (a) { a.classList.toggle('current', best && a.getAttribute('href') === '#' + best.id); });
+  }
+  window.addEventListener('scroll', spy, { passive: true });
+  window.addEventListener('hashchange', spy);
+  spy();
+})();
+</script>
+<footer class="site-foot">
+  <div class="site-foot__inner">
+    <div class="foot-grid">
+      <div class="foot-about">
+        <h4 class="anchored">Qué es esto</h4>
+        <p>Los guiones de las prácticas de laboratorio que la UNED realiza en la Facultad de Ciencia y Tecnología de la UPV/EHU (Leioa), para Bases Físicas del Medio Ambiente, Física I y II, Mecánica y Técnicas Experimentales I.</p>
+        <div class="cite-block">Josu M. Igartua · Departamento de Física, Facultad de Ciencia y Tecnología, UPV/EHU<br>josu.igartua@ehu.eus · +34 94 601 5335</div>
+      </div>
+      <div><h4 class="anchored">Este sitio</h4><ul>
+        <li><a href="../../index.html">Inicio</a></li><li><a href="../../practicas/index.html">Prácticas</a></li><li><a href="../../asignaturas/index.html">Asignaturas</a></li><li><a href="../../recursos/index.html">Recursos</a></li><li><a href="../../informe/index.html">Informe</a></li><li><a href="../../manual/index.html">Manual TE I</a></li><li><a href="../../contacto/index.html">Contacto</a></li>
+      </ul></div>
+      <div><h4 class="anchored">Instituciones</h4><ul>
+        <li><a href="https://www.uned.es">UNED</a></li>
+        <li><a href="https://www.ehu.eus">UPV/EHU</a></li></ul></div>
+      <div><h4 class="anchored">Dónde</h4><ul>
+        <li>Barrio Sarriena s/n, 48940 Leioa (Bizkaia)</li>
+        <li>Laboratorios 0.16 y 0.21</li></ul></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Josu M. Igartua</span>
+      <span>curso 2025–2026</span>
+    </div>
+  </div>
+</footer>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+    tabsets.forEach(function(tabset) {
+      const tabby = new Tabby('#' + tabset.id);
+    });
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

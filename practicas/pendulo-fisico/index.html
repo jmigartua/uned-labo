@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Josu M. Igartua">
+<meta name="dcterms.date" content="2024-10-26">
+<meta name="keywords" content="péndulo físico, momento de inercia, radio de giro, oscilaciones pequeñas">
+<meta name="description" content="Determinación experimental del radio de giro y del momento de inercia de un péndulo físico midiendo el periodo T(b) para distintas distancias b entre el eje y el centro de masas. A partir de la linealización bT^{2} vs b^{2} se obtiene también la aceleración de la gravedad g.">
+
+<title>Péndulo físico · UNED Labo – UNED Labo</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<link href="../../assets/favicon.svg" rel="icon" type="image/svg+xml">
+<script src="../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-html-afe927e19676d0e50b1726048be49fb1.min.css" rel="stylesheet" append-hash="true" data-mode="light">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<style>html{ scroll-behavior: smooth; }</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&amp;family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<!-- KaTeX auto-render: publication titles carry TeX inside generated HTML that
+     Quarto's own math pipeline never sees (same approach as thermomat). -->
+<script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+/* The header ribbon is sticky; the side columns and anchor targets need its height. */
+(function () {
+  function headH() {
+    var t = document.querySelector(".topline"), h = document.querySelector(".site-head");
+    var px = (t ? t.offsetHeight : 0) + (h ? h.offsetHeight : 0);
+    if (px) document.documentElement.style.setProperty("--head-h", px + "px");
+  }
+  document.addEventListener("DOMContentLoaded", headH);
+  window.addEventListener("load", headH);
+  window.addEventListener("resize", headH);
+})();
+document.addEventListener("DOMContentLoaded", function () {
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }, { left: "\\(", right: "\\)", display: false }],
+      throwOnError: false
+    });
+  }
+  /* Quarto's KaTeX pipeline writes <span class="math inline">TeX</span> without delimiters and renders
+     them in a loop that reads firstChild.data; that loop dies at the first span the auto-render above
+     has already turned into KaTeX markup, leaving every later formula raw. Render the rest here. */
+  if (window.katex) {
+    document.querySelectorAll(".math").forEach(function (el) {
+      if (!el.querySelector(".katex")) {
+        var t = el.textContent.replace(/^\s*\\[\(\[]/, "").replace(/\\[\)\]]\s*$/, "");
+        try { katex.render(t, el, { displayMode: el.classList.contains("display"), throwOnError: false }); } catch (e) {}
+      }
+      /* Quarto's loop would still visit this span and wipe it (firstChild is now an element, not text):
+         take it out of its sight. No stylesheet of the site depends on the class; KaTeX's own output carries the layout. */
+      el.classList.remove("math"); el.classList.add("math-done");
+    });
+  }
+});
+</script>
+
+  <script defer="" src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../assets/styles/theme.css">
+<link rel="stylesheet" href="../../assets/styles/site.css">
+<link rel="stylesheet" href="../../assets/styles/project.css">
+</head>
+
+<body>
+
+<div class="topline"></div>
+<header class="site-head">
+  <div class="site-head__inner">
+    <a href="../../index.html" class="wordmark">UNED Labo <span class="accent">Leioa</span>
+      <span class="wordmark-sub">prácticas de laboratorio de la UNED en la Facultad de Ciencia y Tecnología (UPV/EHU) · curso 2025–2026</span>
+    </a>
+    <nav class="site-nav">
+      <a href="../../index.html">Inicio</a>
+      <a href="../../practicas/index.html">Prácticas</a>
+      <a href="../../asignaturas/index.html">Asignaturas</a>
+      <a href="../../recursos/index.html">Recursos</a>
+      <a href="../../informe/index.html">Informe</a>
+      <a href="../../manual/index.html">Manual TE I</a>
+      <a href="../../contacto/index.html">Contacto</a>
+    </nav>
+  </div>
+</header>
+<!-- generated by tools/sibling.py public: the left navigation -->
+<div class="docs">
+<nav class="docs-nav" aria-label="Site sections">
+<button class="docs-fold" type="button" data-fold="nav" aria-label="Hide the navigation" title="Hide the navigation">‹</button>
+<details class="group" open=""><summary class="t">Inicio</summary><ul><li><a href="../../index.html">Inicio</a></li></ul></details>
+<details class="group" open=""><summary class="t">Prácticas</summary><ul><li><a href="../../practicas/index.html">Catálogo: las veinte prácticas</a></li><li><a href="../../practicas/pendulo-fisico/index.html">P01 · Péndulo físico</a></li><li><a href="../../practicas/ley-hooke/index.html">P02 · Movimiento armónico simple. Ley de Hooke</a></li><li><a href="../../practicas/carril-aire/index.html">P03 · Medida de magnitudes dinámicas mediante un carril de aire</a></li><li><a href="../../practicas/cc-resistencia-interna/index.html">P04 · Corriente continua I: resistencia interna de una fuente</a></li><li><a href="../../practicas/cc-curva-lampara/index.html">P05 · Corriente continua II: curva característica de una lámpara</a></li><li><a href="../../practicas/descarga-condensador/index.html">P06 · Descarga de un condensador</a></li><li><a href="../../practicas/ondas-estacionarias/index.html">P07 · Ondas estacionarias en una cuerda con extremos fijos</a></li><li><a href="../../practicas/vaporizacion-agua/index.html">P08 · Calor de vaporización del agua</a></li><li><a href="../../practicas/velocidad-sonido/index.html">P09 · Medida de la velocidad del sonido: tubo de resonancia</a></li><li><a href="../../practicas/inercia-disco/index.html">P10 · Momento de inercia de un disco</a></li><li><a href="../../practicas/catenaria/index.html">P11 · Equilibrio de un hilo bajo la acción de la gravedad: la catenaria</a></li><li><a href="../../practicas/rozamiento-correas/index.html">P12 · Coeficiente de rozamiento entre correas y poleas</a></li><li><a href="../../practicas/giroscopo/index.html">P13 · Giróscopo</a></li><li><a href="../../practicas/cantidad-movimiento/index.html">P14 · Conservación de la cantidad de movimiento</a></li><li><a href="../../practicas/momento-cinetico/index.html">P15 · Conservación del momento cinético</a></li><li><a href="../../practicas/pendulo-circular/index.html">P16 · Péndulo circular (cónico)</a></li><li><a href="../../practicas/momentos-inercia/index.html">P17 · Momentos de inercia de sólidos</a></li><li><a href="../../practicas/maquina-atwood/index.html">P18 · Máquina de Atwood</a></li><li><a href="../../practicas/vibraciones-1gdl/index.html">P19 · Vibraciones libres con un grado de libertad</a></li><li><a href="../../practicas/vibraciones-2gdl/index.html">P20 · Vibraciones libres con dos grados de libertad</a></li></ul></details>
+<details class="group" open=""><summary class="t">Asignaturas</summary><ul><li><a href="../../asignaturas/index.html">Las cuatro asignaturas</a></li><li><a href="../../asignaturas/bfma/index.html">Bases Físicas del Medio Ambiente</a></li><li><a href="../../asignaturas/fisica/index.html">Física I y II</a></li><li><a href="../../asignaturas/mecanica/index.html">Mecánica</a></li><li><a href="../../asignaturas/tecnicas-experimentales/index.html">Técnicas Experimentales I</a></li></ul></details>
+<details class="group" open=""><summary class="t">Recursos</summary><ul><li><a href="../../recursos/index.html">Recursos</a></li><li><a href="../../recursos/sesion-0/index.html">Sesión 0</a></li><li><a href="../../recursos/errores/index.html">Errores y regresiones</a></li><li><a href="../../recursos/phyphox/index.html">Phyphox</a></li></ul></details>
+<details class="group" open=""><summary class="t">Informe</summary><ul><li><a href="../../informe/index.html">El informe: qué contiene, cómo se evalúa</a></li><li><a href="../../informe/modelos/index.html">Los ocho informes modelo</a></li><li><a href="../../informe/rubrica/index.html">La rúbrica de TE I: 225 criterios</a></li><li><a href="../../informe/rubrica-gum/index.html">La rúbrica GUM</a></li></ul></details>
+<details class="group" open=""><summary class="t">Manual TE I</summary><ul><li><a href="../../manual/index.html">El manual, capítulo a capítulo</a></li><li><a href="../../manual/01-representacion-magnitudes.html">Tema 1: Representación de magnitudes</a></li><li><a href="../../manual/02-medidas-directas.html">Tema 2: Medidas directas</a></li><li><a href="../../manual/03-medidas-indirectas.html">Tema 3: Medidas indirectas</a></li><li><a href="../../manual/04-graficas-regresion.html">Tema 4: Gráficas y regresión lineal</a></li><li><a href="../../manual/05-ejemplos-desarrollados.html">Tema 5: Ejemplos desarrollados</a></li><li><a href="../../manual/06-instrucciones-laboratorio.html">Tema 6: Instrucciones para el laboratorio</a></li><li><a href="../../manual/07-soluciones-ejercicios.html">Soluciones y apéndices</a></li></ul></details>
+<details class="group" open=""><summary class="t">Contacto</summary><ul><li><a href="../../contacto/index.html">Contacto</a></li></ul></details>
+</nav>
+<div class="docs-main">
+<div class="itin-head"><span class="kicker">P01 · Serie general · Práctica 1 de Bases Físicas del Medio Ambiente · Práctica 1 de Física I y II · Práctica 1 de Técnicas Experimentales I</span></div><div class="prac-meta"><div><span class="lbl">Servida a</span><span class="v"><a class="chip chip-bfma" href="../../asignaturas/bfma/index.html" title="Práctica 1 de Bases Físicas del Medio Ambiente">BFMA</a> <a class="chip chip-fisica" href="../../asignaturas/fisica/index.html" title="Práctica 1 de Física I y II">Física I y II</a> <a class="chip chip-teci" href="../../asignaturas/tecnicas-experimentales/index.html" title="Práctica 1 de Técnicas Experimentales I">Técnicas Exp. I</a></span></div><div><span class="lbl">Guion</span><span class="v"><a href="prak1.pdf">Guion en PDF</a> · <a href="../../informe/modelos/pendulo-fisico/index.html">Informe modelo</a> · <a href="analisis.html">Análisis con datos</a></span></div><div><span class="lbl">En resumen</span><span class="v">Radio de giro y momento de inercia de una varilla a partir del periodo T(b); linealización bT² vs b² y valor de g.</span></div></div><nav class="prac-prevnext"><span></span><a href="../index.html">Catálogo</a><a href="../ley-hooke/index.html">P02 Movimiento armónico simple. Ley de Hooke →</a></nav>
+
+<header id="title-block-header">
+<h1 class="title">Péndulo físico</h1>
+<p class="subtitle">Prácticas de Laboratorio — UNED</p>
+<p class="author">Josu M. Igartua</p>
+
+<p class="date">2024-10-26</p>
+<div class="abstract">
+<div class="abstract-title">Resumen</div>
+<p>Determinación experimental del radio de giro y del momento de inercia de un péndulo físico midiendo el periodo <span class="math inline">T(b)</span> para distintas distancias <span class="math inline">b</span> entre el eje y el centro de masas. A partir de la linealización <span class="math inline">bT^{2}</span> vs <span class="math inline">b^{2}</span> se obtiene también la aceleración de la gravedad <span class="math inline">g</span>.</p>
+</div>
+</header>
+
+
+<p><br> <br></p>
+<h2 id="objetivos" class="anchored">Objetivos</h2>
+<p><br></p>
+<p>En esta experiencia se investiga la relación existente entre el periodo de las oscilaciones de un péndulo físico en forma de varilla delgada y la distancia del eje de oscilación al centro de gravedad del mismo. A partir de estos datos se calcula el valor de la aceleración de la gravedad, <span class="math inline">g</span>.</p>
+<p><br></p>
+<h2 id="repaso-de-teoría" class="anchored">Repaso de teoría</h2>
+<p><br></p>
+<ol type="1">
+<li>Movimiento armónico simple.</li>
+<li>Momento de inercia.</li>
+<li>Teorema de Steiner.</li>
+<li>Péndulo físico.</li>
+</ol>
+<p><br></p>
+<h2 id="fundamento-teórico" class="anchored">Fundamento teórico</h2>
+<p><br></p>
+<p>Cuando un cuerpo rígido suspendido por un eje O a una distancia, <span class="math inline">b</span>, de su centro de masas, <span class="math inline">C</span>, se separa de su posición de equilibrio (ver Figura 1) y se deja libre, efectúa un movimiento de oscilación alrededor del eje, cuya ecuación de movimiento viene dada por:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="figura1.png" class="img-fluid quarto-figure quarto-figure-center" width="250"></p>
+</figure>
+</div>
+<p><span id="eq-1_1"><span class="math display">
+- Mgb \sin(\theta) = I \dfrac{d^{2}\theta}{dt^{2}}
+\tag{1}</span></span></p>
+<p>En esa ecuación, <span class="math inline">I</span> es el momento de inercia del cuerpo respecto al eje <span class="math inline">O</span>. Esta expresión, en el caso de pequeñas oscilaciones, toma la forma más sencilla:</p>
+<p><span id="eq-1_2"><span class="math display">
+- Mgb \theta = I \dfrac{d^{2}\theta}{dt^{2}}
+\tag{2}</span></span></p>
+<p>que se corresponde a un movimiento armónico simple de período:</p>
+<p><span id="eq-1_3"><span class="math display">
+T = 2\pi\, \sqrt{\dfrac{I}{Mgb}}
+\tag{3}</span></span></p>
+<p>Si se denomina <span class="math inline">I_{0}</span> al momento de inercia del cuerpo por un eje paralelo al eje <span class="math inline">O</span> que pasa por <span class="math inline">C</span>, la ecuación anterior se expresa:</p>
+<p><span id="eq-1_4"><span class="math display">
+T = 2\pi\, \sqrt{\dfrac{I_{0} + Mb^{2}}{Mgb}}
+\tag{4}</span></span></p>
+<p>o bien,</p>
+<p><span id="eq-1_5"><span class="math display">
+T = 2\pi\, \sqrt{\dfrac{Mk^{2}+Mb^{2}}{Mgb}}
+\tag{5}</span></span></p>
+<p>En esa ecuación, <span class="math inline">k</span> es el denominado <strong><em>radio de giro</em></strong> del cuerpo alrededor del eje que pasa por <span class="math inline">C</span> y viene dado por:</p>
+<p><span id="eq-1_6"><span class="math display">
+k = \sqrt{\dfrac{I_{0}}{M}}
+\tag{6}</span></span></p>
+<div>
+<blockquote>
+<p><strong>Radio de Giro</strong></p>
+<p>La interpretación física del <em>radio de giro</em> de un cuerpo es la siguiente: se trata de la distancia a la que hay que colocar toda la masa del cuerpo, supuesto puntual (esto es, hay que pensar que se tiene toda la masa del cuerpo, independientemente de su forma, concentrada en un único punto), para que el momento de inercia, respecto al mismo eje inicial, de ese <em>masa puntual</em> sea igual al momento de inercia del cuerpo (<em>con su forma</em>) respecto al mencionado eje. Hay que recordar que el momento de inercia de una masa puntual, <span class="math inline">M</span>, respecto a un eje que se encuentra a una distancia <span class="math inline">d</span> de la masa es: <span class="math inline">I_{\textrm{masa puntual}}=M\,d^{2}</span>.</p>
+<p>Por lo tanto, por definición, se cumplirá lo siguiente:</p>
+<p><span class="math display">
+I_{0} \equiv M\,k^{2}
+</span></p>
+</blockquote>
+</div>
+<p>Así lo que el periodo de oscilación viene dado, finalmente, por la siguiente expresión:</p>
+<p><span id="eq-1_7"><span class="math display">
+\boxed{T = 2\pi\, \sqrt{\dfrac{k^{2}+b^{2}}{gb}}}
+\tag{7}</span></span></p>
+<p><br></p>
+<h2 id="descripción-del-aparato" class="anchored">Descripción del aparato</h2>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:40%;">
+<p>Como péndulo se emplea una varilla delgada metálica que tiene practicadas, cada centímetro, una serie de ranuras. La ranura central coincide con el centro de masas de la varilla. El péndulo puede hacerse oscilar alrededor de una cuchilla metálica de sección triangular, la cual puede situarse mediante un tornillo de presión sobre cualquiera de las ranuras a lo largo de la varilla.</p>
+</div><div class="column" style="width:60%;">
+<div class="quarto-figure quarto-figure-right">
+<figure>
+<p><img src="figura2.png" class="img-fluid quarto-figure quarto-figure-right" width="250"></p>
+</figure>
+</div>
+</div>
+</div>
+<!-- end columns -->
+<p><br></p>
+<h2 id="método-operatorio" class="anchored">Método operatorio</h2>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>1</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Haced una tabla como la que se indica, del período <span class="math inline">T</span> en función de la distancia <span class="math inline">b</span> entre el punto de oscilación y el centro de masas (en la misma tabla calculad los valores <span class="math inline">b T^{2}</span> y <span class="math inline">b^{2}</span> que serán necesarios más tarde).</p>
+<p>Para ello, haced oscilar el péndulo alrededor de distintos ejes y determínese el período de oscilación contando cada vez al menos 20 oscilaciones.</p>
+<p><code>Notas:</code></p>
+<blockquote>
+<ol type="1">
+<li><p>La suposición de oscilaciones pequeñas en las expresiones planteadas arriba implica que en todo momento <span class="math inline">\sin\theta\approx\theta</span>.<br>
+Para ello, basta que el ángulo máximo de la oscilación (la amplitud de oscilación) no sobrepase los <span class="math inline">20^{\circ}</span>.</p></li>
+<li><p>No tomar datos para <span class="math inline">b&lt;</span> 6 cm.</p></li>
+</ol>
+</blockquote>
+<div class="columns">
+<div class="column" style="width:25%;">
+<p><strong>Datos <br> experimentales</strong></p>
+</div><div class="column" style="width:75%;">
+<p>A continuación en la tabla se resumen los datos recogidos en el laboratorio.</p>
+<p>Como se puede ver, por cada distancia se han tomado <span class="math inline">5</span> medidas de <span class="math inline">20</span> periodos.<br>
+Lo primero que hay que hacer, por tanto, es calcular el <em>valor medio</em> de los <span class="math inline">20</span> periodos para cada distancia y, posteriormente, obtener el valor del periodo.</p>
+<p><br></p>
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 11%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Medida</th>
+<th><span class="math inline">b \textrm{ (m)}</span></th>
+<th>20 <span class="math inline">T_{1} (\textrm{s})</span></th>
+<th>20 <span class="math inline">T_{2} (\textrm{s})</span></th>
+<th>20 <span class="math inline">T_{3} (\textrm{s})</span></th>
+<th>20 <span class="math inline">T_{4} (\textrm{s})</span></th>
+<th>20 <span class="math inline">T_{5} (\textrm{s})</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>0.06</td>
+<td>31.63</td>
+<td>31.63</td>
+<td>31.47</td>
+<td>31.53</td>
+<td>31.59</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>0.08</td>
+<td>27.01</td>
+<td>28.53</td>
+<td>28.47</td>
+<td>28.47</td>
+<td>28.44</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>0.10</td>
+<td>26.85</td>
+<td>26.66</td>
+<td>26.69</td>
+<td>26.72</td>
+<td>26.72</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>0.12</td>
+<td>25.91</td>
+<td>25.62</td>
+<td>25.57</td>
+<td>25.94</td>
+<td>25.47</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>0.14</td>
+<td>25.00</td>
+<td>24.91</td>
+<td>25.07</td>
+<td>25.00</td>
+<td>25.00</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>0.16</td>
+<td>24.69</td>
+<td>24.66</td>
+<td>24.50</td>
+<td>24.68</td>
+<td>24.56</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>0.18</td>
+<td>24.53</td>
+<td>24.59</td>
+<td>24.54</td>
+<td>24.59</td>
+<td>24.56</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>0.19</td>
+<td>24.50</td>
+<td>24.59</td>
+<td>24.56</td>
+<td>24.53</td>
+<td>24.59</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>0.20</td>
+<td>24.60</td>
+<td>24.46</td>
+<td>24.62</td>
+<td>24.53</td>
+<td>24.57</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>0.22</td>
+<td>24.81</td>
+<td>24.68</td>
+<td>24.72</td>
+<td>24.82</td>
+<td>24.72</td>
+</tr>
+<tr class="odd">
+<td>11</td>
+<td>0.25</td>
+<td>25.03</td>
+<td>25.03</td>
+<td>25.16</td>
+<td>25.20</td>
+<td>24.94</td>
+</tr>
+<tr class="even">
+<td>12</td>
+<td>0.27</td>
+<td>25.38</td>
+<td>25.47</td>
+<td>25.31</td>
+<td>25.28</td>
+<td>25.03</td>
+</tr>
+<tr class="odd">
+<td>13</td>
+<td>0.30</td>
+<td>25.79</td>
+<td>25.91</td>
+<td>26.00</td>
+<td>25.87</td>
+<td>25.72</td>
+</tr>
+<tr class="even">
+<td>14</td>
+<td>0.32</td>
+<td>26.25</td>
+<td>26.00</td>
+<td>26.19</td>
+<td>26.29</td>
+<td>26.25</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<!-- end columns -->
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>2</strong></p>
+</div><div class="column" style="width:92%;">
+<p>La teoría predice un mínimo del periodo <span class="math inline">T</span>, para <span class="math inline">b=k</span>, siendo <span class="math inline">k</span> el radio de giro.</p>
+<p>Demostrar que efectivamente la función <span class="math inline">T(b)</span> tiene un mínimo cuando <span class="math inline">b=k</span>.</p>
+<div class="columns">
+<div class="column" style="width:25%;">
+<p><strong>Cálculo</strong></p>
+</div><div class="column" style="width:75%;">
+<p>Tomando como referencia la {eq}<code>equ_1_7</code>, que no es si no una ecuación en la que se expresa el periodo <span class="math inline">T</span> en función de la distancia <span class="math inline">b</span>, <span class="math inline">T=T(b)</span>, lo único que hay que hacer para demostrar que presenta un mínimo, es derivarla con respecto a <span class="math inline">b</span> e igualar la derivada a <span class="math inline">0</span>: <span class="math inline">\dfrac{d\, T}{d\, b}=0</span>; para ver qué valor de <span class="math inline">b</span> hace que la derivada se anule.</p>
+<div>
+<blockquote>
+<p><strong>Cálculo de la derivada</strong></p>
+<p><br></p>
+<p>La ecuación {eq}<code>equ_1_7</code>, <span class="math inline">T = 2\pi\, \sqrt{\dfrac{k^{2}+b^{2}}{gb}}</span>, representa una función <span class="math inline">T=T(b)</span> de una sola variable, en la que <span class="math inline">k</span> (el radio de giro) es un parámetro.</p>
+<p>Si se deriva <span class="math inline">T=T(b)</span> con respecto a <span class="math inline">b</span>, y se iguala a cero la derivada, se obtiene la siguiente expresión:<br>
+<span class="math display">
+\frac{\textrm{d}\,T}{\textrm{d}\,b}=0\Rightarrow \frac{\textrm{d}\,T}{\textrm{d}\,b}=\frac{\textrm{d}\,\left(2\pi\, \sqrt{\dfrac{k^{2}+b^{2}}{gb}}\right)}{\textrm{d}\,b} \Rightarrow
+</span> <span class="math display">
+0 = 2\pi \frac{1}{\left(\sqrt{\dfrac{k^{2}+b^{2}}{gb}}\right)} \frac{\textrm{d}\,\left(\dfrac{k^{2}+b^{2}}{gb}\right)}{\textrm{d}\,b}\Rightarrow 0=\frac{\textrm{d}\,\left(\dfrac{k^{2}+b^{2}}{gb}\right)}{\textrm{d}\,b}
+</span> <span class="math display">
+0 = \frac{2b\cdot gb - (k^{2} + b^{2})\cdot g}{(gb)^{2}}\Rightarrow 0 = 2g\cdot b^{2} - g\cdot k^{2} - g\cdot b^{2}\Rightarrow b^{2} = k^{2} \Rightarrow b = k
+</span></p>
+</blockquote>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>3</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Llevar los puntos <span class="math inline">(b,T)</span> de la tabla anterior a una gráfica para determinar, a partir de la misma, el valor de <span class="math inline">b</span> para el cual <span class="math inline">T</span> es mínimo (con objeto de estimar adecuadamente el <span class="math inline">b</span> correspondiente al <span class="math inline">T</span> mínimo es conveniente tener una alta densidad de puntos <span class="math inline">(b,T)</span> en los alrededores del mínimo). Este valor de <span class="math inline">b</span> es igual, según la teoría, al valor del radio de giro (<span class="math inline">k</span>).</p>
+<div>
+<blockquote>
+<p><strong><strong>Representación gráfica</strong>: <span class="math inline">T</span> vs <span class="math inline">b</span></strong></p>
+<p><br></p>
+<p><img src="pendulo_1_2019_2020.png" width="500px"></p>
+<p><br> <br></p>
+<p><img src="pendulo_1_2019_2020_final.png" width="500px"></p>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>4</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Calcular <span class="math inline">k</span> de forma teórica y comparar dicho valor con el valor de <span class="math inline">k</span> obtenido de forma experimental.</p>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>5</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Representar gráficamente <span class="math inline">bT^{2}</span> en función de <span class="math inline">b^{2}</span>.</p>
+<p>La teoría predice una relación lineal entre ambas magnitudes según la fórmula: <span id="eq-1_8"><span class="math display">
+\boxed{bT^{2} =4\pi^{2}\,\dfrac{k^{2}}{g} + 4\pi^{2}\dfrac{b^{2}}{g}}
+\tag{8}</span></span></p>
+<ol type="1">
+<li><p>Realizar el correspondiente ajuste por mínimos cuadrados, regresión lineal, para determinar el radio degiro <span class="math inline">k</span> y el valor de <span class="math inline">g</span>.</p></li>
+<li><p>Calcular también los errores <span class="math inline">\Delta k</span> y <span class="math inline">\Delta g</span>.</p></li>
+</ol>
+<div>
+<blockquote>
+<p><strong>Representación gráfica: <span class="math inline">b\\,T^{2}</span> vs <span class="math inline">b^{2}</span></strong></p>
+<p><br></p>
+<p><img src="pendulo_2_2019_2020.png" width="500px"></p>
+</blockquote>
+</div>
+<div>
+<blockquote>
+<p><strong>Comentarios y cálculos sobre y en relación la ecuación anterior</strong></p>
+<p>Cuando se representa gráficamente el contenido de la ecuación {eq}<code>equ_1_8</code> <em>modificada</em>, para que se aprecie mejor qué (<span class="math inline">bT^{2}</span>) se representa frente a qué (<span class="math inline">b^{2}</span>):<br>
+<span class="math display">
+bT^{2} =4\pi^{2}\,\dfrac{k^{2}}{g} + 4\pi^{2}\dfrac{b^{2}}{g} \Rightarrow bT^{2} =\boxed{\dfrac{4\pi^{2}}{g}}\cdot b^{2} + \boxed{\dfrac{4\pi^{2}\,k^{2}}{g}}
+</span></p>
+<p>La última expresión no es más que la ecuación de una línea recta en la que</p>
+<ol type="1">
+<li>la pendiente, <span class="math inline">m</span> es: <span class="math inline">m=\dfrac{4\pi^{2}}{g}</span></li>
+<li>la ordenada en el origen, <span class="math inline">n</span> es: <span class="math inline">n=\dfrac{4\pi^{2}\,k^{2}}{g}</span></li>
+</ol>
+<p>Así, al <em>ajustar la nube de puntos experimentales mediante una regresión lineal</em> (<span class="math inline">y = m\cdot x + n</span>, el problema matemático), se pueden obtener los valores de <span class="math inline">g</span> y de <span class="math inline">k</span>, y sus correspondientes errores, por supuesto.</p>
+<p>De la comparación, se deduce que <span class="math inline">m=\dfrac{4\pi^{2}}{g}</span>, con lo que <span class="math inline">g</span> es:<br>
+<span id="eq-1_9"><span class="math display">
+\boxed{g = \dfrac{4\pi^{2}}{m}}
+\tag{9}</span></span></p>
+<p>Además, se puede trasladar el error de <span class="math inline">m</span>, obtenido de la regresión lineal, <span class="math inline">\Delta m</span>, teniendo en cuenta que en la expresión {eq}<code>equ_1_9</code> <span class="math inline">g</span> es <em>una función de una sola variable <span class="math inline">m</span></em>. Eso significa que el error hay que calcularlo utilizando la siguiente expresión: <span class="math display">
+\Delta g = \sqrt{  \left|\frac{\textrm{d} g}{\textrm{d} m}\right|^{2}      \cdot \left|\Delta m\right|^{2} }   \Rightarrow \Delta g = \left|\frac{\textrm{d} g}{\textrm{d} m}\right|\cdot \left|\Delta m\right| \Rightarrow \boxed{\Delta g = \left|4\pi^{2}\cdot\dfrac{-1}{m^{2}}\right|\cdot \left|\Delta m\right|}
+</span></p>
+<p>Finalmente, el valor de <span class="math inline">g</span> que hay que <em>entregar</em> en el informe será: <span class="math display">
+\boxed{g = \dfrac{4\pi^{2}}{m} \pm \left|4\pi^{2}\cdot\dfrac{-1}{m^{2}}\right|\cdot \left|\Delta m\right|}
+</span></p>
+<p><span class="math inline">g\approx 10.3781 \pm 0.1255 \frac{\textrm{ m}}{\textrm{ s}^{2}}</span>.</p>
+<p>Una vez obtenido <span class="math inline">g</span> y su error, <span class="math inline">\Delta g</span>, se puede obtener el valor de <span class="math inline">k</span> y su error, <span class="math inline">\Delta k</span> mediante el valor de la ordenada en el origen deducido de la regresión lineal. Para ello, lo único que hay que hacer es comparar, de nuevo, la <em>ecuación física</em> con la <em>ecuación matemática</em>: <span class="math display">
+y = m\cdot x + n \equiv \dfrac{4\pi^{2}}{g} \cdot b^{2} + \boxed{ \dfrac{4\pi^{2}\,k^{2}}{g}}
+</span></p>
+<p>e igualar, como se ha indicado en el punto 2.: <span class="math inline">n = \dfrac{4\pi^{2}\,k^{2}}{g}</span>, con lo que <span class="math inline">k</span> es: <span id="eq-1_10"><span class="math display">
+\boxed{k = \sqrt{ \frac{n\cdot g}{4\pi^{2}}  }}
+\tag{10}</span></span></p>
+<p><span class="math inline">k \approx 19.3343\textrm{ cm}</span>.</p>
+<p>En este caso, <span class="math inline">k</span> es función de dos variables: <span class="math inline">k = k(n,g)</span>; <span class="math inline">n</span> la ordenada en el origen del problema matemático y <span class="math inline">g</span> el valor de la aceleración de la gravedad que se ha obtenido experimentalmente mediante la pendiente del problema matemático. Entonces, la expresión para el error que hay que utilizar en este caso es la siguiente:<br>
+<span class="math display">
+\Delta k = \sqrt{  \left|\left(\frac{\partial k}{\partial n}\right)_{g}\right|^{2}      \cdot \left|\Delta n\right|^{2} + \left|\left(\frac{\partial k}{\partial g}\right)_{n}\right|^{2}      \cdot \left|\Delta g\right|^{2}  }
+</span></p>
+<p>Entonces: <span class="math display">
+\left(\frac{\partial k}{\partial n}\right)_{g} = \frac{1}{2\pi}\cdot\frac{1}{2}\cdot\frac{1}{\sqrt{n g}}\cdot g
+</span><br>
+<span class="math display">
+\left(\frac{\partial k}{\partial g}\right)_{n} = \frac{1}{2\pi}\cdot\frac{1}{2}\cdot\frac{1}{\sqrt{n g}}\cdot n
+</span></p>
+<p>Por lo tanto, el error en <span class="math inline">k</span> es: <span class="math display">
+\Delta k = \frac{1}{2\pi}\cdot\frac{1}{2} \frac{1}{n g}\cdot\sqrt{g^{2}\left(\Delta g\right)^{2} +
+n^{2}\left(\Delta n\right)^{2}}\Rightarrow
+\boxed{\Delta k =  \frac{1}{4\pi}\cdot \sqrt{ \frac{n}{g}\cdot\left(\Delta g\right)^{2} + \frac{g}{n}\cdot\left(\Delta n\right)^{2}} }
+</span></p>
+<p>Finalmente, otro de los valores de <span class="math inline">k</span> que hay que <em>entregar</em> en el informe será: <span class="math display">
+\boxed{ k = \sqrt{ \frac{n\cdot g}{4\pi^{2}}  } \pm \frac{1}{4\pi}\cdot \sqrt{ \frac{n}{g}\cdot\left(\Delta g\right)^{2} + \frac{g}{n}\cdot\left(\Delta n\right)^{2}} }
+</span></p>
+<p><span class="math display">k
+\approx 19.3343 \pm 1.7236
+</span></p>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>6</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Comparar los diferentes valores de <span class="math inline">k</span> obtenidos y comparar el valor de <span class="math inline">g</span> que se ha determinado con el que aparece en los libros de Física.</p>
+<div>
+<blockquote>
+<p><strong>Comparación de los valores de <span class="math inline">k</span></strong></p>
+<p><strong>Radio de giro</strong></p>
+<p>En esta práctica, se han obtenido 3 valores para el <em>radio de giro</em>, <span class="math inline">k</span>:</p>
+<p><strong>1. Método:</strong></p>
+<p>Por inspección directa, al representar gráficamente el periodo de oscilación del péndulo frente a la distancia, <span class="math inline">b</span>, a la que se encuentra el eje de giro respecto a centro de masas del péndulo físico, una varilla delgada.<br>
+<span class="math display">
+k \approx 20 \textrm{ cm}
+</span></p>
+<p>Además, se ha comprobado que, efectivamente, de la expresión del periodo, <span class="math inline">T</span>, frente a <span class="math inline">b</span>, la teoría predice un mínimo para <span class="math inline">b=k</span>.</p>
+<p><strong>2. Método:</strong></p>
+<p>Mediante la aplicación de la expresión teórica para el radio de giro de una varilla delgada, de longitud <span class="math inline">L=66</span> cm y de masa <span class="math inline">M</span>.</p>
+<p>La expresión para el momento de inercia de una varilla delgada es: <span class="math inline">I_{\textrm{varilla}}= \frac{1}{12}ML^{2}</span>.</p>
+<p>Teniendo en cuenta la definición del radio de giro, como la distancia a la que hay que colocar toda la masa del sistema, supuesta puntual (con lo que se coloca toda la masa <span class="math inline">M</span> en el mismo punto) para que el momento de inercia de esa masa (qu es puntual) sea el mismo, en valor, que el del sistema, se puede escribir la siguiente igualdad:<br>
+<span class="math display">
+k \equiv M\cdot k^{2} = \frac{1}{12}ML^{2}
+</span></p>
+<p>Con lo que se tiene: <span class="math display">
+\boxed {k = \frac{1}{2\sqrt{3}}\cdot L }\Rightarrow k\approx 19.05
+</span></p>
+<p><strong>3. Método:</strong></p>
+<p>Completando la <em>linealización</em> del problema; esto es, representando <span class="math inline">bT^{2}</span> frente a <span class="math inline">b^{2}</span>, que no es si no una línea recta, y haciendo un ajuste por mínimos cuadrados, una regresión lineal de la <em>nube de puntos experimentales</em> obtenidos. Así, el valor para <span class="math inline">k</span> es el siguiente: <span class="math display">
+k = \sqrt{ \frac{n\cdot g}{4\pi^{2}}  } \pm \frac{1}{4\pi}\cdot \sqrt{ \frac{n}{g}\cdot\left(\Delta g\right)^{2} + \frac{g}{n}\cdot\left(\Delta n\right)^{2}}
+</span></p>
+<p><strong>Aceleración de la gravedad <em>local</em></strong></p>
+<p>De manera indirecta, también se ha obtenido el valor de la gravedad <em>local</em>, valor en el laboratorio en el que se han tomado los datos experimentales.</p>
+<p>Se puede comparar ese valor con el local para la ubicación del laboratorio, que se puede obtener <a href="https://www.sensorsone.com/local-gravity-calculator/">aquí</a>. Conociendo los valores de la latitud y de la longitud de la Facultad de Ciencia y Tecnología (<a href="https://www.google.es/maps/">Google Maps</a>, por ejemplo), el valor local que se obtiene es: <span class="math inline">9.8047</span>.</p>
+<p>El valor obtenido en el experimento es: <span class="math display">
+g = \dfrac{4\pi^{2}}{a} \pm \left|4\pi^{2}\cdot\dfrac{-1}{m^{2}}\right|\cdot \left| m^{2}\right| \Rightarrow g\approx
+</span></p>
+</blockquote>
+</div>
+</div>
+</div>
+<div>
+<blockquote>
+<p><strong>Los datos del curso 2020-2021</strong></p>
+<p><br></p>
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 11%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Medida</th>
+<th style="text-align: center;"><span class="math inline">b \textrm{ (m)}</span></th>
+<th style="text-align: center;">20 <span class="math inline">T_{1} (\textrm{s})</span></th>
+<th style="text-align: center;">20 <span class="math inline">T_{2} (\textrm{s})</span></th>
+<th style="text-align: center;">20 <span class="math inline">T_{3} (\textrm{s})</span></th>
+<th style="text-align: center;">20 <span class="math inline">T_{4} (\textrm{s})</span></th>
+<th style="text-align: center;">20 <span class="math inline">T_{5} (\textrm{s})</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">12.99895443</td>
+<td style="text-align: center;">12.90548965</td>
+<td style="text-align: center;">13.05025367</td>
+<td style="text-align: center;">12.9347077</td>
+<td style="text-align: center;">12.91952281</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">12.81671411</td>
+<td style="text-align: center;">12.76343481</td>
+<td style="text-align: center;">12.81286148</td>
+<td style="text-align: center;">12.71609465</td>
+<td style="text-align: center;">12.60688172</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">11.5447544</td>
+<td style="text-align: center;">11.56685792</td>
+<td style="text-align: center;">11.49030094</td>
+<td style="text-align: center;">11.40706511</td>
+<td style="text-align: center;">11.38370183</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">11.02232207</td>
+<td style="text-align: center;">10.90558487</td>
+<td style="text-align: center;">10.84101145</td>
+<td style="text-align: center;">11.01853529</td>
+<td style="text-align: center;">10.93629146</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">10.86223632</td>
+<td style="text-align: center;">10.67648849</td>
+<td style="text-align: center;">10.75728972</td>
+<td style="text-align: center;">10.72587809</td>
+<td style="text-align: center;">10.66919511</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">10.53591243</td>
+<td style="text-align: center;">10.53844271</td>
+<td style="text-align: center;">10.6961495</td>
+<td style="text-align: center;">10.49422565</td>
+<td style="text-align: center;">10.64673892</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">10.33745703</td>
+<td style="text-align: center;">10.51323971</td>
+<td style="text-align: center;">10.54787124</td>
+<td style="text-align: center;">10.34009857</td>
+<td style="text-align: center;">10.33410281</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: center;">13</td>
+<td style="text-align: center;">10.22982403</td>
+<td style="text-align: center;">10.24538881</td>
+<td style="text-align: center;">10.21615792</td>
+<td style="text-align: center;">10.16568609</td>
+<td style="text-align: center;">10.21421499</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: center;">14</td>
+<td style="text-align: center;">10.04070882</td>
+<td style="text-align: center;">10.10219316</td>
+<td style="text-align: center;">10.077422</td>
+<td style="text-align: center;">9.990448</td>
+<td style="text-align: center;">10.07518122</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">9.71479226</td>
+<td style="text-align: center;">9.82409931</td>
+<td style="text-align: center;">9.74449111</td>
+<td style="text-align: center;">9.70827293</td>
+<td style="text-align: center;">9.84258617</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11</td>
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">10.01072454</td>
+<td style="text-align: center;">9.9915201</td>
+<td style="text-align: center;">10.01893586</td>
+<td style="text-align: center;">9.8934188</td>
+<td style="text-align: center;">9.88398566</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">12</td>
+<td style="text-align: center;">17</td>
+<td style="text-align: center;">9.81808177</td>
+<td style="text-align: center;">9.91245514</td>
+<td style="text-align: center;">9.79674555</td>
+<td style="text-align: center;">9.95023174</td>
+<td style="text-align: center;">9.91469698</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">13</td>
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">9.75696467</td>
+<td style="text-align: center;">9.8640002</td>
+<td style="text-align: center;">9.74670703</td>
+<td style="text-align: center;">9.93331551</td>
+<td style="text-align: center;">9.83458617</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">14</td>
+<td style="text-align: center;">19</td>
+<td style="text-align: center;">9.66589446</td>
+<td style="text-align: center;">9.88032293</td>
+<td style="text-align: center;">9.82673243</td>
+<td style="text-align: center;">9.69137851</td>
+<td style="text-align: center;">9.81959196</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">15</td>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">9.88998452</td>
+<td style="text-align: center;">9.99809063</td>
+<td style="text-align: center;">9.99378546</td>
+<td style="text-align: center;">9.97700407</td>
+<td style="text-align: center;">10.06375981</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">16</td>
+<td style="text-align: center;">21</td>
+<td style="text-align: center;">10.04466558</td>
+<td style="text-align: center;">9.982727</td>
+<td style="text-align: center;">9.98233054</td>
+<td style="text-align: center;">10.09136922</td>
+<td style="text-align: center;">9.95971092</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">17</td>
+<td style="text-align: center;">22</td>
+<td style="text-align: center;">9.64874925</td>
+<td style="text-align: center;">9.56344572</td>
+<td style="text-align: center;">9.63484556</td>
+<td style="text-align: center;">9.67072774</td>
+<td style="text-align: center;">9.62326342</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">18</td>
+<td style="text-align: center;">23</td>
+<td style="text-align: center;">10.0069648</td>
+<td style="text-align: center;">9.96347204</td>
+<td style="text-align: center;">10.02714818</td>
+<td style="text-align: center;">10.14999689</td>
+<td style="text-align: center;">9.94535737</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">19</td>
+<td style="text-align: center;">24</td>
+<td style="text-align: center;">9.86873165</td>
+<td style="text-align: center;">9.95975038</td>
+<td style="text-align: center;">9.94016321</td>
+<td style="text-align: center;">9.95479864</td>
+<td style="text-align: center;">9.86961473</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">20</td>
+<td style="text-align: center;">25</td>
+<td style="text-align: center;">10.04903134</td>
+<td style="text-align: center;">9.93269049</td>
+<td style="text-align: center;">10.05691075</td>
+<td style="text-align: center;">10.03144061</td>
+<td style="text-align: center;">9.87863341</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">21</td>
+<td style="text-align: center;">26</td>
+<td style="text-align: center;">9.89114929</td>
+<td style="text-align: center;">10.00775457</td>
+<td style="text-align: center;">10.02063476</td>
+<td style="text-align: center;">9.94504495</td>
+<td style="text-align: center;">10.0411097</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">22</td>
+<td style="text-align: center;">27</td>
+<td style="text-align: center;">9.92649835</td>
+<td style="text-align: center;">10.02065544</td>
+<td style="text-align: center;">10.00031421</td>
+<td style="text-align: center;">10.04139217</td>
+<td style="text-align: center;">9.94861911</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">23</td>
+<td style="text-align: center;">28</td>
+<td style="text-align: center;">10.0946814</td>
+<td style="text-align: center;">10.11993864</td>
+<td style="text-align: center;">10.12326081</td>
+<td style="text-align: center;">10.07383819</td>
+<td style="text-align: center;">9.98196745</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">24</td>
+<td style="text-align: center;">29</td>
+<td style="text-align: center;">10.30451693</td>
+<td style="text-align: center;">10.35349231</td>
+<td style="text-align: center;">10.35649888</td>
+<td style="text-align: center;">10.30114278</td>
+<td style="text-align: center;">10.33577752</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">25</td>
+<td style="text-align: center;">30</td>
+<td style="text-align: center;">10.44693226</td>
+<td style="text-align: center;">10.47749644</td>
+<td style="text-align: center;">10.38463312</td>
+<td style="text-align: center;">10.32131242</td>
+<td style="text-align: center;">10.41143084</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">26</td>
+<td style="text-align: center;">31</td>
+<td style="text-align: center;">10.29065836</td>
+<td style="text-align: center;">10.23842864</td>
+<td style="text-align: center;">10.30631167</td>
+<td style="text-align: center;">10.38671986</td>
+<td style="text-align: center;">10.34412682</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">27</td>
+<td style="text-align: center;">32</td>
+<td style="text-align: center;">10.4689753</td>
+<td style="text-align: center;">10.3502504</td>
+<td style="text-align: center;">10.3020579</td>
+<td style="text-align: center;">10.47037959</td>
+<td style="text-align: center;">10.35544010</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">28</td>
+<td style="text-align: center;">33</td>
+<td style="text-align: center;">10.36985572</td>
+<td style="text-align: center;">10.38402546</td>
+<td style="text-align: center;">10.32778965</td>
+<td style="text-align: center;">10.50808248</td>
+<td style="text-align: center;">10.35128765</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<ol type="1">
+<li><p>Como se puede ver, no hay error en la medida de las posiciones del eje de giro. Esto es, se asume que se mide con precisión total.<br>
+Si se hubiera fijado el eje de giro en posiciones <em>fijadas a mano para cada experimento</em> y midiendo la distancia en cada caso una vez, habría que tener en cuenta el error en la medida; en este caso, el error del aparato, la precisión de la <em>cinta métrica</em>, por ejemplo. Si cada posicionamiento del eje se hace varias veces, se tendría la posibilidad de evaluar el error cuadrático medio para cada posición.</p></li>
+<li><p>En el caso de los valores de los 8 periodos <em>medidos</em>, los datos experimentales, como se puede ver es imposible que representen datos reales medidos en el laboratorio, puesto que supondría que se han medido con una precisión de ¡<span class="math inline">10^{-8}</span> en segundos!. Evidentemente, son datos <em>calculados</em>. Se han tomado los datos experimentales reales de otro curso, y se les ha añadido un <em>ruido con una distribución normal</em>. Así, lo primero que hacer en este caso es <em>redondear a la centésisma de segundo</em> que es la precisión del cronómetro utilizado en el laboratorio.</p></li>
+</ol>
+</blockquote>
+</div>
+<h2 id="referencias" class="anchored">Referencias</h2>
+<ol type="1">
+<li>P. A. Tipler y G. Mosca, <em>Física para la ciencia y la tecnología</em>, Vol. 1, 6.ª ed., Reverté, Barcelona, 2010.</li>
+<li>R. A. Serway y J. W. Jewett, <em>Física para ciencias e ingeniería</em>, Vol. 1, 9.ª ed., Cengage Learning, México, 2014.</li>
+<li>M. Alonso y E. J. Finn, <em>Física</em>, Vol. I (<em>Mecánica</em>), Addison-Wesley Iberoamericana, 1995.</li>
+<li>OpenStax College, <em>University Physics</em>, Vol. 1, OpenStax, Rice University, 2016. Cap. 15: <em>Oscillations</em>.</li>
+<li>Departamento de Física, <em>Guion de prácticas: Péndulo físico</em>, Facultad de Ciencia y Tecnología, UPV/EHU.</li>
+</ol>
+
+
+<!-- Closes the reading column opened by _gen/docs-nav.html, adds the right
+     "On this page" list, and wires: current-page marking in the left nav,
+     breadcrumbs, the page TOC (from h2/h3 in the reading column) and a
+     scroll-spy. Pure DOM, no library. -->
+  </div>
+  <aside class="docs-toc"><button class="docs-fold" type="button" data-fold="toc" aria-label="Hide the page outline" title="Hide the page outline">›</button><div class="t">On this page</div><ol></ol></aside>
+</div>
+<script>
+(function () {
+  /* 0. The two side panels fold on their chevrons; the choice is remembered in this browser. */
+  var docs = document.querySelector('.docs');
+  if (docs) {
+    var store = {};
+    try { store = JSON.parse(localStorage.getItem('docs-fold') || '{}'); } catch (e) { store = {}; }
+    function apply() {
+      docs.classList.toggle('nav-folded', !!store.nav);
+      docs.classList.toggle('toc-folded', !!store.toc);
+      document.querySelectorAll('.docs-fold').forEach(function (b) {
+        var which = b.getAttribute('data-fold'), folded = !!store[which];
+        b.innerHTML = (which === 'nav') === folded ? '&rsaquo;' : '&lsaquo;';
+        var what = which === 'nav' ? 'the navigation' : 'the page outline';
+        b.title = (folded ? 'Show ' : 'Hide ') + what; b.setAttribute('aria-label', b.title);
+      });
+    }
+    document.querySelectorAll('.docs-fold').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var which = b.getAttribute('data-fold'); store[which] = !store[which];
+        try { localStorage.setItem('docs-fold', JSON.stringify(store)); } catch (e) {}
+        apply();
+      });
+    });
+    apply();
+  }
+  /* 0b. The header ribbon: mark the entry whose section holds this page. Quarto rewrites the hrefs to
+     relative paths, so folders are read from the resolved URLs; the Overview link gives the site root. */
+  (function () {
+    var links = Array.prototype.slice.call(document.querySelectorAll('.site-nav a'));
+    if (!links.length) return;
+    /* a served URL may end in '/' (GitHub Pages: …/about/); read it as …/about/index.html */
+    function folder(path) { if (/\/$/.test(path)) path += 'index.html'; var s = path.split('/').filter(Boolean); return s.length > 1 ? s[s.length - 2] : ''; }
+    var wm = document.querySelector('a.wordmark');            // the wordmark links to the site root
+    var root = folder((wm || links[0]).pathname);
+    var map = { rietveld: 'cases', drude: 'cases', dielectric: 'cases' };
+    function key(path) { var f = folder(path); if (f === root) return 'overview'; return map[f] || f; }
+    var here = key(location.pathname);
+    links.forEach(function (a) { a.classList.toggle('current', key(a.pathname) === here); });
+  })();
+
+  var main = document.querySelector('.docs-main');
+  var nav = document.querySelector('.docs-nav');
+  var toc = document.querySelector('.docs-toc ol');
+  if (!main || !nav || !toc) return;
+
+  /* 1. Left nav: mark the current page (and section, if the hash matches). */
+  var here = location.pathname.replace(/\/index\.html$/, '/');
+  var links = Array.prototype.slice.call(nav.querySelectorAll('a'));
+  var pageLink = null, hashLink = null;
+  links.forEach(function (a) {
+    var p = a.pathname.replace(/\/index\.html$/, '/');
+    if (p !== here) return;
+    if (!a.hash && !pageLink) pageLink = a;
+    if (a.hash && a.hash === location.hash) hashLink = a;
+  });
+  var cur = hashLink || pageLink;
+  if (cur) {
+    cur.classList.add('current');
+    var det = cur.closest('details.group');
+    if (det) { det.open = true; det.classList.add('has-current'); }
+    /* Breadcrumbs: group title › page (› section). */
+    var crumbs = document.createElement('div');
+    crumbs.className = 'docs-crumbs';
+    var g = det ? det.querySelector('summary.t') : null;
+    var parts = [];
+    function push(t) { if (t && parts[parts.length - 1] !== t) parts.push(t); }
+    if (g) push(g.textContent.trim());
+    if (pageLink && pageLink !== cur) push(pageLink.textContent.trim());
+    push(cur.textContent.trim());
+    crumbs.innerHTML = parts.map(function (t, i) {
+      return (i ? '<span class="sep">›</span>' : '') + '<span>' + t.replace(/</g, '&lt;') + '</span>';
+    }).join('');
+    main.insertBefore(crumbs, main.firstChild);
+  }
+
+  /* 2. Right "On this page": h2 and h3 of the reading column. */
+  var used = {};
+  var heads = Array.prototype.slice.call(main.querySelectorAll('h2, h3')).filter(function (h) {
+    if (h.closest('.site-foot, .featured-band, .msg-grid, [data-toc="no"]')) return false;
+    if (h.classList.contains('unnumbered') || h.id === 'contenido') return false;
+    return h.textContent.trim().length > 0;
+  });
+  heads.forEach(function (h) {
+    if (!h.id) {
+      var s = h.textContent.trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+        .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60) || 'sec';
+      while (used[s] || document.getElementById(s)) s += '-';
+      h.id = s;
+    }
+    used[h.id] = true;
+    var li = document.createElement('li');
+    if (h.tagName === 'H3') li.className = 'l3';
+    var a = document.createElement('a');
+    a.href = '#' + h.id;
+    /* This runs before KaTeX has rendered the headings, so a heading with mathematics still holds TeX
+       source: copy its markup, including the math spans, and let the page's KaTeX pass render the copy. */
+    var copy = h.cloneNode(true);
+    copy.querySelectorAll('.katex-mathml, annotation, .anchorjs-link').forEach(function (n) { n.remove(); });
+    var label = copy.textContent.trim().replace(/\s+/g, ' ');
+    if (copy.querySelector('.math, .math-done, .katex')) a.innerHTML = copy.innerHTML.trim();
+    else a.textContent = label.length > 72 ? label.slice(0, 70).replace(/[\s,;:]+\S*$/, '') + '…' : label;
+    a.title = label;
+    li.appendChild(a);
+    toc.appendChild(li);
+  });
+  if (!heads.length) { document.querySelector('.docs-toc').hidden = true; return; }
+
+  /* 3. Scroll-spy. */
+  var items = Array.prototype.slice.call(toc.querySelectorAll('a'));
+  function spy() {
+    var y = window.scrollY + 120, best = null;
+    heads.forEach(function (h) { if (h.getBoundingClientRect().top + window.scrollY <= y) best = h; });
+    items.forEach(function (a) { a.classList.toggle('current', best && a.getAttribute('href') === '#' + best.id); });
+  }
+  window.addEventListener('scroll', spy, { passive: true });
+  window.addEventListener('hashchange', spy);
+  spy();
+})();
+</script>
+<footer class="site-foot">
+  <div class="site-foot__inner">
+    <div class="foot-grid">
+      <div class="foot-about">
+        <h4 class="anchored">Qué es esto</h4>
+        <p>Los guiones de las prácticas de laboratorio que la UNED realiza en la Facultad de Ciencia y Tecnología de la UPV/EHU (Leioa), para Bases Físicas del Medio Ambiente, Física I y II, Mecánica y Técnicas Experimentales I.</p>
+        <div class="cite-block">Josu M. Igartua · Departamento de Física, Facultad de Ciencia y Tecnología, UPV/EHU<br>josu.igartua@ehu.eus · +34 94 601 5335</div>
+      </div>
+      <div><h4 class="anchored">Este sitio</h4><ul>
+        <li><a href="../../index.html">Inicio</a></li><li><a href="../../practicas/index.html">Prácticas</a></li><li><a href="../../asignaturas/index.html">Asignaturas</a></li><li><a href="../../recursos/index.html">Recursos</a></li><li><a href="../../informe/index.html">Informe</a></li><li><a href="../../manual/index.html">Manual TE I</a></li><li><a href="../../contacto/index.html">Contacto</a></li>
+      </ul></div>
+      <div><h4 class="anchored">Instituciones</h4><ul>
+        <li><a href="https://www.uned.es">UNED</a></li>
+        <li><a href="https://www.ehu.eus">UPV/EHU</a></li></ul></div>
+      <div><h4 class="anchored">Dónde</h4><ul>
+        <li>Barrio Sarriena s/n, 48940 Leioa (Bizkaia)</li>
+        <li>Laboratorios 0.16 y 0.21</li></ul></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Josu M. Igartua</span>
+      <span>curso 2025–2026</span>
+    </div>
+  </div>
+</footer>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+    tabsets.forEach(function(tabset) {
+      const tabby = new Tabby('#' + tabset.id);
+    });
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

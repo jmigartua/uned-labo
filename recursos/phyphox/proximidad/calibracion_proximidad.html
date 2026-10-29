@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Josu M. Igartua">
+<meta name="dcterms.date" content="2026-04-16">
+<meta name="keywords" content="Phyphox, calibración, sensor de proximidad, resolución temporal, carril de aire">
+<meta name="description" content="Protocolo de calibración del sensor de proximidad del smartphone (Phyphox) mediante barrido de longitudes de banderín. Permite caracterizar empíricamente la resolución temporal del sensor y determinar la longitud mínima fiable para la medida de velocidades en el carril de aire.">
+
+<title>Calibración del sensor de proximidad del smartphone para la medida de velocidades · UNED Labo – UNED Labo</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<link href="../../../assets/favicon.svg" rel="icon" type="image/svg+xml">
+<script src="../../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-html-afe927e19676d0e50b1726048be49fb1.min.css" rel="stylesheet" append-hash="true" data-mode="light">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<style>html{ scroll-behavior: smooth; }</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&amp;family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<!-- KaTeX auto-render: publication titles carry TeX inside generated HTML that
+     Quarto's own math pipeline never sees (same approach as thermomat). -->
+<script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+/* The header ribbon is sticky; the side columns and anchor targets need its height. */
+(function () {
+  function headH() {
+    var t = document.querySelector(".topline"), h = document.querySelector(".site-head");
+    var px = (t ? t.offsetHeight : 0) + (h ? h.offsetHeight : 0);
+    if (px) document.documentElement.style.setProperty("--head-h", px + "px");
+  }
+  document.addEventListener("DOMContentLoaded", headH);
+  window.addEventListener("load", headH);
+  window.addEventListener("resize", headH);
+})();
+document.addEventListener("DOMContentLoaded", function () {
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }, { left: "\\(", right: "\\)", display: false }],
+      throwOnError: false
+    });
+  }
+  /* Quarto's KaTeX pipeline writes <span class="math inline">TeX</span> without delimiters and renders
+     them in a loop that reads firstChild.data; that loop dies at the first span the auto-render above
+     has already turned into KaTeX markup, leaving every later formula raw. Render the rest here. */
+  if (window.katex) {
+    document.querySelectorAll(".math").forEach(function (el) {
+      if (!el.querySelector(".katex")) {
+        var t = el.textContent.replace(/^\s*\\[\(\[]/, "").replace(/\\[\)\]]\s*$/, "");
+        try { katex.render(t, el, { displayMode: el.classList.contains("display"), throwOnError: false }); } catch (e) {}
+      }
+      /* Quarto's loop would still visit this span and wipe it (firstChild is now an element, not text):
+         take it out of its sight. No stylesheet of the site depends on the class; KaTeX's own output carries the layout. */
+      el.classList.remove("math"); el.classList.add("math-done");
+    });
+  }
+});
+</script>
+
+  <script defer="" src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../../assets/styles/theme.css">
+<link rel="stylesheet" href="../../../assets/styles/site.css">
+<link rel="stylesheet" href="../../../assets/styles/project.css">
+</head>
+
+<body>
+
+<div class="topline"></div>
+<header class="site-head">
+  <div class="site-head__inner">
+    <a href="../../../index.html" class="wordmark">UNED Labo <span class="accent">Leioa</span>
+      <span class="wordmark-sub">prácticas de laboratorio de la UNED en la Facultad de Ciencia y Tecnología (UPV/EHU) · curso 2025–2026</span>
+    </a>
+    <nav class="site-nav">
+      <a href="../../../index.html">Inicio</a>
+      <a href="../../../practicas/index.html">Prácticas</a>
+      <a href="../../../asignaturas/index.html">Asignaturas</a>
+      <a href="../../../recursos/index.html">Recursos</a>
+      <a href="../../../informe/index.html">Informe</a>
+      <a href="../../../manual/index.html">Manual TE I</a>
+      <a href="../../../contacto/index.html">Contacto</a>
+    </nav>
+  </div>
+</header>
+<!-- generated by tools/sibling.py public: the left navigation -->
+<div class="docs">
+<nav class="docs-nav" aria-label="Site sections">
+<button class="docs-fold" type="button" data-fold="nav" aria-label="Hide the navigation" title="Hide the navigation">‹</button>
+<details class="group" open=""><summary class="t">Inicio</summary><ul><li><a href="../../../index.html">Inicio</a></li></ul></details>
+<details class="group" open=""><summary class="t">Prácticas</summary><ul><li><a href="../../../practicas/index.html">Catálogo: las veinte prácticas</a></li><li><a href="../../../practicas/pendulo-fisico/index.html">P01 · Péndulo físico</a></li><li><a href="../../../practicas/ley-hooke/index.html">P02 · Movimiento armónico simple. Ley de Hooke</a></li><li><a href="../../../practicas/carril-aire/index.html">P03 · Medida de magnitudes dinámicas mediante un carril de aire</a></li><li><a href="../../../practicas/cc-resistencia-interna/index.html">P04 · Corriente continua I: resistencia interna de una fuente</a></li><li><a href="../../../practicas/cc-curva-lampara/index.html">P05 · Corriente continua II: curva característica de una lámpara</a></li><li><a href="../../../practicas/descarga-condensador/index.html">P06 · Descarga de un condensador</a></li><li><a href="../../../practicas/ondas-estacionarias/index.html">P07 · Ondas estacionarias en una cuerda con extremos fijos</a></li><li><a href="../../../practicas/vaporizacion-agua/index.html">P08 · Calor de vaporización del agua</a></li><li><a href="../../../practicas/velocidad-sonido/index.html">P09 · Medida de la velocidad del sonido: tubo de resonancia</a></li><li><a href="../../../practicas/inercia-disco/index.html">P10 · Momento de inercia de un disco</a></li><li><a href="../../../practicas/catenaria/index.html">P11 · Equilibrio de un hilo bajo la acción de la gravedad: la catenaria</a></li><li><a href="../../../practicas/rozamiento-correas/index.html">P12 · Coeficiente de rozamiento entre correas y poleas</a></li><li><a href="../../../practicas/giroscopo/index.html">P13 · Giróscopo</a></li><li><a href="../../../practicas/cantidad-movimiento/index.html">P14 · Conservación de la cantidad de movimiento</a></li><li><a href="../../../practicas/momento-cinetico/index.html">P15 · Conservación del momento cinético</a></li><li><a href="../../../practicas/pendulo-circular/index.html">P16 · Péndulo circular (cónico)</a></li><li><a href="../../../practicas/momentos-inercia/index.html">P17 · Momentos de inercia de sólidos</a></li><li><a href="../../../practicas/maquina-atwood/index.html">P18 · Máquina de Atwood</a></li><li><a href="../../../practicas/vibraciones-1gdl/index.html">P19 · Vibraciones libres con un grado de libertad</a></li><li><a href="../../../practicas/vibraciones-2gdl/index.html">P20 · Vibraciones libres con dos grados de libertad</a></li></ul></details>
+<details class="group" open=""><summary class="t">Asignaturas</summary><ul><li><a href="../../../asignaturas/index.html">Las cuatro asignaturas</a></li><li><a href="../../../asignaturas/bfma/index.html">Bases Físicas del Medio Ambiente</a></li><li><a href="../../../asignaturas/fisica/index.html">Física I y II</a></li><li><a href="../../../asignaturas/mecanica/index.html">Mecánica</a></li><li><a href="../../../asignaturas/tecnicas-experimentales/index.html">Técnicas Experimentales I</a></li></ul></details>
+<details class="group" open=""><summary class="t">Recursos</summary><ul><li><a href="../../../recursos/index.html">Recursos</a></li><li><a href="../../../recursos/sesion-0/index.html">Sesión 0</a></li><li><a href="../../../recursos/errores/index.html">Errores y regresiones</a></li><li><a href="../../../recursos/phyphox/index.html">Phyphox</a></li></ul></details>
+<details class="group" open=""><summary class="t">Informe</summary><ul><li><a href="../../../informe/index.html">El informe: qué contiene, cómo se evalúa</a></li><li><a href="../../../informe/modelos/index.html">Los ocho informes modelo</a></li><li><a href="../../../informe/rubrica/index.html">La rúbrica de TE I: 225 criterios</a></li><li><a href="../../../informe/rubrica-gum/index.html">La rúbrica GUM</a></li></ul></details>
+<details class="group" open=""><summary class="t">Manual TE I</summary><ul><li><a href="../../../manual/index.html">El manual, capítulo a capítulo</a></li><li><a href="../../../manual/01-representacion-magnitudes.html">Tema 1: Representación de magnitudes</a></li><li><a href="../../../manual/02-medidas-directas.html">Tema 2: Medidas directas</a></li><li><a href="../../../manual/03-medidas-indirectas.html">Tema 3: Medidas indirectas</a></li><li><a href="../../../manual/04-graficas-regresion.html">Tema 4: Gráficas y regresión lineal</a></li><li><a href="../../../manual/05-ejemplos-desarrollados.html">Tema 5: Ejemplos desarrollados</a></li><li><a href="../../../manual/06-instrucciones-laboratorio.html">Tema 6: Instrucciones para el laboratorio</a></li><li><a href="../../../manual/07-soluciones-ejercicios.html">Soluciones y apéndices</a></li></ul></details>
+<details class="group" open=""><summary class="t">Contacto</summary><ul><li><a href="../../../contacto/index.html">Contacto</a></li></ul></details>
+</nav>
+<div class="docs-main">
+
+<header id="title-block-header">
+<h1 class="title">Calibración del sensor de proximidad del smartphone para la medida de velocidades</h1>
+<p class="subtitle">Práctica preparatoria — Laboratorio de Mecánica, UNED</p>
+<p class="author">Josu M. Igartua</p>
+
+<p class="date">2026-04-16</p>
+<div class="abstract">
+<div class="abstract-title">Resumen</div>
+<p>Se presenta un protocolo de calibración del sensor de proximidad del smartphone, diseñado como práctica preparatoria antes de abordar los experimentos de colisiones en el carril de aire. El método, basado en la técnica de <span class="citation" data-cites="khongthiamsri2024">Khongthiamsri &amp; Puttharugsa (2024)</span>, utiliza los teléfonos apoyados horizontalmente junto al carril — configuración mecánicamente sencilla que garantiza la proximidad entre el sensor y el banderín. Mediante un barrido sistemático de longitudes de banderín (5,0 a 15,0 cm) a velocidad constante, el alumnado caracteriza empíricamente la resolución temporal de su sensor, identifican la longitud mínima fiable, y verifican la linealidad de la respuesta del instrumento. El análisis incluye regresión lineal <span class="math inline">\Delta t</span> frente a <span class="math inline">\Delta d</span> y determinación independiente de la velocidad del coche.</p>
+</div>
+</header>
+
+<nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#motivación" id="toc-motivación">Motivación</a></li>
+  <li><a href="#configuración-experimental" id="toc-configuración-experimental">Configuración experimental</a>
+  <ul>
+  <li><a href="#disposición-de-los-smartphones" id="toc-disposición-de-los-smartphones">Disposición de los smartphones</a></li>
+  <li><a href="#esquema-del-montaje" id="toc-esquema-del-montaje">Esquema del montaje</a></li>
+  <li><a href="#material-necesario" id="toc-material-necesario">Material necesario</a></li>
+  </ul></li>
+  <li><a href="#identificación-del-sensor-de-proximidad" id="toc-identificación-del-sensor-de-proximidad">Identificación del sensor de proximidad</a></li>
+  <li><a href="#principio-de-la-calibración" id="toc-principio-de-la-calibración">Principio de la calibración</a>
+  <ul>
+  <li><a href="#fundamento" id="toc-fundamento">Fundamento</a></li>
+  <li><a href="#qué-revela-la-calibración" id="toc-qué-revela-la-calibración">¿Qué revela la calibración?</a></li>
+  </ul></li>
+  <li><a href="#método-operatorio" id="toc-método-operatorio">Método operatorio</a>
+  <ul>
+  <li><a href="#paso-0-preparación" id="toc-paso-0-preparación">Paso 0: Preparación</a></li>
+  <li><a href="#paso-1-configurar-el-impulso-reproducible" id="toc-paso-1-configurar-el-impulso-reproducible">Paso 1: Configurar el impulso reproducible</a></li>
+  <li><a href="#paso-2-colocar-el-smartphone" id="toc-paso-2-colocar-el-smartphone">Paso 2: Colocar el smartphone</a></li>
+  <li><a href="#paso-3-serie-de-medidas" id="toc-paso-3-serie-de-medidas">Paso 3: Serie de medidas</a></li>
+  <li><a href="#tabla-de-datos" id="toc-tabla-de-datos">Tabla de datos</a></li>
+  </ul></li>
+  <li><a href="#análisis-de-los-datos" id="toc-análisis-de-los-datos">Análisis de los datos</a>
+  <ul>
+  <li><a href="#cálculo-de-la-velocidad-para-cada-banderín" id="toc-cálculo-de-la-velocidad-para-cada-banderín">Cálculo de la velocidad para cada banderín</a></li>
+  <li><a href="#sec-grafica" id="toc-sec-grafica">Representación gráfica: <span class="math inline">\Delta t</span> frente a <span class="math inline">\Delta d</span></a></li>
+  <li><a href="#regresión-lineal" id="toc-regresión-lineal">Regresión lineal</a></li>
+  <li><a href="#determinación-de-la-resolución-mínima" id="toc-determinación-de-la-resolución-mínima">Determinación de la resolución mínima</a></li>
+  <li><a href="#determinación-de-la-longitud-óptima-de-banderín" id="toc-determinación-de-la-longitud-óptima-de-banderín">Determinación de la longitud óptima de banderín</a></li>
+  </ul></li>
+  <li><a href="#resumen-de-resultados-a-obtener" id="toc-resumen-de-resultados-a-obtener">Resumen de resultados a obtener</a></li>
+  <li><a href="#cuestiones-para-el-informe" id="toc-cuestiones-para-el-informe">Cuestiones para el informe</a></li>
+  <li><a href="#referencias" id="toc-referencias">Referencias</a></li>
+  </ul>
+</nav>
+<p><br></p>
+<h2 id="motivación" class="anchored">Motivación</h2>
+<p><br></p>
+<p>Antes de utilizar el sensor de proximidad del smartphone como instrumento de medida de velocidades en los experimentos de colisiones (Práctica 4), es imprescindible <strong>caracterizar su respuesta</strong> y conocer sus limitaciones. Todo instrumento de medida debe calibrarse antes de su uso; el sensor de proximidad no es una excepción.</p>
+<p>Esta práctica preparatoria tiene tres objetivos:</p>
+<ol type="1">
+<li><strong>Familiarizarse</strong> con la aplicación Phyphox y el cronómetro de proximidad.</li>
+<li><strong>Determinar empíricamente</strong> la resolución temporal mínima (<span class="math inline">\Delta t_{\min}</span>) del sensor de cada teléfono.</li>
+<li><strong>Verificar la linealidad</strong> de la respuesta del sensor mediante un barrido de longitudes de banderín a velocidad constante.</li>
+</ol>
+<p>Al finalizar, cada grupo sabrá qué longitud de banderín es fiable para su teléfono concreto, y dispondrá de una medida independiente de la velocidad del coche obtenida por regresión lineal.</p>
+<p><br></p>
+<h2 id="configuración-experimental" class="anchored">Configuración experimental</h2>
+<p><br></p>
+<h3 id="disposición-de-los-smartphones" class="anchored">Disposición de los smartphones</h3>
+<p><br></p>
+<p>A diferencia de la configuración con fotopuertas (que se montan sobre trípodes a la altura del carril), los smartphones se colocan <strong>apoyados horizontalmente sobre la mesa</strong>, con la <strong>pantalla hacia arriba</strong>, justo al lado del carril de aire. Esta disposición, idéntica a la utilizada por <span class="citation" data-cites="khongthiamsri2024">Khongthiamsri &amp; Puttharugsa (2024)</span> en su plano inclinado, presenta varias ventajas:</p>
+<ul>
+<li><strong>Sencillez mecánica</strong>: no se necesitan soportes, pinzas ni bloques. El teléfono descansa estable sobre la mesa.</li>
+<li><strong>Proximidad al banderín</strong>: el sensor queda a pocos centímetros de la trayectoria del banderín, garantizando una detección fiable.</li>
+<li><strong>Reproducibilidad</strong>: la posición del teléfono es fácil de mantener constante entre medidas.</li>
+</ul>
+<p>El banderín de cartón, fijado verticalmente sobre el coche dinámico, pasa <strong>por encima</strong> del teléfono al desplazarse el coche por el carril. El borde inferior del banderín barre la zona del sensor de proximidad, que se encuentra en la parte superior del teléfono (junto al auricular o la cámara frontal).</p>
+<p><br></p>
+<h3 id="esquema-del-montaje" class="anchored">Esquema del montaje</h3>
+<p><br></p>
+<pre><code>                          Carril de aire
+     ═══════════════════════════════════════════════════
+                    │         │
+              ┌─────┤         │
+              │     │ ◄── Banderín de cartón (vertical, longitud Δd)
+              │ 🚗  │         │
+              └─────┘         │
+                              │
+         ┌─────────────┐      │
+         │  📱 S1      │ ◄── Smartphone apoyado en la mesa,
+         │  (Phyphox)  │      pantalla hacia arriba,
+         └─────────────┘      sensor de proximidad orientado
+                              hacia el banderín que pasa por encima</code></pre>
+<div>
+<blockquote>
+<p><strong>Posicionamiento del teléfono</strong></p>
+<p>El teléfono debe colocarse de modo que el <strong>sensor de proximidad</strong> (situado en la parte superior del dispositivo) quede lo más cerca posible de la trayectoria del banderín. En la mayoría de los smartphones, el sensor está junto al auricular. Si no se conoce su ubicación exacta, utilizar el procedimiento de identificación descrito más adelante.</p>
+</blockquote>
+</div>
+<div>
+<blockquote>
+<p><strong>Distancia sensor–banderín</strong></p>
+<p>Para una detección fiable, el borde inferior del banderín debe pasar a menos de <strong>5 cm</strong> del sensor de proximidad. Se recomienda ajustar la altura del banderín sobre el coche de modo que su borde inferior quede a <strong>2–3 cm</strong> por encima de la superficie del teléfono cuando el coche pasa junto a él.</p>
+</blockquote>
+</div>
+<p><br></p>
+<h3 id="material-necesario" class="anchored">Material necesario</h3>
+<p><br></p>
+<ol type="1">
+<li><strong>Un smartphone</strong> con sensor de proximidad y aplicación Phyphox instalada</li>
+<li><strong>Un coche dinámico</strong> (deslizador) del carril de aire</li>
+<li><strong>Cinco rectángulos de cartón rígido</strong> de las siguientes dimensiones (ancho <span class="math inline">\times</span> alto):
+<ul>
+<li><span class="math inline">5{,}0 \times 10</span> cm (<span class="math inline">\pm\,0{,}05</span> cm)</li>
+<li><span class="math inline">7{,}5 \times 10</span> cm (<span class="math inline">\pm\,0{,}05</span> cm)</li>
+<li><span class="math inline">10{,}0 \times 10</span> cm (<span class="math inline">\pm\,0{,}05</span> cm)</li>
+<li><span class="math inline">12{,}5 \times 10</span> cm (<span class="math inline">\pm\,0{,}05</span> cm)</li>
+<li><span class="math inline">15{,}0 \times 10</span> cm (<span class="math inline">\pm\,0{,}05</span> cm)</li>
+</ul></li>
+<li><strong>Cinta adhesiva de doble cara</strong> para fijar los banderines al coche</li>
+<li><strong>Regla milimetrada</strong> para medir con precisión la longitud de cada banderín</li>
+<li><strong>Carril de aire</strong> con secador, nivelado</li>
+<li><strong>Tope elástico</strong> (muelle o goma) fijado en un extremo del carril, para garantizar un impulso reproducible</li>
+<li><strong>Cinta métrica</strong> para marcar la posición de lanzamiento</li>
+</ol>
+<p><br></p>
+<h2 id="identificación-del-sensor-de-proximidad" class="anchored">Identificación del sensor de proximidad</h2>
+<p><br></p>
+<p>Antes de comenzar, cada persona debe localizar el sensor de proximidad de su teléfono:</p>
+<ol type="1">
+<li>Abrir Phyphox → <strong>Proximity Stopwatch</strong> (Cronómetro de proximidad) → <strong>modo duración</strong></li>
+<li>Pulsar <strong>Iniciar</strong> (<span class="math inline">\blacktriangleright</span>)</li>
+<li>Pasar el dedo <strong>lentamente</strong> por la parte superior del teléfono (zona del auricular)</li>
+<li>El cronómetro se activará cuando el dedo pase sobre el sensor → anotar la posición</li>
+<li>Marcar la posición del sensor con un pequeño trozo de cinta adhesiva en el borde del teléfono</li>
+</ol>
+<div>
+<blockquote>
+<p><strong>Nota sobre iPhones</strong></p>
+<p>En los modelos de iPhone, el sensor de proximidad se encuentra junto a la cámara frontal, en la zona superior de la pantalla. En algunos modelos recientes, el sensor solo funciona con el teléfono en orientación <strong>vertical</strong> (portrait). Si el cronómetro no responde con el teléfono en horizontal, probar en vertical.</p>
+</blockquote>
+</div>
+<p><br></p>
+<h2 id="principio-de-la-calibración" class="anchored">Principio de la calibración</h2>
+<p><br></p>
+<h3 id="fundamento" class="anchored">Fundamento</h3>
+<p><br></p>
+<p>La velocidad de un coche que pasa por delante del sensor se calcula como:</p>
+<p><span id="eq-velocidad"><span class="math display">
+v = \frac{\Delta d}{\Delta t}
+\tag{1}</span></span></p>
+<p>donde <span class="math inline">\Delta d</span> es la longitud del banderín y <span class="math inline">\Delta t</span> es el tiempo de tránsito registrado por el sensor en modo duración.</p>
+<p>Si el coche pasa siempre con la <strong>misma velocidad</strong> <span class="math inline">v</span> (impulso reproducible), entonces el tiempo de tránsito medido debe ser <strong>proporcional</strong> a la longitud del banderín:</p>
+<p><span id="eq-linealidad"><span class="math display">
+\Delta t = \frac{1}{v}\,\Delta d
+\tag{2}</span></span></p>
+<p>Esta expresión tiene la estructura de una recta que pasa por el origen, <span class="math inline">y = m\,x</span>, donde:</p>
+<div id="tbl-regresion" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-regresion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;1: Correspondencia entre la ecuación física y la regresión lineal.
+</figcaption>
+<div aria-describedby="tbl-regresion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Magnitud física</th>
+<th style="text-align: left;">Variable de la regresión</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\Delta t</span> (tiempo de tránsito)</td>
+<td style="text-align: left;"><span class="math inline">y</span> (variable dependiente)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\Delta d</span> (longitud del banderín)</td>
+<td style="text-align: left;"><span class="math inline">x</span> (variable independiente)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">1/v</span> (inverso de la velocidad)</td>
+<td style="text-align: left;"><span class="math inline">m</span> (pendiente)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p><br></p>
+<h3 id="qué-revela-la-calibración" class="anchored">¿Qué revela la calibración?</h3>
+<p><br></p>
+<p>Al representar gráficamente <span class="math inline">\Delta t</span> frente a <span class="math inline">\Delta d</span> para las cinco longitudes de banderín:</p>
+<ul>
+<li><strong>Zona lineal</strong>: los puntos que caen sobre una recta corresponden a longitudes de banderín para las cuales el sensor mide correctamente. En esta zona, el tiempo de tránsito es proporcional a la longitud y la velocidad calculada es constante.</li>
+<li><strong>Zona de saturación</strong> (banderines cortos): los puntos correspondientes a banderines demasiado cortos se desviarán <strong>por encima</strong> de la recta. El sensor registra un tiempo mayor del esperado porque no puede resolver tránsitos inferiores a su resolución mínima <span class="math inline">\Delta t_{\min}</span>. La velocidad calculada a partir de estos puntos será <strong>artificialmente baja</strong>.</li>
+<li><strong>Pendiente de la recta</strong>: el inverso de la pendiente de la zona lineal proporciona una determinación <strong>independiente</strong> de la velocidad del coche: <span class="math inline">v = 1/m</span>.</li>
+</ul>
+<div>
+<blockquote>
+<p><strong>Criterio de fiabilidad</strong></p>
+<p>Un banderín de longitud <span class="math inline">\Delta d</span> es <strong>fiable</strong> para medir velocidades si el punto <span class="math inline">(\Delta d,\,\Delta t)</span> cae dentro de la zona lineal de la gráfica. En la práctica, esto equivale a que la velocidad calculada <span class="math inline">v = \Delta d / \Delta t</span> sea consistente (dentro del <span class="math inline">\sim 5\%</span>) con la velocidad obtenida a partir de la pendiente de la regresión.</p>
+</blockquote>
+</div>
+<p><br></p>
+<h2 id="método-operatorio" class="anchored">Método operatorio</h2>
+<p><br></p>
+<h3 class="unnumbered anchored" id="paso-0-preparación">Paso 0: Preparación</h3>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>0</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Nivelar cuidadosamente el carril de aire. Con el secador encendido, verificar que un coche colocado en el centro del carril no se desplaza apreciablemente durante al menos 5 segundos.</p>
+<p>Medir con la regla milimetrada la longitud exacta de cada uno de los cinco banderines de cartón. Anotar las longitudes con su error:</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Banderín</th>
+<th style="text-align: center;"><span class="math inline">\Delta d</span> (cm)</th>
+<th style="text-align: center;"><span class="math inline">\Delta d</span> (m)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">A</td>
+<td style="text-align: center;"><span class="math inline">5{,}0 \pm 0{,}05</span></td>
+<td style="text-align: center;"><span class="math inline">0{,}0500 \pm 0{,}0005</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">B</td>
+<td style="text-align: center;"><span class="math inline">7{,}5 \pm 0{,}05</span></td>
+<td style="text-align: center;"><span class="math inline">0{,}0750 \pm 0{,}0005</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">C</td>
+<td style="text-align: center;"><span class="math inline">10{,}0 \pm 0{,}05</span></td>
+<td style="text-align: center;"><span class="math inline">0{,}1000 \pm 0{,}0005</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">D</td>
+<td style="text-align: center;"><span class="math inline">12{,}5 \pm 0{,}05</span></td>
+<td style="text-align: center;"><span class="math inline">0{,}1250 \pm 0{,}0005</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">E</td>
+<td style="text-align: center;"><span class="math inline">15{,}0 \pm 0{,}05</span></td>
+<td style="text-align: center;"><span class="math inline">0{,}1500 \pm 0{,}0005</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><br></p>
+<h3 class="unnumbered anchored" id="paso-1-configurar-el-impulso-reproducible">Paso 1: Configurar el impulso reproducible</h3>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>1</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Para que la calibración sea válida, el coche debe recibir <strong>siempre el mismo impulso</strong>. Para ello:</p>
+<ol type="1">
+<li>Fijar un <strong>tope elástico</strong> (muelle o goma) en un extremo del carril.</li>
+<li>Marcar con cinta adhesiva una <strong>posición de lanzamiento</strong> fija sobre el carril (por ejemplo, a 10 cm del tope).</li>
+<li>El procedimiento de lanzamiento será siempre el mismo: empujar el coche contra el tope hasta la marca, soltar, y dejar que el muelle lo impulse.</li>
+</ol>
+<div>
+<blockquote>
+<p><strong>Alternativa sin tope elástico</strong></p>
+<p>Si no se dispone de tope con muelle, se puede utilizar una <strong>goma elástica</strong> tensada entre dos puntos fijos del carril. El coche se retira hasta la marca, se suelta, y la goma lo impulsa siempre con la misma fuerza (siempre que se parta de la misma elongación).</p>
+<p>Otra opción más sencilla: soltar el coche <strong>desde reposo</strong> en un carril <strong>ligeramente inclinado</strong> (elevando un extremo <span class="math inline">\sim 1</span> cm). La gravedad proporciona un impulso perfectamente reproducible. En este caso, la velocidad al pasar por el sensor dependerá de la distancia recorrida, por lo que el sensor debe estar siempre en la misma posición.</p>
+</blockquote>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 class="unnumbered anchored" id="paso-2-colocar-el-smartphone">Paso 2: Colocar el smartphone</h3>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>2</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Apoyar el smartphone <strong>horizontalmente sobre la mesa</strong>, con la pantalla hacia arriba, junto al carril de aire. Orientar el teléfono de modo que el <strong>sensor de proximidad</strong> (marcado en el paso de identificación) quede lo más cerca posible de la trayectoria del banderín.</p>
+<p>Abrir Phyphox → <strong>Proximity Stopwatch</strong> → <strong>modo duración</strong>.</p>
+<p>Verificar que el sensor detecta el paso del banderín: montar el banderín más largo (15 cm) en el coche, pasar el coche lentamente por delante del sensor, y comprobar que el cronómetro registra un tiempo.</p>
+</div>
+</div>
+<p><br></p>
+<h3 class="unnumbered anchored" id="paso-3-serie-de-medidas">Paso 3: Serie de medidas</h3>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>3</strong></p>
+</div><div class="column" style="width:92%;">
+<p>Para <strong>cada</strong> banderín (de A a E), realizar el siguiente procedimiento:</p>
+<ol type="1">
+<li>Fijar el banderín verticalmente sobre el coche con cinta de doble cara.</li>
+<li>Colocar el coche en la posición de lanzamiento (contra el tope elástico, en la marca).</li>
+<li>Iniciar la medida en Phyphox (modo duración).</li>
+<li>Soltar el coche. El muelle lo impulsa; el banderín pasa sobre el sensor.</li>
+<li>Anotar el tiempo <span class="math inline">\Delta t</span> registrado.</li>
+<li>Reiniciar Phyphox.</li>
+<li>Repetir <strong>5 veces</strong> con el mismo banderín.</li>
+<li>Cambiar al siguiente banderín y repetir.</li>
+</ol>
+<p>Registrar todos los datos en la tabla siguiente:</p>
+</div>
+</div>
+<p><br></p>
+<h3 id="tabla-de-datos" class="anchored">Tabla de datos</h3>
+<p><br></p>
+<div id="tbl-datos" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-datos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;2: Datos de calibración: tiempo de tránsito en función de la longitud del banderín. <span class="math inline">\overline{\Delta t}</span>: media aritmética de las 5 medidas. <span class="math inline">\sigma_{\Delta t}</span>: desviación estándar.
+</figcaption>
+<div aria-describedby="tbl-datos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Banderín</th>
+<th style="text-align: center;"><span class="math inline">\Delta d</span> (cm)</th>
+<th style="text-align: center;"><span class="math inline">\Delta t_1</span> (ms)</th>
+<th style="text-align: center;"><span class="math inline">\Delta t_2</span> (ms)</th>
+<th style="text-align: center;"><span class="math inline">\Delta t_3</span> (ms)</th>
+<th style="text-align: center;"><span class="math inline">\Delta t_4</span> (ms)</th>
+<th style="text-align: center;"><span class="math inline">\Delta t_5</span> (ms)</th>
+<th style="text-align: center;"><span class="math inline">\overline{\Delta t}</span> (ms)</th>
+<th style="text-align: center;"><span class="math inline">\sigma_{\Delta t}</span> (ms)</th>
+<th style="text-align: center;"><span class="math inline">v = \Delta d / \overline{\Delta t}</span> (m/s)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">A</td>
+<td style="text-align: center;">5,0</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">B</td>
+<td style="text-align: center;">7,5</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">C</td>
+<td style="text-align: center;">10,0</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">D</td>
+<td style="text-align: center;">12,5</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">E</td>
+<td style="text-align: center;">15,0</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p><br></p>
+<h2 id="análisis-de-los-datos" class="anchored">Análisis de los datos</h2>
+<p><br></p>
+<h3 id="cálculo-de-la-velocidad-para-cada-banderín" class="anchored">Cálculo de la velocidad para cada banderín</h3>
+<p><br></p>
+<p>Para cada longitud de banderín, calcular la velocidad media:</p>
+<p><span class="math display">
+v_i = \frac{\Delta d_i}{\overline{\Delta t}_i}
+</span></p>
+<p>Si el sensor funciona correctamente y el impulso es reproducible, las cinco velocidades deberían ser <strong>iguales</strong> (dentro del error experimental). Una velocidad anómalamente baja para los banderines cortos indica que el sensor ha alcanzado su límite de resolución.</p>
+<div id="tbl-velocidades" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-velocidades-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;3: Velocidades calculadas para cada longitud de banderín. En la columna «¿Consistente?», indicar si la velocidad es compatible con las demás dentro del <span class="math inline">\sim 5\%</span>.
+</figcaption>
+<div aria-describedby="tbl-velocidades-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Banderín</th>
+<th style="text-align: center;"><span class="math inline">\Delta d</span> (cm)</th>
+<th style="text-align: center;"><span class="math inline">\overline{\Delta t}</span> (ms)</th>
+<th style="text-align: center;"><span class="math inline">v</span> (m/s)</th>
+<th style="text-align: center;">¿Consistente?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">A</td>
+<td style="text-align: center;">5,0</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">B</td>
+<td style="text-align: center;">7,5</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">C</td>
+<td style="text-align: center;">10,0</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">D</td>
+<td style="text-align: center;">12,5</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">E</td>
+<td style="text-align: center;">15,0</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p><br></p>
+<h3 id="sec-grafica" class="anchored">Representación gráfica: <span class="math inline">\Delta t</span> frente a <span class="math inline">\Delta d</span></h3>
+<p><br></p>
+<p>Representar gráficamente el tiempo de tránsito medio <span class="math inline">\overline{\Delta t}</span> (eje vertical) frente a la longitud del banderín <span class="math inline">\Delta d</span> (eje horizontal). Incluir barras de error (<span class="math inline">\sigma_{\Delta t}</span>) en cada punto.</p>
+<p><strong>Si el sensor es ideal y el impulso perfectamente reproducible</strong>, todos los puntos caerán sobre una recta que pasa por el origen:</p>
+<p><span class="math display">
+\overline{\Delta t} = \frac{1}{v}\,\Delta d
+</span></p>
+<p><strong>En la práctica</strong>, los puntos correspondientes a banderines cortos (5,0 cm, posiblemente 7,5 cm) se desviarán por encima de la recta, indicando que el sensor no puede resolver tiempos de tránsito tan cortos.</p>
+<div>
+<blockquote>
+<p><strong>Ejemplo cualitativo del gráfico esperado</strong></p>
+<pre><code>  Δt (ms)
+    │
+    │                                    ●  (15,0 cm)
+    │                              ●        (12,5 cm)
+    │                        ●              (10,0 cm)
+    │                  ●                    (7,5 cm)  ← ¿zona lineal?
+    │         ■                             (5,0 cm)  ← posible saturación
+    │       ╱
+    │     ╱  Recta teórica: Δt = Δd / v
+    │   ╱
+    │ ╱
+    └──────────────────────────────────── Δd (cm)
+         5     7,5    10    12,5    15</code></pre>
+<p>El punto ■ (banderín de 5 cm) está <strong>por encima</strong> de la recta: el sensor ha registrado un tiempo mayor del esperado porque ha alcanzado su resolución mínima. Los puntos ● caen sobre la recta y son fiables.</p>
+</blockquote>
+</div>
+<p><br></p>
+<h3 id="regresión-lineal" class="anchored">Regresión lineal</h3>
+<p><br></p>
+<p>Realizar una <strong>regresión lineal</strong> <span class="math inline">\overline{\Delta t} = m \cdot \Delta d + n</span> utilizando <strong>únicamente los puntos de la zona lineal</strong> (aquellos cuya velocidad es consistente).</p>
+<p><strong>Pendiente:</strong></p>
+<p><span id="eq-pendiente"><span class="math display">
+m = \frac{N\displaystyle\sum x_i y_i - \left(\displaystyle\sum x_i\right)\left(\displaystyle\sum y_i\right)}{N\displaystyle\sum x_i^2 - \left(\displaystyle\sum x_i\right)^2}
+\tag{3}</span></span></p>
+<p>donde <span class="math inline">x_i = \Delta d_i</span> e <span class="math inline">y_i = \overline{\Delta t}_i</span>.</p>
+<p><strong>Ordenada en el origen:</strong></p>
+<p><span id="eq-ordenada"><span class="math display">
+n = \frac{\displaystyle\sum y_i - m\displaystyle\sum x_i}{N}
+\tag{4}</span></span></p>
+<p><strong>Velocidad determinada por la regresión:</strong></p>
+<p><span id="eq-v-regresion"><span class="math display">
+\boxed{v_{\text{reg}} = \frac{1}{m}}
+\tag{5}</span></span></p>
+<p><strong>Interpretación de los resultados:</strong></p>
+<ul>
+<li><strong>Pendiente <span class="math inline">m</span></strong>: su inverso es la velocidad del coche (<span class="math inline">v = 1/m</span>).</li>
+<li><strong>Ordenada en el origen <span class="math inline">n</span></strong>: debería ser <strong>compatible con cero</strong> si el sensor no introduce un sesgo sistemático. Un valor <span class="math inline">n &gt; 0</span> significativo indicaría un retardo constante del sensor (tiempo muerto).</li>
+<li><strong>Coeficiente de correlación <span class="math inline">R^2</span></strong>: debería ser <span class="math inline">&gt; 0{,}99</span> para los puntos de la zona lineal.</li>
+</ul>
+<p><br></p>
+<h3 id="determinación-de-la-resolución-mínima" class="anchored">Determinación de la resolución mínima</h3>
+<p><br></p>
+<p>A partir de los datos, se puede estimar la resolución temporal mínima del sensor de dos maneras:</p>
+<p><strong>Método 1: Inspección directa.</strong> El menor tiempo de tránsito registrado en toda la serie de medidas (probablemente con el banderín de 5 cm) es una estimación directa de <span class="math inline">\Delta t_{\min}</span>.</p>
+<p><strong>Método 2: Desviación de la linealidad.</strong> El valor de <span class="math inline">\Delta d</span> a partir del cual los puntos empiezan a desviarse de la recta de regresión indica la longitud mínima fiable <span class="math inline">\Delta d_{\min}</span>. La resolución temporal correspondiente es:</p>
+<p><span id="eq-resolucion"><span class="math display">
+\Delta t_{\min} = \frac{\Delta d_{\min}}{v_{\text{reg}}}
+\tag{6}</span></span></p>
+<p><br></p>
+<h3 id="determinación-de-la-longitud-óptima-de-banderín" class="anchored">Determinación de la longitud óptima de banderín</h3>
+<p><br></p>
+<p>Para los experimentos de colisiones (Práctica 4), la longitud del banderín debe cumplir dos condiciones:</p>
+<ol type="1">
+<li><strong>Suficientemente larga</strong> para que <span class="math inline">\Delta t &gt; \Delta t_{\min}</span> a las velocidades esperadas (<span class="math inline">\sim 0{,}3\textrm{–}1{,}0</span> m/s).</li>
+<li><strong>No excesivamente larga</strong> para que el banderín no interfiera con la colisión ni con el otro coche.</li>
+</ol>
+<p>A partir de la calibración, la longitud óptima se puede determinar como:</p>
+<p><span id="eq-optimo"><span class="math display">
+\Delta d_{\text{óptimo}} \geq v_{\max} \cdot \Delta t_{\min} \cdot f_s
+\tag{7}</span></span></p>
+<p>donde <span class="math inline">v_{\max}</span> es la velocidad máxima esperada en la práctica y <span class="math inline">f_s \geq 2</span> es un factor de seguridad (se recomienda que el tiempo de tránsito sea al menos el doble de <span class="math inline">\Delta t_{\min}</span>).</p>
+<div>
+<blockquote>
+<p><strong>Ejemplo numérico</strong></p>
+<p>Si la calibración da <span class="math inline">\Delta t_{\min} = 130</span> ms y la velocidad máxima esperada en la Práctica 4 es <span class="math inline">v_{\max} \approx 0{,}8</span> m/s:</p>
+<p><span class="math display">
+\Delta d_{\text{óptimo}} \geq 0{,}8 \times 0{,}130 \times 2 = 0{,}208 \text{ m} \approx 21 \text{ cm}
+</span></p>
+<p>Se usaría un banderín de <strong>20–25 cm</strong> para la Práctica 4.</p>
+<p>Si <span class="math inline">\Delta t_{\min} = 120</span> ms y <span class="math inline">v_{\max} \approx 0{,}5</span> m/s:</p>
+<p><span class="math display">
+\Delta d_{\text{óptimo}} \geq 0{,}5 \times 0{,}120 \times 2 = 0{,}120 \text{ m} = 12 \text{ cm}
+</span></p>
+<p>Un banderín de <strong>12–15 cm</strong> sería suficiente.</p>
+</blockquote>
+</div>
+<p><br></p>
+<h2 id="resumen-de-resultados-a-obtener" class="anchored">Resumen de resultados a obtener</h2>
+<p><br></p>
+<p>Al finalizar esta práctica preparatoria, cada grupo debe haber determinado:</p>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>1</strong></p>
+</div><div class="column" style="width:92%;">
+<p>La <strong>resolución temporal mínima</strong> de su sensor: <span class="math inline">\Delta t_{\min} = \ldots</span> ms.</p>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>2</strong></p>
+</div><div class="column" style="width:92%;">
+<p>La <strong>longitud mínima fiable</strong> del banderín para su teléfono: <span class="math inline">\Delta d_{\min} = \ldots</span> cm.</p>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>3</strong></p>
+</div><div class="column" style="width:92%;">
+<p>La <strong>velocidad del coche</strong> determinada por regresión lineal: <span class="math inline">v_{\text{reg}} = \ldots</span> m/s.</p>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>4</strong></p>
+</div><div class="column" style="width:92%;">
+<p>La <strong>longitud óptima de banderín</strong> para la Práctica 4: <span class="math inline">\Delta d_{\text{óptimo}} = \ldots</span> cm.</p>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:8%;">
+<p><strong>5</strong></p>
+</div><div class="column" style="width:92%;">
+<p>El <strong>coeficiente de correlación</strong> de la regresión lineal: <span class="math inline">R^2 = \ldots</span></p>
+</div>
+</div>
+<p><br></p>
+<h2 id="cuestiones-para-el-informe" class="anchored">Cuestiones para el informe</h2>
+<p><br></p>
+<div>
+<blockquote>
+<p><strong>Cuestiones</strong></p>
+<ol type="1">
+<li><p>¿Por qué es necesario que el impulso sea reproducible para que la calibración sea válida? ¿Qué ocurriría si la velocidad del coche fuera diferente para cada banderín?</p></li>
+<li><p>A partir de la gráfica <span class="math inline">\Delta t</span> frente a <span class="math inline">\Delta d</span>, ¿cómo se identifica la zona de saturación del sensor? ¿Qué forma tiene la desviación respecto a la recta teórica?</p></li>
+<li><p>Si la ordenada en el origen <span class="math inline">n</span> de la regresión lineal es significativamente distinta de cero, ¿qué significado físico tiene? ¿Cómo afectaría a las medidas de velocidad en la Práctica 4?</p></li>
+<li><p>Comparar la velocidad obtenida por regresión lineal (<span class="math inline">v_{\text{reg}} = 1/m</span>) con la velocidad calculada directamente a partir del banderín más largo (<span class="math inline">v_E = \Delta d_E / \overline{\Delta t}_E</span>). ¿Son compatibles dentro del error experimental? ¿Cuál es más fiable y por qué?</p></li>
+<li><p>Si se dispone de dos smartphones diferentes, ¿se obtiene el mismo <span class="math inline">\Delta t_{\min}</span>? Discutir las implicaciones para el trabajo en el laboratorio.</p></li>
+</ol>
+</blockquote>
+</div>
+<p><br></p>
+<h2 id="referencias" class="anchored">Referencias</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-khongthiamsri2024" class="csl-entry" role="listitem">
+Khongthiamsri, N., &amp; Puttharugsa, C. (2024). Measuring velocity and acceleration of a moving object in linear motion using proximity sensor of smartphone. <em>Physics Education</em>, <em>59</em>(3), 033002. <a href="https://doi.org/10.1088/1361-6552/ad2f62">https://doi.org/10.1088/1361-6552/ad2f62</a>
+</div>
+</div>
+
+
+<!-- Closes the reading column opened by _gen/docs-nav.html, adds the right
+     "On this page" list, and wires: current-page marking in the left nav,
+     breadcrumbs, the page TOC (from h2/h3 in the reading column) and a
+     scroll-spy. Pure DOM, no library. -->
+  </div>
+  <aside class="docs-toc"><button class="docs-fold" type="button" data-fold="toc" aria-label="Hide the page outline" title="Hide the page outline">›</button><div class="t">On this page</div><ol></ol></aside>
+</div>
+<script>
+(function () {
+  /* 0. The two side panels fold on their chevrons; the choice is remembered in this browser. */
+  var docs = document.querySelector('.docs');
+  if (docs) {
+    var store = {};
+    try { store = JSON.parse(localStorage.getItem('docs-fold') || '{}'); } catch (e) { store = {}; }
+    function apply() {
+      docs.classList.toggle('nav-folded', !!store.nav);
+      docs.classList.toggle('toc-folded', !!store.toc);
+      document.querySelectorAll('.docs-fold').forEach(function (b) {
+        var which = b.getAttribute('data-fold'), folded = !!store[which];
+        b.innerHTML = (which === 'nav') === folded ? '&rsaquo;' : '&lsaquo;';
+        var what = which === 'nav' ? 'the navigation' : 'the page outline';
+        b.title = (folded ? 'Show ' : 'Hide ') + what; b.setAttribute('aria-label', b.title);
+      });
+    }
+    document.querySelectorAll('.docs-fold').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var which = b.getAttribute('data-fold'); store[which] = !store[which];
+        try { localStorage.setItem('docs-fold', JSON.stringify(store)); } catch (e) {}
+        apply();
+      });
+    });
+    apply();
+  }
+  /* 0b. The header ribbon: mark the entry whose section holds this page. Quarto rewrites the hrefs to
+     relative paths, so folders are read from the resolved URLs; the Overview link gives the site root. */
+  (function () {
+    var links = Array.prototype.slice.call(document.querySelectorAll('.site-nav a'));
+    if (!links.length) return;
+    /* a served URL may end in '/' (GitHub Pages: …/about/); read it as …/about/index.html */
+    function folder(path) { if (/\/$/.test(path)) path += 'index.html'; var s = path.split('/').filter(Boolean); return s.length > 1 ? s[s.length - 2] : ''; }
+    var wm = document.querySelector('a.wordmark');            // the wordmark links to the site root
+    var root = folder((wm || links[0]).pathname);
+    var map = { rietveld: 'cases', drude: 'cases', dielectric: 'cases' };
+    function key(path) { var f = folder(path); if (f === root) return 'overview'; return map[f] || f; }
+    var here = key(location.pathname);
+    links.forEach(function (a) { a.classList.toggle('current', key(a.pathname) === here); });
+  })();
+
+  var main = document.querySelector('.docs-main');
+  var nav = document.querySelector('.docs-nav');
+  var toc = document.querySelector('.docs-toc ol');
+  if (!main || !nav || !toc) return;
+
+  /* 1. Left nav: mark the current page (and section, if the hash matches). */
+  var here = location.pathname.replace(/\/index\.html$/, '/');
+  var links = Array.prototype.slice.call(nav.querySelectorAll('a'));
+  var pageLink = null, hashLink = null;
+  links.forEach(function (a) {
+    var p = a.pathname.replace(/\/index\.html$/, '/');
+    if (p !== here) return;
+    if (!a.hash && !pageLink) pageLink = a;
+    if (a.hash && a.hash === location.hash) hashLink = a;
+  });
+  var cur = hashLink || pageLink;
+  if (cur) {
+    cur.classList.add('current');
+    var det = cur.closest('details.group');
+    if (det) { det.open = true; det.classList.add('has-current'); }
+    /* Breadcrumbs: group title › page (› section). */
+    var crumbs = document.createElement('div');
+    crumbs.className = 'docs-crumbs';
+    var g = det ? det.querySelector('summary.t') : null;
+    var parts = [];
+    function push(t) { if (t && parts[parts.length - 1] !== t) parts.push(t); }
+    if (g) push(g.textContent.trim());
+    if (pageLink && pageLink !== cur) push(pageLink.textContent.trim());
+    push(cur.textContent.trim());
+    crumbs.innerHTML = parts.map(function (t, i) {
+      return (i ? '<span class="sep">›</span>' : '') + '<span>' + t.replace(/</g, '&lt;') + '</span>';
+    }).join('');
+    main.insertBefore(crumbs, main.firstChild);
+  }
+
+  /* 2. Right "On this page": h2 and h3 of the reading column. */
+  var used = {};
+  var heads = Array.prototype.slice.call(main.querySelectorAll('h2, h3')).filter(function (h) {
+    if (h.closest('.site-foot, .featured-band, .msg-grid, [data-toc="no"]')) return false;
+    if (h.classList.contains('unnumbered') || h.id === 'contenido') return false;
+    return h.textContent.trim().length > 0;
+  });
+  heads.forEach(function (h) {
+    if (!h.id) {
+      var s = h.textContent.trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+        .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60) || 'sec';
+      while (used[s] || document.getElementById(s)) s += '-';
+      h.id = s;
+    }
+    used[h.id] = true;
+    var li = document.createElement('li');
+    if (h.tagName === 'H3') li.className = 'l3';
+    var a = document.createElement('a');
+    a.href = '#' + h.id;
+    /* This runs before KaTeX has rendered the headings, so a heading with mathematics still holds TeX
+       source: copy its markup, including the math spans, and let the page's KaTeX pass render the copy. */
+    var copy = h.cloneNode(true);
+    copy.querySelectorAll('.katex-mathml, annotation, .anchorjs-link').forEach(function (n) { n.remove(); });
+    var label = copy.textContent.trim().replace(/\s+/g, ' ');
+    if (copy.querySelector('.math, .math-done, .katex')) a.innerHTML = copy.innerHTML.trim();
+    else a.textContent = label.length > 72 ? label.slice(0, 70).replace(/[\s,;:]+\S*$/, '') + '…' : label;
+    a.title = label;
+    li.appendChild(a);
+    toc.appendChild(li);
+  });
+  if (!heads.length) { document.querySelector('.docs-toc').hidden = true; return; }
+
+  /* 3. Scroll-spy. */
+  var items = Array.prototype.slice.call(toc.querySelectorAll('a'));
+  function spy() {
+    var y = window.scrollY + 120, best = null;
+    heads.forEach(function (h) { if (h.getBoundingClientRect().top + window.scrollY <= y) best = h; });
+    items.forEach(function (a) { a.classList.toggle('current', best && a.getAttribute('href') === '#' + best.id); });
+  }
+  window.addEventListener('scroll', spy, { passive: true });
+  window.addEventListener('hashchange', spy);
+  spy();
+})();
+</script>
+<footer class="site-foot">
+  <div class="site-foot__inner">
+    <div class="foot-grid">
+      <div class="foot-about">
+        <h4 class="anchored">Qué es esto</h4>
+        <p>Los guiones de las prácticas de laboratorio que la UNED realiza en la Facultad de Ciencia y Tecnología de la UPV/EHU (Leioa), para Bases Físicas del Medio Ambiente, Física I y II, Mecánica y Técnicas Experimentales I.</p>
+        <div class="cite-block">Josu M. Igartua · Departamento de Física, Facultad de Ciencia y Tecnología, UPV/EHU<br>josu.igartua@ehu.eus · +34 94 601 5335</div>
+      </div>
+      <div><h4 class="anchored">Este sitio</h4><ul>
+        <li><a href="../../../index.html">Inicio</a></li><li><a href="../../../practicas/index.html">Prácticas</a></li><li><a href="../../../asignaturas/index.html">Asignaturas</a></li><li><a href="../../../recursos/index.html">Recursos</a></li><li><a href="../../../informe/index.html">Informe</a></li><li><a href="../../../manual/index.html">Manual TE I</a></li><li><a href="../../../contacto/index.html">Contacto</a></li>
+      </ul></div>
+      <div><h4 class="anchored">Instituciones</h4><ul>
+        <li><a href="https://www.uned.es">UNED</a></li>
+        <li><a href="https://www.ehu.eus">UPV/EHU</a></li></ul></div>
+      <div><h4 class="anchored">Dónde</h4><ul>
+        <li>Barrio Sarriena s/n, 48940 Leioa (Bizkaia)</li>
+        <li>Laboratorios 0.16 y 0.21</li></ul></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Josu M. Igartua</span>
+      <span>curso 2025–2026</span>
+    </div>
+  </div>
+</footer>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+    tabsets.forEach(function(tabset) {
+      const tabby = new Tabby('#' + tabset.id);
+    });
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+
+
+
+
+<script src="../../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
