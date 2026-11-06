@@ -78,6 +78,19 @@ body:has(.prac-head) #title-block-header .abstract { margin: 18px 0 6px; padding
   border-left: 3px solid var(--teal); font-size: 16px; }
 body:has(.prac-head) #title-block-header .abstract p { margin: 0; }
 .docs-main > .prac-prevnext:last-of-type, .docs-main .prac-prevnext { margin: 40px 0 8px; padding-top: 14px; border-top: 1px solid var(--line-soft); }
+/* A guide reads one step smaller than the rest of the site (Josu, L011): 15 px text, headings in proportion. */
+body:has(.prac-head) .docs-main { font-size: 15px; line-height: 1.6; }
+body:has(.prac-head) .docs-main > p, body:has(.prac-head) .docs-main > ul, body:has(.prac-head) .docs-main > ol,
+body:has(.prac-head) .docs-main li, body:has(.prac-head) .docs-main .column p { font-size: 15px; }
+body:has(.prac-head) .docs-main > h2 { font-size: 20.5px; margin-top: 34px; }
+body:has(.prac-head) .docs-main > h3 { font-size: 17px; }
+body:has(.prac-head) #title-block-header h1.title { font-size: clamp(24px, 3vw, 29px); }
+body:has(.prac-head) #title-block-header .subtitle { font-size: 15.5px; }
+body:has(.prac-head) #title-block-header .abstract { font-size: 15px; }
+body:has(.prac-head) .docs-main table { font-size: 14px; }
+body:has(.prac-head) .docs-main .callout { font-size: 14.5px; }
+body:has(.prac-head) .docs-main .callout-title { font-size: 14px; }
+body:has(.prac-head) .docs-main .column[style*="width:8%"] > p:only-child strong { font-size: 18px; }
 .prac-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px 24px; border-top: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft); padding: 12px 0; margin: 14px 0 22px; font-size: 14px; }
 .prac-meta .v { color: var(--ink); }
 .edition { border: 1px dashed var(--teal); background: var(--orange-tint); padding: 10px 14px; margin: 18px 0; font-size: 14.5px; }
