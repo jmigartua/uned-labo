@@ -1,7 +1,0 @@
-configuration,resistance_ohm,voltage_v
-R47,47.000000,0.596
-R100,100.000000,1.103
-R200,200.000000,1.800
-R100_parallel_R200,66.666667,0.798
-R100_parallel_R47,31.972789,0.420
-R200_parallel_R47,38.056680,0.493
