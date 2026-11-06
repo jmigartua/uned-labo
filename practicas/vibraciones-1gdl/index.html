@@ -164,7 +164,7 @@ window.Quarto = {
 <details class="group" open=""><summary class="t">Contacto</summary><ul><li><a href="../../contacto/index.html">Contacto</a></li></ul></details>
 </nav>
 <div class="docs-main">
-<div class="itin-head"><span class="kicker">P19 · Serie mecánica · Práctica 6 de Física I y II</span></div><div class="prac-meta"><div><span class="lbl">Servida a</span><span class="v"><a class="chip chip-fisica" href="../../asignaturas/fisica/index.html" title="Práctica 6 de Física I y II">Física I y II</a>  <span class="chip chip-phy">phyphox</span></span></div><div><span class="lbl">Guion</span><span class="v"><a href="practice_09_vibraciones_1gdl.pdf">Guion en PDF</a></span></div><div><span class="lbl">En resumen</span><span class="v">Constantes elásticas por método estático y dinámico; T² frente a m en carril de aire.</span></div></div><nav class="prac-prevnext"><a href="../maquina-atwood/index.html">← P18 Máquina de Atwood</a><a href="../index.html">Catálogo</a><a href="../vibraciones-2gdl/index.html">P20 Vibraciones libres con dos grados de libertad →</a></nav>
+<div class="prac-head"><span class="pid">P19</span><span class="chips"><a class="chip chip-fisica" href="../../asignaturas/fisica/index.html" title="Práctica 6 de Física I y II">Física I y II</a>  <span class="chip chip-phy">phyphox</span></span><span class="links"><a href="practice_09_vibraciones_1gdl.pdf">Guion en PDF</a></span></div>
 
 <header id="title-block-header">
 <h1 class="title">Vibraciones libres con un grado de libertad</h1>
@@ -179,17 +179,13 @@ window.Quarto = {
 </header>
 
 
-<p><br> <br></p>
 <h2 id="objetivos" class="anchored">Objetivos</h2>
-<p><br></p>
 <ol type="1">
 <li>Determinación de la constante elástica <span class="math inline">k</span> de dos resortes mediante un procedimiento estático (ley de Hooke).</li>
 <li>Determinación del período del movimiento armónico simple y de su dependencia con la masa del móvil.</li>
 <li>Obtención de la rigidez equivalente del sistema por vía dinámica y comparación con el valor estático.</li>
 </ol>
-<p><br></p>
 <h2 id="material" class="anchored">Material</h2>
-<p><br></p>
 <ol type="1">
 <li>Carril de aire con compresor</li>
 <li>Deslizador (móvil)</li>
@@ -200,9 +196,7 @@ window.Quarto = {
 <li>Regla graduada (mm)</li>
 <li>Soporte auxiliar para acortar la distancia del carril</li>
 </ol>
-<p><br></p>
 <h2 id="repaso-de-teoría" class="anchored">Repaso de teoría</h2>
-<p><br></p>
 <ol type="1">
 <li>Ley de Hooke: <span class="math inline">F = k\,x</span>.</li>
 <li>Ecuación del movimiento armónico simple.</li>
@@ -210,9 +204,7 @@ window.Quarto = {
 <li>Regresión lineal por mínimos cuadrados.</li>
 <li>Propagación de errores.</li>
 </ol>
-<p><br></p>
 <h2 id="fundamento-teórico" class="anchored">Fundamento teórico</h2>
-<p><br></p>
 <p>Corresponde este caso al supuesto de separar una masa <span class="math inline">m</span> de su posición de equilibrio y comunicarle una velocidad inicial, dejándola después en libertad, suponiendo además que el amortiguamiento es nulo.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -227,7 +219,7 @@ m\,\ddot{x} + (k_{1} + k_{2})\,x = 0
 <p><span id="eq-9_2"><span class="math display">
 \omega_{n} = \sqrt{\dfrac{k_{1} + k_{2}}{m}}
 \tag{2}</span></span></p>
-<p>la ecuación <a href="#eq-9_1" class="quarto-xref">Ecuación&nbsp;1</a> se reescribe como:</p>
+<p>la ecuación (<a href="#eq-9_1" class="quarto-xref">1</a>) se reescribe como:</p>
 <p><span id="eq-9_3"><span class="math display">
 \ddot{x} + \omega_{n}^{2}\,x = 0
 \tag{3}</span></span></p>
@@ -245,22 +237,19 @@ x(t) = A\,\cos(\omega_{n}\,t + \phi)
 T^{2} = \frac{4\pi^{2}}{k_{1} + k_{2}}\,m
 \tag{6}</span></span></p>
 <p>Esta última expresión muestra que <span class="math inline">T^{2}</span> es una función lineal de <span class="math inline">m</span>, lo que permite determinar la rigidez equivalente <span class="math inline">k_{\textrm{eff}} = k_{1} + k_{2}</span> mediante una regresión lineal de <span class="math inline">T^{2}</span> frente a <span class="math inline">m</span>.</p>
-<p><br></p>
-<div>
-<blockquote>
-<p><strong>Determinación estática de <span class="math inline">k</span></strong></p>
+<div class="callout callout-tip"><div class="callout-title"><span>
+Determinación estática de <span class="math inline">k</span>
+</span></div><div class="callout-body">
 <p>La rigidez de cada resorte se determina individualmente mediante la ley de Hooke. Al colgar sucesivas masas de un resorte vertical, la fuerza ejercida <span class="math inline">F = m\,g</span> y el alargamiento <span class="math inline">\Delta x</span> se relacionan mediante:</p>
 <p><span id="eq-9_7"><span class="math display">
 \boxed{F = k\,\Delta x}
 \tag{7}</span></span></p>
 <p>Al representar <span class="math inline">F</span> frente a <span class="math inline">\Delta x</span>, la pendiente de la recta de regresión proporciona directamente la constante elástica <span class="math inline">k</span>.</p>
-</blockquote>
-</div>
-<p><br></p>
-<div>
-<blockquote>
-<p><strong>Determinación dinámica de <span class="math inline">k_{\textrm{eff}}</span></strong></p>
-<p>De la ecuación <a href="#eq-9_6" class="quarto-xref">Ecuación&nbsp;6</a>, la representación de <span class="math inline">T^{2}</span> frente a <span class="math inline">m</span> es una recta cuya pendiente <span class="math inline">p</span> vale:</p>
+</div></div>
+<div class="callout callout-tip"><div class="callout-title"><span>
+Determinación dinámica de <span class="math inline">k_{\textrm{eff}}</span>
+</span></div><div class="callout-body">
+<p>De la ecuación (<a href="#eq-9_6" class="quarto-xref">6</a>), la representación de <span class="math inline">T^{2}</span> frente a <span class="math inline">m</span> es una recta cuya pendiente <span class="math inline">p</span> vale:</p>
 <p><span id="eq-9_8"><span class="math display">
 p = \frac{4\pi^{2}}{k_{1} + k_{2}}
 \tag{8}</span></span></p>
@@ -268,11 +257,8 @@ p = \frac{4\pi^{2}}{k_{1} + k_{2}}
 <p><span id="eq-9_9"><span class="math display">
 \boxed{k_{\textrm{eff}} = \frac{4\pi^{2}}{p}}
 \tag{9}</span></span></p>
-</blockquote>
-</div>
-<p><br></p>
+</div></div>
 <h2 id="descripción-del-aparato" class="anchored">Descripción del aparato</h2>
-<p><br></p>
 <div class="columns">
 <div class="column" style="width:40%;">
 <p>El montaje experimental consta de un carril de aire: un perfil rectangular con uno de sus extremos conectado a un compresor que insufla aire a presión. El aire escapa por orificios distribuidos a lo largo de la cara de contacto, formando una película que elimina casi por completo el rozamiento entre el carril y el deslizador.</p>
@@ -286,11 +272,8 @@ p = \frac{4\pi^{2}}{k_{1} + k_{2}}
 </div>
 </div>
 <!-- end columns -->
-<p><br></p>
 <h2 id="método-operatorio" class="anchored">Método operatorio</h2>
-<p><br></p>
 <h3 id="parte-a-obtención-estática-de-las-constantes-elásticas" class="anchored">Parte A: Obtención estática de las constantes elásticas</h3>
-<p><br></p>
 <div class="columns">
 <div class="column" style="width:8%;">
 <p><strong>1</strong></p>
@@ -315,7 +298,6 @@ p = \frac{4\pi^{2}}{k_{1} + k_{2}}
 <p><strong>Datos <br> experimentales</strong></p>
 </div><div class="column" style="width:75%;">
 <p>A continuación se resumen los datos recogidos en el laboratorio para ambos resortes.</p>
-<p><br></p>
 <p><strong>Resorte 1</strong> (<span class="math inline">k_{1}</span>):</p>
 <table class="caption-top">
 <thead>
@@ -389,7 +371,6 @@ p = \frac{4\pi^{2}}{k_{1} + k_{2}}
 </tr>
 </tbody>
 </table>
-<p><br></p>
 <p><strong>Resorte 2</strong> (<span class="math inline">k_{2}</span>):</p>
 <table class="caption-top">
 <thead>
@@ -484,12 +465,11 @@ p = \frac{4\pi^{2}}{k_{1} + k_{2}}
 <figcaption>Representación gráfica de <span class="math inline">F</span> frente a <span class="math inline">\Delta x</span> para el resorte 2 (método estático)</figcaption>
 </figure>
 </div>
-<div>
-<blockquote>
-<p><strong>Regresión lineal y obtención de <span class="math inline">k_{1}</span> y <span class="math inline">k_{2}</span></strong></p>
-<p><br></p>
+<details class="callout callout-caution"><summary class="callout-title"><span>
+Regresión lineal y obtención de <span class="math inline">k_{1}</span> y <span class="math inline">k_{2}</span>
+</span></summary><div class="callout-body">
 <h3 id="linealización-comparación-entre-la-ecuación-física-y-la-ecuación-matemática" class="anchored">Linealización: comparación entre la ecuación física y la ecuación matemática</h3>
-<p>La ley de Hooke (ecuación <a href="#eq-9_7" class="quarto-xref">Ecuación&nbsp;7</a>) tiene la estructura de una recta <span class="math inline">y = m\,x + n</span>:</p>
+<p>La ley de Hooke (ecuación (<a href="#eq-9_7" class="quarto-xref">7</a>)) tiene la estructura de una recta <span class="math inline">y = m\,x + n</span>:</p>
 <table class="caption-top">
 <thead>
 <tr class="header">
@@ -516,7 +496,6 @@ p = \frac{4\pi^{2}}{k_{1} + k_{2}}
 </tr>
 </tbody>
 </table>
-<p><br></p>
 <h3 id="fórmulas-de-la-regresión-lineal" class="anchored">Fórmulas de la regresión lineal</h3>
 <p>Se utilizan las fórmulas estándar de mínimos cuadrados. Para <span class="math inline">N</span> puntos <span class="math inline">(x_{i}, y_{i})</span>:</p>
 <p><span id="eq-9_10"><span class="math display">
@@ -528,7 +507,6 @@ n = \frac{\displaystyle\sum y_{i} - m\sum x_{i}}{N}
 <p><span id="eq-9_12"><span class="math display">
 \Delta m = \sqrt{\dfrac{\dfrac{1}{N-2}\displaystyle\sum\left(y_{i} - m\,x_{i} - n\right)^{2}}{\displaystyle\sum x_{i}^{2} - \dfrac{1}{N}\left(\sum x_{i}\right)^{2}}}
 \tag{12}</span></span></p>
-<p><br></p>
 <h3 id="cálculo-numérico-para-el-resorte-1" class="anchored">Cálculo numérico para el Resorte 1</h3>
 <p>Convirtiendo <span class="math inline">\Delta x</span> a metros, con los <span class="math inline">N = 10</span> puntos <span class="math inline">(x_{i} = \Delta x_{i}</span> en m, <span class="math inline">y_{i} = F_{i}</span> en N<span class="math inline">)</span>, se obtiene:</p>
 <p><span class="math display">
@@ -548,7 +526,6 @@ R^{2}_{1} = 0{,}9997
 <p><span class="math display">
 \boxed{k_{1} = 14{,}9 \pm 0{,}2 \textrm{ N/m}}
 </span></p>
-<p><br></p>
 <h3 id="cálculo-numérico-para-el-resorte-2" class="anchored">Cálculo numérico para el Resorte 2</h3>
 <p>Análogamente:</p>
 <p><span class="math display">
@@ -567,7 +544,6 @@ R^{2}_{2} = 0{,}9998
 <p><span class="math display">
 \boxed{k_{2} = 19{,}8 \pm 0{,}2 \textrm{ N/m}}
 </span></p>
-<p><br></p>
 <h3 id="rigidez-equivalente-método-estático" class="anchored">Rigidez equivalente (método estático)</h3>
 <p>La rigidez equivalente del conjunto de los dos resortes en paralelo (ambos actúan sobre la misma masa) es simplemente:</p>
 <p><span id="eq-9_13"><span class="math display">
@@ -580,13 +556,10 @@ k_{\textrm{est}} = k_{1} + k_{2} = 14{,}9 + 19{,}8 = 34{,}7 \textrm{ N/m}
 <p><span class="math display">
 \boxed{k_{\textrm{est}} = k_{1} + k_{2} = 34{,}7 \pm 0{,}3 \textrm{ N/m}}
 </span></p>
-</blockquote>
+</div></details>
 </div>
 </div>
-</div>
-<p><br></p>
 <h3 id="parte-b-cálculo-del-período-t-del-movimiento" class="anchored">Parte B: Cálculo del período <span class="math inline">T</span> del movimiento</h3>
-<p><br></p>
 <div class="columns">
 <div class="column" style="width:8%;">
 <p><strong>5</strong></p>
@@ -621,7 +594,6 @@ k_{\textrm{est}} = k_{1} + k_{2} = 14{,}9 + 19{,}8 = 34{,}7 \textrm{ N/m}
 <p><strong>Datos <br> experimentales</strong></p>
 </div><div class="column" style="width:75%;">
 <p>A continuación se resumen las medidas del tiempo para 10 oscilaciones (<span class="math inline">t_{10}</span>, en segundos) para cada configuración de masa.</p>
-<p><br></p>
 <p><strong>Masa 1:</strong> <span class="math inline">m = m_{0} = 210{,}3</span> g</p>
 <table class="caption-top">
 <thead>
@@ -653,7 +625,6 @@ k_{\textrm{est}} = k_{1} + k_{2} = 14{,}9 + 19{,}8 = 34{,}7 \textrm{ N/m}
 </tr>
 </tbody>
 </table>
-<p><br></p>
 <p><strong>Masa 2:</strong> <span class="math inline">m = m_{0} + 50{,}0</span> g <span class="math inline">= 260{,}3</span> g</p>
 <table class="caption-top">
 <thead>
@@ -685,7 +656,6 @@ k_{\textrm{est}} = k_{1} + k_{2} = 14{,}9 + 19{,}8 = 34{,}7 \textrm{ N/m}
 </tr>
 </tbody>
 </table>
-<p><br></p>
 <p><strong>Masa 3:</strong> <span class="math inline">m = m_{0} + 100{,}0</span> g <span class="math inline">= 310{,}3</span> g</p>
 <table class="caption-top">
 <thead>
@@ -717,7 +687,6 @@ k_{\textrm{est}} = k_{1} + k_{2} = 14{,}9 + 19{,}8 = 34{,}7 \textrm{ N/m}
 </tr>
 </tbody>
 </table>
-<p><br></p>
 <p><strong>Masa 4:</strong> <span class="math inline">m = m_{0} + 150{,}0</span> g <span class="math inline">= 360{,}3</span> g</p>
 <table class="caption-top">
 <thead>
@@ -838,12 +807,11 @@ k_{\textrm{est}} = k_{1} + k_{2} = 14{,}9 + 19{,}8 = 34{,}7 \textrm{ N/m}
 <figcaption>Representación gráfica de <span class="math inline">T^{2}</span> frente a <span class="math inline">m</span> (método dinámico)</figcaption>
 </figure>
 </div>
-<div>
-<blockquote>
-<p><strong>Regresión lineal de <span class="math inline">T^{2}</span> frente a <span class="math inline">m</span> y obtención de <span class="math inline">k_{\textrm{din}}</span></strong></p>
-<p><br></p>
+<details class="callout callout-caution"><summary class="callout-title"><span>
+Regresión lineal de <span class="math inline">T^{2}</span> frente a <span class="math inline">m</span> y obtención de <span class="math inline">k_{\textrm{din}}</span>
+</span></summary><div class="callout-body">
 <h3 id="linealización-comparación-entre-la-ecuación-física-y-la-ecuación-matemática-1" class="anchored">Linealización: comparación entre la ecuación física y la ecuación matemática</h3>
-<p>De la ecuación <a href="#eq-9_6" class="quarto-xref">Ecuación&nbsp;6</a>:</p>
+<p>De la ecuación (<a href="#eq-9_6" class="quarto-xref">6</a>):</p>
 <p><span class="math display">
 T^{2} = \frac{4\pi^{2}}{k_{1}+k_{2}}\,m
 </span></p>
@@ -874,7 +842,6 @@ T^{2} = \frac{4\pi^{2}}{k_{1}+k_{2}}\,m
 </tr>
 </tbody>
 </table>
-<p><br></p>
 <h3 id="cálculo-numérico" class="anchored">Cálculo numérico</h3>
 <p>Con los <span class="math inline">N = 4</span> puntos <span class="math inline">(x_{i} = m_{i}</span> en kg, <span class="math inline">y_{i} = T_{i}^{2}</span> en s<span class="math inline">^{2})</span>:</p>
 <p><span class="math display">
@@ -889,7 +856,7 @@ T^{2} = \frac{4\pi^{2}}{k_{1}+k_{2}}\,m
 <p><span class="math display">
 \sum x_{i}^{2} = 0{,}2103^{2} + 0{,}2603^{2} + 0{,}3103^{2} + 0{,}3603^{2} = 0{,}3348
 </span></p>
-<p>Aplicando la fórmula <a href="#eq-9_10" class="quarto-xref">Ecuación&nbsp;10</a>:</p>
+<p>Aplicando la fórmula (<a href="#eq-9_10" class="quarto-xref">10</a>):</p>
 <p><span class="math display">
 p = \frac{4 \times 0{,}3860 - 1{,}1412 \times 1{,}3000}{4 \times 0{,}3348 - 1{,}1412^{2}} = \frac{1{,}5440 - 1{,}4836}{1{,}3392 - 1{,}3023} = \frac{0{,}0604}{0{,}0369} = 1{,}140 \textrm{ s}^{2}/\textrm{kg}
 </span></p>
@@ -905,13 +872,11 @@ R^{2} = 0{,}9999
 <p><span class="math display">
 \Delta p = 0{,}008 \textrm{ s}^{2}/\textrm{kg}
 </span></p>
-<p><br></p>
 <h3 id="obtención-de-k_textrmdin" class="anchored">Obtención de <span class="math inline">k_{\textrm{din}}</span></h3>
-<p>De la ecuación <a href="#eq-9_9" class="quarto-xref">Ecuación&nbsp;9</a>:</p>
+<p>De la ecuación (<a href="#eq-9_9" class="quarto-xref">9</a>):</p>
 <p><span class="math display">
 k_{\textrm{din}} = \frac{4\pi^{2}}{p} = \frac{4 \times 9{,}8696}{1{,}140} = \frac{39{,}478}{1{,}140} = 34{,}6 \textrm{ N/m}
 </span></p>
-<p><br></p>
 <h3 id="propagación-del-error-en-k_textrmdin" class="anchored">Propagación del error en <span class="math inline">k_{\textrm{din}}</span></h3>
 <p>Dado que <span class="math inline">k_{\textrm{din}} = 4\pi^{2}/p</span> depende de una sola variable <span class="math inline">p</span>:</p>
 <p><span id="eq-9_15"><span class="math display">
@@ -925,7 +890,6 @@ k_{\textrm{din}} = \frac{4\pi^{2}}{p} = \frac{4 \times 9{,}8696}{1{,}140} = \fra
 <p><span class="math display">
 \boxed{k_{\textrm{din}} = 34{,}6 \pm 0{,}2 \textrm{ N/m}}
 </span></p>
-<p><br></p>
 <h3 id="comparación-entre-k_textrmest-y-k_textrmdin" class="anchored">Comparación entre <span class="math inline">k_{\textrm{est}}</span> y <span class="math inline">k_{\textrm{din}}</span></h3>
 <table class="caption-top">
 <thead>
@@ -958,23 +922,19 @@ k_{\textrm{din}} = \frac{4\pi^{2}}{p} = \frac{4 \times 9{,}8696}{1{,}140} = \fra
 <p><span class="math display">
 \boxed{k_{1} = 14{,}9 \pm 0{,}2 \textrm{ N/m} \qquad;\qquad k_{2} = 19{,}8 \pm 0{,}2 \textrm{ N/m} \qquad;\qquad k_{\textrm{est}} = 34{,}7 \pm 0{,}3 \textrm{ N/m} \qquad;\qquad k_{\textrm{din}} = 34{,}6 \pm 0{,}2 \textrm{ N/m}}
 </span></p>
-</blockquote>
+</div></details>
 </div>
 </div>
-</div>
-<p><br></p>
 <h2 id="ejercicios-posteriores" class="anchored">Ejercicios Posteriores</h2>
-<p><br></p>
 <div class="columns">
 <div class="column" style="width:8%;">
 <p><strong>E1</strong></p>
 </div><div class="column" style="width:92%;">
-<p>Calcular el período teórico <span class="math inline">T_{\textrm{teórico}}</span> para cada una de las cuatro masas utilizando la ecuación <a href="#eq-9_5" class="quarto-xref">Ecuación&nbsp;5</a> con <span class="math inline">k_{\textrm{est}} = k_{1} + k_{2}</span>. Comparar con los valores experimentales y calcular la discrepancia porcentual en cada caso.</p>
-<div>
-<blockquote>
-<p><strong>Solución del ejercicio E1</strong></p>
-<p><br></p>
-<p>Utilizando la ecuación <a href="#eq-9_5" class="quarto-xref">Ecuación&nbsp;5</a> con <span class="math inline">k_{\textrm{est}} = 34{,}7</span> N/m:</p>
+<p>Calcular el período teórico <span class="math inline">T_{\textrm{teórico}}</span> para cada una de las cuatro masas utilizando la ecuación (<a href="#eq-9_5" class="quarto-xref">5</a>) con <span class="math inline">k_{\textrm{est}} = k_{1} + k_{2}</span>. Comparar con los valores experimentales y calcular la discrepancia porcentual en cada caso.</p>
+<details class="callout callout-caution"><summary class="callout-title"><span>
+Solución del ejercicio E1
+</span></summary><div class="callout-body">
+<p>Utilizando la ecuación (<a href="#eq-9_5" class="quarto-xref">5</a>) con <span class="math inline">k_{\textrm{est}} = 34{,}7</span> N/m:</p>
 <p><span class="math display">
 T_{\textrm{teórico}} = 2\pi\,\sqrt{\frac{m}{34{,}7}}
 </span></p>
@@ -1021,8 +981,7 @@ T_{\textrm{teórico}} = 2\pi\,\sqrt{\frac{m}{34{,}7}}
 </tbody>
 </table>
 <p>Las discrepancias son inferiores al 0,1 %, confirmando la excelente concordancia entre el modelo teórico y las medidas experimentales.</p>
-</blockquote>
-</div>
+</div></details>
 </div>
 </div>
 <div class="columns">
@@ -1030,10 +989,9 @@ T_{\textrm{teórico}} = 2\pi\,\sqrt{\frac{m}{34{,}7}}
 <p><strong>E2</strong></p>
 </div><div class="column" style="width:92%;">
 <p>Si en lugar de conectar los dos resortes en paralelo (uno a cada lado del deslizador), se conectasen en serie (uno a continuación del otro, del mismo lado), ¿cuál sería la constante elástica equivalente del sistema? ¿Cuál sería el período de oscilación para la masa <span class="math inline">m_{0}</span>?</p>
-<div>
-<blockquote>
-<p><strong>Solución del ejercicio E2</strong></p>
-<p><br></p>
+<details class="callout callout-caution"><summary class="callout-title"><span>
+Solución del ejercicio E2
+</span></summary><div class="callout-body">
 <p>Cuando dos resortes se conectan en <strong>serie</strong>, la rigidez equivalente es:</p>
 <p><span class="math display">
 \frac{1}{k_{\textrm{serie}}} = \frac{1}{k_{1}} + \frac{1}{k_{2}} = \frac{1}{14{,}9} + \frac{1}{19{,}8} = 0{,}0671 + 0{,}0505 = 0{,}1176 \textrm{ m/N}
@@ -1049,8 +1007,7 @@ T_{\textrm{serie}} = 2\pi\,\sqrt{\frac{m_{0}}{k_{\textrm{serie}}}} = 2\pi\,\sqrt
 \boxed{T_{\textrm{serie}} \approx 0{,}99 \textrm{ s}}
 </span></p>
 <p>El período casi se duplica respecto al caso paralelo, ya que la rigidez equivalente en serie es mucho menor.</p>
-</blockquote>
-</div>
+</div></details>
 </div>
 </div>
 <div class="columns">
@@ -1058,33 +1015,28 @@ T_{\textrm{serie}} = 2\pi\,\sqrt{\frac{m_{0}}{k_{\textrm{serie}}}} = 2\pi\,\sqrt
 <p><strong>E3</strong></p>
 </div><div class="column" style="width:92%;">
 <p>Discutir las posibles fuentes de error sistemático en esta práctica. ¿Cómo afecta la masa de los propios resortes al resultado? ¿Y un posible amortiguamiento residual?</p>
-<div>
-<blockquote>
-<p><strong>Solución del ejercicio E3</strong></p>
-<p><br></p>
+<details class="callout callout-caution"><summary class="callout-title"><span>
+Solución del ejercicio E3
+</span></summary><div class="callout-body">
 <p>Las principales fuentes de error sistemático son:</p>
 <ol type="1">
-<li><p><strong>Masa de los resortes:</strong> en la ecuación <a href="#eq-9_5" class="quarto-xref">Ecuación&nbsp;5</a> se ha supuesto que toda la masa del sistema es la del deslizador más las pesas. En realidad, cada resorte tiene una masa distribuida que contribuye a la inercia del sistema. Se puede demostrar que, para un resorte de masa <span class="math inline">m_{r}</span>, la masa efectiva que interviene en las oscilaciones es <span class="math inline">m_{r}/3</span>. Esto produce un aumento del período medido respecto al teórico.</p></li>
+<li><p><strong>Masa de los resortes:</strong> en la ecuación (<a href="#eq-9_5" class="quarto-xref">5</a>) se ha supuesto que toda la masa del sistema es la del deslizador más las pesas. En realidad, cada resorte tiene una masa distribuida que contribuye a la inercia del sistema. Se puede demostrar que, para un resorte de masa <span class="math inline">m_{r}</span>, la masa efectiva que interviene en las oscilaciones es <span class="math inline">m_{r}/3</span>. Esto produce un aumento del período medido respecto al teórico.</p></li>
 <li><p><strong>Amortiguamiento residual:</strong> aunque el carril de aire reduce enormemente el rozamiento, siempre existe un amortiguamiento residual (resistencia del aire, imperfecciones del carril). El efecto del amortiguamiento es aumentar ligeramente el período: <span class="math inline">T_{\textrm{amort}} = T_{0}/\sqrt{1 - \zeta^{2}}</span>, donde <span class="math inline">\zeta</span> es el factor de amortiguamiento. Para <span class="math inline">\zeta \ll 1</span>, este efecto es despreciable.</p></li>
 <li><p><strong>No linealidad de los resortes:</strong> la ley de Hooke es una aproximación para pequeñas deformaciones. Si la amplitud de oscilación es demasiado grande, el resorte puede abandonar el régimen lineal, alterando el período.</p></li>
 <li><p><strong>Horizontalidad del carril:</strong> si el carril no está perfectamente horizontal, aparece una componente gravitatoria a lo largo de la dirección del movimiento que altera la posición de equilibrio y, en principio, la frecuencia de oscilación.</p></li>
 </ol>
-</blockquote>
+</div></details>
 </div>
 </div>
-</div>
-<p><br></p>
-<div>
-<blockquote>
-<p><strong>Ejercicios Previos</strong></p>
-<p><br></p>
+<div class="callout callout-tip"><div class="callout-title"><span>
+Ejercicios Previos
+</span></div><div class="callout-body">
 <ol type="1">
-<li>Demostrar que la ecuación del movimiento de una masa <span class="math inline">m</span> sujeta a dos resortes de constantes <span class="math inline">k_{1}</span> y <span class="math inline">k_{2}</span> (uno a cada lado) es la ecuación <a href="#eq-9_1" class="quarto-xref">Ecuación&nbsp;1</a>. ¿Bajo qué hipótesis es válida?</li>
+<li>Demostrar que la ecuación del movimiento de una masa <span class="math inline">m</span> sujeta a dos resortes de constantes <span class="math inline">k_{1}</span> y <span class="math inline">k_{2}</span> (uno a cada lado) es la ecuación (<a href="#eq-9_1" class="quarto-xref">1</a>). ¿Bajo qué hipótesis es válida?</li>
 </ol>
-<div>
-<blockquote>
-<p><strong>Solución del ejercicio 1</strong></p>
-<p><br></p>
+<details class="callout callout-caution"><summary class="callout-title"><span>
+Solución del ejercicio 1
+</span></summary><div class="callout-body">
 <p>Sea <span class="math inline">x</span> el desplazamiento del deslizador respecto a su posición de equilibrio. Cuando el deslizador se desplaza una distancia <span class="math inline">x</span> hacia la derecha:</p>
 <ul>
 <li>El resorte de la derecha se comprime en <span class="math inline">x</span>, ejerciendo una fuerza <span class="math inline">-k_{2}\,x</span> (hacia la izquierda).</li>
@@ -1104,17 +1056,14 @@ m\,\ddot{x} = -k_{1}\,x - k_{2}\,x = -(k_{1}+k_{2})\,x
 <li>Movimiento unidimensional (un grado de libertad).</li>
 <li>Resortes sin masa (o masa despreciable frente a <span class="math inline">m</span>).</li>
 </ul>
-</blockquote>
-</div>
-<p><br></p>
+</div></details>
 <ol start="2" type="1">
 <li>Demostrar que <span class="math inline">T^{2}</span> es proporcional a <span class="math inline">m</span> y explicar cómo se puede obtener la constante elástica equivalente a partir de una representación <span class="math inline">T^{2}</span> frente a <span class="math inline">m</span>.</li>
 </ol>
-<div>
-<blockquote>
-<p><strong>Solución del ejercicio 2</strong></p>
-<p><br></p>
-<p>Partiendo de la expresión del período (ecuación <a href="#eq-9_5" class="quarto-xref">Ecuación&nbsp;5</a>):</p>
+<details class="callout callout-caution"><summary class="callout-title"><span>
+Solución del ejercicio 2
+</span></summary><div class="callout-body">
+<p>Partiendo de la expresión del período (ecuación (<a href="#eq-9_5" class="quarto-xref">5</a>)):</p>
 <p><span class="math display">
 T = 2\pi\,\sqrt{\frac{m}{k_{1}+k_{2}}}
 </span></p>
@@ -1127,16 +1076,13 @@ T^{2} = \frac{4\pi^{2}}{k_{1}+k_{2}}\,m
 <p><span class="math display">
 \boxed{k_{1}+k_{2} = \frac{4\pi^{2}}{p}}
 </span></p>
-</blockquote>
-</div>
-<p><br></p>
+</div></details>
 <ol start="3" type="1">
 <li>¿Cuál es la diferencia entre frecuencia angular <span class="math inline">\omega_{n}</span>, frecuencia <span class="math inline">f</span> y período <span class="math inline">T</span>? Expresar sus relaciones.</li>
 </ol>
-<div>
-<blockquote>
-<p><strong>Solución del ejercicio 3</strong></p>
-<p><br></p>
+<details class="callout callout-caution"><summary class="callout-title"><span>
+Solución del ejercicio 3
+</span></summary><div class="callout-body">
 <p>Las tres magnitudes están relacionadas entre sí:</p>
 <p><span class="math display">
 \omega_{n} = 2\pi\,f = \frac{2\pi}{T}
@@ -1151,17 +1097,14 @@ T^{2} = \frac{4\pi^{2}}{k_{1}+k_{2}}\,m
 <p><span class="math display">
 \boxed{\omega_{n} = \sqrt{\frac{k_{1}+k_{2}}{m}} \qquad;\qquad f = \frac{1}{2\pi}\sqrt{\frac{k_{1}+k_{2}}{m}} \qquad;\qquad T = 2\pi\sqrt{\frac{m}{k_{1}+k_{2}}}}
 </span></p>
-</blockquote>
-</div>
-<p><br></p>
+</div></details>
 <ol start="4" type="1">
 <li>Si se aumenta la amplitud inicial de la oscilación (manteniendo la misma masa), ¿cambia el período? Justificar la respuesta.</li>
 </ol>
-<div>
-<blockquote>
-<p><strong>Solución del ejercicio 4</strong></p>
-<p><br></p>
-<p>No.&nbsp;El período del movimiento armónico simple es <strong>independiente de la amplitud</strong>. Esto se deduce directamente de la ecuación <a href="#eq-9_5" class="quarto-xref">Ecuación&nbsp;5</a>:</p>
+<details class="callout callout-caution"><summary class="callout-title"><span>
+Solución del ejercicio 4
+</span></summary><div class="callout-body">
+<p>No.&nbsp;El período del movimiento armónico simple es <strong>independiente de la amplitud</strong>. Esto se deduce directamente de la ecuación (<a href="#eq-9_5" class="quarto-xref">5</a>):</p>
 <p><span class="math display">
 T = 2\pi\,\sqrt{\frac{m}{k_{1}+k_{2}}}
 </span></p>
@@ -1170,14 +1113,9 @@ T = 2\pi\,\sqrt{\frac{m}{k_{1}+k_{2}}}
 \boxed{\text{El período no cambia al variar la amplitud (isocronismo).}}
 </span></p>
 <p>Esta propiedad deja de ser válida cuando las deformaciones son grandes y el resorte abandona el régimen lineal.</p>
-</blockquote>
-</div>
-<p><br></p>
-</blockquote>
-</div>
-<p><br></p>
+</div></details>
+</div></div>
 <h2 id="referencias" class="anchored">Referencias</h2>
-<p><br></p>
 <ol type="1">
 <li><p>UPM — Capítulo: Vibraciones mecánicas. <a href="http://w3.mecanica.upm.es/~goico/mecanica/libro/cap17.pdf">http://w3.mecanica.upm.es/~goico/mecanica/libro/cap17.pdf</a></p></li>
 <li><p>EHU/UPV — Movimiento armónico simple. <a href="http://www.sc.ehu.es/sbweb/fisica/oscilaciones/muelle/muelle.htm">http://www.sc.ehu.es/sbweb/fisica/oscilaciones/muelle/muelle.htm</a></p></li>
@@ -1337,6 +1275,7 @@ T = 2\pi\,\sqrt{\frac{m}{k_{1}+k_{2}}}
     </div>
   </div>
 </footer>
+<nav class="prac-prevnext"><a href="../maquina-atwood/index.html">← P18 Máquina de Atwood</a><a href="../index.html">Catálogo</a><a href="../vibraciones-2gdl/index.html">P20 Vibraciones libres con dos grados de libertad →</a></nav>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")

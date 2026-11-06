@@ -164,7 +164,7 @@ window.Quarto = {
 <details class="group" open=""><summary class="t">Contacto</summary><ul><li><a href="../../contacto/index.html">Contacto</a></li></ul></details>
 </nav>
 <div class="docs-main">
-<div class="itin-head"><span class="kicker">P17 · Serie mecánica · Práctica 4 de Física I y II</span></div><div class="prac-meta"><div><span class="lbl">Servida a</span><span class="v"><a class="chip chip-fisica" href="../../asignaturas/fisica/index.html" title="Práctica 4 de Física I y II">Física I y II</a>  <span class="chip chip-phy">phyphox</span></span></div><div><span class="lbl">Guion</span><span class="v"><a href="practice_07_momentos_inercia.pdf">Guion en PDF</a></span></div><div><span class="lbl">En resumen</span><span class="v">Muelle espiral de torsión; constante K; momentos de inercia de sólidos y teorema de Steiner (I_Z frente a a²).</span></div></div><nav class="prac-prevnext "><a href="../inercia-disco/index.html">← P10 Momento de inercia de un disco</a><a href="../index.html">Catálogo</a><a href="../maquina-atwood/index.html">P18 Máquina de Atwood →</a></nav>
+<div class="prac-head"><span class="pid">P17</span><span class="chips"><a class="chip chip-fisica" href="../../asignaturas/fisica/index.html" title="Práctica 4 de Física I y II">Física I y II</a>  <span class="chip chip-phy">phyphox</span></span><span class="links"><a href="practice_07_momentos_inercia.pdf">Guion en PDF</a></span></div>
 
 <header id="title-block-header">
 <h1 class="title">Momentos de inercia de sólidos</h1>
@@ -179,9 +179,7 @@ window.Quarto = {
 </header>
 
 
-<p><br> <br></p>
 <h2 id="objetivos" class="anchored">Objetivos</h2>
-<p><br></p>
 <ol type="1">
 <li>Determinar la constante de recuperación de un muelle espiral.</li>
 <li>Determinar experimentalmente el momento de inercia de los siguientes sólidos: disco, esfera maciza, cilindro macizo, cilindro hueco y barra.</li>
@@ -190,9 +188,7 @@ window.Quarto = {
 <li>Determinar los momentos de inercia de una barra a la que se le añaden dos masas a distintas distancias del eje de rotación que pasa por su centro de gravedad.</li>
 <li>Expresar y comentar para todos los resultados las posibles causas de error.</li>
 </ol>
-<p><br></p>
 <h2 id="material" class="anchored">Material</h2>
-<p><br></p>
 <ol type="1">
 <li>Equipo de torsión en espiral (muelle espiral con rotor)</li>
 <li>Barra metálica con masas móviles</li>
@@ -205,9 +201,7 @@ window.Quarto = {
 <li>Regla graduada y cinta métrica</li>
 <li>Balanza (precisión 0,1 g)</li>
 </ol>
-<p><br></p>
 <h2 id="repaso-de-teoría" class="anchored">Repaso de teoría</h2>
-<p><br></p>
 <ol type="1">
 <li>Dinámica del sólido rígido: momento angular y momento de fuerzas.</li>
 <li>Momento de inercia y tensor de inercia.</li>
@@ -215,11 +209,8 @@ window.Quarto = {
 <li>Teorema de Steiner (ejes paralelos).</li>
 <li>Regresión lineal por mínimos cuadrados.</li>
 </ol>
-<p><br></p>
 <h2 id="fundamento-teórico" class="anchored">Fundamento teórico</h2>
-<p><br></p>
 <h3 id="determinación-de-la-constante-de-recuperación-de-un-muelle-espiral" class="anchored">1. Determinación de la constante de recuperación de un muelle espiral</h3>
-<p><br></p>
 <p>La relación entre el momento angular <span class="math inline">\vec{L}</span> de un sólido rígido, en un sistema de coordenadas estacionario con origen en el centro de gravedad, y el momento de la fuerza <span class="math inline">\Gamma</span> que se le aplica es:</p>
 <p><span id="eq-7_1"><span class="math display">
 \Gamma = \dfrac{d\vec{L}}{dt}
@@ -244,15 +235,12 @@ L_{Z} = I_{Z}\cdot\omega = I_{Z}\cdot\dfrac{d\phi}{dt}
 <p><span id="eq-7_6"><span class="math display">
 \boxed{K = \dfrac{F\cdot d}{\phi}}
 \tag{6}</span></span></p>
-<div>
-<blockquote>
-<p><strong>Determinación práctica de <span class="math inline">K</span></strong></p>
+<div class="callout callout-tip"><div class="callout-title"><span>
+Determinación práctica de <span class="math inline">K</span>
+</span></div><div class="callout-body">
 <p>Si se mide el momento <span class="math inline">\Gamma = F \cdot d</span> para varios ángulos de giro <span class="math inline">\phi</span>, la representación gráfica de <span class="math inline">\Gamma</span> frente a <span class="math inline">\phi</span> debe ser una línea recta que pasa por el origen y cuya <strong>pendiente es la constante de recuperación</strong> <span class="math inline">K</span> del muelle espiral.</p>
-</blockquote>
-</div>
-<p><br></p>
+</div></div>
 <h3 id="determinación-experimental-del-momento-de-inercia-de-un-sólido-rígido" class="anchored">2. Determinación experimental del momento de inercia de un sólido rígido</h3>
-<p><br></p>
 <p>Igualando las expresiones de la <a href="#eq-7_4" class="quarto-xref">Ecuación&nbsp;4</a> y la <a href="#eq-7_5" class="quarto-xref">Ecuación&nbsp;5</a>, se obtiene la ecuación del movimiento:</p>
 <p><span id="eq-7_7"><span class="math display">
 I_{Z}\cdot\dfrac{d^{2}\phi}{dt^{2}} = -K\cdot\phi
@@ -278,9 +266,7 @@ I_{Z}\cdot\dfrac{d^{2}\phi}{dt^{2}} = -K\cdot\phi
 \boxed{I_{Z} = \dfrac{T^{2}}{4\pi^{2}}\cdot K}
 \tag{12}</span></span></p>
 <p>De todo lo expuesto se deduce que, conocidos la constante de recuperación angular del muelle espiral (<span class="math inline">K</span>) y el período de oscilación (<span class="math inline">T</span>), se puede calcular el momento de inercia de diversos sólidos rígidos.</p>
-<p><br></p>
 <h3 id="expresiones-teóricas-de-los-momentos-de-inercia" class="anchored">3. Expresiones teóricas de los momentos de inercia</h3>
-<p><br></p>
 <p>Los momentos de inercia teóricos de los sólidos utilizados en esta práctica, respecto a un eje que pasa por su centro de gravedad, son:</p>
 <p><span id="eq-7_13"><span class="math display">
 \boxed{I_{Z}(\textrm{esfera}) = \dfrac{2}{5}\cdot m \cdot r^{2}}
@@ -297,9 +283,7 @@ I_{Z}\cdot\dfrac{d^{2}\phi}{dt^{2}} = -K\cdot\phi
 <p><span id="eq-7_17"><span class="math display">
 \boxed{I_{Z}(\textrm{barra}) = \dfrac{1}{12}\cdot m \cdot l^{2}}
 \tag{17}</span></span></p>
-<p><br></p>
 <h3 id="teorema-de-steiner-ejes-paralelos" class="anchored">4. Teorema de Steiner (ejes paralelos)</h3>
-<p><br></p>
 <p>Cuando el eje de rotación no pasa por el centro de gravedad del cuerpo, sino que está desplazado una distancia <span class="math inline">a</span>, el momento de inercia se calcula mediante el <strong>teorema de Steiner</strong>:</p>
 <blockquote>
 <p><em>El momento de inercia respecto a un eje cualquiera es igual al momento de inercia respecto a un eje paralelo que pase por su centro de masas, más el producto de la masa del cuerpo por el cuadrado de la distancia entre ambos ejes.</em></p>
@@ -311,9 +295,7 @@ I_{Z}\cdot\dfrac{d^{2}\phi}{dt^{2}} = -K\cdot\phi
 <p><span id="eq-7_19"><span class="math display">
 T = 2\pi\cdot\sqrt{\dfrac{I_{G} + m\cdot a^{2}}{K}}
 \tag{19}</span></span></p>
-<p><br></p>
 <h3 id="sistema-barra-con-dos-masas" class="anchored">5. Sistema barra con dos masas</h3>
-<p><br></p>
 <p>Si se modeliza el sistema <strong><em>masa-barra-masa</em></strong> como dos masas puntuales <span class="math inline">m_{1}</span> y <span class="math inline">m_{2}</span> situadas a una distancia <span class="math inline">a</span> del centro de gravedad sobre una barra de masa <span class="math inline">m_{b}</span> y longitud <span class="math inline">l</span>, el momento de inercia total del sistema es:</p>
 <p><span id="eq-7_20"><span class="math display">
 \boxed{I_{Z}(\textrm{sistema}) = (m_{1} + m_{2})\cdot a^{2} + I_{b}}
@@ -323,11 +305,8 @@ T = 2\pi\cdot\sqrt{\dfrac{I_{G} + m\cdot a^{2}}{K}}
 <li>La <strong>pendiente</strong> de la recta <span class="math inline">I_{Z}</span> vs <span class="math inline">a^{2}</span> es <span class="math inline">(m_{1} + m_{2})</span>.</li>
 <li>La <strong>ordenada en el origen</strong> es <span class="math inline">I_{b}</span>.</li>
 </ul>
-<p><br></p>
 <h2 id="método-operatorio" class="anchored">Método operatorio</h2>
-<p><br></p>
 <h3 id="parte-a-cálculo-de-la-constante-de-recuperación-del-muelle-espiral" class="anchored">Parte A: Cálculo de la constante de recuperación del muelle espiral</h3>
-<p><br></p>
 <div class="columns">
 <div class="column" style="width:8%;">
 <p><strong>1</strong></p>
@@ -359,7 +338,6 @@ T = 2\pi\cdot\sqrt{\dfrac{I_{G} + m\cdot a^{2}}{K}}
 <p><strong>Datos <br> experimentales</strong></p>
 </div><div class="column" style="width:75%;">
 <p>A continuación se resumen los datos recogidos en el laboratorio para la determinación de <span class="math inline">K</span>.</p>
-<p><br></p>
 <table class="caption-top">
 <thead>
 <tr class="header">
@@ -439,10 +417,9 @@ T = 2\pi\cdot\sqrt{\dfrac{I_{G} + m\cdot a^{2}}{K}}
 <figcaption>Representación gráfica de <span class="math inline">\Gamma</span> frente a <span class="math inline">\phi</span> para la determinación de la constante <span class="math inline">K</span></figcaption>
 </figure>
 </div>
-<div>
-<blockquote>
-<p><strong>Regresión lineal para la determinación de <span class="math inline">K</span></strong></p>
-<p><br></p>
+<details class="callout callout-caution"><summary class="callout-title"><span>
+Regresión lineal para la determinación de <span class="math inline">K</span>
+</span></summary><div class="callout-body">
 <p>Se ajustan los <span class="math inline">N = 8</span> puntos experimentales <span class="math inline">(\phi_{i}, \Gamma_{i})</span> a la recta <span class="math inline">\Gamma = K\cdot\phi + n</span>, comparando con la ecuación física <span class="math inline">\Gamma = K\cdot\phi</span>.</p>
 <p>Con los datos de la tabla, se aplican las fórmulas estándar de regresión lineal:</p>
 <p><span class="math display">
@@ -462,13 +439,10 @@ K = \dfrac{N\sum \phi_{i}\Gamma_{i} - \sum \phi_{i}\sum \Gamma_{i}}{N\sum \phi_{
 <p><span class="math display">
 \boxed{K = 0{,}0238 \pm 0{,}0001 \textrm{ N}\cdot\textrm{m/rad}}
 </span></p>
-</blockquote>
+</div></details>
 </div>
 </div>
-</div>
-<p><br></p>
 <h3 id="parte-b-determinación-de-los-momentos-de-inercia-de-sólidos-rígidos" class="anchored">Parte B: Determinación de los momentos de inercia de sólidos rígidos</h3>
-<p><br></p>
 <div class="columns">
 <div class="column" style="width:8%;">
 <p><strong>5</strong></p>
@@ -516,7 +490,6 @@ K = \dfrac{N\sum \phi_{i}\Gamma_{i} - \sum \phi_{i}\sum \Gamma_{i}}{N\sum \phi_{
 <p><strong>Datos <br> experimentales</strong></p>
 </div><div class="column" style="width:75%;">
 <p>A continuación en la tabla se resumen los periodos medidos (en segundos) para cada sólido.</p>
-<p><br></p>
 <table class="caption-top">
 <thead>
 <tr class="header">
@@ -579,11 +552,10 @@ K = \dfrac{N\sum \phi_{i}\Gamma_{i} - \sum \phi_{i}\sum \Gamma_{i}}{N\sum \phi_{
 <div class="column" style="width:8%;">
 <p><strong>9</strong></p>
 </div><div class="column" style="width:92%;">
-<p>Calcular el periodo medio <span class="math inline">\bar{T}</span>, la desviación estándar <span class="math inline">\sigma_{T}</span> y el momento de inercia experimental <span class="math inline">I_{\textrm{exp}}</span> para cada sólido, utilizando la <a href="#eq-7_12" class="quarto-xref">Ecuación&nbsp;12</a>. Comparar con el momento de inercia teórico <span class="math inline">I_{\textrm{teórico}}</span> obtenido de las expresiones <a href="#eq-7_13" class="quarto-xref">Ecuación&nbsp;13</a> a <a href="#eq-7_17" class="quarto-xref">Ecuación&nbsp;17</a>.</p>
-<div>
-<blockquote>
-<p><strong>Cálculo de los momentos de inercia experimentales y comparación</strong></p>
-<p><br></p>
+<p>Calcular el periodo medio <span class="math inline">\bar{T}</span>, la desviación estándar <span class="math inline">\sigma_{T}</span> y el momento de inercia experimental <span class="math inline">I_{\textrm{exp}}</span> para cada sólido, utilizando la <a href="#eq-7_12" class="quarto-xref">Ecuación&nbsp;12</a>. Comparar con el momento de inercia teórico <span class="math inline">I_{\textrm{teórico}}</span> obtenido de las expresiones (<a href="#eq-7_13" class="quarto-xref">13</a>) a <a href="#eq-7_17" class="quarto-xref">Ecuación&nbsp;17</a>.</p>
+<details class="callout callout-caution"><summary class="callout-title"><span>
+Cálculo de los momentos de inercia experimentales y comparación
+</span></summary><div class="callout-body">
 <h3 id="valores-medios-y-desviaciones-estándar" class="anchored">Valores medios y desviaciones estándar</h3>
 <p>A partir de los datos de la tabla anterior:</p>
 <table class="caption-top">
@@ -694,13 +666,10 @@ I_{\textrm{exp}} = \dfrac{\bar{T}^{2}}{4\pi^{2}}\cdot K
 \boxed{I_{\textrm{disco}} = (4{,}51 \pm 0{,}02) \times 10^{-3} \textrm{ kg}\cdot\textrm{m}^{2}}
 </span></p>
 <p>Los resultados muestran buena concordancia entre los valores experimentales y teóricos, con desviaciones inferiores al 10, en todos los casos.</p>
-</blockquote>
+</div></details>
 </div>
 </div>
-</div>
-<p><br></p>
 <h3 id="parte-c-momento-de-inercia-de-la-barra-respecto-de-un-eje-que-no-pasa-por-su-centro-de-gravedad" class="anchored">Parte C: Momento de inercia de la barra respecto de un eje que no pasa por su centro de gravedad</h3>
-<p><br></p>
 <div class="columns">
 <div class="column" style="width:8%;">
 <p><strong>10</strong></p>
@@ -717,7 +686,6 @@ I_{\textrm{exp}} = \dfrac{\bar{T}^{2}}{4\pi^{2}}\cdot K
 <div class="column" style="width:25%;">
 <p><strong>Datos <br> experimentales</strong></p>
 </div><div class="column" style="width:75%;">
-<p><br></p>
 <table class="caption-top">
 <colgroup>
 <col style="width: 11%">
@@ -769,10 +737,9 @@ I_{\textrm{exp}} = \dfrac{\bar{T}^{2}}{4\pi^{2}}\cdot K
 <p><strong>11</strong></p>
 </div><div class="column" style="width:92%;">
 <p>Calcular el momento de inercia experimental en cada caso y compararlo con el valor obtenido mediante el teorema de Steiner (<a href="#eq-7_18" class="quarto-xref">Ecuación&nbsp;18</a>).</p>
-<div>
-<blockquote>
-<p><strong>Verificación del teorema de Steiner</strong></p>
-<p><br></p>
+<details class="callout callout-caution"><summary class="callout-title"><span>
+Verificación del teorema de Steiner
+</span></summary><div class="callout-body">
 <h3 id="eje-en-el-extremo-a-0250-m" class="anchored">Eje en el extremo (<span class="math inline">a = 0{,}250</span> m)</h3>
 <p>Periodo medio: <span class="math inline">\bar{T} = 6{,}850</span> s, <span class="math inline">\sigma_{T} = 0{,}024</span> s.</p>
 <p>Momento de inercia experimental:</p>
@@ -840,13 +807,10 @@ I_{\textrm{teórico}} = \dfrac{1}{12}\times 0{,}340 \times 0{,}250 + 0{,}340 \ti
 </tbody>
 </table>
 <p>Los resultados confirman la validez del teorema de Steiner.</p>
-</blockquote>
+</div></details>
 </div>
 </div>
-</div>
-<p><br></p>
 <h3 id="parte-d-variación-del-momento-de-inercia-de-una-barra-con-masas" class="anchored">Parte D: Variación del momento de inercia de una barra con masas</h3>
-<p><br></p>
 <div class="columns">
 <div class="column" style="width:8%;">
 <p><strong>12</strong></p>
@@ -857,7 +821,6 @@ I_{\textrm{teórico}} = \dfrac{1}{12}\times 0{,}340 \times 0{,}250 + 0{,}340 \ti
 <div class="column" style="width:25%;">
 <p><strong>Datos <br> experimentales</strong></p>
 </div><div class="column" style="width:75%;">
-<p><br></p>
 <table class="caption-top">
 <colgroup>
 <col style="width: 20%">
@@ -932,10 +895,9 @@ I_{\textrm{teórico}} = \dfrac{1}{12}\times 0{,}340 \times 0{,}250 + 0{,}340 \ti
 <figcaption>Representación gráfica de <span class="math inline">I_{Z}</span> frente a <span class="math inline">a^{2}</span> (verificación del teorema de Steiner)</figcaption>
 </figure>
 </div>
-<div>
-<blockquote>
-<p><strong>Regresión lineal: <span class="math inline">I_{Z}</span> vs <span class="math inline">a^{2}</span></strong></p>
-<p><br></p>
+<details class="callout callout-caution"><summary class="callout-title"><span>
+Regresión lineal: <span class="math inline">I_{Z}</span> vs <span class="math inline">a^{2}</span>
+</span></summary><div class="callout-body">
 <p>Se ajustan los <span class="math inline">N = 5</span> puntos (<span class="math inline">a_{i}^{2}</span>, <span class="math inline">I_{\textrm{exp},i}</span>) a la recta:</p>
 <p><span class="math display">
 I_{Z} = p\cdot a^{2} + n
@@ -958,24 +920,19 @@ p \approx \dfrac{\Delta I}{\Delta(a^{2})} = \dfrac{(19{,}62 - 7{,}23)\times 10^{
 </ol>
 <h3 id="conclusión" class="anchored">Conclusión</h3>
 <p>La representación de <span class="math inline">I_{Z}</span> frente a <span class="math inline">a^{2}</span> es efectivamente lineal (<span class="math inline">R^{2} = 0{,}9998</span>), confirmando la validez de la <a href="#eq-7_20" class="quarto-xref">Ecuación&nbsp;20</a>. La pendiente proporciona la masa total de los dos cuerpos y la ordenada en el origen proporciona el momento de inercia de la barra sola, ambos en excelente acuerdo con los valores teóricos.</p>
-</blockquote>
+</div></details>
 </div>
 </div>
-</div>
-<p><br></p>
 <h2 id="ejercicios-previos" class="anchored">Ejercicios Previos</h2>
-<p><br></p>
-<div>
-<blockquote>
-<p><strong>Ejercicios Previos</strong></p>
-<p><br></p>
+<div class="callout callout-tip"><div class="callout-title"><span>
+Ejercicios Previos
+</span></div><div class="callout-body">
 <ol type="1">
-<li>Partiendo de las ecuaciones <a href="#eq-7_4" class="quarto-xref">Ecuación&nbsp;4</a> y <a href="#eq-7_5" class="quarto-xref">Ecuación&nbsp;5</a>, demostrar que el periodo de oscilación del péndulo de torsión viene dado por la expresión <a href="#eq-7_11" class="quarto-xref">Ecuación&nbsp;11</a>.</li>
+<li>Partiendo de las ecuaciones (<a href="#eq-7_4" class="quarto-xref">4</a>) y (<a href="#eq-7_5" class="quarto-xref">5</a>), demostrar que el periodo de oscilación del péndulo de torsión viene dado por la expresión (<a href="#eq-7_11" class="quarto-xref">11</a>).</li>
 </ol>
-<div>
-<blockquote>
-<p><strong>Solución del ejercicio 1</strong></p>
-<p><br></p>
+<details class="callout callout-caution"><summary class="callout-title"><span>
+Solución del ejercicio 1
+</span></summary><div class="callout-body">
 <p>Igualando el par de torsión del muelle con el momento angular:</p>
 <p><span class="math display">
 I_{Z}\cdot\dfrac{d^{2}\phi}{dt^{2}} = -K\cdot\phi
@@ -991,16 +948,13 @@ I_{Z}\cdot\dfrac{d^{2}\phi}{dt^{2}} = -K\cdot\phi
 <p><span class="math display">
 \boxed{T = 2\pi\sqrt{\dfrac{I_{Z}}{K}}}
 </span></p>
-</blockquote>
-</div>
-<p><br></p>
+</div></details>
 <ol start="2" type="1">
 <li>Deducir la expresión del error del momento de inercia experimental, <span class="math inline">\Delta I</span>, en función de <span class="math inline">\Delta T</span> y <span class="math inline">\Delta K</span>, a partir de la <a href="#eq-7_12" class="quarto-xref">Ecuación&nbsp;12</a>.</li>
 </ol>
-<div>
-<blockquote>
-<p><strong>Solución del ejercicio 2</strong></p>
-<p><br></p>
+<details class="callout callout-caution"><summary class="callout-title"><span>
+Solución del ejercicio 2
+</span></summary><div class="callout-body">
 <p>A partir de <span class="math inline">I = \dfrac{K\,T^{2}}{4\pi^{2}}</span>, el error se propaga como:</p>
 <p><span class="math display">
 \Delta I = \sqrt{\left(\dfrac{\partial I}{\partial T}\right)^{2}(\Delta T)^{2} + \left(\dfrac{\partial I}{\partial K}\right)^{2}(\Delta K)^{2}}
@@ -1017,16 +971,13 @@ I_{Z}\cdot\dfrac{d^{2}\phi}{dt^{2}} = -K\cdot\phi
 <p><span class="math display">
 \boxed{\Delta I = I\sqrt{\left(\dfrac{2\,\Delta T}{T}\right)^{2} + \left(\dfrac{\Delta K}{K}\right)^{2}}}
 </span></p>
-</blockquote>
-</div>
-<p><br></p>
+</div></details>
 <ol start="3" type="1">
 <li>Enunciar el teorema de Steiner. Si una barra homogénea de masa <span class="math inline">m</span> y longitud <span class="math inline">l</span> tiene un momento de inercia <span class="math inline">I_{G} = \frac{1}{12}ml^{2}</span> respecto a un eje que pasa por su centro de gravedad, calcular su momento de inercia respecto a un eje que pasa por un extremo.</li>
 </ol>
-<div>
-<blockquote>
-<p><strong>Solución del ejercicio 3</strong></p>
-<p><br></p>
+<details class="callout callout-caution"><summary class="callout-title"><span>
+Solución del ejercicio 3
+</span></summary><div class="callout-body">
 <p><strong>Enunciado del teorema de Steiner:</strong> El momento de inercia de un cuerpo respecto a un eje cualquiera es igual al momento de inercia respecto a un eje paralelo que pase por el centro de masas, más el producto de la masa total por el cuadrado de la distancia entre ambos ejes.</p>
 <p>Para una barra de longitud <span class="math inline">l</span>, el extremo está a una distancia <span class="math inline">a = l/2</span> del centro de gravedad. Aplicando Steiner:</p>
 <p><span class="math display">
@@ -1035,16 +986,13 @@ I_{\textrm{extremo}} = I_{G} + m\left(\dfrac{l}{2}\right)^{2} = \dfrac{1}{12}ml^
 <p><span class="math display">
 \boxed{I_{\textrm{extremo}} = \dfrac{1}{3}ml^{2}}
 </span></p>
-</blockquote>
-</div>
-<p><br></p>
+</div></details>
 <ol start="4" type="1">
 <li>Calcular el momento de inercia de un cilindro hueco de masa <span class="math inline">m</span>, radio externo <span class="math inline">r_{\textrm{ext}}</span> y radio interno <span class="math inline">r_{\textrm{int}}</span>, respecto a su eje de simetría.</li>
 </ol>
-<div>
-<blockquote>
-<p><strong>Solución del ejercicio 4</strong></p>
-<p><br></p>
+<details class="callout callout-caution"><summary class="callout-title"><span>
+Solución del ejercicio 4
+</span></summary><div class="callout-body">
 <p>El momento de inercia de un cilindro hueco se calcula integrando:</p>
 <p><span class="math display">
 I = \int r^{2}\,dm = \int_{r_{\textrm{int}}}^{r_{\textrm{ext}}} r^{2}\,\rho\,2\pi r\,h\,dr = 2\pi\rho h \int_{r_{\textrm{int}}}^{r_{\textrm{ext}}} r^{3}\,dr = 2\pi\rho h\left[\dfrac{r^{4}}{4}\right]_{r_{\textrm{int}}}^{r_{\textrm{ext}}}
@@ -1059,14 +1007,9 @@ I = \dfrac{m(r_{\textrm{ext}}^{4} - r_{\textrm{int}}^{4})}{2(r_{\textrm{ext}}^{2
 <p><span class="math display">
 \boxed{I = \dfrac{1}{2}m\left(r_{\textrm{ext}}^{2} + r_{\textrm{int}}^{2}\right)}
 </span></p>
-</blockquote>
-</div>
-<p><br></p>
-</blockquote>
-</div>
-<p><br></p>
+</div></details>
+</div></div>
 <h2 id="ejercicios-posteriores" class="anchored">Ejercicios Posteriores</h2>
-<p><br></p>
 <div class="columns">
 <div class="column" style="width:8%;">
 <p><strong>E1</strong></p>
@@ -1086,10 +1029,9 @@ I = \dfrac{m(r_{\textrm{ext}}^{4} - r_{\textrm{int}}^{4})}{2(r_{\textrm{ext}}^{2
 <p><strong>E3</strong></p>
 </div><div class="column" style="width:92%;">
 <p>Si en lugar de un muelle espiral se utilizase un hilo de torsión cuya constante de recuperación fuese el doble, ¿cómo cambiarían los periodos de oscilación? ¿Y los momentos de inercia calculados?</p>
-<div>
-<blockquote>
-<p><strong>Solución del ejercicio E3</strong></p>
-<p><br></p>
+<details class="callout callout-caution"><summary class="callout-title"><span>
+Solución del ejercicio E3
+</span></summary><div class="callout-body">
 <p>De la <a href="#eq-7_11" class="quarto-xref">Ecuación&nbsp;11</a>, <span class="math inline">T = 2\pi\sqrt{I_{Z}/K}</span>. Si <span class="math inline">K' = 2K</span>:</p>
 <p><span class="math display">
 T' = 2\pi\sqrt{\dfrac{I_{Z}}{2K}} = \dfrac{T}{\sqrt{2}}
@@ -1102,8 +1044,7 @@ I_{Z} = \dfrac{T'^{2}}{4\pi^{2}}\cdot K' = \dfrac{T^{2}/2}{4\pi^{2}}\cdot 2K = \
 <p><span class="math display">
 \boxed{\text{Los periodos disminuyen en un factor } \sqrt{2}, \text{ pero los momentos de inercia no cambian.}}
 </span></p>
-</blockquote>
-</div>
+</div></details>
 </div>
 </div>
 <div class="columns">
@@ -1118,22 +1059,18 @@ I_{Z} = \dfrac{T'^{2}}{4\pi^{2}}\cdot K' = \dfrac{T^{2}/2}{4\pi^{2}}\cdot 2K = \
 <p><strong>E5</strong></p>
 </div><div class="column" style="width:92%;">
 <p>Citar al menos 3 aplicaciones prácticas en ingeniería en las que el momento de inercia desempeñe un papel fundamental. Para cada una, explicar brevemente por qué es relevante.</p>
-<div>
-<blockquote>
-<p><strong>Aplicaciones del momento de inercia en ingeniería</strong></p>
-<p><br></p>
+<details class="callout callout-caution"><summary class="callout-title"><span>
+Aplicaciones del momento de inercia en ingeniería
+</span></summary><div class="callout-body">
 <ol type="1">
 <li><p><strong>Volantes de inercia:</strong> se utilizan en motores y máquinas para suavizar las fluctuaciones de velocidad angular. Un mayor momento de inercia proporciona mayor estabilidad en la rotación, reduciendo las vibraciones.</p></li>
 <li><p><strong>Diseño de ejes y árboles de transmisión:</strong> el momento de inercia de las piezas rotativas (engranajes, poleas, acoplamientos) determina el par necesario para acelerar o frenar el sistema. Es fundamental para dimensionar motores y frenos.</p></li>
 <li><p><strong>Estabilidad de vehículos:</strong> el momento de inercia de las ruedas (efecto giroscópico) contribuye a la estabilidad direccional de bicicletas, motocicletas y satélites. Los giroscopios, basados en la conservación del momento angular, se emplean en sistemas de navegación inercial.</p></li>
 </ol>
-</blockquote>
+</div></details>
 </div>
 </div>
-</div>
-<p><br></p>
 <h2 id="referencias" class="anchored">Referencias</h2>
-<p><br></p>
 <ol type="1">
 <li>Guión de prácticas UNED — Laboratorio de Mecánica: <em>Determinación del momento de inercia de sólidos</em>.</li>
 <li>Serway, R.A. &amp; Jewett, J.W. — <em>Física para ciencias e ingeniería</em>, Vol. 1, Cap. 10: Rotación de un cuerpo rígido.</li>
@@ -1294,6 +1231,7 @@ I_{Z} = \dfrac{T'^{2}}{4\pi^{2}}\cdot K' = \dfrac{T^{2}/2}{4\pi^{2}}\cdot 2K = \
     </div>
   </div>
 </footer>
+<nav class="prac-prevnext "><a href="../inercia-disco/index.html">← P10 Momento de inercia de un disco</a><a href="../index.html">Catálogo</a><a href="../maquina-atwood/index.html">P18 Máquina de Atwood →</a></nav>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")

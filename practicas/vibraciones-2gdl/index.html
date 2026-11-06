@@ -164,7 +164,7 @@ window.Quarto = {
 <details class="group" open=""><summary class="t">Contacto</summary><ul><li><a href="../../contacto/index.html">Contacto</a></li></ul></details>
 </nav>
 <div class="docs-main">
-<div class="itin-head"><span class="kicker">P20 · Serie mecánica · Práctica 7 de Física I y II</span></div><div class="prac-meta"><div><span class="lbl">Servida a</span><span class="v"><a class="chip chip-fisica" href="../../asignaturas/fisica/index.html" title="Práctica 7 de Física I y II">Física I y II</a>  <span class="chip chip-phy">phyphox</span></span></div><div><span class="lbl">Guion</span><span class="v"><a href="practice_10_vibraciones_2gdl.pdf">Guion en PDF</a></span></div><div><span class="lbl">En resumen</span><span class="v">Dos masas y tres muelles; modos normales; frecuencias propias y propagación de errores.</span></div></div><nav class="prac-prevnext"><a href="../vibraciones-1gdl/index.html">← P19 Vibraciones libres con un grado de libertad</a><a href="../index.html">Catálogo</a><span></span></nav>
+<div class="prac-head"><span class="pid">P20</span><span class="chips"><a class="chip chip-fisica" href="../../asignaturas/fisica/index.html" title="Práctica 7 de Física I y II">Física I y II</a>  <span class="chip chip-phy">phyphox</span></span><span class="links"><a href="practice_10_vibraciones_2gdl.pdf">Guion en PDF</a></span></div>
 
 <header id="title-block-header">
 <h1 class="title">Vibraciones libres con dos grados de libertad</h1>
@@ -179,17 +179,13 @@ window.Quarto = {
 </header>
 
 
-<p><br> <br></p>
 <h2 id="objetivos" class="anchored">Objetivos</h2>
-<p><br></p>
 <ol type="1">
 <li>Determinacion de las constantes elasticas <span class="math inline">k</span> de los resortes (a partir de los datos de la Practica 9).</li>
 <li>Determinacion del periodo del movimiento para cada modo de vibracion (modo en fase y modo en oposicion de fase).</li>
 <li>Comparacion de las frecuencias experimentales con las predichas por la teoria de osciladores acoplados.</li>
 </ol>
-<p><br></p>
 <h2 id="material" class="anchored">Material</h2>
-<p><br></p>
 <ol type="1">
 <li>Carril de aire con bomba</li>
 <li>Dos deslizadores de masas iguales</li>
@@ -199,20 +195,15 @@ window.Quarto = {
 <li>Balanza de precision</li>
 <li>Regla graduada</li>
 </ol>
-<p><br></p>
 <h2 id="repaso-de-teoria" class="anchored">Repaso de teoria</h2>
-<p><br></p>
 <ol type="1">
 <li>Oscilaciones libres de un sistema de un grado de libertad.</li>
 <li>Sistemas de ecuaciones diferenciales lineales acopladas.</li>
 <li>Valores propios y vectores propios de una matriz.</li>
 <li>Modos normales de vibracion.</li>
 </ol>
-<p><br></p>
 <h2 id="fundamento-teorico" class="anchored">Fundamento teorico</h2>
-<p><br></p>
 <h3 id="sistema-general-de-dos-grados-de-libertad" class="anchored">Sistema general de dos grados de libertad</h3>
-<p><br></p>
 <p>El sistema mas general de vibraciones libres sin amortiguamiento con dos grados de libertad es el esquematizado en la siguiente figura. Consta de dos masas <span class="math inline">m_{1}</span> y <span class="math inline">m_{2}</span> sujetas a dos puntos fijos mediante dos resortes de constantes elasticas <span class="math inline">k_{1}</span> y <span class="math inline">k_{2}</span>, respectivamente, y unidas entre si por un resorte acoplado de constante <span class="math inline">k_{3}</span>.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -234,14 +225,12 @@ m_{1}\,\ddot{x}_{1} + (k_{1} + k_{3})\,x_{1} - k_{3}\,x_{2} = 0
 <p><span id="eq-10_4"><span class="math display">
 m_{2}\,\ddot{x}_{2} + (k_{2} + k_{3})\,x_{2} - k_{3}\,x_{1} = 0
 \tag{4}</span></span></p>
-<p><br></p>
 <h3 id="determinacion-de-las-frecuencias-propias" class="anchored">Determinacion de las frecuencias propias</h3>
-<p><br></p>
 <p>Para resolver este sistema se proponen soluciones en las que ambas masas oscilan con la misma frecuencia pero con distintas amplitudes:</p>
 <p><span id="eq-10_5"><span class="math display">
 x_{1} = A_{1}\,\cos(\omega t + \alpha) \hspace{2cm} x_{2} = A_{2}\,\cos(\omega t + \alpha)
 \tag{5}</span></span></p>
-<p>Sustituyendo en las ecuaciones <a href="#eq-10_3" class="quarto-xref">Ecuación&nbsp;3</a> y <a href="#eq-10_4" class="quarto-xref">Ecuación&nbsp;4</a>, y simplificando el factor <span class="math inline">\cos(\omega t + \alpha)</span> (valido para todo <span class="math inline">t</span>), se obtiene el sistema algebraico homogeneo:</p>
+<p>Sustituyendo en las ecuaciones (<a href="#eq-10_3" class="quarto-xref">3</a>) y (<a href="#eq-10_4" class="quarto-xref">4</a>), y simplificando el factor <span class="math inline">\cos(\omega t + \alpha)</span> (valido para todo <span class="math inline">t</span>), se obtiene el sistema algebraico homogeneo:</p>
 <p><span id="eq-10_6"><span class="math display">
 (k_{1} + k_{3} - m_{1}\,\omega^{2})\,A_{1} - k_{3}\,A_{2} = 0
 \tag{6}</span></span></p>
@@ -259,10 +248,8 @@ k_{1} + k_{3} - m_{1}\,\omega^{2} &amp; -k_{3} \\
 <p><span id="eq-10_9"><span class="math display">
 (k_{1} + k_{3} - m_{1}\,\omega^{2})\,(k_{2} + k_{3} - m_{2}\,\omega^{2}) - k_{3}^{2} = 0
 \tag{9}</span></span></p>
-<p><br></p>
 <h3 id="caso-simetrico-k_1-k_2-k-k_3-k-m_1-m_2-m" class="anchored">Caso simetrico: <span class="math inline">k_{1} = k_{2} = k</span>, <span class="math inline">k_{3} = k'</span>, <span class="math inline">m_{1} = m_{2} = m</span></h3>
-<p><br></p>
-<p>En el caso de una cadena simetrica, la ecuacion <a href="#eq-10_9" class="quarto-xref">Ecuación&nbsp;9</a> se convierte en:</p>
+<p>En el caso de una cadena simetrica, la ecuacion (<a href="#eq-10_9" class="quarto-xref">9</a>) se convierte en:</p>
 <p><span id="eq-10_10"><span class="math display">
 m^{2}\,\omega^{4} - 2\,(k + k')\,m\,\omega^{2} + \left[(k + k')^{2} - k'^{2}\right] = 0
 \tag{10}</span></span></p>
@@ -274,10 +261,8 @@ m^{2}\,\omega^{4} - 2\,(k + k')\,m\,\omega^{2} + \left[(k + k')^{2} - k'^{2}\rig
 <p><span id="eq-10_12"><span class="math display">
 \boxed{T_{1} = 2\pi\sqrt{\dfrac{m}{k}}} \hspace{2cm} \boxed{T_{2} = 2\pi\sqrt{\dfrac{m}{k + 2k'}}}
 \tag{12}</span></span></p>
-<p><br></p>
 <h3 id="modos-normales-de-vibracion" class="anchored">Modos normales de vibracion</h3>
-<p><br></p>
-<p>Sustituyendo cada frecuencia propia en cualquiera de las ecuaciones <a href="#eq-10_6" class="quarto-xref">Ecuación&nbsp;6</a> o <a href="#eq-10_7" class="quarto-xref">Ecuación&nbsp;7</a> se obtiene la relacion entre las amplitudes <span class="math inline">A_{1}</span> y <span class="math inline">A_{2}</span>:</p>
+<p>Sustituyendo cada frecuencia propia en cualquiera de las ecuaciones (<a href="#eq-10_6" class="quarto-xref">6</a>) o (<a href="#eq-10_7" class="quarto-xref">7</a>) se obtiene la relacion entre las amplitudes <span class="math inline">A_{1}</span> y <span class="math inline">A_{2}</span>:</p>
 <ul>
 <li><p><strong>Modo 1</strong> (<span class="math inline">\omega = \omega_{1}</span>): se obtiene <span class="math inline">A_{1} = A_{2}</span>. Ambas masas oscilan <strong>en fase</strong> (se mueven en el mismo sentido con la misma amplitud).</p></li>
 <li><p><strong>Modo 2</strong> (<span class="math inline">\omega = \omega_{2}</span>): se obtiene <span class="math inline">A_{1} = -A_{2}</span>. Ambas masas oscilan <strong>en oposicion de fase</strong> (se mueven en sentidos opuestos con la misma amplitud).</p></li>
@@ -297,16 +282,13 @@ x_{1} = A\,\cos(\omega_{1} t + \alpha_{1}) + B\,\cos(\omega_{2} t + \alpha_{2})
 x_{2} = A\,\cos(\omega_{1} t + \alpha_{1}) - B\,\cos(\omega_{2} t + \alpha_{2})
 \tag{16}</span></span></p>
 <p>donde <span class="math inline">A</span>, <span class="math inline">B</span>, <span class="math inline">\alpha_{1}</span> y <span class="math inline">\alpha_{2}</span> son constantes determinadas por las condiciones iniciales.</p>
-<div>
-<blockquote>
-<p><strong>Excitacion selectiva de cada modo</strong></p>
-<p>Para excitar selectivamente el <strong>modo 1</strong> (<span class="math inline">\omega_{1} = \sqrt{k/m}</span>) basta con desplazar ambas masas la misma distancia respecto de su posicion de equilibrio y <strong>en el mismo sentido</strong>. De este modo, las condiciones iniciales imponen <span class="math inline">A_{1} = A_{2}</span>, de manera que en las ecuaciones <a href="#eq-10_15" class="quarto-xref">Ecuación&nbsp;15</a> y <a href="#eq-10_16" class="quarto-xref">Ecuación&nbsp;16</a> se tiene <span class="math inline">B = 0</span>, y el sistema oscila unicamente con la frecuencia <span class="math inline">\omega_{1}</span>. Fisicamente, el resorte central (<span class="math inline">k'</span>) no se deforma, ya que ambas masas se mueven solidariamente.</p>
-<p>Para excitar selectivamente el <strong>modo 2</strong> (<span class="math inline">\omega_{2} = \sqrt{(k + 2k')/m}</span>) se desplazan ambas masas la misma distancia pero <strong>en sentidos opuestos</strong>. Asi, <span class="math inline">A_{1} = -A_{2}</span>, lo que implica <span class="math inline">A = 0</span> en las ecuaciones <a href="#eq-10_15" class="quarto-xref">Ecuación&nbsp;15</a> y <a href="#eq-10_16" class="quarto-xref">Ecuación&nbsp;16</a>, y el sistema oscila unicamente con la frecuencia <span class="math inline">\omega_{2}</span>. En este caso, el resorte central se comprime y se estira el doble de lo que se desplaza cada masa, contribuyendo con una fuerza recuperadora adicional <span class="math inline">2k'</span>, lo que explica que <span class="math inline">\omega_{2} &gt; \omega_{1}</span>.</p>
-</blockquote>
-</div>
-<p><br></p>
+<div class="callout callout-tip"><div class="callout-title"><span>
+Excitacion selectiva de cada modo
+</span></div><div class="callout-body">
+<p>Para excitar selectivamente el <strong>modo 1</strong> (<span class="math inline">\omega_{1} = \sqrt{k/m}</span>) basta con desplazar ambas masas la misma distancia respecto de su posicion de equilibrio y <strong>en el mismo sentido</strong>. De este modo, las condiciones iniciales imponen <span class="math inline">A_{1} = A_{2}</span>, de manera que en las ecuaciones (<a href="#eq-10_15" class="quarto-xref">15</a>) y (<a href="#eq-10_16" class="quarto-xref">16</a>) se tiene <span class="math inline">B = 0</span>, y el sistema oscila unicamente con la frecuencia <span class="math inline">\omega_{1}</span>. Fisicamente, el resorte central (<span class="math inline">k'</span>) no se deforma, ya que ambas masas se mueven solidariamente.</p>
+<p>Para excitar selectivamente el <strong>modo 2</strong> (<span class="math inline">\omega_{2} = \sqrt{(k + 2k')/m}</span>) se desplazan ambas masas la misma distancia pero <strong>en sentidos opuestos</strong>. Asi, <span class="math inline">A_{1} = -A_{2}</span>, lo que implica <span class="math inline">A = 0</span> en las ecuaciones (<a href="#eq-10_15" class="quarto-xref">15</a>) y (<a href="#eq-10_16" class="quarto-xref">16</a>), y el sistema oscila unicamente con la frecuencia <span class="math inline">\omega_{2}</span>. En este caso, el resorte central se comprime y se estira el doble de lo que se desplaza cada masa, contribuyendo con una fuerza recuperadora adicional <span class="math inline">2k'</span>, lo que explica que <span class="math inline">\omega_{2} &gt; \omega_{1}</span>.</p>
+</div></div>
 <h2 id="descripcion-del-aparato" class="anchored">Descripcion del aparato</h2>
-<p><br></p>
 <div class="columns">
 <div class="column" style="width:40%;">
 <p>El montaje experimental es el mismo que el descrito en la Practica 9: un carril de aire con bomba para eliminar el rozamiento. Se colocan dos deslizadores de masas iguales sobre el carril, sujetos a los extremos fijos mediante dos resortes de constante <span class="math inline">k</span> y acoplados entre si por un tercer resorte de constante <span class="math inline">k'</span>. El soporte auxiliar permite acortar la distancia util del carril para que los resortes trabajen en regimen elastico.</p>
@@ -319,11 +301,8 @@ x_{2} = A\,\cos(\omega_{1} t + \alpha_{1}) - B\,\cos(\omega_{2} t + \alpha_{2})
 </div>
 </div>
 <!-- end columns -->
-<p><br></p>
 <h2 id="metodo-operatorio" class="anchored">Metodo operatorio</h2>
-<p><br></p>
 <h3 id="parte-1.-constantes-elasticas-de-los-resortes" class="anchored">Parte 1. Constantes elasticas de los resortes</h3>
-<p><br></p>
 <div class="columns">
 <div class="column" style="width:8%;">
 <p><strong>1</strong></p>
@@ -375,9 +354,7 @@ x_{2} = A\,\cos(\omega_{1} t + \alpha_{1}) - B\,\cos(\omega_{2} t + \alpha_{2})
 </div>
 </div>
 </div>
-<p><br></p>
 <h3 id="parte-2.-determinacion-del-periodo-para-el-modo-1-en-fase" class="anchored">Parte 2. Determinacion del periodo para el Modo 1 (en fase)</h3>
-<p><br></p>
 <div class="columns">
 <div class="column" style="width:8%;">
 <p><strong>3</strong></p>
@@ -393,7 +370,6 @@ x_{2} = A\,\cos(\omega_{1} t + \alpha_{1}) - B\,\cos(\omega_{2} t + \alpha_{2})
 <p><span class="math display">
 T_{1,\textrm{teo}} = 2\pi\sqrt{\dfrac{m}{k}} = 2\pi\sqrt{\dfrac{0{,}2001}{15{,}0}} = 2\pi \times 0{,}1155 = 0{,}726 \textrm{ s}
 </span></p>
-<p><br></p>
 <table class="caption-top">
 <thead>
 <tr class="header">
@@ -430,7 +406,6 @@ T_{1,\textrm{teo}} = 2\pi\sqrt{\dfrac{m}{k}} = 2\pi\sqrt{\dfrac{0{,}2001}{15{,}0
 </tr>
 </tbody>
 </table>
-<p><br></p>
 </div>
 </div>
 </div>
@@ -440,10 +415,9 @@ T_{1,\textrm{teo}} = 2\pi\sqrt{\dfrac{m}{k}} = 2\pi\sqrt{\dfrac{0{,}2001}{15{,}0
 <p><strong>4</strong></p>
 </div><div class="column" style="width:92%;">
 <p><strong>Calculo del periodo medio y su incertidumbre (Modo 1).</strong></p>
-<div>
-<blockquote>
-<p><strong>Analisis de los datos del Modo 1</strong></p>
-<p><br></p>
+<details class="callout callout-caution"><summary class="callout-title"><span>
+Analisis de los datos del Modo 1
+</span></summary><div class="callout-body">
 <p>Valor medio del periodo:</p>
 <p><span class="math display">
 \bar{T}_{1} = \dfrac{1}{5}\sum_{i=1}^{5} T_{1,i} = \dfrac{0{,}732 + 0{,}728 + 0{,}735 + 0{,}730 + 0{,}731}{5} = 0{,}7312 \textrm{ s}
@@ -469,7 +443,6 @@ s_{T_{1}} = \sqrt{\dfrac{0{,}64 + 10{,}24 + 14{,}44 + 1{,}44 + 0{,}04}{4} \times
 <p><span class="math display">
 \omega_{1,\textrm{exp}} = \dfrac{2\pi}{T_{1,\textrm{exp}}} = \dfrac{2\pi}{0{,}731} = 8{,}594 \textrm{ rad/s}
 </span></p>
-<p><br></p>
 <p><strong>Comparacion con el valor teorico:</strong></p>
 <p><span class="math display">
 T_{1,\textrm{teo}} = 2\pi\sqrt{\dfrac{m}{k}} = 2\pi\sqrt{\dfrac{0{,}2001}{15{,}0}} = 0{,}726 \textrm{ s}
@@ -484,13 +457,10 @@ T_{1,\textrm{teo}} = 2\pi\sqrt{\dfrac{m}{k}} = 2\pi\sqrt{\dfrac{0{,}2001}{15{,}0
 <p><span class="math display">
 \boxed{\varepsilon_{T_{1}} = 0{,}7\,\text{\%}}
 </span></p>
-</blockquote>
+</div></details>
 </div>
 </div>
-</div>
-<p><br></p>
 <h3 id="parte-3.-determinacion-del-periodo-para-el-modo-2-en-oposicion-de-fase" class="anchored">Parte 3. Determinacion del periodo para el Modo 2 (en oposicion de fase)</h3>
-<p><br></p>
 <div class="columns">
 <div class="column" style="width:8%;">
 <p><strong>5</strong></p>
@@ -505,7 +475,6 @@ T_{1,\textrm{teo}} = 2\pi\sqrt{\dfrac{m}{k}} = 2\pi\sqrt{\dfrac{0{,}2001}{15{,}0
 <p><span class="math display">
 T_{2,\textrm{teo}} = 2\pi\sqrt{\dfrac{m}{k + 2k'}} = 2\pi\sqrt{\dfrac{0{,}2001}{15{,}0 + 20{,}0}} = 2\pi\sqrt{\dfrac{0{,}2001}{35{,}0}} = 0{,}475 \textrm{ s}
 </span></p>
-<p><br></p>
 <table class="caption-top">
 <thead>
 <tr class="header">
@@ -542,7 +511,6 @@ T_{2,\textrm{teo}} = 2\pi\sqrt{\dfrac{m}{k + 2k'}} = 2\pi\sqrt{\dfrac{0{,}2001}{
 </tr>
 </tbody>
 </table>
-<p><br></p>
 </div>
 </div>
 </div>
@@ -552,10 +520,9 @@ T_{2,\textrm{teo}} = 2\pi\sqrt{\dfrac{m}{k + 2k'}} = 2\pi\sqrt{\dfrac{0{,}2001}{
 <p><strong>6</strong></p>
 </div><div class="column" style="width:92%;">
 <p><strong>Calculo del periodo medio y su incertidumbre (Modo 2).</strong></p>
-<div>
-<blockquote>
-<p><strong>Analisis de los datos del Modo 2</strong></p>
-<p><br></p>
+<details class="callout callout-caution"><summary class="callout-title"><span>
+Analisis de los datos del Modo 2
+</span></summary><div class="callout-body">
 <p>Valor medio del periodo:</p>
 <p><span class="math display">
 \bar{T}_{2} = \dfrac{1}{5}\sum_{i=1}^{5} T_{2,i} = \dfrac{0{,}478 + 0{,}481 + 0{,}476 + 0{,}479 + 0{,}480}{5} = 0{,}4788 \textrm{ s}
@@ -581,7 +548,6 @@ s_{T_{2}} = \sqrt{\dfrac{0{,}64 + 4{,}84 + 7{,}84 + 0{,}04 + 1{,}44}{4} \times 1
 <p><span class="math display">
 \omega_{2,\textrm{exp}} = \dfrac{2\pi}{T_{2,\textrm{exp}}} = \dfrac{2\pi}{0{,}479} = 13{,}12 \textrm{ rad/s}
 </span></p>
-<p><br></p>
 <p><strong>Comparacion con el valor teorico:</strong></p>
 <p><span class="math display">
 T_{2,\textrm{teo}} = 2\pi\sqrt{\dfrac{m}{k + 2k'}} = 0{,}475 \textrm{ s}
@@ -596,22 +562,18 @@ T_{2,\textrm{teo}} = 2\pi\sqrt{\dfrac{m}{k + 2k'}} = 0{,}475 \textrm{ s}
 <p><span class="math display">
 \boxed{\varepsilon_{T_{2}} = 0{,}8\,\text{\%}}
 </span></p>
-</blockquote>
+</div></details>
 </div>
 </div>
-</div>
-<p><br></p>
 <h3 id="parte-4.-propagacion-de-errores-y-resumen-de-resultados" class="anchored">Parte 4. Propagacion de errores y resumen de resultados</h3>
-<p><br></p>
 <div class="columns">
 <div class="column" style="width:8%;">
 <p><strong>7</strong></p>
 </div><div class="column" style="width:92%;">
 <p><strong>Propagacion de errores en los periodos teoricos.</strong></p>
-<div>
-<blockquote>
-<p><strong>Propagacion de errores</strong></p>
-<p><br></p>
+<details class="callout callout-caution"><summary class="callout-title"><span>
+Propagacion de errores
+</span></summary><div class="callout-body">
 <p>El periodo teorico del modo 1 es <span class="math inline">T_{1} = 2\pi\sqrt{m/k}</span>, que depende de <span class="math inline">m</span> y <span class="math inline">k</span>. El error se propaga como:</p>
 <p><span class="math display">
 \Delta T_{1} = T_{1}\sqrt{\left(\dfrac{1}{2}\dfrac{\Delta m}{m}\right)^{2} + \left(\dfrac{1}{2}\dfrac{\Delta k}{k}\right)^{2}}
@@ -640,8 +602,7 @@ T_{2,\textrm{teo}} = 2\pi\sqrt{\dfrac{m}{k + 2k'}} = 0{,}475 \textrm{ s}
 <p><span class="math display">
 \boxed{T_{2,\textrm{teo}} = 0{,}475 \pm 0{,}003 \textrm{ s}}
 </span></p>
-</blockquote>
-</div>
+</div></details>
 </div>
 </div>
 <div class="columns">
@@ -655,10 +616,9 @@ T_{2,\textrm{teo}} = 2\pi\sqrt{\dfrac{m}{k + 2k'}} = 0{,}475 \textrm{ s}
 <figcaption>Representación gráfica comparativa de los modos normales: periodos teóricos frente a experimentales</figcaption>
 </figure>
 </div>
-<div>
-<blockquote>
-<p><strong>Tabla comparativa</strong></p>
-<p><br></p>
+<details class="callout callout-caution"><summary class="callout-title"><span>
+Tabla comparativa
+</span></summary><div class="callout-body">
 <table class="caption-top">
 <colgroup>
 <col style="width: 16%">
@@ -707,12 +667,11 @@ T_{2,\textrm{teo}} = 2\pi\sqrt{\dfrac{m}{k + 2k'}} = 0{,}475 \textrm{ s}
 </tr>
 </tbody>
 </table>
-<p><br></p>
 <p><strong>Conclusiones:</strong></p>
 <ul>
 <li>Los valores experimentales de ambos periodos son compatibles con los valores teoricos dentro de las incertidumbres.</li>
 <li>Las discrepancias porcentuales son inferiores al <span class="math inline">1\,\text{\%}</span>, lo que confirma la validez de la teoria de osciladores acoplados.</li>
-<li>Se verifica que <span class="math inline">\omega_{2} &gt; \omega_{1}</span>, es decir, el modo en oposicion de fase tiene mayor frecuencia, como predice la ecuacion <a href="#eq-10_11" class="quarto-xref">Ecuación&nbsp;11</a>.</li>
+<li>Se verifica que <span class="math inline">\omega_{2} &gt; \omega_{1}</span>, es decir, el modo en oposicion de fase tiene mayor frecuencia, como predice la ecuacion (<a href="#eq-10_11" class="quarto-xref">11</a>).</li>
 <li>La relacion <span class="math inline">T_{1}/T_{2}</span> experimental coincide con el valor teorico, lo que constituye una verificacion adicional e independiente de los valores de <span class="math inline">k</span> y <span class="math inline">k'</span>.</li>
 </ul>
 <p><span class="math display">
@@ -721,22 +680,18 @@ T_{2,\textrm{teo}} = 2\pi\sqrt{\dfrac{m}{k + 2k'}} = 0{,}475 \textrm{ s}
 <p><span class="math display">
 \boxed{\omega_{1,\textrm{exp}} = 8{,}59 \textrm{ rad/s} \hspace{1cm} \omega_{2,\textrm{exp}} = 13{,}12 \textrm{ rad/s}}
 </span></p>
-</blockquote>
+</div></details>
 </div>
 </div>
-</div>
-<p><br></p>
-<div>
-<blockquote>
-<p><strong>Ejercicios Previos</strong></p>
-<p><br></p>
+<div class="callout callout-tip"><div class="callout-title"><span>
+Ejercicios Previos
+</span></div><div class="callout-body">
 <ol type="1">
 <li>Demostrar que, para el caso simetrico (<span class="math inline">m_{1} = m_{2} = m</span>, <span class="math inline">k_{1} = k_{2} = k</span>, <span class="math inline">k_{3} = k'</span>), las frecuencias propias del sistema son <span class="math inline">\omega_{1} = \sqrt{k/m}</span> y <span class="math inline">\omega_{2} = \sqrt{(k + 2k')/m}</span>.</li>
 </ol>
-<div>
-<blockquote>
-<p><strong>Solucion del ejercicio 1</strong></p>
-<p><br></p>
+<details class="callout callout-caution"><summary class="callout-title"><span>
+Solucion del ejercicio 1
+</span></summary><div class="callout-body">
 <p>Partiendo de la condicion de determinante nulo (<a href="#eq-10_8" class="quarto-xref">Ecuación&nbsp;8</a>) con <span class="math inline">k_{1} = k_{2} = k</span>, <span class="math inline">k_{3} = k'</span> y <span class="math inline">m_{1} = m_{2} = m</span>:</p>
 <p><span class="math display">
 \begin{vmatrix}
@@ -761,24 +716,21 @@ k + k' - m\,\omega^{2} &amp; -k' \\
 <p><span class="math display">
 \omega_{2}^{2} = \dfrac{k + 2k'}{m} \Rightarrow \boxed{\omega_{2} = \sqrt{\dfrac{k + 2k'}{m}}}
 </span></p>
-</blockquote>
-</div>
-<p><br></p>
+</div></details>
 <ol start="2" type="1">
 <li>Demostrar que para el modo 1 (<span class="math inline">\omega = \omega_{1}</span>) se cumple <span class="math inline">A_{1} = A_{2}</span> y para el modo 2 (<span class="math inline">\omega = \omega_{2}</span>) se cumple <span class="math inline">A_{1} = -A_{2}</span>.</li>
 </ol>
-<div>
-<blockquote>
-<p><strong>Solucion del ejercicio 2</strong></p>
-<p><br></p>
-<p>Sustituyendo <span class="math inline">\omega_{1}^{2} = k/m</span> en la ecuacion <a href="#eq-10_6" class="quarto-xref">Ecuación&nbsp;6</a> (caso simetrico):</p>
+<details class="callout callout-caution"><summary class="callout-title"><span>
+Solucion del ejercicio 2
+</span></summary><div class="callout-body">
+<p>Sustituyendo <span class="math inline">\omega_{1}^{2} = k/m</span> en la ecuacion (<a href="#eq-10_6" class="quarto-xref">6</a>) (caso simetrico):</p>
 <p><span class="math display">
 (k + k' - m \cdot k/m)\,A_{1} - k'\,A_{2} = 0
 </span></p>
 <p><span class="math display">
 k'\,A_{1} - k'\,A_{2} = 0 \Rightarrow \boxed{A_{1} = A_{2}}
 </span></p>
-<p>Sustituyendo <span class="math inline">\omega_{2}^{2} = (k + 2k')/m</span> en la ecuacion <a href="#eq-10_6" class="quarto-xref">Ecuación&nbsp;6</a>:</p>
+<p>Sustituyendo <span class="math inline">\omega_{2}^{2} = (k + 2k')/m</span> en la ecuacion (<a href="#eq-10_6" class="quarto-xref">6</a>):</p>
 <p><span class="math display">
 (k + k' - m \cdot (k + 2k')/m)\,A_{1} - k'\,A_{2} = 0
 </span></p>
@@ -788,16 +740,13 @@ k'\,A_{1} - k'\,A_{2} = 0 \Rightarrow \boxed{A_{1} = A_{2}}
 <p><span class="math display">
 -k'\,A_{1} - k'\,A_{2} = 0 \Rightarrow \boxed{A_{1} = -A_{2}}
 </span></p>
-</blockquote>
-</div>
-<p><br></p>
+</div></details>
 <ol start="3" type="1">
 <li>Calcular los valores teoricos de <span class="math inline">T_{1}</span> y <span class="math inline">T_{2}</span> para <span class="math inline">m = 200</span> g, <span class="math inline">k = 15{,}0</span> N/m y <span class="math inline">k' = 10{,}0</span> N/m.</li>
 </ol>
-<div>
-<blockquote>
-<p><strong>Solucion del ejercicio 3</strong></p>
-<p><br></p>
+<details class="callout callout-caution"><summary class="callout-title"><span>
+Solucion del ejercicio 3
+</span></summary><div class="callout-body">
 <p><span class="math display">
 T_{1} = 2\pi\sqrt{\dfrac{m}{k}} = 2\pi\sqrt{\dfrac{0{,}200}{15{,}0}} = 2\pi\sqrt{0{,}01333} = 2\pi \times 0{,}1155 = 0{,}726 \textrm{ s}
 </span></p>
@@ -808,38 +757,30 @@ T_{2} = 2\pi\sqrt{\dfrac{m}{k + 2k'}} = 2\pi\sqrt{\dfrac{0{,}200}{35{,}0}} = 2\p
 \boxed{T_{1} = 0{,}726 \textrm{ s} \hspace{1.5cm} T_{2} = 0{,}475 \textrm{ s}}
 </span></p>
 <p>Se verifica que <span class="math inline">T_{2} &lt; T_{1}</span>, ya que el modo 2 tiene mayor frecuencia.</p>
-</blockquote>
-</div>
-<p><br></p>
+</div></details>
 <ol start="4" type="1">
 <li>Explicar fisicamente por que <span class="math inline">\omega_{2} &gt; \omega_{1}</span>. ?Que papel desempena el resorte central en cada modo?</li>
 </ol>
-<div>
-<blockquote>
-<p><strong>Solucion del ejercicio 4</strong></p>
-<p><br></p>
+<details class="callout callout-caution"><summary class="callout-title"><span>
+Solucion del ejercicio 4
+</span></summary><div class="callout-body">
 <p>En el <strong>modo 1</strong> (en fase), ambas masas se mueven en el mismo sentido y con la misma amplitud. El resorte central no se deforma, ya que la distancia entre las dos masas no cambia. Por tanto, el resorte central no contribuye a la fuerza recuperadora, y la frecuencia depende unicamente de <span class="math inline">k</span>: <span class="math inline">\omega_{1} = \sqrt{k/m}</span>.</p>
 <p>En el <strong>modo 2</strong> (en oposicion de fase), las masas se mueven en sentidos opuestos. Si una masa se desplaza <span class="math inline">+x</span>, la otra se desplaza <span class="math inline">-x</span>, por lo que el resorte central se deforma una cantidad <span class="math inline">2x</span>. Esto annade una fuerza recuperadora adicional de magnitud <span class="math inline">k' \cdot 2x</span> a cada masa. La constante elastica efectiva es <span class="math inline">k + 2k'</span>, y la frecuencia resulta <span class="math inline">\omega_{2} = \sqrt{(k + 2k')/m}</span>.</p>
 <p><span class="math display">
 \boxed{\omega_{2} &gt; \omega_{1} \textrm{ porque en el modo 2 el resorte central contribuye a la rigidez efectiva del sistema.}}
 </span></p>
-</blockquote>
-</div>
-<p><br></p>
-</blockquote>
-</div>
-<div>
-<blockquote>
-<p><strong>Ejercicios Posteriores</strong></p>
-<p><br></p>
+</div></details>
+</div></div>
+<div class="callout callout-tip"><div class="callout-title"><span>
+Ejercicios Posteriores
+</span></div><div class="callout-body">
 <ol type="1">
 <li>A partir de los datos experimentales, calcular las constantes elasticas <span class="math inline">k</span> y <span class="math inline">k'</span> utilizando las frecuencias medidas de ambos modos. Comparar con los valores obtenidos en la Practica 9 por el metodo estatico.</li>
 </ol>
-<div>
-<blockquote>
-<p><strong>Solucion del ejercicio 1</strong></p>
-<p><br></p>
-<p>De la ecuacion <a href="#eq-10_11" class="quarto-xref">Ecuación&nbsp;11</a>:</p>
+<details class="callout callout-caution"><summary class="callout-title"><span>
+Solucion del ejercicio 1
+</span></summary><div class="callout-body">
+<p>De la ecuacion (<a href="#eq-10_11" class="quarto-xref">11</a>):</p>
 <p><span class="math display">
 \omega_{1}^{2} = \dfrac{k}{m} \Rightarrow k = m\,\omega_{1}^{2} = 0{,}2001 \times (8{,}594)^{2} = 0{,}2001 \times 73{,}86 = 14{,}8 \textrm{ N/m}
 </span></p>
@@ -881,35 +822,28 @@ T_{2} = 2\pi\sqrt{\dfrac{m}{k + 2k'}} = 2\pi\sqrt{\dfrac{0{,}200}{35{,}0}} = 2\p
 </tbody>
 </table>
 <p>Los valores son compatibles dentro de las incertidumbres experimentales.</p>
-</blockquote>
-</div>
-<p><br></p>
+</div></details>
 <ol start="2" type="1">
 <li>Discutir las posibles fuentes de error sistematico en el experimento (rozamiento residual, asimetria de los resortes, no linealidad de los muelles, precision del cronometro, etc.).</li>
 </ol>
-<p><br></p>
 <ol start="3" type="1">
 <li>Si las masas no son exactamente iguales (<span class="math inline">m_{1} \neq m_{2}</span>), el sistema deja de ser simetrico. Plantear las ecuaciones generales y discutir cualitativamente como se modifican las frecuencias propias y los modos normales.</li>
 </ol>
-<div>
-<blockquote>
-<p><strong>Solucion del ejercicio 3</strong></p>
-<p><br></p>
+<details class="callout callout-caution"><summary class="callout-title"><span>
+Solucion del ejercicio 3
+</span></summary><div class="callout-body">
 <p>Si <span class="math inline">m_{1} \neq m_{2}</span>, hay que resolver la ecuacion bicuadrada completa (<a href="#eq-10_9" class="quarto-xref">Ecuación&nbsp;9</a>):</p>
 <p><span class="math display">
 (k_{1} + k_{3} - m_{1}\,\omega^{2})(k_{2} + k_{3} - m_{2}\,\omega^{2}) - k_{3}^{2} = 0
 </span></p>
 <p>Las frecuencias propias siguen siendo dos valores reales y positivos, pero los modos normales ya no son puramente simétricos (<span class="math inline">A_{1} = A_{2}</span>) ni puramente antisimetricos (<span class="math inline">A_{1} = -A_{2}</span>). En su lugar, la relacion <span class="math inline">A_{1}/A_{2}</span> toma valores intermedios que dependen de la diferencia de masas. A medida que la asimetria aumenta, los modos se <em>localizan</em>: cada modo tiende a implicar predominantemente el movimiento de una sola masa.</p>
-</blockquote>
-</div>
-<p><br></p>
+</div></details>
 <ol start="4" type="1">
 <li>Calcular la relacion de frecuencias <span class="math inline">\omega_{2}/\omega_{1}</span> y expresarla en funcion del cociente <span class="math inline">k'/k</span>. ?Para que valor de <span class="math inline">k'/k</span> las dos frecuencias son iguales?</li>
 </ol>
-<div>
-<blockquote>
-<p><strong>Solucion del ejercicio 4</strong></p>
-<p><br></p>
+<details class="callout callout-caution"><summary class="callout-title"><span>
+Solucion del ejercicio 4
+</span></summary><div class="callout-body">
 <p><span class="math display">
 \dfrac{\omega_{2}}{\omega_{1}} = \sqrt{\dfrac{k + 2k'}{k}} = \sqrt{1 + \dfrac{2k'}{k}}
 </span></p>
@@ -921,14 +855,9 @@ T_{2} = 2\pi\sqrt{\dfrac{m}{k + 2k'}} = 2\pi\sqrt{\dfrac{0{,}200}{35{,}0}} = 2\p
 <p><span class="math display">
 \boxed{\dfrac{\omega_{2}}{\omega_{1}} = \sqrt{1 + 2k'/k} = 1{,}53}
 </span></p>
-</blockquote>
-</div>
-<p><br></p>
-</blockquote>
-</div>
-<p><br></p>
+</div></details>
+</div></div>
 <h2 id="referencias" class="anchored">Referencias</h2>
-<p><br></p>
 <ol type="1">
 <li><p>Guion de practicas de Laboratorio de Mecanica, UNED — Practica 4: Vibraciones libres con 2 grados de libertad.</p></li>
 <li><p>French, A.P., <em>Vibrations and Waves</em>, MIT Introductory Physics Series, Cap. 5: Coupled oscillators and normal modes.</p></li>
@@ -1089,6 +1018,7 @@ T_{2} = 2\pi\sqrt{\dfrac{m}{k + 2k'}} = 2\pi\sqrt{\dfrac{0{,}200}{35{,}0}} = 2\p
     </div>
   </div>
 </footer>
+<nav class="prac-prevnext"><a href="../vibraciones-1gdl/index.html">← P19 Vibraciones libres con un grado de libertad</a><a href="../index.html">Catálogo</a><span></span></nav>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")

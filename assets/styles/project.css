@@ -64,26 +64,85 @@ a.pcard:hover { border-color: var(--teal); text-decoration: none; }
 .pcard .links { font-family: var(--sans); font-size: 13.5px; display: flex; gap: 12px; flex-wrap: wrap; margin-top: 4px; align-items: center; }
 
 /* A practice page (the guides' own Markdown, inside the docs layout). */
+/* Above the guide's title, one line: id, subjects, the PDF; the title block is the guide's own, without its date
+   and with its abstract as the opening paragraph (L010). Prev/next sit at the foot of the guide. */
+.prac-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; font-family: var(--sans); font-size: 14px;
+  padding: 0 0 12px; margin: 0 0 22px; border-bottom: 1px solid var(--line-soft); }
+.prac-head .chips { display: inline-flex; flex-wrap: wrap; gap: 6px; }
+.prac-head .links a { font-weight: 600; }
+body:has(.prac-head) #title-block-header .date { display: none; }
+body:has(.prac-head) #title-block-header .abstract-title { display: none; }
+body:has(.prac-head) #title-block-header .subtitle { margin-top: 2px; }
+body:has(.prac-head) #title-block-header .author { margin: 6px 0 0; color: var(--ink-soft); font-size: 15px; }
+body:has(.prac-head) #title-block-header .abstract { margin: 18px 0 6px; padding: 12px 16px; background: var(--orange-tint);
+  border-left: 3px solid var(--teal); font-size: 16px; }
+body:has(.prac-head) #title-block-header .abstract p { margin: 0; }
+.docs-main > .prac-prevnext:last-of-type, .docs-main .prac-prevnext { margin: 40px 0 8px; padding-top: 14px; border-top: 1px solid var(--line-soft); }
 .prac-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px 24px; border-top: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft); padding: 12px 0; margin: 14px 0 22px; font-size: 14px; }
 .prac-meta .v { color: var(--ink); }
 .edition { border: 1px dashed var(--teal); background: var(--orange-tint); padding: 10px 14px; margin: 18px 0; font-size: 14.5px; }
 .workshop-note { border: 1px dashed var(--amber); background: var(--tint); padding: 10px 14px 4px; margin: 0 0 18px; font-size: 14.5px; }
 .workshop-note p, .workshop-note ul, .workshop-note ol { margin: 0 0 8px; }
 .docs-main br + br { display: none; }                      /* the guides' <br><br> spacing, calmed */
-.docs-main .columns { display: flex; gap: 20px; flex-wrap: wrap; align-items: flex-start; }
-.docs-main .column { min-width: 0; }
+/* The guides' columns: a step's number beside the step (8 % | 92 %), a label beside its data (25 % | 75 %), text
+   beside a figure. One row, never wrapped: the gap is taken from the columns, not added to them (L010). */
+.docs-main .columns { display: flex; flex-wrap: wrap; gap: 0; align-items: flex-start; margin: 14px 0; }
+.docs-main .column { min-width: 0; flex: 0 0 auto; box-sizing: border-box; }
+.docs-main .column + .column { padding-left: 18px; }
+/* what some guides leave inside the columns block but outside both columns (paragraphs, callouts) runs below them */
+.docs-main .columns > :not(.column) { flex: 0 0 100%; min-width: 0; }
+.docs-main .column[style*="width:8%"] > p:only-child strong { font-family: var(--serif); font-size: 20px; color: var(--teal); }
+.docs-main .column[style*="width:25%"] > p:only-child strong { font-size: 14px; color: var(--ink-soft); }
+.docs-main .column > table { width: 100%; }
+.docs-main table:not(.matrix) th { text-transform: none; letter-spacing: 0; font-size: 14px; color: var(--ink); }   /* units keep their case: kg, s, not KG, S */
 .docs-main .column img, .docs-main figure img, .docs-main p img { max-width: 100%; height: auto; }
 .docs-main img[style*="float"], .docs-main .quarto-figure-right { float: none; }
+.docs-main .quarto-figure-right, .docs-main .quarto-figure-right figure { text-align: right; }
+.docs-main .quarto-figure-center, .docs-main .quarto-figure-center figure, .docs-main p:has(> img:only-child) { text-align: center; }
+
+/* Callouts (assets/filters/callouts.lua): a box with a tinted title; the collapsible ones fold, as in the guides'
+   first site. Caution in the site's orange, tip in green. */
+.docs-main .callout { --c: var(--teal); border: 1px solid color-mix(in srgb, var(--c) 35%, var(--line)); border-left: 4px solid var(--c);
+  background: var(--paper); padding: 0; margin: 20px 0; border-radius: 3px; font-size: 15.5px; }
+.docs-main .callout-tip { --c: var(--ok); }
+.docs-main .callout-note { --c: var(--amber); }
+.docs-main .callout-title { display: flex; align-items: center; gap: 8px; padding: 9px 14px; font-family: var(--sans); font-weight: 600;
+  font-size: 15px; color: var(--ink); background: color-mix(in srgb, var(--c) 9%, var(--paper)); }
+.docs-main details.callout > summary { list-style: none; cursor: pointer; }
+.docs-main details.callout > summary::-webkit-details-marker { display: none; }
+.docs-main details.callout > summary::after { content: "›"; margin-left: auto; font-size: 20px; line-height: 1; color: var(--ink-faint); transition: transform .15s; }
+.docs-main details.callout[open] > summary::after { transform: rotate(90deg); }
+.docs-main details.callout:not([open]) > summary { border-radius: 3px; }
+.docs-main .callout-body { padding: 12px 16px 6px; }
+.docs-main .callout-body > :first-child { margin-top: 0; }
+.docs-main .callout-body img { max-width: 100%; height: auto; }
+
+/* Tabsets (Quarto's tabby, no Bootstrap). */
+.docs-main .panel-tabset { margin: 20px 0; }
+.docs-main .panel-tabset-tabby { display: flex; flex-wrap: wrap; gap: 4px; list-style: none; padding: 0; margin: 0; border-bottom: 1px solid var(--line); }
+.docs-main .panel-tabset-tabby li { margin: 0; }
+.docs-main .panel-tabset-tabby a { display: block; padding: 7px 14px; font-family: var(--sans); font-size: 14.5px; color: var(--ink-soft);
+  border: 1px solid transparent; border-bottom: 0; border-radius: 3px 3px 0 0; text-decoration: none; }
+.docs-main .panel-tabset-tabby a[aria-selected="true"] { color: var(--ink); border-color: var(--line); background: var(--paper); margin-bottom: -1px; }
+.docs-main .panel-tabset .tab-content { padding: 14px 2px 0; }
 .docs-main table { display: block; width: max-content; max-width: 100%; overflow-x: auto; }   /* the guides' data tables scroll on a phone */
 .docs-main .quarto-title-block table, .docs-main #title-block-header table { display: table; width: auto; }
 .page-article code, .docs-main code, .mission .mono, .files li, .docs-main a, .docs-main p, .docs-main li { overflow-wrap: anywhere; }
-.docs-main p:has(.katex), .docs-main li:has(.katex), .docs-main blockquote:has(.katex) { overflow-x: auto; }   /* a long inline formula scrolls instead of widening the page */
+.docs-main p:has(.katex), .docs-main blockquote:has(.katex) { overflow-x: auto; }   /* a long inline formula scrolls instead of widening the page */
+.docs-main li:has(.katex) > p { overflow-x: auto; }   /* in a list, the item's paragraph scrolls, not the item: the number stays */
 .docs-main .table-wrap, .docs-main .cell-output-display { overflow-x: auto; }
 .docs-main .quarto-title-block, .docs-main #title-block-header { display: block !important; max-width: none; padding: 0; margin: 0 0 8px; }
 .docs-main .quarto-title-block .quarto-title-meta, .docs-main .quarto-title-block .quarto-other-links { display: none; }
 .docs-main .quarto-title-block .abstract { display: none; }
 .docs-main iframe { max-width: 100%; }
-@media (max-width: 760px) { .docs-main .columns { flex-direction: column; } .docs-main .column { width: 100% !important; } }
+@media (max-width: 760px) {
+  .docs-main .columns { flex-direction: column; gap: 6px; } .docs-main .column { width: 100% !important; }
+  /* a step keeps its number beside it */
+  .docs-main .columns:has(> .column[style*="width:8%"]) { flex-direction: row; flex-wrap: wrap; gap: 0; }
+  .docs-main .columns:has(> .column[style*="width:8%"]) > .column[style*="width:8%"] { width: auto !important; flex: 0 0 auto; }
+  .docs-main .columns:has(> .column[style*="width:8%"]) > .column:not([style*="width:8%"]) { flex: 1 1 0; width: auto !important; padding-left: 12px; }
+  .docs-main .columns:has(> .column[style*="width:8%"]) > :not(.column) { flex-basis: 100%; }
+}
 
 .prac-prevnext { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-family: var(--sans); font-size: 14px; margin: 0 0 18px; }
 .prac-prevnext a { color: var(--ink-soft); } .prac-prevnext a:hover { color: var(--teal); }

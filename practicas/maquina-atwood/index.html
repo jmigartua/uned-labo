@@ -164,7 +164,7 @@ window.Quarto = {
 <details class="group" open=""><summary class="t">Contacto</summary><ul><li><a href="../../contacto/index.html">Contacto</a></li></ul></details>
 </nav>
 <div class="docs-main">
-<div class="itin-head"><span class="kicker">P18 · Serie mecánica · Práctica 5 de Física I y II</span></div><div class="prac-meta"><div><span class="lbl">Servida a</span><span class="v"><a class="chip chip-fisica" href="../../asignaturas/fisica/index.html" title="Práctica 5 de Física I y II">Física I y II</a>  <span class="chip chip-phy">phyphox</span></span></div><div><span class="lbl">Guion</span><span class="v"><a href="practice_08_maquina_atwood.pdf">Guion en PDF</a></span></div><div><span class="lbl">En resumen</span><span class="v">a frente a Δm; valor de g y par de frenado de la polea; masa equivalente de la polea.</span></div></div><nav class="prac-prevnext"><a href="../momentos-inercia/index.html">← P17 Momentos de inercia de sólidos</a><a href="../index.html">Catálogo</a><a href="../vibraciones-1gdl/index.html">P19 Vibraciones libres con un grado de libertad →</a></nav>
+<div class="prac-head"><span class="pid">P18</span><span class="chips"><a class="chip chip-fisica" href="../../asignaturas/fisica/index.html" title="Práctica 5 de Física I y II">Física I y II</a>  <span class="chip chip-phy">phyphox</span></span><span class="links"><a href="practice_08_maquina_atwood.pdf">Guion en PDF</a></span></div>
 
 <header id="title-block-header">
 <h1 class="title">Máquina de Atwood</h1>
@@ -179,16 +179,12 @@ window.Quarto = {
 </header>
 
 
-<p><br> <br></p>
 <h2 id="objetivos" class="anchored">Objetivos</h2>
-<p><br></p>
 <ol type="1">
 <li>Determinar el valor de la aceleración de la gravedad <span class="math inline">g</span> mediante la máquina de Atwood.</li>
 <li>Estimar el par de frenado <span class="math inline">\Gamma_r</span> debido al rozamiento en el eje de la polea.</li>
 </ol>
-<p><br></p>
 <h2 id="material" class="anchored">Material</h2>
-<p><br></p>
 <ol type="1">
 <li>Máquina de Atwood (polea con soporte vertical)</li>
 <li>Dos masas cilíndricas iguales con sus soportes</li>
@@ -198,20 +194,15 @@ window.Quarto = {
 <li>Balanza de precisión</li>
 <li>Ordenador con software de ajuste</li>
 </ol>
-<p><br></p>
 <h2 id="repaso-de-teoría" class="anchored">Repaso de teoría</h2>
-<p><br></p>
 <ol type="1">
 <li>Segunda ley de Newton para traslación y rotación.</li>
 <li>Momento de inercia de un disco.</li>
 <li>Movimiento uniformemente acelerado.</li>
 <li>Regresión lineal por mínimos cuadrados.</li>
 </ol>
-<p><br></p>
 <h2 id="fundamento-teórico" class="anchored">Fundamento teórico</h2>
-<p><br></p>
 <p>Supongamos dos masas <span class="math inline">m_{1}</span> y <span class="math inline">m_{2}</span> (<span class="math inline">m_{2} &gt; m_{1}</span>) en los extremos de un hilo ideal (inextensible y sin masa) que se apoya sin deslizar sobre una polea de eje horizontal. El momento de inercia de la polea respecto de su eje es <span class="math inline">I</span> y su radio es <span class="math inline">R</span>.</p>
-<p><br></p>
 <div class="columns">
 <div class="column" style="width:40%;">
 <p>El conjunto se esquematiza en la figura, donde se representan las tensiones <span class="math inline">T_{1}</span> y <span class="math inline">T_{2}</span> en los ramales izquierdo y derecho del hilo, respectivamente, así como el peso de cada masa. Al soltar el sistema, la masa <span class="math inline">m_{2}</span> desciende y la masa <span class="math inline">m_{1}</span> asciende con una aceleración <span class="math inline">a</span>.</p>
@@ -224,9 +215,7 @@ window.Quarto = {
 </div>
 </div>
 <!-- end columns -->
-<p><br></p>
 <h3 id="polea-ideal-sin-rozamiento" class="anchored">Polea ideal (sin rozamiento)</h3>
-<p><br></p>
 <p>Si las tensiones en los ramales derecho e izquierdo son, respectivamente, <span class="math inline">T_{2}</span> y <span class="math inline">T_{1}</span>, las ecuaciones del movimiento para cada masa y para la polea son:</p>
 <p><span id="eq-8_1"><span class="math display">
 m_{2}\, g - T_{2} = m_{2}\, a
@@ -241,19 +230,16 @@ T_{1} - m_{1}\, g = m_{1}\, a
 <p><span id="eq-8_4"><span class="math display">
 \frac{d\omega}{dt} = \frac{a}{R}
 \tag{4}</span></span></p>
-<p>Sumando las ecuaciones <a href="#eq-8_1" class="quarto-xref">Ecuación&nbsp;1</a>, <a href="#eq-8_2" class="quarto-xref">Ecuación&nbsp;2</a> y <a href="#eq-8_3" class="quarto-xref">Ecuación&nbsp;3</a> (con la sustitución de <a href="#eq-8_4" class="quarto-xref">Ecuación&nbsp;4</a>), se obtiene la aceleración del sistema:</p>
+<p>Sumando las ecuaciones (<a href="#eq-8_1" class="quarto-xref">1</a>), (<a href="#eq-8_2" class="quarto-xref">2</a>) y (<a href="#eq-8_3" class="quarto-xref">3</a>) (con la sustitución de <a href="#eq-8_4" class="quarto-xref">Ecuación&nbsp;4</a>), se obtiene la aceleración del sistema:</p>
 <p><span id="eq-8_5"><span class="math display">
 \boxed{a = \frac{(m_{2} - m_{1})\, g}{m_{1} + m_{2} + \dfrac{I}{R^{2}}}}
 \tag{5}</span></span></p>
-<div>
-<blockquote>
-<p><strong>Masa equivalente de la polea</strong></p>
+<div class="callout callout-tip"><div class="callout-title"><span>
+Masa equivalente de la polea
+</span></div><div class="callout-body">
 <p>A la relación <span class="math inline">I/R^{2}</span> se le denomina <strong>masa equivalente de la polea</strong> y representa la masa que habría que situar sobre una circunferencia de radio <span class="math inline">R</span> para obtener el mismo momento de inercia que la polea. Para una polea uniforme en forma de disco, <span class="math inline">I = \frac{1}{2}\,m_p\,R^{2}</span>, de modo que la masa equivalente vale <span class="math inline">m_p/2</span>.</p>
-</blockquote>
-</div>
-<p><br></p>
+</div></div>
 <h3 id="polea-real-con-rozamiento" class="anchored">Polea real (con rozamiento)</h3>
-<p><br></p>
 <p>En la práctica, siempre existe rozamiento en el eje de la polea. Suponiendo un par de frenado <span class="math inline">\Gamma_r</span> de valor constante durante el movimiento, la ecuación de rotación de la polea se modifica:</p>
 <p><span id="eq-8_6"><span class="math display">
 (T_{2} - T_{1})\, R - \Gamma_r = I\,\frac{a}{R}
@@ -262,7 +248,7 @@ T_{1} - m_{1}\, g = m_{1}\, a
 <p><span id="eq-8_7"><span class="math display">
 \boxed{a = \frac{(m_{2} - m_{1})\, g - \dfrac{\Gamma_r}{R}}{m_{1} + m_{2} + \dfrac{I}{R^{2}}}}
 \tag{7}</span></span></p>
-<p>Si <span class="math inline">\Gamma_r</span> es constante, el movimiento sigue siendo uniformemente acelerado. Reordenando la ecuación <a href="#eq-8_7" class="quarto-xref">Ecuación&nbsp;7</a> en forma de recta <span class="math inline">a = f(m_{2} - m_{1})</span>:</p>
+<p>Si <span class="math inline">\Gamma_r</span> es constante, el movimiento sigue siendo uniformemente acelerado. Reordenando la ecuación (<a href="#eq-8_7" class="quarto-xref">7</a>) en forma de recta <span class="math inline">a = f(m_{2} - m_{1})</span>:</p>
 <p><span id="eq-8_8"><span class="math display">
 \boxed{a = \underbrace{\frac{g}{m_{1} + m_{2} + \dfrac{I}{R^{2}}}}_{\text{pendiente } b}\cdot (m_{2} - m_{1}) - \underbrace{\frac{\dfrac{\Gamma_r}{R}}{m_{1} + m_{2} + \dfrac{I}{R^{2}}}}_{\text{ordenada } |n|}}
 \tag{8}</span></span></p>
@@ -270,9 +256,7 @@ T_{1} - m_{1}\, g = m_{1}\, a
 <p><span id="eq-8_9"><span class="math display">
 b = \frac{g}{m_{1} + m_{2} + \dfrac{I}{R^{2}}} \qquad;\qquad n = -\frac{\Gamma_r}{R\,\left(m_{1} + m_{2} + \dfrac{I}{R^{2}}\right)}
 \tag{9}</span></span></p>
-<p><br></p>
 <h3 id="cálculo-de-la-aceleración-a-partir-de-las-medidas" class="anchored">Cálculo de la aceleración a partir de las medidas</h3>
-<p><br></p>
 <p>Para un movimiento uniformemente acelerado que parte del reposo, la relación entre la distancia recorrida <span class="math inline">d</span>, la aceleración <span class="math inline">a</span> y el tiempo <span class="math inline">t</span> es:</p>
 <p><span class="math display">
 d = \frac{1}{2}\,a\,t^{2}
@@ -282,9 +266,7 @@ d = \frac{1}{2}\,a\,t^{2}
 \boxed{a = \frac{2\,d}{t^{2}}}
 \tag{10}</span></span></p>
 <p>donde <span class="math inline">d</span> es la distancia entre las plataformas de partida y llegada, y <span class="math inline">t</span> es el tiempo medio de caída.</p>
-<p><br></p>
 <h2 id="descripción-del-aparato" class="anchored">Descripción del aparato</h2>
-<p><br></p>
 <div class="columns">
 <div class="column" style="width:40%;">
 <p>La máquina de Atwood consta de una polea montada sobre un eje horizontal en la parte superior de un soporte vertical. De la polea cuelgan dos masas cilíndricas iguales conectadas por un hilo. Una plataforma de partida permite mantener la masa descendente en reposo y un tope inferior marca la posición final. El desequilibrio se consigue añadiendo pequeñas pesas adicionales sobre la masa descendente.</p>
@@ -309,9 +291,7 @@ d = \frac{1}{2}\,a\,t^{2}
 </div>
 </div>
 <!-- end columns -->
-<p><br></p>
 <h2 id="método-operatorio" class="anchored">Método operatorio</h2>
-<p><br></p>
 <div class="columns">
 <div class="column" style="width:8%;">
 <p><strong>1</strong></p>
@@ -462,7 +442,6 @@ d = \frac{1}{2}\,a\,t^{2}
 <p><strong>Datos <br> experimentales</strong></p>
 </div><div class="column" style="width:85%;">
 <p>A continuación se presentan los tiempos medidos (en segundos) para cada configuración, con <span class="math inline">d = 0{,}800</span> m.</p>
-<p><br></p>
 <table class="caption-top">
 <colgroup>
 <col style="width: 12%">
@@ -567,14 +546,13 @@ d = \frac{1}{2}\,a\,t^{2}
 <div class="column" style="width:8%;">
 <p><strong>6</strong></p>
 </div><div class="column" style="width:92%;">
-<p>Calcular la aceleración <span class="math inline">a</span> para cada configuración a partir de la ecuación <a href="#eq-8_10" class="quarto-xref">Ecuación&nbsp;10</a>:</p>
+<p>Calcular la aceleración <span class="math inline">a</span> para cada configuración a partir de la ecuación (<a href="#eq-8_10" class="quarto-xref">10</a>):</p>
 <p><span class="math display">
 a = \frac{2\,d}{\bar{t}^{2}}
 </span></p>
-<div>
-<blockquote>
-<p><strong><strong>Cálculo de las aceleraciones</strong></strong></p>
-<p><br></p>
+<details class="callout callout-caution"><summary class="callout-title"><span>
+<strong>Cálculo de las aceleraciones</strong>
+</span></summary><div class="callout-body">
 <p>Con <span class="math inline">d = 0{,}800</span> m y los tiempos medios de la tabla anterior:</p>
 <table class="caption-top">
 <colgroup>
@@ -651,8 +629,7 @@ a = \frac{2\,d}{\bar{t}^{2}}
 \Delta a = a\,\sqrt{\left(\frac{\Delta d}{d}\right)^{2} + \left(\frac{2\,\sigma_{\bar{t}}}{\bar{t}}\right)^{2}}
 </span></p>
 <p>El término dominante es la incertidumbre del tiempo, ya que <span class="math inline">\Delta d/d \approx 0{,}25\%</span> mientras que <span class="math inline">2\sigma_{\bar{t}}/\bar{t}</span> varía entre <span class="math inline">0{,}5\%</span> y <span class="math inline">0{,}6\%</span>.</p>
-</blockquote>
-</div>
+</div></details>
 </div>
 </div>
 <div class="columns">
@@ -660,20 +637,18 @@ a = \frac{2\,d}{\bar{t}^{2}}
 <p><strong>7</strong></p>
 </div><div class="column" style="width:92%;">
 <p>Representar gráficamente la aceleración <span class="math inline">a</span> (eje <span class="math inline">y</span>) frente a la diferencia de masas <span class="math inline">\Delta m = m_{2} - m_{1}</span> (eje <span class="math inline">x</span>).</p>
-<div>
-<blockquote>
-<p><strong><strong>Representación gráfica</strong>: <span class="math inline">a</span> vs <span class="math inline">\Delta m</span></strong></p>
-<p><br></p>
-<p>Representar los 7 puntos experimentales <span class="math inline">({\Delta m}_i,\, a_i)</span> con sus barras de error. Los puntos deben alinearse aproximadamente sobre una recta, de acuerdo con la ecuación <a href="#eq-8_8" class="quarto-xref">Ecuación&nbsp;8</a>. La recta tiene pendiente positiva y una ordenada en el origen ligeramente negativa (debida al par de frenado).</p>
-</blockquote>
-</div>
+<details class="callout callout-caution"><summary class="callout-title"><span>
+<strong>Representación gráfica</strong>: <span class="math inline">a</span> vs <span class="math inline">\Delta m</span>
+</span></summary><div class="callout-body">
+<p>Representar los 7 puntos experimentales <span class="math inline">({\Delta m}_i,\, a_i)</span> con sus barras de error. Los puntos deben alinearse aproximadamente sobre una recta, de acuerdo con la ecuación (<a href="#eq-8_8" class="quarto-xref">8</a>). La recta tiene pendiente positiva y una ordenada en el origen ligeramente negativa (debida al par de frenado).</p>
+</div></details>
 </div>
 </div>
 <div class="columns">
 <div class="column" style="width:8%;">
 <p><strong>8</strong></p>
 </div><div class="column" style="width:92%;">
-<p>Realizar una regresión lineal de <span class="math inline">a</span> frente a <span class="math inline">\Delta m = m_2 - m_1</span> según el modelo de la ecuación <a href="#eq-8_8" class="quarto-xref">Ecuación&nbsp;8</a>:</p>
+<p>Realizar una regresión lineal de <span class="math inline">a</span> frente a <span class="math inline">\Delta m = m_2 - m_1</span> según el modelo de la ecuación (<a href="#eq-8_8" class="quarto-xref">8</a>):</p>
 <p><span class="math display">
 a = b\cdot\Delta m + n
 </span></p>
@@ -684,10 +659,9 @@ a = b\cdot\Delta m + n
 <figcaption>Representación gráfica de la aceleración <span class="math inline">a</span> frente a <span class="math inline">\Delta m</span> con ajuste por regresión lineal</figcaption>
 </figure>
 </div>
-<div>
-<blockquote>
-<p><strong><strong>Regresión lineal y determinación de <span class="math inline">g</span> y <span class="math inline">\Gamma_r</span></strong></strong></p>
-<p><br></p>
+<details class="callout callout-caution"><summary class="callout-title"><span>
+<strong>Regresión lineal y determinación de <span class="math inline">g</span> y <span class="math inline">\Gamma_r</span></strong>
+</span></summary><div class="callout-body">
 <h3 id="resultado-de-la-regresión-lineal" class="anchored">1. Resultado de la regresión lineal</h3>
 <p>Ajustando los 7 puntos <span class="math inline">({\Delta m}_i,\, a_i)</span> (con <span class="math inline">\Delta m</span> en kg y <span class="math inline">a</span> en m/s<span class="math inline">^{2}</span>) por mínimos cuadrados, se obtiene:</p>
 <p><span class="math display">
@@ -699,10 +673,9 @@ n = -0{,}00060 \pm 0{,}00045 \textrm{ m/s}^{2}
 <p><span class="math display">
 R^{2} = 0{,}99999
 </span></p>
-<p>El coeficiente de determinación es prácticamente la unidad, lo que confirma la relación lineal predicha por la ecuación <a href="#eq-8_8" class="quarto-xref">Ecuación&nbsp;8</a>.</p>
-<p><br></p>
+<p>El coeficiente de determinación es prácticamente la unidad, lo que confirma la relación lineal predicha por la ecuación (<a href="#eq-8_8" class="quarto-xref">8</a>).</p>
 <h3 id="determinación-de-la-aceleración-de-la-gravedad-g" class="anchored">2. Determinación de la aceleración de la gravedad <span class="math inline">g</span></h3>
-<p>De la ecuación <a href="#eq-8_9" class="quarto-xref">Ecuación&nbsp;9</a>, la pendiente de la recta es:</p>
+<p>De la ecuación (<a href="#eq-8_9" class="quarto-xref">9</a>), la pendiente de la recta es:</p>
 <p><span class="math display">
 b = \frac{g}{m_{1} + m_{2} + \dfrac{I}{R^{2}}}
 </span></p>
@@ -721,9 +694,9 @@ g = 13{,}29 \times (0{,}520 + 0{,}2363) = 13{,}29 \times 0{,}7563
 <p><span class="math display">
 \Delta g = \Delta b \cdot \left(m_{1} + m_{2} + \frac{I}{R^{2}}\right) = 0{,}08 \times 0{,}7563 = 0{,}06 \textrm{ m/s}^{2}
 </span></p>
-<div>
-<blockquote>
-<p><strong>Discusión del resultado</strong></p>
+<div class="callout callout-tip"><div class="callout-title"><span>
+Discusión del resultado
+</span></div><div class="callout-body">
 <p>El valor obtenido <span class="math inline">g = 10{,}05 \pm 0{,}06</span> m/s<span class="math inline">^{2}</span> es algo superior al valor estándar <span class="math inline">g = 9{,}81</span> m/s<span class="math inline">^{2}</span>. Esta discrepancia de aproximadamente un 2,4% puede atribuirse a:</p>
 <ul>
 <li>La aproximación <span class="math inline">I = \frac{1}{2}\,m_p\,R^{2}</span> para la polea, que supone un disco uniforme. La polea real puede tener una distribución de masa diferente, con un momento de inercia menor.</li>
@@ -731,11 +704,9 @@ g = 13{,}29 \times (0{,}520 + 0{,}2363) = 13{,}29 \times 0{,}7563
 <li>Si la masa equivalente real de la polea fuese <span class="math inline">I/R^{2} \approx 0{,}217</span> kg (en lugar de 0,2363 kg), se obtendría <span class="math inline">g \approx 9{,}81</span> m/s<span class="math inline">^{2}</span>.</li>
 </ul>
 <p>En una práctica real, esta discrepancia invita a medir con más cuidado el momento de inercia de la polea o a tratarlo como un parámetro libre del ajuste.</p>
-</blockquote>
-</div>
-<p><br></p>
+</div></div>
 <h3 id="determinación-del-par-de-frenado-gamma_r" class="anchored">3. Determinación del par de frenado <span class="math inline">\Gamma_r</span></h3>
-<p>De la ecuación <a href="#eq-8_9" class="quarto-xref">Ecuación&nbsp;9</a>, la ordenada en el origen es:</p>
+<p>De la ecuación (<a href="#eq-8_9" class="quarto-xref">9</a>), la ordenada en el origen es:</p>
 <p><span class="math display">
 n = -\frac{\Gamma_r}{R\,\left(m_{1} + m_{2} + \dfrac{I}{R^{2}}\right)}
 </span></p>
@@ -755,18 +726,14 @@ n = -\frac{\Gamma_r}{R\,\left(m_{1} + m_{2} + \dfrac{I}{R^{2}}\right)}
 \boxed{\Gamma_r = (2{,}4 \pm 1{,}8) \times 10^{-5} \textrm{ N}\cdot\textrm{m}}
 </span></p>
 <p>El par de frenado es muy pequeño (del orden de <span class="math inline">10^{-5}</span> N<span class="math inline">\cdot</span>m), lo que indica que el rozamiento en el eje de la polea es reducido. El valor es compatible con cero dentro de una desviación estándar, lo cual es razonable para una polea bien lubricada.</p>
-<p><br></p>
 <h3 id="resumen-de-resultados" class="anchored">4. Resumen de resultados</h3>
 <p><span class="math display">
 \boxed{g = 10{,}05 \pm 0{,}06 \textrm{ m/s}^{2} \qquad;\qquad \Gamma_r = (2{,}4 \pm 1{,}8) \times 10^{-5} \textrm{ N}\cdot\textrm{m}}
 </span></p>
-</blockquote>
+</div></details>
 </div>
 </div>
-</div>
-<p><br></p>
 <h2 id="ejercicios-posteriores" class="anchored">Ejercicios Posteriores</h2>
-<p><br></p>
 <div class="columns">
 <div class="column" style="width:8%;">
 <p><strong>E1</strong></p>
@@ -785,49 +752,42 @@ n = -\frac{\Gamma_r}{R\,\left(m_{1} + m_{2} + \dfrac{I}{R^{2}}\right)}
 <div class="column" style="width:8%;">
 <p><strong>E3</strong></p>
 </div><div class="column" style="width:92%;">
-<p>Demostrar que, si el hilo tuviese masa <span class="math inline">m_h</span> apreciable, la ecuación <a href="#eq-8_5" class="quarto-xref">Ecuación&nbsp;5</a> se modificaría. ¿Cómo afectaría la masa del hilo al valor experimental de <span class="math inline">g</span>?</p>
-<div>
-<blockquote>
-<p><strong>Efecto de la masa del hilo</strong></p>
-<p><br></p>
+<p>Demostrar que, si el hilo tuviese masa <span class="math inline">m_h</span> apreciable, la ecuación (<a href="#eq-8_5" class="quarto-xref">5</a>) se modificaría. ¿Cómo afectaría la masa del hilo al valor experimental de <span class="math inline">g</span>?</p>
+<details class="callout callout-caution"><summary class="callout-title"><span>
+Efecto de la masa del hilo
+</span></summary><div class="callout-body">
 <p>Si el hilo tiene masa <span class="math inline">m_h</span>, su energía cinética contribuye al balance energético del sistema. Suponiendo que la mitad del hilo se mueve con la velocidad de las masas, la masa efectiva total del sistema sería aproximadamente <span class="math inline">m_1 + m_2 + I/R^{2} + m_h</span>.</p>
 <p>En la ecuación del movimiento, el denominador se incrementaría en <span class="math inline">m_h</span>:</p>
 <p><span class="math display">
 a = \frac{(m_2 - m_1)\,g - \Gamma_r/R}{m_1 + m_2 + I/R^{2} + m_h}
 </span></p>
 <p>Si no se tiene en cuenta la masa del hilo, se sobreestimaría la pendiente <span class="math inline">b</span> y, por tanto, se obtendría un valor de <span class="math inline">g</span> mayor que el real. Para hilos ligeros (<span class="math inline">m_h \ll m_1 + m_2</span>), el efecto es despreciable.</p>
-</blockquote>
-</div>
+</div></details>
 </div>
 </div>
 <div class="columns">
 <div class="column" style="width:8%;">
 <p><strong>E4</strong></p>
 </div><div class="column" style="width:92%;">
-<p>A partir de los valores de las tensiones <span class="math inline">T_1</span> y <span class="math inline">T_2</span> obtenidos de las ecuaciones <a href="#eq-8_1" class="quarto-xref">Ecuación&nbsp;1</a> y <a href="#eq-8_2" class="quarto-xref">Ecuación&nbsp;2</a>, calcular la fuerza neta sobre el eje de la polea para la configuración <span class="math inline">\Delta m = 9</span> g. Comparar con el peso de la polea.</p>
-<div>
-<blockquote>
-<p><strong>Cálculo de las tensiones</strong></p>
-<p><br></p>
-<p>De la ecuación <a href="#eq-8_1" class="quarto-xref">Ecuación&nbsp;1</a>: <span class="math inline">T_2 = m_2\,(g - a) = 0{,}2645 \times (9{,}81 - 0{,}119) = 2{,}563</span> N</p>
-<p>De la ecuación <a href="#eq-8_2" class="quarto-xref">Ecuación&nbsp;2</a>: <span class="math inline">T_1 = m_1\,(g + a) = 0{,}2555 \times (9{,}81 + 0{,}119) = 2{,}538</span> N</p>
+<p>A partir de los valores de las tensiones <span class="math inline">T_1</span> y <span class="math inline">T_2</span> obtenidos de las ecuaciones (<a href="#eq-8_1" class="quarto-xref">1</a>) y (<a href="#eq-8_2" class="quarto-xref">2</a>), calcular la fuerza neta sobre el eje de la polea para la configuración <span class="math inline">\Delta m = 9</span> g. Comparar con el peso de la polea.</p>
+<details class="callout callout-caution"><summary class="callout-title"><span>
+Cálculo de las tensiones
+</span></summary><div class="callout-body">
+<p>De la ecuación (<a href="#eq-8_1" class="quarto-xref">1</a>): <span class="math inline">T_2 = m_2\,(g - a) = 0{,}2645 \times (9{,}81 - 0{,}119) = 2{,}563</span> N</p>
+<p>De la ecuación (<a href="#eq-8_2" class="quarto-xref">2</a>): <span class="math inline">T_1 = m_1\,(g + a) = 0{,}2555 \times (9{,}81 + 0{,}119) = 2{,}538</span> N</p>
 <p>La fuerza sobre el eje es <span class="math inline">T_1 + T_2 = 5{,}10</span> N, que es prácticamente igual al peso total de las masas colgantes (<span class="math inline">m_1 + m_2)\,g = 0{,}520 \times 9{,}81 = 5{,}10</span> N. La diferencia es despreciable porque la aceleración es mucho menor que <span class="math inline">g</span>.</p>
-</blockquote>
+</div></details>
 </div>
 </div>
-</div>
-<p><br></p>
-<div>
-<blockquote>
-<p><strong>Ejercicios Previos</strong></p>
-<p><br></p>
+<div class="callout callout-tip"><div class="callout-title"><span>
+Ejercicios Previos
+</span></div><div class="callout-body">
 <ol type="1">
-<li>Derivar la ecuación <a href="#eq-8_5" class="quarto-xref">Ecuación&nbsp;5</a> a partir de las ecuaciones del movimiento <a href="#eq-8_1" class="quarto-xref">Ecuación&nbsp;1</a>, <a href="#eq-8_2" class="quarto-xref">Ecuación&nbsp;2</a>, <a href="#eq-8_3" class="quarto-xref">Ecuación&nbsp;3</a> y <a href="#eq-8_4" class="quarto-xref">Ecuación&nbsp;4</a>.</li>
+<li>Derivar la ecuación (<a href="#eq-8_5" class="quarto-xref">5</a>) a partir de las ecuaciones del movimiento <a href="#eq-8_1" class="quarto-xref">Ecuación&nbsp;1</a>, <a href="#eq-8_2" class="quarto-xref">Ecuación&nbsp;2</a>, <a href="#eq-8_3" class="quarto-xref">Ecuación&nbsp;3</a> y <a href="#eq-8_4" class="quarto-xref">Ecuación&nbsp;4</a>.</li>
 </ol>
-<div>
-<blockquote>
-<p><strong>Solución del ejercicio 1</strong></p>
-<p><br></p>
+<details class="callout callout-caution"><summary class="callout-title"><span>
+Solución del ejercicio 1
+</span></summary><div class="callout-body">
 <p>Partimos de las tres ecuaciones del movimiento:</p>
 <p><span class="math display">
 m_2\,g - T_2 = m_2\,a \qquad (1)
@@ -856,28 +816,22 @@ T_1 - m_1\,g = m_1\,a \qquad (2)
 <p><span class="math display">
 \boxed{a = \frac{(m_2 - m_1)\,g}{m_1 + m_2 + \dfrac{I}{R^{2}}}}
 </span></p>
-</blockquote>
-</div>
-<p><br></p>
+</div></details>
 <ol start="2" type="1">
 <li>¿Qué ventaja tiene mantener <span class="math inline">m_1 + m_2</span> constante en todas las configuraciones? ¿Qué ocurriría con el análisis si la suma de masas variase de una medida a otra?</li>
 </ol>
-<div>
-<blockquote>
-<p><strong>Solución del ejercicio 2</strong></p>
-<p><br></p>
-<p>Si <span class="math inline">m_1 + m_2</span> es constante, el denominador de la ecuación <a href="#eq-8_8" class="quarto-xref">Ecuación&nbsp;8</a> es el mismo para todas las configuraciones. Esto hace que la relación <span class="math inline">a</span> vs <span class="math inline">\Delta m</span> sea estrictamente lineal, lo que permite aplicar una regresión lineal simple.</p>
+<details class="callout callout-caution"><summary class="callout-title"><span>
+Solución del ejercicio 2
+</span></summary><div class="callout-body">
+<p>Si <span class="math inline">m_1 + m_2</span> es constante, el denominador de la ecuación (<a href="#eq-8_8" class="quarto-xref">8</a>) es el mismo para todas las configuraciones. Esto hace que la relación <span class="math inline">a</span> vs <span class="math inline">\Delta m</span> sea estrictamente lineal, lo que permite aplicar una regresión lineal simple.</p>
 <p>Si la suma de masas variase, la pendiente <span class="math inline">g/(m_1 + m_2 + I/R^{2})</span> sería diferente para cada punto experimental, y la relación <span class="math inline">a</span> vs <span class="math inline">\Delta m</span> ya no sería lineal. En ese caso, sería necesario representar <span class="math inline">a</span> frente a <span class="math inline">\Delta m/(m_1 + m_2 + I/R^{2})</span> para linealizar la relación, lo cual requeriría conocer <span class="math inline">I/R^{2}</span> de antemano o tratarlo como un parámetro adicional del ajuste.</p>
-</blockquote>
-</div>
-<p><br></p>
+</div></details>
 <ol start="3" type="1">
 <li>Calcular la aceleración teórica esperada (suponiendo <span class="math inline">g = 9{,}81</span> m/s<span class="math inline">^{2}</span> y <span class="math inline">\Gamma_r = 0</span>) para la configuración <span class="math inline">\Delta m = 5</span> g. Comparar con el tiempo de caída que se mediría para <span class="math inline">d = 0{,}80</span> m.</li>
 </ol>
-<div>
-<blockquote>
-<p><strong>Solución del ejercicio 3</strong></p>
-<p><br></p>
+<details class="callout callout-caution"><summary class="callout-title"><span>
+Solución del ejercicio 3
+</span></summary><div class="callout-body">
 <p>Con <span class="math inline">m_1 + m_2 = 0{,}520</span> kg, <span class="math inline">I/R^{2} = 0{,}2363</span> kg y <span class="math inline">\Delta m = 0{,}005</span> kg:</p>
 <p><span class="math display">
 a = \frac{0{,}005 \times 9{,}81}{0{,}520 + 0{,}2363} = \frac{0{,}04905}{0{,}7563} = 0{,}0649 \textrm{ m/s}^{2}
@@ -887,16 +841,13 @@ a = \frac{0{,}005 \times 9{,}81}{0{,}520 + 0{,}2363} = \frac{0{,}04905}{0{,}7563
 t = \sqrt{\frac{2d}{a}} = \sqrt{\frac{2 \times 0{,}80}{0{,}0649}} = \sqrt{24{,}65} = 4{,}96 \textrm{ s}
 </span></p>
 <p>Este valor es coherente con el tiempo medio experimental <span class="math inline">\bar{t} = 4{,}928</span> s, lo que muestra la consistencia de los datos.</p>
-</blockquote>
-</div>
-<p><br></p>
+</div></details>
 <ol start="4" type="1">
 <li>Explicar por qué la máquina de Atwood permite medir la aceleración de la gravedad con mayor precisión que la simple caída libre de un cuerpo.</li>
 </ol>
-<div>
-<blockquote>
-<p><strong>Solución del ejercicio 4</strong></p>
-<p><br></p>
+<details class="callout callout-caution"><summary class="callout-title"><span>
+Solución del ejercicio 4
+</span></summary><div class="callout-body">
 <p>En la caída libre, la aceleración es <span class="math inline">a = g \approx 9{,}81</span> m/s<span class="math inline">^{2}</span>, y para una distancia de caída de 0,80 m el tiempo de caída sería:</p>
 <p><span class="math display">
 t = \sqrt{\frac{2 \times 0{,}80}{9{,}81}} = 0{,}40 \textrm{ s}
@@ -906,14 +857,9 @@ t = \sqrt{\frac{2 \times 0{,}80}{9{,}81}} = 0{,}40 \textrm{ s}
 <p><span class="math display">
 \boxed{\text{La máquina de Atwood "ralentiza" la gravedad, facilitando su medida.}}
 </span></p>
-</blockquote>
-</div>
-<p><br></p>
-</blockquote>
-</div>
-<p><br></p>
+</div></details>
+</div></div>
 <h2 id="referencias" class="anchored">Referencias</h2>
-<p><br></p>
 <ol type="1">
 <li><p>Young, H. D., Freedman, R. A. — <em>Física universitaria</em>, vol.&nbsp;1, cap. 10: Dinámica del movimiento rotacional.</p></li>
 <li><p>Serway, R. A., Jewett, J. W. — <em>Física para ciencias e ingeniería</em>, vol.&nbsp;1, cap. 10: Rotación de un cuerpo rígido alrededor de un eje fijo.</p></li>
@@ -1073,6 +1019,7 @@ t = \sqrt{\frac{2 \times 0{,}80}{9{,}81}} = 0{,}40 \textrm{ s}
     </div>
   </div>
 </footer>
+<nav class="prac-prevnext"><a href="../momentos-inercia/index.html">← P17 Momentos de inercia de sólidos</a><a href="../index.html">Catálogo</a><a href="../vibraciones-1gdl/index.html">P19 Vibraciones libres con un grado de libertad →</a></nav>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
