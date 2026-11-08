@@ -138,11 +138,11 @@ body:has(.prac-head) .docs-main .column[style*="width:8%"] > p:only-child strong
   border: 1px solid transparent; border-bottom: 0; border-radius: 3px 3px 0 0; text-decoration: none; }
 .docs-main .panel-tabset-tabby a[aria-selected="true"] { color: var(--ink); border-color: var(--line); background: var(--paper); margin-bottom: -1px; }
 .docs-main .panel-tabset .tab-content { padding: 14px 2px 0; }
-.docs-main table { display: block; width: max-content; max-width: 100%; overflow-x: auto; }   /* the guides' data tables scroll on a phone */
+.docs-main table { display: table; width: 100%; max-width: 100%; }   /* tables fill the column; headers wrap (L014) */
 .docs-main .quarto-title-block table, .docs-main #title-block-header table { display: table; width: auto; }
 .page-article code, .docs-main code, .mission .mono, .files li, .docs-main a, .docs-main p, .docs-main li { overflow-wrap: anywhere; }
-.docs-main p:has(.katex), .docs-main blockquote:has(.katex) { overflow-x: auto; }   /* a long inline formula scrolls instead of widening the page */
-.docs-main li:has(.katex) > p { overflow-x: auto; }   /* in a list, the item's paragraph scrolls, not the item: the number stays */
+
+
 .docs-main .table-wrap, .docs-main .cell-output-display { overflow-x: auto; }
 .docs-main .quarto-title-block, .docs-main #title-block-header { display: block !important; max-width: none; padding: 0; margin: 0 0 8px; }
 .docs-main .quarto-title-block .quarto-title-meta, .docs-main .quarto-title-block .quarto-other-links { display: none; }
@@ -189,3 +189,30 @@ body:has(.prac-head) .docs-main .column[style*="width:8%"] > p:only-child strong
   .docs.nav-folded, .docs.toc-folded, .docs.nav-folded.toc-folded, .docs.docs-wide.nav-folded { grid-template-columns: 1fr; }
   .docs.nav-folded .docs-nav > :not(.docs-fold) { display: block; }
 }
+
+/* No scrollbars (Josu, 8 Nov 2026; house rule 3, L014). A paragraph with a formula never scrolls: inline KaTeX wraps
+   like text (overflow-x on a paragraph forced overflow-y too, and a square root a few pixels taller than the line
+   gave every such paragraph a vertical bar). Display equations, tables and outputs never show a bar: at desktop width
+   nothing may be wider than the column (the browser check fails on it); on a phone they can still be swiped. */
+.docs-main p, .docs-main blockquote, .docs-main li > p { overflow: visible; }
+.katex-display, .docs-main table, .docs-main .table-wrap, .docs-main .cell-output-display, .docs-main pre {
+  overflow-y: hidden; scrollbar-width: none; -ms-overflow-style: none; }
+.katex-display::-webkit-scrollbar, .docs-main table::-webkit-scrollbar, .docs-main .table-wrap::-webkit-scrollbar,
+.docs-main .cell-output-display::-webkit-scrollbar, .docs-main pre::-webkit-scrollbar { display: none; }
+
+/* Wide data tables fit the column at desktop width (L014): headers wrap, many-column tables a step smaller. */
+.docs-main th, .docs-main td { white-space: normal; overflow-wrap: anywhere; }
+.docs-main table:has(tr > :nth-child(8)) { font-size: 13px; }
+.docs-main table:has(tr > :nth-child(8)) td, .docs-main table:has(tr > :nth-child(8)) th { padding-left: 5px; padding-right: 5px; }
+.docs-main table:has(tr > :nth-child(11)) { font-size: 12px; }
+@media (max-width: 760px) { .docs-main table { display: block; overflow-x: auto; } }   /* a phone may swipe a table, with no bar */
+
+/* The reading column (L014): the kit forces three columns at every width (theme.css line 528 overrides its own
+   1080 px rule), which left a 400 px text column on a laptop. Below 1500 px the "on this page" column steps aside. */
+@media (max-width: 1499px) and (min-width: 761px) {
+  .docs, .docs.docs-wide { grid-template-columns: 240px minmax(0, 1fr); gap: 0 44px; }
+  .docs-toc { display: none; }
+}
+
+/* Code inside a table cell wraps (long paths in the audit page, L014). */
+.docs-main td code, .docs-main th code { white-space: normal; overflow-wrap: anywhere; word-break: break-all; }
